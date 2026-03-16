@@ -1,0 +1,31 @@
+{
+  "description": "Test business-rates request",
+  "schema": "artifacts/application.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-business-user.py"],
+
+  "START": {
+    "press": [
+      ["CALL", "Get test business user", "business-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "setup": { "include": "tests/example/business-rates-api.2.0._lookup-codes_{lookupName}-get.example.py" },
+    "press": [
+      ["CALL", "setup"],
+      ["GENSHEET", "business-rates.2.0"],
+      ["EDIT", ["business-rates.2.0", "_parameters", "lookupName"], "useCode"],
+      ["COPY", ["business-rates.2.0", "_control", "_username"], ["business-user-0", "json", "userId"]],
+      ["ADD", ["business-rates.2.0", "_control", "_userId"]],
+      ["COPY", ["business-rates.2.0", "_control", "_userId"], ["business-user-0", "json", "userId"]],
+      ["ADD", ["business-rates.2.0", "_control", "_password"]],
+      ["COPY", ["business-rates.2.0", "_control", "_password"], ["business-user-0", "json", "password"]],
+      ["SUBMIT", "business-rates.2.0", "sheet-info"],
+      ["VALIDATE", ["sheet-info", "_control", "_response"], "403"],
+      ["VALIDATE", ["sheet-info", "json", "code"], "RESOURCE_FORBIDDEN"],
+      ["GOTO", "END"]
+    ]
+  }
+}
