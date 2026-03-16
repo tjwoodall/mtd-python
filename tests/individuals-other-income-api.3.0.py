@@ -1,0 +1,38 @@
+{
+  "description": "Test individuals-other-income-api STATEFUL requests",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.py",
+  ],
+
+  "Stateful": {
+    "include": "tests/individuals-other-income-api/3.0.stateful.py",
+  },
+
+  "Create and Amend Other Income": {
+    "include": "tests/individuals-other-income-api/3.0-create-gov-test.py"
+  },
+
+  "Delete Other Income": {
+    "include": "tests/individuals-other-income-api/3.0-delete-gov-test.py"
+  },
+
+  "Retrieve Other Income": {
+    "include": "tests/individuals-other-income-api/3.0-get-gov-test.py"
+  },
+
+  "START": {
+    "press": [
+# Stateful tests
+      ["CALL", "Stateful", "2025-26"],
+      ["CALL", "Stateful", "2026-27"],
+
+# gov-test canned responses
+      ["CALL", "Create and Amend Other Income"],
+      ["CALL", "Delete Other Income"],
+      ["CALL", "Retrieve Other Income"],
+
+      ["GOTO", "END"]
+    ]
+  },
+}
