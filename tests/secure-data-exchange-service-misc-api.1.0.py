@@ -1,0 +1,35 @@
+{
+  "description": "Test secure-data-exchange-service-misc-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+
+  "START": {
+    "include": "tests/example/secure-data-exchange-service-misc-api.1.0._misc_sdes-file-upload_files_upload_url_{srn}_{informationType}-post.example.py",
+    "press": [
+      ["GENSHEET", "secure-data-exchange-service-misc-api.1.0"],
+      ["EDIT", "secure-data-exchange-service-misc-api.1.0", "", "_parameters", "srn", "012345678901"],
+      ["EDIT", "secure-data-exchange-service-misc-api.1.0", "", "_parameters", "informationType", "informationType901"],
+      ["EDIT", "secure-data-exchange-service-misc-api.1.0", "", "json", "0", "", "filename", "pythonMTD.csv"],
+      ["DELETE", "secure-data-exchange-service-misc-api.1.0", "", "json", "0", "", "metadata"],
+      ["SUBMIT", "secure-data-exchange-service-misc-api.1.0", "sheet-info"],
+      ["GOTO", "validate", ["sheet-info", "", "_control", "_response"], "201"],
+      ["GOTO", "validateErr", ["sheet-info", "", "_control", "_response"], "500"]
+    ]
+  },
+
+  "validate": {
+    "press": [
+      ["VALIDATE", ["sheet-info", "", "json", "0", "", "file"], ["secure-data-exchange-service-misc-api.1.0", "", "json", "0", "", "filename"],
+        "{next(iter(expected)): next(iter(value.values()))}"
+      ],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "validateErr": {
+    "press": [
+      ["VALIDATE", ["sheet-info", "", "json", ""], "Failed to process request"],
+      ["GOTO", "END"]
+    ]
+  }
+}

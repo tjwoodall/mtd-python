@@ -1,0 +1,52 @@
+{
+  "description": "Retrieve Disclosures",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.py"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test mtdit user 0 on sheet mtdit-user-0"],
+      ["GOTO", "run"]
+    ]
+  },
+
+  "run": {
+    "include": "tests/example/individuals-disclosures-api.2.0._individuals_disclosures_{nino}_{taxYear}-get.example.py",
+    "press": [
+      ["GENSHEET", "sheet._$0_"],
+      ["COPY", ["sheet._$0_", "", "_parameters", "nino"], ["mtdit-user-0", "", "json", "nino"]],
+      ["COPY", ["sheet._$0_", "", "_control", "_username"], ["mtdit-user-0", "", "json", "userId"]],
+      ["ADD", "sheet._$0_", "", "_control", "_userId"],
+      ["COPY", ["sheet._$0_", "", "_control", "_userId"], ["mtdit-user-0", "", "json", "userId"]],
+      ["ADD", "sheet._$0_", "", "_control", "_password"],
+      ["COPY", ["sheet._$0_", "", "_control", "_password"], ["mtdit-user-0", "", "json", "password"]],
+
+      ["EDIT", "sheet._$0_", "", "_parameters", "taxYear", "2026-27"],
+
+      ["GOSUB", "CannedResponse", "sheet._$0_"],
+
+      ["ADD", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario"],
+      ["GOSUB", "ErrorChecker", "sheet._$0_", "NOT_FOUND", "404", "MATCHING_RESOURCE_NOT_FOUND", "Matching resource not found"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "CannedResponse": {
+    "press": [
+      ["SUBMIT", "_$1_", "sheet-info._$0_"],
+      ["GOTO", "END", ["sheet-info._$0_", "", "_control", "_response"], "200"]
+    ]
+  },
+
+  "ErrorChecker": {
+    "press": [
+      ["EDIT", "_$1_", "", "_parameters", "Gov-Test-Scenario", "_$2_"],
+      ["SUBMIT", "_$1_", "response._$0_"],
+      ["VALIDATE", ["response._$0_", "", "_control", "_response"], "_$3_"],
+      ["VALIDATE", ["response._$0_", "", "json", "code"], "_$4_"],
+      ["VALIDATE", ["response._$0_", "", "json", "message"], "_$5_"],
+      ["GOTO", "END"]
+    ]
+  }
+}

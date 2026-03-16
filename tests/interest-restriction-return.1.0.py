@@ -1,0 +1,48 @@
+{
+  "description": "Test interest-restriction-return request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-business-user.py"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test business user 0 on sheet business-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/interest-restriction-return.1.0._organisations_interest-restriction_reporting-company_appoint-post.example.py",
+    "press": [
+      ["GENSHEET", "interest-restriction-return.1.0"],
+      ["COPY", ["interest-restriction-return.1.0", "", "_control", "_username"], ["business-user-0", "", "json", "userId"]],
+      ["ADD", "interest-restriction-return.1.0", "", "_control", "_userId"],
+      ["COPY", ["interest-restriction-return.1.0", "", "_control", "_userId"], ["business-user-0", "", "json", "userId"]],
+      ["ADD", "interest-restriction-return.1.0", "", "_control", "_password"],
+      ["COPY", ["interest-restriction-return.1.0", "", "_control", "_password"], ["business-user-0", "", "json", "password"]],
+      ["EDIT", "interest-restriction-return.1.0", "", "json", "accountingPeriod", "startDate", "2018-11-01"],
+      ["EDIT", "interest-restriction-return.1.0", "", "json", "accountingPeriod", "endDate", "2019-12-01"],
+      ["EDIT", "interest-restriction-return.1.0", "", "json", "agentDetails", "agentActingOnBehalfOfCompany", True],
+      ["EDIT", "interest-restriction-return.1.0", "", "json", "agentDetails", "agentName", "AAgent"],
+      ["EDIT", "interest-restriction-return.1.0", "", "json", "authorisingCompanies", "0", "", "companyName", "CCompany"],
+      ["EDIT", "interest-restriction-return.1.0", "", "json", "authorisingCompanies", "0", "", "utr", "5555555555"],
+      ["DELETE", "interest-restriction-return.1.0", "", "json", "authorisingCompanies", "0", "", "consenting"],
+      ["EDIT", "interest-restriction-return.1.0", "", "json", "declaration", True],
+      ["EDIT", "interest-restriction-return.1.0", "", "json", "identityOfAppointingCompany", "companyName", "BCompany"],
+      ["DELETE", "interest-restriction-return.1.0", "", "json", "identityOfAppointingCompany", "countryOfIncorporation"],
+      ["EDIT", "interest-restriction-return.1.0", "", "json", "identityOfAppointingCompany", "ctutr", "9999999999"],
+      ["DELETE", "interest-restriction-return.1.0", "", "json", "identityOfAppointingCompany", "legalEntityIdentifier"],
+      ["EDIT", "interest-restriction-return.1.0", "", "json", "isReportingCompanyAppointingItself", False],
+      ["EDIT", "interest-restriction-return.1.0", "", "json", "reportingCompany", "companyName", "ACompany"],
+      ["EDIT", "interest-restriction-return.1.0", "", "json", "reportingCompany", "ctutr", "1123456789"],
+      ["EDIT", "interest-restriction-return.1.0", "", "json", "reportingCompany", "sameAsUltimateParent", True],
+      ["DELETE", "interest-restriction-return.1.0", "", "json", "ultimateParentCompany"],
+      ["SUBMIT", "interest-restriction-return.1.0", "sheet-info"],
+      ["VALIDATE", ["sheet-info", "", "_control", "_response"], "200"],
+      ["EDIT", "sheet-info", "", "json", "acknowledgementReference", "ebb46cfa-1948-4eb2-b05c-449ec0025d78"],
+      ["VALIDATE", ["sheet-info", "", "json", "acknowledgementReference"], "ebb46cfa-1948-4eb2-b05c-449ec0025d78"],
+      ["GOTO", "END"]
+    ],
+    "note": "acknowledgementReference changes on every request"
+  }
+}
