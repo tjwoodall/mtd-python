@@ -1,0 +1,124 @@
+{
+  "description": "list tax calculations",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test mtdit user 0 on sheet mtdit-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/individual-calculations-api.8.0._individuals_calculations_{nino}_self-assessment_{taxYear}-get.example.json",
+    "press": [
+      ["GENSHEET", "individual-calculations-api.8.0"],
+      ["GOTO", "N/A - DEFAULT"]
+    ]
+  },
+
+  "N/A - DEFAULT": {
+    "press": [
+      ["COPY", "mtdit-user-0", "", "json", "nino"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "nino", "_PASTE"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "individual-calculations-api.8.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "individual-calculations-api.8.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-0", "", "json", "password"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "taxYear", "2026-27"],
+      ["DELETE", "individual-calculations-api.8.0", "", "_parameters", "calculationType"],
+      ["SUBMIT", "individual-calculations-api.8.0", "N/A - DEFAULT_V"],
+      ["VALIDATE", "N/A - DEFAULT_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "N/A - DEFAULT_V", "", "json", "TY 2025-26 onwards-2"],
+      ["GOTO", "NOT_FOUND"]
+    ]
+  },
+
+  "NOT_FOUND": {
+    "press": [
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "NOT_FOUND"],
+      ["SUBMIT", "individual-calculations-api.8.0", "NOT_FOUND_V"],
+      ["VALIDATE", "NOT_FOUND_V", "", "_control", "_response", "404"],
+      ["VALIDATE", "NOT_FOUND_V", "", "json", "code", "MATCHING_RESOURCE_NOT_FOUND"],
+      ["VALIDATE", "NOT_FOUND_V", "", "json", "message", "Matching resource not found"],
+      ["GOTO", "DYNAMIC-2026-27"]
+    ]
+  },
+
+  "DYNAMIC-2026-27": {
+    "press": [
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "DYNAMIC"],
+      ["SUBMIT", "individual-calculations-api.8.0", "DYNAMIC-2026-27_V"],
+      ["VALIDATE", "DYNAMIC-2026-27_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "DYNAMIC-2026-27_V", "", "json", "TY 2025-26 onwards-2"],
+      ["VALIDATE", "DYNAMIC-2026-27_V", "", "json", "", "calculations", 3],
+      ["GOTO", "DYNAMIC-2025-26"]
+    ]
+  },
+
+  "DYNAMIC-2025-26": {
+    "press": [
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "taxYear", "2025-26"],
+      ["SUBMIT", "individual-calculations-api.8.0", "DYNAMIC-2025-26_V"],
+      ["VALIDATE", "DYNAMIC-2025-26_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "DYNAMIC-2025-26_V", "", "json", "TY 2025-26 onwards-2"],
+      ["VALIDATE", "DYNAMIC-2025-26_V", "", "json", "", "calculations", 3],
+      ["GOTO", "DYNAMIC-2024-25"]
+    ]
+  },
+
+  "DYNAMIC-2024-25": {
+    "press": [
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "taxYear", "2024-25"],
+      ["SUBMIT", "individual-calculations-api.8.0", "DYNAMIC-2024-25_V"],
+      ["VALIDATE", "DYNAMIC-2024-25_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "DYNAMIC-2024-25_V", "", "json", "TY 2023-24 and 2024-25-1"],
+      ["VALIDATE", "DYNAMIC-2024-25_V", "", "json", "", "calculations", 3],
+      ["GOTO", "DYNAMIC-2023-24"]
+    ]
+  },
+
+  "DYNAMIC-2023-24": {
+    "press": [
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "taxYear", "2023-24"],
+      ["SUBMIT", "individual-calculations-api.8.0", "DYNAMIC-2023-24_V"],
+      ["VALIDATE", "DYNAMIC-2023-24_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "DYNAMIC-2023-24_V", "", "json", "TY 2023-24 and 2024-25-1"],
+      ["VALIDATE", "DYNAMIC-2023-24_V", "", "json", "", "calculations", 3],
+      ["GOTO", "DYNAMIC-2022-23"]
+    ]
+  },
+
+  "DYNAMIC-2022-23": {
+    "press": [
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "taxYear", "2022-23"],
+      ["SUBMIT", "individual-calculations-api.8.0", "DYNAMIC-2022-23_V"],
+      ["VALIDATE", "DYNAMIC-2022-23_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "DYNAMIC-2022-23_V", "", "json", "TY 2022-23 and before-0"],
+      ["VALIDATE", "DYNAMIC-2022-23_V", "", "json", "", "calculations", 3],
+      ["GOTO", "DYNAMIC-2026-27-filtered"]
+    ]
+  },
+
+  "DYNAMIC-2026-27-filtered": {
+    "press": [
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "taxYear", "2026-27"],
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "calculationType"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "calculationType", "in-year"],
+      ["SUBMIT", "individual-calculations-api.8.0", "DYNAMIC-2026-27-filtered_V"],
+      ["VALIDATE", "DYNAMIC-2026-27-filtered_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "DYNAMIC-2026-27-filtered_V", "", "json", "TY 2025-26 onwards-2"],
+      ["VALIDATE", "DYNAMIC-2026-27-filtered_V", "", "json", "", "calculations", 3],
+      ["note", "Utterly dumb - what's the point of a dynamic endpoint that ignores the parameter - there should be two in-year events here and nothing else"],
+      ["GOTO", "END"]
+    ]
+  }
+}

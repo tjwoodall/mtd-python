@@ -1,0 +1,35 @@
+{
+  "description": "Test vat-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdvat-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test mtdvat user 0 on sheet mtdvat-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/vat-api.1.0._organisations_vat_{vrn}_information-get.example.json",
+    "press": [
+      ["GENSHEET", "vat-api.1.0"],
+      ["COPY", "mtdvat-user-0", "", "json", "vrn"],
+      ["EDIT", "vat-api.1.0", "", "_parameters", "vrn", "_PASTE"],
+      ["COPY", "mtdvat-user-0", "", "json", "userId"],
+      ["EDIT", "vat-api.1.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "vat-api.1.0", "", "_control", "_userId"],
+      ["COPY", "mtdvat-user-0", "", "json", "userId"],
+      ["EDIT", "vat-api.1.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "vat-api.1.0", "", "_control", "_password"],
+      ["COPY", "mtdvat-user-0", "", "json", "password"],
+      ["EDIT", "vat-api.1.0", "", "_control", "_password", "_PASTE"],
+      ["SUBMIT", "vat-api.1.0", "sheet-vat"],
+      ["VALIDATE", "sheet-vat", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-vat", "", "json", "customerDetails", "effectiveRegistrationDate", "2018-03-04"],
+      ["GOTO", "END"]
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "description": "Test self-assessment-individual-details-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test mtdit user 0 on sheet mtdit-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/self-assessment-individual-details-api.2.0._individuals_person_itsa-status_{nino}_{taxYear}-get.example.json",
+    "press": [
+      ["GENSHEET", "self-assessment-individual-details-api.2.0"],
+      ["COPY", "mtdit-user-0", "", "json", "nino"],
+      ["EDIT", "self-assessment-individual-details-api.2.0", "", "_parameters", "nino", "_PASTE"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "self-assessment-individual-details-api.2.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "self-assessment-individual-details-api.2.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "self-assessment-individual-details-api.2.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "self-assessment-individual-details-api.2.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-0", "", "json", "password"],
+      ["EDIT", "self-assessment-individual-details-api.2.0", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "self-assessment-individual-details-api.2.0", "", "_parameters", "taxYear", "2026-27"],
+      ["SUBMIT", "self-assessment-individual-details-api.2.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info", "", "json", "itsaStatuses", "0", "", "taxYear", "2019-20"],
+      ["GOTO", "END"]
+    ]
+  }
+}

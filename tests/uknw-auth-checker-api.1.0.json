@@ -1,0 +1,33 @@
+{
+  "description": "Test uknw-auth-checker-api request",
+  "schema": "artifacts/application.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-business-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test business user 0 on sheet business-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/uknw-auth-checker-api.1.0._customs_uk-notice-of-presentation-waiver_authorisations-post.example.json",
+    "press": [
+      ["GENSHEET", "uknw-auth-checker-api.1.0"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "uknw-auth-checker-api.1.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "uknw-auth-checker-api.1.0", "", "_control", "_userId"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "uknw-auth-checker-api.1.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "uknw-auth-checker-api.1.0", "", "_control", "_password"],
+      ["COPY", "business-user-0", "", "json", "password"],
+      ["EDIT", "uknw-auth-checker-api.1.0", "", "_control", "_password", "_PASTE"],
+      ["SUBMIT", "uknw-auth-checker-api.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info", "", "json", "eoris", "0", "", "eori", "GB123123123333"],
+      ["GOTO", "END"]
+    ]
+  }
+}

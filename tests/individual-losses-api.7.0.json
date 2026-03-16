@@ -1,0 +1,170 @@
+{
+  "description": "Test individual-losses-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+  "start": "Get test-user-se+property",
+
+  "Get test-user-se+property": {
+    "subtask": "Get test mtdit user se and property on sheet mtdit-user-both",
+    "press": [
+       ["GOTO", "setup-se+property"]
+    ]
+  },
+
+  "setup-se+property": {
+    "args": [ "mtdit-user-both", "list businesses.both" ],
+    "subtask": "_Get list of businesses",
+    "press": [
+       ["GOTO", "setup-se+property.1"]
+    ]
+  },
+
+  "setup-se+property.1": {
+    "subtask": "Create or amend carry-back loss",
+    "args": [ "mtdit-user-both"],
+    "press": [
+      ["GOTO", "setup-se+property.2"]
+    ]
+  },
+
+  "setup-se+property.2": {
+    "subtask": "Get carry-back loss",
+    "args": ["mtdit-user-both"],
+    "press": [
+      ["GOTO", "setup-se+property.3"]
+    ]
+  },
+
+  "setup-se+property.3": {
+    "press": [
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Create or amend carry-back loss": {
+    "include": "tests/example/individual-losses-api.7.0._individuals_losses_{nino}_businesses_{businessId}_loss-claims_{taxYear}-put.example.json",
+    "press": [
+      ["GENSHEET", "individual-losses-api.7.0"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "individual-losses-api.7.0", "", "_control", "_userId"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "individual-losses-api.7.0", "", "_control", "_password"],
+      ["COPY", "_$1_", "", "json", "password"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "_$1_", "", "json", "nino"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "nino", "_PASTE"],
+
+      ["COPY", "list businesses.both", "", "json", "listOfBusinesses", "0", "", "businessId"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "businessId", "_PASTE"],
+
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "taxYear", "2026-27"],
+      ["ADD", "individual-losses-api.7.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "Gov-Test-Scenario", "STATEFUL"],
+      ["DELETE", "individual-losses-api.7.0", "", "json", "claims", "carryBack", "terminalLosses"],
+      ["EDIT", "individual-losses-api.7.0", "", "json", "claims", "preferenceOrder", "applyFirst", "carry-back"],
+      ["SUBMIT", "individual-losses-api.7.0", "sheet-info-_$0_"],
+      ["VALIDATE", "sheet-info-_$0_", "", "_control", "_response", "204"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Get carry-back loss": {
+    "include": "tests/example/individual-losses-api.7.0._individuals_losses_{nino}_businesses_{businessId}_loss-claims_{taxYear}-get.example.json",
+    "press": [
+      ["PRINT", "mtdit-user-both"],
+      ["GENSHEET", "individual-losses-api.7.0"],
+      ["COPY", "mtdit-user-both", "", "json", "userId"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "individual-losses-api.7.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-both", "", "json", "userId"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "individual-losses-api.7.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-both", "", "json", "password"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "mtdit-user-both", "", "json", "nino"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "nino", "_PASTE"],
+
+      ["COPY", "list businesses.both", "", "json", "listOfBusinesses", "0", "", "businessId"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "businessId", "_PASTE"],
+
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "taxYear", "2026-27"],
+      ["ADD", "individual-losses-api.7.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "Gov-Test-Scenario", "STATEFUL"],
+      ["SUBMIT", "individual-losses-api.7.0", "sheet-info-_$0_"],
+      ["VALIDATE", "sheet-info-_$0_", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info-_$0_", "", "json", "claims", "carryBack", "earlyYearLosses", 5000.99],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Get test-user-se": {
+    "subtask": "Get test mtdit user self-employment on sheet mtdit-user-se",
+    "press": [
+       ["GOTO", "setup-se"]
+    ]
+  },
+
+  "setup-se": {
+    "include": "tests/example/individual-losses-api.7.0._individuals_losses_{nino}_businesses_{businessId}_loss-claims_{taxYear}-get.example.json",
+    "press": [
+      ["GENSHEET", "individual-losses-api.7.0"],
+      ["COPY", "mtdit-user-se", "", "json", "userId"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "individual-losses-api.7.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-se", "", "json", "userId"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "individual-losses-api.7.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-se", "", "json", "password"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "mtdit-user-se", "", "json", "nino"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "nino", "_PASTE"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "businessId", "XAIS12345678910"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "taxYear", "2026-27"],
+      ["ADD", "individual-losses-api.7.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "Gov-Test-Scenario", "TERMINAL_LOSS_CLAIM"],
+      ["SUBMIT", "individual-losses-api.7.0", "sheet-info-_$0_"],
+      ["VALIDATE", "sheet-info-_$0_", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info-_$0_", "", "json", "claims", "carryBack", "earlyYearLosses", 5000.99],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Get test-user-prop": {
+    "subtask": "Get test mtdit user property on sheet mtdit-user-prop",
+    "press": [
+       ["GOTO", "setup-prop"]
+    ]
+  },
+
+  "setup-prop": {
+    "include": "tests/example/individual-losses-api.7.0._individuals_losses_{nino}_businesses_{businessId}_loss-claims_{taxYear}-get.example.json",
+    "press": [
+      ["GENSHEET", "individual-losses-api.7.0"],
+      ["COPY", "mtdit-user-prop", "", "json", "userId"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "individual-losses-api.7.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-prop", "", "json", "userId"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "individual-losses-api.7.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-prop", "", "json", "password"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "mtdit-user-prop", "", "json", "nino"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "nino", "_PASTE"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "businessId", "XAIS12345678910"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "taxYear", "2026-27"],
+      ["ADD", "individual-losses-api.7.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "Gov-Test-Scenario", "TERMINAL_LOSS_CLAIM"],
+      ["SUBMIT", "individual-losses-api.7.0", "sheet-info-_$0_"],
+      ["VALIDATE", "sheet-info-_$0_", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info-_$0_", "", "json", "claims", "carryBack", "earlyYearLosses", 5000.99],
+      ["GOTO", "END"]
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "description": "Test api-notification-pull request",
+  "schema": "artifacts/application.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-business-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test business user 0 on sheet business-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/api-notification-pull.1.0._notifications_unpulled-get.example.json",
+    "press": [
+      ["GENSHEET", "api-notification-pull.1.0"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "api-notification-pull.1.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "api-notification-pull.1.0", "", "_control", "_userId"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "api-notification-pull.1.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "api-notification-pull.1.0", "", "_control", "_password"],
+      ["COPY", "business-user-0", "", "json", "password"],
+      ["EDIT", "api-notification-pull.1.0", "", "_control", "_password", "_PASTE"],
+      ["SUBMIT", "api-notification-pull.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info", "", "xml", "", "resource", "@href", "/notifications/unpulled/"],
+      ["GOTO", "END"]
+    ]
+  }
+}

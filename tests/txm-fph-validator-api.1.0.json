@@ -1,0 +1,17 @@
+{
+  "description": "Test txm-fph-validator-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "start": "setup",
+
+  "setup": {
+    "include": "tests/example/txm-fph-validator-api.1.0._test_fraud-prevention-headers_validate-get.example.json",
+    "press": [
+      ["GENSHEET", "txm-fph-validator-api.1.0"],
+      ["SUBMIT", "txm-fph-validator-api.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info", "", "json", "specVersion", "3.3"],
+      ["GOTO", "END"]
+    ]
+  }
+}

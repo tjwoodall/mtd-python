@@ -1,0 +1,55 @@
+{
+
+  "_Get mtdvat user": {
+    "include": "tests/example/api-platform-test-user.1.0._create-test-user_organisations-post.example.json",
+    "press": [
+      ["GENSHEET", "api-platform-test-user.1.0._$0_"],
+      ["GOTO", "_Get _$2_ mtdvat user.1"]
+    ]
+  },
+
+  "_Get cache mtdvat user.1": {
+    "press": [
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "mtd-vat"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "eoriNumber"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "exciseNumber"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "nino"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "taxPayerType"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "pillar2Id"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "zReference"],
+      ["SUBMIT", "api-platform-test-user.1.0._$0_", "_$1_"],
+      ["GOTO", "END"]
+    ],
+    "cache": "artifacts/cache/_$1_.json"
+  },
+
+  "_Get nocache mtdvat user.1": {
+    "press": [
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "mtd-vat"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "eoriNumber"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "exciseNumber"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "nino"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "taxPayerType"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "pillar2Id"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "zReference"],
+      ["SUBMIT", "api-platform-test-user.1.0._$0_", "_$1_"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Get test mtdvat user 0 on sheet mtdvat-user-0": {
+    "subtask": "_Get mtdvat user",
+    "args": [ "mtdvat-user-0", "cache" ],
+    "press": [
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Create a new test mtdvat user on sheet new-mtdvat-user": {
+    "subtask": "_Get mtdvat user",
+    "args": [ "new-mtdvat-user", "nocache" ],
+    "press": [
+      ["GOTO", "END"]
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "description": "Test individual-losses-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test mtdit user 0 on sheet mtdit-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/individual-losses-api.7.0._individuals_losses_{nino}_businesses_{businessId}_loss-claims_{taxYear}-get.example.json",
+    "press": [
+      ["GENSHEET", "individual-losses-api.7.0"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "individual-losses-api.7.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "individual-losses-api.7.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-0", "", "json", "password"],
+      ["EDIT", "individual-losses-api.7.0", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "mtdit-user-0", "", "json", "nino"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "nino", "_PASTE"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "businessId", "XAIS12345678910"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "taxYear", "2026-27"],
+
+      ["SUBMIT", "individual-losses-api.7.0", "sheet-info"],
+      ["GOTO", "NOT_FOUND", "sheet-info", "", "_control", "_response", "200"]
+    ]
+  },
+
+  "NOT_FOUND": {
+    "press": [
+      ["ADD", "individual-losses-api.7.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "Gov-Test-Scenario", "NOT_FOUND"],
+      ["SUBMIT", "individual-losses-api.7.0", "NOT_FOUND_V"],
+      ["VALIDATE", "NOT_FOUND_V", "", "_control", "_response", "404"],
+      ["VALIDATE", "NOT_FOUND_V", "", "json", "code", "MATCHING_RESOURCE_NOT_FOUND"],
+      ["VALIDATE", "NOT_FOUND_V", "", "json", "message", "Matching resource not found"],
+      ["GOTO", "TERMINAL_LOSS_CLAIM"]
+    ]
+  },
+
+  "TERMINAL_LOSS_CLAIM": {
+    "press": [
+      ["EDIT", "individual-losses-api.7.0", "", "_parameters", "Gov-Test-Scenario", "TERMINAL_LOSS_CLAIM"],
+      ["SUBMIT", "individual-losses-api.7.0", "TERMINAL_LOSS_CLAIM_V"],
+      ["VALIDATE", "TERMINAL_LOSS_CLAIM_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info", "", "json", "claims", "carryBack", "earlyYearLosses", 5000.99],
+      ["GOTO", "END"]
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "description": "Test vat-registered-companies-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdvat-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test mtdvat user 0 on sheet mtdvat-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/vat-registered-companies-api.2.0._organisations_vat_check-vat-number_lookup_{targetVrn}-get.example.json",
+    "press": [
+      ["GENSHEET", "vat-registered-companies-api.1.0"],
+      ["EDIT", "vat-registered-companies-api.1.0", "", "_parameters", "targetVrn", "553557881"],
+      ["SUBMIT", "vat-registered-companies-api.1.0", "sheet-vat"],
+      ["VALIDATE", "sheet-vat", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-vat", "", "json", "target", "name", "Credite Sberger Donal Inc."],
+      ["GOTO", "END"]
+    ]
+  }
+}

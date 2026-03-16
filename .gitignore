@@ -1,0 +1,10 @@
+.github.token
+artifacts
+tools/__pycache__/
+tools/hocon-to-json
+node_modules/
+package-lock.json
+package.json
+logs/
+tools/mtd/__pycache__/
+.hmrc.json

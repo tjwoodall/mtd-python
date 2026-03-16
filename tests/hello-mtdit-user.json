@@ -1,0 +1,33 @@
+{
+  "description": "call hello with user authentication (mtdit user)",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test mtdit user 0 on sheet mtdit-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/api-example-microservice.1.0._hello_user-get.example.json",
+    "press": [
+      ["GENSHEET", "api-example-microservice.1.0"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "api-example-microservice.1.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "api-example-microservice.1.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "api-example-microservice.1.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "api-example-microservice.1.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-0", "", "json", "password"],
+      ["EDIT", "api-example-microservice.1.0", "", "_control", "_password", "_PASTE"],
+      ["SUBMIT", "api-example-microservice.1.0", "sheet-hello"],
+      ["VALIDATE", "sheet-hello", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-hello", "", "json", "message", "Hello User"],
+      ["GOTO", "END"]
+    ]
+  }
+}

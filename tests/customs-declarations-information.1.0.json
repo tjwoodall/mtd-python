@@ -1,0 +1,33 @@
+{
+  "description": "Test customs-declarations-information request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-sa-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test sa user 0 on sheet sa-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/customs-declarations-information.1.0._customs_declarations-information_ducr_{ducr}_status-get.example.json",
+    "press": [
+      ["GENSHEET", "customs-declarations-information.1.0"],
+      ["COPY", "sa-user-0", "", "json", "userId"],
+      ["EDIT", "customs-declarations-information.1.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "customs-declarations-information.1.0", "", "_control", "_userId"],
+      ["COPY", "sa-user-0", "", "json", "userId"],
+      ["EDIT", "customs-declarations-information.1.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "customs-declarations-information.1.0", "", "_control", "_password"],
+      ["COPY", "sa-user-0", "", "json", "password"],
+      ["EDIT", "customs-declarations-information.1.0", "", "_control", "_password", "_PASTE"],
+      ["SUBMIT", "customs-declarations-information.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "404"],
+      ["VALIDATE", "sheet-info", "", "xml", "", "errorResponse", "code", "CDS60001"],
+      ["GOTO", "END"]
+    ]
+  }
+}

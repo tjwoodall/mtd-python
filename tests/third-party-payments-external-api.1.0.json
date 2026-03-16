@@ -1,0 +1,18 @@
+{
+  "description": "Test third-party-payments-external-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "start": "setup",
+
+  "setup": {
+    "include": "tests/example/third-party-payments-external-api.1.0._pay-post.example.json",
+    "press": [
+      ["GENSHEET", "third-party-payments-external-api.1.0"],
+      ["SUBMIT", "third-party-payments-external-api.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "201"],
+      ["EDIT", "sheet-info", "", "json", "redirectURL", "https://test-www.tax.service.gov.uk/pay/start-third-party?traceId=00024846"],
+      ["VALIDATE", "sheet-info", "", "json", "redirectURL", "https://test-www.tax.service.gov.uk/pay/start-third-party?traceId=00024846"],
+      ["GOTO", "END"]
+    ]
+  }
+}

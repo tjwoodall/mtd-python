@@ -1,0 +1,42 @@
+{
+  "description": "Test obligations-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test mtdit user 0 on sheet mtdit-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/obligations-api.3.0._obligations_details_{nino}_income-and-expenditure-get.example.json",
+    "press": [
+      ["GENSHEET", "obligations-api.3.0"],
+      ["COPY", "mtdit-user-0", "", "json", "nino"],
+      ["EDIT", "obligations-api.3.0", "", "_parameters", "nino", "_PASTE"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "obligations-api.3.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "obligations-api.3.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "obligations-api.3.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "obligations-api.3.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-0", "", "json", "password"],
+      ["EDIT", "obligations-api.3.0", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "obligations-api.3.0", "", "_parameters", "typeOfBusiness", "self-employment"],
+      ["EDIT", "obligations-api.3.0", "", "_parameters", "businessId", "XBIS12345678901"],
+      ["DELETE", "obligations-api.3.0", "", "_parameters", "fromDate"],
+      ["DELETE", "obligations-api.3.0", "", "_parameters", "toDate"],
+      ["DELETE", "obligations-api.3.0", "", "_parameters", "status"],
+      ["ADD", "obligations-api.3.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "obligations-api.3.0", "", "_parameters", "Gov-Test-Scenario", "DYNAMIC"],
+      ["SUBMIT", "obligations-api.3.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info", "", "json", "obligations", "0", "", "obligationDetails", "0", "", "periodStartDate", "2026-04-06"],
+      ["GOTO", "END"]
+    ]
+  }
+}

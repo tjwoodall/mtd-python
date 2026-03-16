@@ -1,0 +1,74 @@
+{
+  "description": "This creates a new mtdit user with a property business and then requests the list of businesses",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Create a new test mtdit user on sheet new-mtdit-user",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/mtd-sa-test-support-api.1.0._individuals_self-assessment-test-support_business_{nino}-post.example.json",
+    "press": [
+      ["GENSHEET", "Create a Test Business"],
+      ["COPY", "new-mtdit-user", "", "json", "nino"],
+      ["EDIT", "Create a Test Business", "", "_parameters", "nino", "_PASTE"],
+      ["COPY", "new-mtdit-user", "", "json", "userId"],
+      ["EDIT", "Create a Test Business", "", "_control", "_username", "_PASTE"],
+      ["ADD", "Create a Test Business", "", "_control", "_userId"],
+      ["COPY", "new-mtdit-user", "", "json", "userId"],
+      ["EDIT", "Create a Test Business", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "Create a Test Business", "", "_control", "_password"],
+      ["COPY", "new-mtdit-user", "", "json", "password"],
+      ["EDIT", "Create a Test Business", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "Create a Test Business", "", "json", "typeOfBusiness", "uk-property"],
+      ["DELETE", "Create a Test Business", "", "json", "tradingType"],
+      ["DELETE", "Create a Test Business", "", "json", "tradingName"],
+      ["DELETE", "Create a Test Business", "", "json", "firstAccountingPeriodStartDate"],
+      ["DELETE", "Create a Test Business", "", "json", "firstAccountingPeriodEndDate"],
+      ["DELETE", "Create a Test Business", "", "json", "latencyDetails"],
+      ["DELETE", "Create a Test Business", "", "json", "quarterlyTypeChoice"],
+      ["EDIT", "Create a Test Business", "", "json", "accountingType", "ACCRUALS"],
+      ["DELETE", "Create a Test Business", "", "json", "commencementDate"],
+      ["DELETE", "Create a Test Business", "", "json", "cessationDate"],
+      ["DELETE", "Create a Test Business", "", "json", "businessAddressLineOne"],
+      ["DELETE", "Create a Test Business", "", "json", "businessAddressLineTwo"],
+      ["DELETE", "Create a Test Business", "", "json", "businessAddressLineThree"],
+      ["DELETE", "Create a Test Business", "", "json", "businessAddressLineFour"],
+      ["DELETE", "Create a Test Business", "", "json", "businessAddressPostcode"],
+      ["DELETE", "Create a Test Business", "", "json", "businessAddressCountryCode"],
+      ["SUBMIT", "Create a Test Business", "test-business"],
+      ["GOTO", "List businesses", "test-business", "", "_control", "_response", "201"]
+    ]
+  },
+
+  "List businesses": {
+    "include": "tests/example/business-details-api.2.0._individuals_business_details_{nino}_list-get.example.json",
+    "press": [
+      ["GENSHEET", "business-details-api.2.0"],
+      ["COPY", "new-mtdit-user", "", "json", "nino"],
+      ["EDIT", "business-details-api.2.0", "", "_parameters", "nino", "_PASTE"],
+      ["COPY", "new-mtdit-user", "", "json", "userId"],
+      ["EDIT", "business-details-api.2.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "business-details-api.2.0", "", "_control", "_userId"],
+      ["COPY", "new-mtdit-user", "", "json", "userId"],
+      ["EDIT", "business-details-api.2.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "business-details-api.2.0", "", "_control", "_password"],
+      ["COPY", "new-mtdit-user", "", "json", "password"],
+      ["EDIT", "business-details-api.2.0", "", "_control", "_password", "_PASTE"],
+      ["ADD", "business-details-api.2.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "business-details-api.2.0", "", "_parameters", "Gov-Test-Scenario", "STATEFUL"],
+      ["SUBMIT", "business-details-api.2.0", "list businesses"],
+      ["VALIDATE", "list businesses", "", "_control", "_response", "200"],
+      ["VALIDATE", "list businesses", "", "json", "listOfBusinesses", "0", "", "typeOfBusiness", "uk-property"],
+      ["COPY", "test-business", "", "json", "businessId"],
+      ["VALIDATE", "list businesses", "", "json", "listOfBusinesses", "0", "", "businessId", "_PASTE"],
+      ["GOTO", "END"]
+    ]
+  }
+}

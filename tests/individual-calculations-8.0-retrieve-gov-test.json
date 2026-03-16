@@ -1,0 +1,119 @@
+{
+  "description": "2026-27 tax year tax calculation",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test mtdit user 0 on sheet mtdit-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/individual-calculations-api.8.0._individuals_calculations_{nino}_self-assessment_{taxYear}_{calculationId}-get.example.json",
+    "press": [
+      ["GENSHEET", "individual-calculations-api.8.0"],
+      ["COPY", "mtdit-user-0", "", "json", "nino"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "nino", "_PASTE"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "individual-calculations-api.8.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "individual-calculations-api.8.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-0", "", "json", "password"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "taxYear", "2026-27"],
+      ["SUBMIT", "individual-calculations-api.8.0", "N/A - DEFAULT_V"],
+      ["VALIDATE", "N/A - DEFAULT_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "N/A - DEFAULT_V", "", "json", "TY 2026-27 onwards-3"],
+      ["GOTO", "NOT_FOUND"]
+    ]
+  },
+
+  "NOT_FOUND": {
+    "press": [
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "NOT_FOUND"],
+      ["SUBMIT", "individual-calculations-api.8.0", "NOT_FOUND_V"],
+      ["VALIDATE", "NOT_FOUND_V", "", "_control", "_response", "404"],
+      ["VALIDATE", "NOT_FOUND_V", "", "json", "code", "MATCHING_RESOURCE_NOT_FOUND"],
+      ["VALIDATE", "NOT_FOUND_V", "", "json", "message", "Matching resource not found"],
+      ["GOTO", "ERROR_MESSAGES_EXIST"]
+    ]
+  },
+
+  "ERROR_MESSAGES_EXIST": {
+    "press": [
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "ERROR_MESSAGES_EXIST"],
+      ["SUBMIT", "individual-calculations-api.8.0", "ERROR_MESSAGES_EXIST_V"],
+      ["VALIDATE", "ERROR_MESSAGES_EXIST_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "ERROR_MESSAGES_EXIST_V", "", "json", "TY 2025-26-2"],
+      ["VALIDATE", "ERROR_MESSAGES_EXIST_V", "", "json", "", "messages", "errors", 1],
+      ["GOTO", "UK_MULTIPLE_INCOMES_EXAMPLE"]
+    ]
+  },
+
+  "UK_MULTIPLE_INCOMES_EXAMPLE": {
+    "press": [
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "UK_MULTIPLE_INCOMES_EXAMPLE"],
+      ["SUBMIT", "individual-calculations-api.8.0", "UK_MULTIPLE_INCOMES_EXAMPLE_V"],
+      ["VALIDATE", "UK_MULTIPLE_INCOMES_EXAMPLE_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "UK_MULTIPLE_INCOMES_EXAMPLE_V", "", "json", "TY 2025-26-2"],
+      ["GOTO", "UK_PROP_DIVIDENDS_EXAMPLE"]
+    ]
+  },
+
+  "UK_PROP_DIVIDENDS_EXAMPLE": {
+    "press": [
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "UK_PROP_DIVIDENDS_EXAMPLE"],
+      ["SUBMIT", "individual-calculations-api.8.0", "UK_PROP_DIVIDENDS_EXAMPLE_V"],
+      ["VALIDATE", "UK_PROP_DIVIDENDS_EXAMPLE_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "UK_PROP_DIVIDENDS_EXAMPLE_V", "", "json", "TY 2025-26-2"],
+      ["GOTO", "UK_PROP_GIFTAID_EXAMPLE"]
+    ]
+  },
+
+  "UK_PROP_GIFTAID_EXAMPLE": {
+    "press": [
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "UK_PROP_GIFTAID_EXAMPLE"],
+      ["SUBMIT", "individual-calculations-api.8.0", "UK_PROP_GIFTAID_EXAMPLE_V"],
+      ["VALIDATE", "UK_PROP_GIFTAID_EXAMPLE_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "UK_PROP_GIFTAID_EXAMPLE_V", "", "json", "TY 2025-26-2"],
+      ["GOTO", "UK_SE_GIFTAID_EXAMPLE"]
+    ]
+  },
+
+  "UK_SE_GIFTAID_EXAMPLE": {
+    "press": [
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "UK_SE_GIFTAID_EXAMPLE"],
+      ["SUBMIT", "individual-calculations-api.8.0", "UK_SE_GIFTAID_EXAMPLE_V"],
+      ["VALIDATE", "UK_SE_GIFTAID_EXAMPLE_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "UK_SE_GIFTAID_EXAMPLE_V", "", "json", "TY 2025-26-2"],
+      ["GOTO", "UK_SE_SAVINGS_EXAMPLE"]
+    ]
+  },
+
+  "UK_SE_SAVINGS_EXAMPLE": {
+    "press": [
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "UK_SE_SAVINGS_EXAMPLE"],
+      ["SUBMIT", "individual-calculations-api.8.0", "UK_SE_SAVINGS_EXAMPLE_V"],
+      ["VALIDATE", "UK_SE_SAVINGS_EXAMPLE_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "UK_SE_SAVINGS_EXAMPLE_V", "", "json", "TY 2025-26-2"],
+      ["GOTO", "SCOT_SE_DIVIDENDS_EXAMPLE"]
+    ]
+  },
+
+  "SCOT_SE_DIVIDENDS_EXAMPLE": {
+    "press": [
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "SCOT_SE_DIVIDENDS_EXAMPLE"],
+      ["SUBMIT", "individual-calculations-api.8.0", "SCOT_SE_DIVIDENDS_EXAMPLE_V"],
+      ["VALIDATE", "SCOT_SE_DIVIDENDS_EXAMPLE_V", "", "_control", "_response", "200"],
+      ["VALIDATE", "SCOT_SE_DIVIDENDS_EXAMPLE_V", "", "json", "TY 2025-26-2"],
+      ["GOTO", "END"]
+    ]
+  }
+}

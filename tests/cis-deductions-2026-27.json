@@ -1,0 +1,40 @@
+{
+  "description": "2026-27 cis subcontractor deductions",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test mtdit user 0 on sheet mtdit-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/cis-deductions-api.3.0._individuals_deductions_cis_{nino}_current-position_{taxYear}_{source}-get.example.json",
+    "press": [
+      ["GENSHEET", "cis-deductions-api.3.0"],
+      ["COPY", "mtdit-user-0", "", "json", "nino"],
+      ["EDIT", "cis-deductions-api.3.0", "", "_parameters", "nino", "_PASTE"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "cis-deductions-api.3.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "cis-deductions-api.3.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "cis-deductions-api.3.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "cis-deductions-api.3.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-0", "", "json", "password"],
+      ["EDIT", "cis-deductions-api.3.0", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "cis-deductions-api.3.0", "", "_parameters", "taxYear", "2026-27"],
+      ["EDIT", "cis-deductions-api.3.0", "", "_parameters", "source", "all"],
+      ["ADD", "cis-deductions-api.3.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "cis-deductions-api.3.0", "", "_parameters", "Gov-Test-Scenario", "DYNAMIC"],
+      ["SUBMIT", "cis-deductions-api.3.0", "sheet-cis-data"],
+      ["VALIDATE", "sheet-cis-data", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-cis-data", "", "json", "totalDeductionAmount", 500.44],
+      ["VALIDATE", "sheet-cis-data", "", "json", "cisDeductions", "0", "", "periodData", "0", "", "deductionFromDate", "2026-06-06"],
+      ["GOTO", "END"]
+    ]
+  }
+}

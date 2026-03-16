@@ -1,0 +1,174 @@
+{
+  "description": "list tax calculations",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test mtdit user 0 on sheet mtdit-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/individual-calculations-api.8.0._individuals_calculations_{nino}_self-assessment_{taxYear}_{calculationId}_{calculationType}-post.example.json",
+    "press": [
+      ["GENSHEET", "individual-calculations-api.8.0"],
+      ["GOTO", "N/A - DEFAULT"]
+    ]
+  },
+
+  "N/A - DEFAULT": {
+    "press": [
+      ["COPY", "mtdit-user-0", "", "json", "nino"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "nino", "_PASTE"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "individual-calculations-api.8.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "individual-calculations-api.8.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-0", "", "json", "password"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "taxYear", "2026-27"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "calculationId", "f2fb30e5-4ab6-4a29-b3c1-c7264259ff1c"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "calculationType", "final-declaration"],
+      ["SUBMIT", "individual-calculations-api.8.0", "N/A - DEFAULT_V"],
+      ["GOTO", "NOT_FOUND", "N/A - DEFAULT_V", "", "_control", "_response", "204"]
+    ]
+  },
+
+  "NOT_FOUND": {
+    "press": [
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "NOT_FOUND"],
+      ["SUBMIT", "individual-calculations-api.8.0", "NOT_FOUND_V"],
+      ["VALIDATE", "NOT_FOUND_V", "", "_control", "_response", "404"],
+      ["VALIDATE", "NOT_FOUND_V", "", "json", "code", "MATCHING_RESOURCE_NOT_FOUND"],
+      ["VALIDATE", "NOT_FOUND_V", "", "json", "message", "Matching resource not found"],
+      ["GOTO", "OUTSIDE_AMENDMENT_WINDOW"]
+    ]
+  },
+
+  "OUTSIDE_AMENDMENT_WINDOW": {
+    "press": [
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "OUTSIDE_AMENDMENT_WINDOW"],
+      ["SUBMIT", "individual-calculations-api.8.0", "OUTSIDE_AMENDMENT_WINDOW_V"],
+      ["VALIDATE", "OUTSIDE_AMENDMENT_WINDOW_V", "", "_control", "_response", "400"],
+      ["VALIDATE", "OUTSIDE_AMENDMENT_WINDOW_V", "", "json", "code", "RULE_OUTSIDE_AMENDMENT_WINDOW"],
+      ["VALIDATE", "OUTSIDE_AMENDMENT_WINDOW_V", "", "json", "message", "You are outside the amendment window"],
+      ["GOTO", "FINAL_DECLARATION_IN_PROGRESS"]
+    ]
+  },
+
+  "FINAL_DECLARATION_IN_PROGRESS": {
+    "press": [
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "FINAL_DECLARATION_IN_PROGRESS"],
+      ["SUBMIT", "individual-calculations-api.8.0", "FINAL_DECLARATION_IN_PROGRESS_V"],
+      ["VALIDATE", "FINAL_DECLARATION_IN_PROGRESS_V", "", "_control", "_response", "400"],
+      ["VALIDATE", "FINAL_DECLARATION_IN_PROGRESS_V", "", "json", "code", "RULE_FINAL_DECLARATION_IN_PROGRESS"],
+      ["VALIDATE", "FINAL_DECLARATION_IN_PROGRESS_V", "", "json", "message", "There is a calculation in progress for the tax year"],
+      ["GOTO", "FINAL_DECLARATION_RECEIVED"]
+    ]
+  },
+
+  "FINAL_DECLARATION_RECEIVED": {
+    "press": [
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "FINAL_DECLARATION_RECEIVED"],
+      ["SUBMIT", "individual-calculations-api.8.0", "FINAL_DECLARATION_RECEIVED_V"],
+      ["VALIDATE", "FINAL_DECLARATION_RECEIVED_V", "", "_control", "_response", "400"],
+      ["VALIDATE", "FINAL_DECLARATION_RECEIVED_V", "", "json", "code", "RULE_FINAL_DECLARATION_RECEIVED"],
+      ["VALIDATE", "FINAL_DECLARATION_RECEIVED_V", "", "json", "message", "Final declaration has already been received"],
+      ["GOTO", "FINAL_DECLARATION_TAX_YEAR"]
+    ]
+  },
+
+  "FINAL_DECLARATION_TAX_YEAR": {
+    "press": [
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "FINAL_DECLARATION_TAX_YEAR"],
+      ["SUBMIT", "individual-calculations-api.8.0", "FINAL_DECLARATION_TAX_YEAR_V"],
+      ["VALIDATE", "FINAL_DECLARATION_TAX_YEAR_V", "", "_control", "_response", "400"],
+      ["VALIDATE", "FINAL_DECLARATION_TAX_YEAR_V", "", "json", "code", "RULE_FINAL_DECLARATION_TAX_YEAR"],
+      ["VALIDATE", "FINAL_DECLARATION_TAX_YEAR_V", "", "json", "message", "Final declaration cannot be submitted until after the end of the tax year"],
+      ["GOTO", "INCOME_SOURCES_CHANGED"]
+    ]
+  },
+
+  "INCOME_SOURCES_CHANGED": {
+    "press": [
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "INCOME_SOURCES_CHANGED"],
+      ["SUBMIT", "individual-calculations-api.8.0", "INCOME_SOURCES_CHANGED_V"],
+      ["VALIDATE", "INCOME_SOURCES_CHANGED_V", "", "_control", "_response", "400"],
+      ["VALIDATE", "INCOME_SOURCES_CHANGED_V", "", "json", "code", "RULE_INCOME_SOURCES_CHANGED"],
+      ["VALIDATE", "INCOME_SOURCES_CHANGED_V", "", "json", "message", "Income sources data has changed. Trigger a new calculation"],
+      ["GOTO", "INCOME_SOURCES_INVALID"]
+    ]
+  },
+
+  "INCOME_SOURCES_INVALID": {
+    "press": [
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "INCOME_SOURCES_INVALID"],
+      ["SUBMIT", "individual-calculations-api.8.0", "INCOME_SOURCES_INVALID_V"],
+      ["VALIDATE", "INCOME_SOURCES_INVALID_V", "", "_control", "_response", "400"],
+      ["VALIDATE", "INCOME_SOURCES_INVALID_V", "", "json", "code", "RULE_INCOME_SOURCES_INVALID"],
+      ["VALIDATE", "INCOME_SOURCES_INVALID_V", "", "json", "message", "No valid income sources could be found"],
+      ["GOTO", "NO_INCOME_SUBMISSIONS_EXIST"]
+    ]
+  },
+
+  "NO_INCOME_SUBMISSIONS_EXIST": {
+    "press": [
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "NO_INCOME_SUBMISSIONS_EXIST"],
+      ["SUBMIT", "individual-calculations-api.8.0", "NO_INCOME_SUBMISSIONS_EXIST_V"],
+      ["VALIDATE", "NO_INCOME_SUBMISSIONS_EXIST_V", "", "_control", "_response", "400"],
+      ["VALIDATE", "NO_INCOME_SUBMISSIONS_EXIST_V", "", "json", "code", "RULE_NO_INCOME_SUBMISSIONS_EXIST"],
+      ["VALIDATE", "NO_INCOME_SUBMISSIONS_EXIST_V", "", "json", "message", "No income submissions exist for the tax year"],
+      ["GOTO", "RECENT_SUBMISSIONS_EXIST"]
+    ]
+  },
+
+  "RECENT_SUBMISSIONS_EXIST": {
+    "press": [
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "RECENT_SUBMISSIONS_EXIST"],
+      ["SUBMIT", "individual-calculations-api.8.0", "RECENT_SUBMISSIONS_EXIST_V"],
+      ["VALIDATE", "RECENT_SUBMISSIONS_EXIST_V", "", "_control", "_response", "400"],
+      ["VALIDATE", "RECENT_SUBMISSIONS_EXIST_V", "", "json", "code", "RULE_RECENT_SUBMISSIONS_EXIST"],
+      ["VALIDATE", "RECENT_SUBMISSIONS_EXIST_V", "", "json", "message", "More recent submissions exist. Trigger a new calculation"],
+      ["GOTO", "RESIDENCY_CHANGED"]
+    ]
+  },
+
+  "RESIDENCY_CHANGED": {
+    "press": [
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "RESIDENCY_CHANGED"],
+      ["SUBMIT", "individual-calculations-api.8.0", "RESIDENCY_CHANGED_V"],
+      ["VALIDATE", "RESIDENCY_CHANGED_V", "", "_control", "_response", "400"],
+      ["VALIDATE", "RESIDENCY_CHANGED_V", "", "json", "code", "RULE_RESIDENCY_CHANGED"],
+      ["VALIDATE", "RESIDENCY_CHANGED_V", "", "json", "message", "Residency has changed. Trigger a new calculation"],
+      ["GOTO", "SUBMISSION_FAILED"]
+    ]
+  },
+
+  "SUBMISSION_FAILED": {
+    "press": [
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "SUBMISSION_FAILED"],
+      ["SUBMIT", "individual-calculations-api.8.0", "SUBMISSION_FAILED_V"],
+      ["VALIDATE", "SUBMISSION_FAILED_V", "", "_control", "_response", "400"],
+      ["VALIDATE", "SUBMISSION_FAILED_V", "", "json", "code", "RULE_SUBMISSION_FAILED"],
+      ["VALIDATE", "SUBMISSION_FAILED_V", "", "json", "message", "The submission cannot be completed due to validation failures"],
+      ["GOTO", "END"]
+    ]
+  }
+}

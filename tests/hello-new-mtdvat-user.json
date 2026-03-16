@@ -1,0 +1,33 @@
+{
+  "description": "call hello with user authentication creating a new mtdvat user and doing the login handshake",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdvat-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Create a new test mtdvat user on sheet new-mtdvat-user",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/api-example-microservice.1.0._hello_user-get.example.json",
+    "press": [
+      ["GENSHEET", "api-example-microservice.1.0"],
+      ["COPY", "new-mtdvat-user", "", "json", "userId"],
+      ["EDIT", "api-example-microservice.1.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "api-example-microservice.1.0", "", "_control", "_userId"],
+      ["COPY", "new-mtdvat-user", "", "json", "userId"],
+      ["EDIT", "api-example-microservice.1.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "api-example-microservice.1.0", "", "_control", "_password"],
+      ["COPY", "new-mtdvat-user", "", "json", "password"],
+      ["EDIT", "api-example-microservice.1.0", "", "_control", "_password", "_PASTE"],
+      ["SUBMIT", "api-example-microservice.1.0", "sheet-hello"],
+      ["VALIDATE", "sheet-hello", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-hello", "", "json", "message", "Hello User"],
+      ["GOTO", "END"]
+    ]
+  }
+}

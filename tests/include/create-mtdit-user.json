@@ -1,0 +1,284 @@
+{
+
+  "_Get mtdit user": {
+    "include": "tests/example/api-platform-test-user.1.0._create-test-user_individuals-post.example.json",
+    "press": [
+      ["GENSHEET", "api-platform-test-user.1.0._$0_"],
+      ["GOTO", "_Get _$2_ mtdit user.1"]
+    ]
+  },
+
+  "_Get cache mtdit user.1": {
+    "press": [
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "mtd-income-tax"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "eoriNumber"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "nino"],
+      ["SUBMIT", "api-platform-test-user.1.0._$0_", "_$1_"],
+      ["GOTO", "END"]
+    ],
+    "cache": "artifacts/cache/_$1_.json"
+  },
+
+  "_Get nocache mtdit user.1": {
+    "press": [
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "mtd-income-tax"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "eoriNumber"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "nino"],
+      ["SUBMIT", "api-platform-test-user.1.0._$0_", "_$1_"],
+      ["PRINT", "_$1_"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "_Get list of businesses": {
+    "description": "Check if there's already a business defined",
+    "note": "$1 - user sheet, $2 - target sheet",
+    "include": "tests/example/business-details-api.2.0._individuals_business_details_{nino}_list-get.example.json",
+    "press": [
+      ["GENSHEET", "business-details-api.2.0._$0_"],
+      ["COPY", "_$1_", "", "json", "nino"],
+      ["EDIT", "business-details-api.2.0._$0_", "", "_parameters", "nino", "_PASTE"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "business-details-api.2.0._$0_", "", "_control", "_username", "_PASTE"],
+      ["ADD", "business-details-api.2.0._$0_", "", "_control", "_userId"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "business-details-api.2.0._$0_", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "business-details-api.2.0._$0_", "", "_control", "_password"],
+      ["COPY", "_$1_", "", "json", "password"],
+      ["EDIT", "business-details-api.2.0._$0_", "", "_control", "_password", "_PASTE"],
+      ["ADD", "business-details-api.2.0._$0_", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "business-details-api.2.0._$0_", "", "_parameters", "Gov-Test-Scenario", "STATEFUL"],
+      ["SUBMIT", "business-details-api.2.0._$0_", "_$2_"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Get test mtdit user 0 on sheet mtdit-user-0": {
+    "subtask": "_Get mtdit user",
+    "args": [ "mtdit-user-0", "cache" ],
+    "press": [
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Get test mtdit user property on sheet mtdit-user-prop": {
+    "subtask": "_Get mtdit user",
+    "args": [ "mtdit-user-prop", "cache" ],
+    "press": [
+      ["GOTO", "Get test mtdit user property on sheet mtdit-user-prop.1"]
+    ]
+  },
+
+  "Get test mtdit user property on sheet mtdit-user-prop.1": {
+    "description": "Check if there's already a business defined",
+    "subtask": "_Get list of businesses",
+    "args": [ "mtdit-user-prop", "list businesses._$0_" ],
+    "press": [
+      ["xGENSHEET", "business-details-api.2.0._$0_"],
+      ["xCOPY", "mtdit-user-prop", "", "json", "nino"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_parameters", "nino", "_PASTE"],
+      ["xCOPY", "mtdit-user-prop", "", "json", "userId"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_control", "_username", "_PASTE"],
+      ["xADD", "business-details-api.2.0._$0_", "", "_control", "_userId"],
+      ["xCOPY", "mtdit-user-prop", "", "json", "userId"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_control", "_userId", "_PASTE"],
+      ["xADD", "business-details-api.2.0._$0_", "", "_control", "_password"],
+      ["xCOPY", "mtdit-user-prop", "", "json", "password"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_control", "_password", "_PASTE"],
+      ["xADD", "business-details-api.2.0._$0_", "", "_parameters", "Gov-Test-Scenario"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_parameters", "Gov-Test-Scenario", "STATEFUL"],
+      ["xSUBMIT", "business-details-api.2.0._$0_", "list businesses._$0_"],
+      ["GOTO", "END", "list businesses._$0_", "", "json", "listOfBusinesses", 1],
+      ["GOTO", "Get test mtdit user property on sheet mtdit-user-prop.2", "list businesses._$0_", "", "json", "listOfBusinesses", 0]
+    ]
+  },
+
+  "Get test mtdit user property on sheet mtdit-user-prop.2": {
+    "subtask": "_Add a property business",
+    "args": [ "mtdit-user-prop" ],
+    "press": [
+      ["GOTO", "END"]
+    ]
+  },
+
+  "_Add a property business": {
+    "description": "Add a property business",
+    "include": "tests/example/mtd-sa-test-support-api.1.0._individuals_self-assessment-test-support_business_{nino}-post.example.json",
+    "press": [
+      ["GENSHEET", "Create a Test Business._$0_"],
+
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "Create a Test Business._$0_", "", "_control", "_username", "_PASTE"],
+      ["ADD", "Create a Test Business._$0_", "", "_control", "_userId"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "Create a Test Business._$0_", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "Create a Test Business._$0_", "", "_control", "_password"],
+      ["COPY", "_$1_", "", "json", "password"],
+      ["EDIT", "Create a Test Business._$0_", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "_$1_", "", "json", "nino"],
+      ["EDIT", "Create a Test Business._$0_", "", "_parameters", "nino", "_PASTE"],
+
+      ["EDIT", "Create a Test Business._$0_", "", "json", "typeOfBusiness", "uk-property"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "tradingType"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "tradingName"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "firstAccountingPeriodStartDate"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "firstAccountingPeriodEndDate"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "latencyDetails"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "quarterlyTypeChoice"],
+      ["EDIT", "Create a Test Business._$0_", "", "json", "accountingType", "ACCRUALS"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "commencementDate"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "cessationDate"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "businessAddressLineOne"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "businessAddressLineTwo"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "businessAddressLineThree"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "businessAddressLineFour"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "businessAddressPostcode"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "businessAddressCountryCode"],
+
+      ["SUBMIT", "Create a Test Business._$0_", "test-business._$0_"],
+
+      ["GOTO", "END", "test-business._$0_", "", "_control", "_response", "201"]
+    ]
+  },
+
+  "Get test mtdit user self-employment on sheet mtdit-user-se": {
+    "subtask": "_Get mtdit user",
+    "args": [ "mtdit-user-se", "cache" ],
+    "press": [
+      ["GOTO", "Get test mtdit user self-employment on sheet mtdit-user-se.1"]
+    ]
+  },
+
+  "Get test mtdit user self-employment on sheet mtdit-user-se.1": {
+    "description": "Check if there's already a business defined",
+    "subtask": "_Get list of businesses",
+    "args": [ "mtdit-user-se", "list businesses._$0_" ],
+    "press": [
+      ["xGENSHEET", "business-details-api.2.0._$0_"],
+      ["xCOPY", "mtdit-user-se", "", "json", "nino"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_parameters", "nino", "_PASTE"],
+      ["xCOPY", "mtdit-user-se", "", "json", "userId"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_control", "_username", "_PASTE"],
+      ["xADD", "business-details-api.2.0._$0_", "", "_control", "_userId"],
+      ["xCOPY", "mtdit-user-se", "", "json", "userId"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_control", "_userId", "_PASTE"],
+      ["xADD", "business-details-api.2.0._$0_", "", "_control", "_password"],
+      ["xCOPY", "mtdit-user-se", "", "json", "password"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_control", "_password", "_PASTE"],
+      ["xADD", "business-details-api.2.0._$0_", "", "_parameters", "Gov-Test-Scenario"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_parameters", "Gov-Test-Scenario", "STATEFUL"],
+      ["xSUBMIT", "business-details-api.2.0._$0_", "list businesses._$0_"],
+      ["GOTO", "END", "list businesses._$0_", "", "json", "listOfBusinesses", 1],
+      ["GOTO", "Get test mtdit user self-employment on sheet mtdit-user-se.2", "list businesses._$0_", "", "json", "listOfBusinesses", 0]
+    ]
+  },
+
+  "Get test mtdit user self-employment on sheet mtdit-user-se.2": {
+    "subtask": "_Add a self-employment business",
+    "args": [ "mtdit-user-se" ],
+    "press": [
+      ["GOTO", "END"]
+    ]
+  },
+
+  "_Add a self-employment business": {
+    "description": "Add a self-employment business",
+    "include": "tests/example/mtd-sa-test-support-api.1.0._individuals_self-assessment-test-support_business_{nino}-post.example.json",
+    "press": [
+      ["GENSHEET", "Create a Test Business._$0_"],
+
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "Create a Test Business._$0_", "", "_control", "_username", "_PASTE"],
+      ["ADD", "Create a Test Business._$0_", "", "_control", "_userId"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "Create a Test Business._$0_", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "Create a Test Business._$0_", "", "_control", "_password"],
+      ["COPY", "_$1_", "", "json", "password"],
+      ["EDIT", "Create a Test Business._$0_", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "_$1_", "", "json", "nino"],
+      ["EDIT", "Create a Test Business._$0_", "", "_parameters", "nino", "_PASTE"],
+
+      ["PRINT", "Create a Test Business._$0_"],
+
+      ["EDIT", "Create a Test Business._$0_", "", "json", "typeOfBusiness", "self-employment"],
+      ["EDIT", "Create a Test Business._$0_", "", "json", "tradingType", "SEbusinessTradingType"],
+      ["EDIT", "Create a Test Business._$0_", "", "json", "tradingName", "SEbusinessTradingName"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "firstAccountingPeriodStartDate"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "firstAccountingPeriodEndDate"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "latencyDetails"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "quarterlyTypeChoice"],
+      ["EDIT", "Create a Test Business._$0_", "", "json", "accountingType", "ACCRUALS"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "commencementDate"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "cessationDate"],
+      ["EDIT", "Create a Test Business._$0_", "", "json", "businessAddressLineOne"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "businessAddressLineTwo"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "businessAddressLineThree"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "businessAddressLineFour"],
+      ["DELETE", "Create a Test Business._$0_", "", "json", "businessAddressPostcode"],
+      ["EDIT", "Create a Test Business._$0_", "", "json", "businessAddressCountryCode", "IE"],
+
+      ["SUBMIT", "Create a Test Business._$0_", "test-business._$0_"],
+
+      ["GOTO", "END", "test-business._$0_", "", "_control", "_response", "201"]
+    ]
+  },
+
+  "Get test mtdit user se and property on sheet mtdit-user-both": {
+    "subtask": "_Get mtdit user",
+    "args": [ "mtdit-user-both", "cache" ],
+    "press": [
+      ["GOTO", "Get test mtdit user se and property on sheet mtdit-user-both.1"]
+    ]
+  },
+
+  "Get test mtdit user se and property on sheet mtdit-user-both.1": {
+    "description": "Check if there's already businesses defined",
+    "subtask": "_Get list of businesses",
+    "args": [ "mtdit-user-both", "list businesses._$0_" ],
+    "press": [
+      ["xGENSHEET", "business-details-api.2.0._$0_"],
+      ["xCOPY", "mtdit-user-both", "", "json", "nino"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_parameters", "nino", "_PASTE"],
+      ["xCOPY", "mtdit-user-both", "", "json", "userId"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_control", "_username", "_PASTE"],
+      ["xADD", "business-details-api.2.0._$0_", "", "_control", "_userId"],
+      ["xCOPY", "mtdit-user-both", "", "json", "userId"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_control", "_userId", "_PASTE"],
+      ["xADD", "business-details-api.2.0._$0_", "", "_control", "_password"],
+      ["xCOPY", "mtdit-user-both", "", "json", "password"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_control", "_password", "_PASTE"],
+      ["xADD", "business-details-api.2.0._$0_", "", "_parameters", "Gov-Test-Scenario"],
+      ["xEDIT", "business-details-api.2.0._$0_", "", "_parameters", "Gov-Test-Scenario", "STATEFUL"],
+      ["xSUBMIT", "business-details-api.2.0._$0_", "list businesses._$0_"],
+      ["GOTO", "END", "list businesses._$0_", "", "json", "listOfBusinesses", 2],
+      ["GOTO", "Get test mtdit user se and property on sheet mtdit-user-both.3", "list businesses._$0_", "", "json", "listOfBusinesses", 1],
+      ["GOTO", "Get test mtdit user se and property on sheet mtdit-user-both.2", "list businesses._$0_", "", "json", "listOfBusinesses", 0]
+    ]
+  },
+
+  "Get test mtdit user se and property on sheet mtdit-user-both.2": {
+    "subtask": "_Add a self-employment business",
+    "args": [ "mtdit-user-both" ],
+    "press": [
+      ["GOTO", "Get test mtdit user se and property on sheet mtdit-user-both.3"]
+    ]
+  },
+
+  "Get test mtdit user se and property on sheet mtdit-user-both.3": {
+    "subtask": "_Add a property business",
+    "args": [ "mtdit-user-both" ],
+    "press": [
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Create a new test mtdit user on sheet new-mtdit-user": {
+    "subtask": "_Get mtdit user",
+    "args": [ "new-mtdit-user", "nocache" ],
+    "press": [
+      ["GOTO", "END"]
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "description": "Test check-eori-number-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "start": "setup",
+
+  "setup": {
+    "include": "tests/example/check-eori-number-api.1.0._customs_eori_lookup_check-multiple-eori-post.example.json",
+    "press": [
+      ["GENSHEET", "check-eori-number-api.1.0"],
+      ["EDIT", "check-eori-number-api.1.0", "", "json", "eoris", "0", "", "GB123456789133"],
+      ["SUBMIT", "check-eori-number-api.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info", "", "json", "0", "", "companyDetails", "traderName", "Chinance-KLM Deuts"],
+      ["GOTO", "END"]
+    ]
+  }
+}

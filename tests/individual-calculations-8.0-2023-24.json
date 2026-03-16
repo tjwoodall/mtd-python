@@ -1,0 +1,43 @@
+{
+  "description": "2023-24 tax year tax calculation",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+  "start": "Get test-user",
+
+  "Get test-user": {
+    "subtask": "Get test mtdit user 0 on sheet mtdit-user-0",
+    "press": [
+       ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/individual-calculations-api.8.0._individuals_calculations_{nino}_self-assessment_{taxYear}_{calculationId}-get.example.json",
+    "press": [
+      ["GENSHEET", "individual-calculations-api.8.0"],
+      ["COPY", "mtdit-user-0", "", "json", "nino"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "nino", "_PASTE"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "individual-calculations-api.8.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "individual-calculations-api.8.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-0", "", "json", "password"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "taxYear", "2023-24"],
+      ["ADD", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0", "", "_parameters", "Gov-Test-Scenario", "DYNAMIC"],
+      ["SUBMIT", "individual-calculations-api.8.0", "sheet-tax-calc"],
+      ["VALIDATE", "sheet-tax-calc", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-tax-calc", "", "json", "TY 2023-24 or before-0"],
+      ["VALIDATE", "sheet-tax-calc", "", "json", "", "inputs", "personalInformation", "studentLoanPlan", "0", "", "planType", "plan1"],
+      ["VALIDATE", "sheet-tax-calc", "", "json", "", "inputs", "personalInformation", "class2VoluntaryContributions", true],
+      ["VALIDATE", "sheet-tax-calc", "", "json", "", "inputs", "personalInformation", "uniqueTaxpayerReference", "1234567890"],
+      ["VALIDATE", "sheet-tax-calc", "", "json", "", "calculation", "lossesAndClaims", "defaultCarriedForwardLosses", "0", "", "currentLossValue", 12500],
+      ["VALIDATE", "sheet-tax-calc", "", "json", "", "inputs", "constructionIndustryScheme", "0", "", "periodData", "0", "", "deductionAmount", 5000.99],
+      ["GOTO", "END"]
+    ]
+  }
+}
