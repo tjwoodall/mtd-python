@@ -1,0 +1,18 @@
+{
+  "description": "application not subscribed to endpoint",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+
+  "START": {
+    "setup": { "include": "tests/example/api-example-microservice.2.0._hello_application-get.example.py" },
+    "press": [
+      ["GOSUB", "setup"],
+      ["GENSHEET", "api-example-microservice.1.0"],
+      ["SUBMIT", "api-example-microservice.1.0", "sheet-hello"],
+      ["VALIDATE", ["sheet-hello", "_control", "_response"], "403"],
+      ["VALIDATE", ["sheet-hello", "json", "message"], "The application is not subscribed to the API which it is attempting to invoke"],
+      ["VALIDATE", ["sheet-hello", "json", "code"], "RESOURCE_FORBIDDEN"],
+      ["GOTO", "END"]
+    ]
+  }
+}
