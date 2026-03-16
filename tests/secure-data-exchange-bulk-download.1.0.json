@@ -1,0 +1,17 @@
+{
+  "description": "Test secure-data-exchange-bulk-download request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+
+  "START": {
+    "include": "tests/example/secure-data-exchange-bulk-download.1.0._list_{fileType}-get.example.json",
+    "press": [
+      ["GENSHEET", "secure-data-exchange-bulk-download.1.0"],
+      ["EDIT", "secure-data-exchange-bulk-download.1.0", "", "_parameters", "fileType", "TARIFF-DAILY"],
+      ["SUBMIT", "secure-data-exchange-bulk-download.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info", "", "json", "0", "", "filename", "pvat-2018-06.csv"],
+      ["GOTO", "END"]
+    ]
+  }
+}

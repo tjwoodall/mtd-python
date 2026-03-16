@@ -1,0 +1,35 @@
+{
+  "description": "Test individuals-reliefs-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test mtdit user 0 on sheet mtdit-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/individuals-reliefs-api.2.0._individuals_reliefs_charitable-giving_{nino}_{taxYear}-get.example.json",
+    "press": [
+      ["GENSHEET", "individuals-reliefs-api.2.0"],
+      ["COPY", "mtdit-user-0", "", "json", "nino"],
+      ["EDIT", "individuals-reliefs-api.2.0", "", "_parameters", "nino", "_PASTE"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individuals-reliefs-api.2.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "individuals-reliefs-api.2.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individuals-reliefs-api.2.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "individuals-reliefs-api.2.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-0", "", "json", "password"],
+      ["EDIT", "individuals-reliefs-api.2.0", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "individuals-reliefs-api.2.0", "", "_parameters", "taxYear", "2026-27"],
+      ["SUBMIT", "individuals-reliefs-api.2.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info", "", "json", "", "giftAidPayments", "totalAmount", 1000.12],
+      ["GOTO", "END"]
+    ]
+  }
+}

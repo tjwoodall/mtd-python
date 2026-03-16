@@ -1,0 +1,19 @@
+{
+  "description": "Test check-eori-number-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+
+  "START": {
+    "include": "tests/example/check-eori-number-api.1.0._customs_eori_lookup_check-multiple-eori-post.example.json",
+    "press": [
+      ["GENSHEET", "check-eori-number-api.1.0"],
+      ["ADD", "check-eori-number-api.1.0", "", "_control", "_disableValidation"],
+      ["EDIT", "check-eori-number-api.1.0", "", "_control", "_disableValidation", true],
+      ["EDIT", "check-eori-number-api.1.0", "", "json", "eoris", "0", "", ""],
+      ["SUBMIT", "check-eori-number-api.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "400"],
+      ["VALIDATE", "sheet-info", "", "json", "message", "Invalid payload - one or more EORI numbers are not valid, ensure all of your EORI numbers match ^(GB|XI)[0-9]{12,15}$"],
+      ["GOTO", "END"]
+    ]
+  }
+}

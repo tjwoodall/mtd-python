@@ -1,0 +1,70 @@
+{
+  "description": "Test import-control-presentation-of-goods request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-business-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test business user 0 on sheet business-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/import-control-presentation-of-goods.2.0._customs_import-control_presentation-of-goods-post.example.json",
+    "press": [
+      ["GENSHEET", "import-control-presentation-of-goods.2.0"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "import-control-presentation-of-goods.2.0", "", "_control", "_userId"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "import-control-presentation-of-goods.2.0", "", "_control", "_password"],
+      ["COPY", "business-user-0", "", "json", "password"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "customsOfficeOfPresentation", "referenceNumber", "GB124000"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "dateAndTimeOfPresentation", "2022-05-19T00:18:33Z"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "declarant", "address", "city", "London"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "declarant", "address", "country", "GB"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "declarant", "address", "subDivision", "Central"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "declarant", "address", "street", "Parliament Road"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "declarant", "address", "postCode", "SW1 2AB"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "declarant", "address", "streetAdditionalLine", "ABCDE"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "declarant", "address", "number", "1"],
+      ["DELETE", "import-control-presentation-of-goods.2.0", "", "json", "declarant", "address", "poBox"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "declarant", "communication", "0", "", "identifier", "example@example.com"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "declarant", "communication", "0", "", "type", "EM"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "declarant", "identificationNumber", "XI123456789120"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "declarant", "name", "His Majesty's Revenue And Customs"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "declarationDate", "2022-05-17T00:17:33Z"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "locationOfGoods", "economicOperator", "identificationNumber", "XI123456789120"],
+      ["DELETE", "import-control-presentation-of-goods.2.0", "", "json", "locationOfGoods", "economicOperator", "authorisationNumber"],
+      ["DELETE", "import-control-presentation-of-goods.2.0", "", "json", "locationOfGoods", "economicOperator", "additionalIdentifier"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "locationOfGoods", "qualifierOfIdentification", "X"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "locationOfGoods", "typeOfLocation", "A"],
+      ["DELETE", "import-control-presentation-of-goods.2.0", "", "json", "locationOfGoods", "unloCode"],
+      ["DELETE", "import-control-presentation-of-goods.2.0", "", "json", "locationOfGoods", "customsOffice"],
+      ["DELETE", "import-control-presentation-of-goods.2.0", "", "json", "locationOfGoods", "gnss"],
+      ["DELETE", "import-control-presentation-of-goods.2.0", "", "json", "locationOfGoods", "address"],
+      ["DELETE", "import-control-presentation-of-goods.2.0", "", "json", "locationOfGoods", "postcodeAddress"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "lrn", "HMRCS25123456789"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "personPresentingTheGoods", "identificationNumber", "XI123456789120"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "previousDocument", "0", "", "consignmentMasterLevel", "consignmentHouseLevel", "0", "", "transportDocumentHouseLevel", "referenceNumber", "REF1234560"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "previousDocument", "0", "", "consignmentMasterLevel", "consignmentHouseLevel", "0", "", "transportDocumentHouseLevel", "type", "N730"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "previousDocument", "0", "", "consignmentMasterLevel", "transportDocumentMasterLevel", "referenceNumber", "REF1234560"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "previousDocument", "0", "", "consignmentMasterLevel", "transportDocumentMasterLevel", "type", "N704"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "previousDocument", "0", "", "goodsItemIdentifier", 1],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "previousDocument", "0", "", "previousMRN", "23XI9876AB88901AT9"],
+      ["EDIT", "import-control-presentation-of-goods.2.0", "", "json", "previousDocument", "0", "", "type", "N355"],
+      ["DELETE", "import-control-presentation-of-goods.2.0", "", "json", "previousDocument", "0", "", "consignmentMasterLevel", "receptacle"],
+      ["DELETE", "import-control-presentation-of-goods.2.0", "", "json", "previousDocument", "0", "", "consignmentMasterLevel", "carrier"],
+      ["DELETE", "import-control-presentation-of-goods.2.0", "", "json", "previousDocument", "0", "", "consignmentMasterLevel", "transportEquipment"],
+      ["DELETE", "import-control-presentation-of-goods.2.0", "", "json", "representative"],
+      ["SUBMIT", "import-control-presentation-of-goods.2.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "202"],
+      ["VALIDATE", "sheet-info", "", "json", "boxId", "3b6c9482-7ea8-416a-a256-bd755a143bfb"],
+      ["GOTO", "END"]
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "description": "Test individuals-charges-api STATEFUL requests",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json",
+              "tests/individuals-charges-api/3.0.HICB.2026.json",
+              "tests/individuals-charges-api/3.0.pension.2023.json",
+              "tests/individuals-charges-api/3.0.pension.2026.json",
+              "tests/individuals-charges-api/3.0.winter-fuel-payment.2026.json"
+  ],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test mtdit user 0 on sheet mtdit-user-0"],
+      ["GOSUB", "Create or amend pension charges.2026", "mtdit-user-0"],
+      ["GOSUB", "Retrieve pension charges.2026", "mtdit-user-0"],
+      ["GOSUB", "Delete pension charges.2026", "mtdit-user-0"],
+      ["GOSUB", "Create or amend pension charges.2023", "mtdit-user-0"],
+      ["GOSUB", "Retrieve pension charges.2023", "mtdit-user-0"],
+      ["GOSUB", "Delete pension charges.2023", "mtdit-user-0"],
+
+      ["GOSUB", "Create or amend HICB.2026", "mtdit-user-0"],
+      ["GOSUB", "Retrieve HICB.2026", "mtdit-user-0"],
+      ["GOSUB", "Delete HICB.2026", "mtdit-user-0"],
+
+      ["GOSUB", "Create or amend winter-fuel-payment.2026", "mtdit-user-0"],
+      ["GOSUB", "Retrieve winter-fuel-payment.2026", "mtdit-user-0"],
+      ["GOSUB", "Delete winter-fuel-payment.2026", "mtdit-user-0"],
+      ["GOTO", "END"]
+    ]
+  }
+}

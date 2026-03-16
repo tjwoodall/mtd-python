@@ -1,0 +1,107 @@
+{
+  "description": "Test individual-losses-api STATEFUL requests",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test mtdit user se and property on sheet mtdit-user-both"],
+      ["GOSUB", "_Get list of businesses", "mtdit-user-both", "list businesses.both" ],
+      ["GOSUB", "Create or amend.2026", "mtdit-user-both", "list businesses.both"],
+      ["GOSUB", "Retrieve.2026", "mtdit-user-both", "list businesses.both"],
+      ["GOSUB", "Delete.2026", "mtdit-user-both", "list businesses.both"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Create or amend.2026": {
+    "include": "tests/example/individual-losses-api.7.0._individuals_losses_{nino}_businesses_{businessId}_loss-claims_{taxYear}-put.example.json",
+    "press": [
+      ["GENSHEET", "sheet._$0_"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_username", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_userId"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_password"],
+      ["COPY", "_$1_", "", "json", "password"],
+      ["EDIT", "sheet._$0_", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "_$1_", "", "json", "nino"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "nino", "_PASTE"],
+
+      ["COPY", "_$2_", "", "json", "listOfBusinesses", "0", "", "businessId"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "businessId", "_PASTE"],
+
+      ["EDIT", "sheet._$0_", "", "_parameters", "taxYear", "2026-27"],
+      ["ADD", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario", "STATEFUL"],
+
+      ["DELETE", "sheet._$0_", "", "json", "claims", "carryBack", "terminalLosses"],
+      ["EDIT", "sheet._$0_", "", "json", "claims", "preferenceOrder", "applyFirst", "carry-back"],
+
+      ["SUBMIT", "sheet._$0_", "sheet-info._$0_"],
+      ["VALIDATE", "sheet-info._$0_", "", "_control", "_response", "204"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Retrieve.2026": {
+    "include": "tests/example/individual-losses-api.7.0._individuals_losses_{nino}_businesses_{businessId}_loss-claims_{taxYear}-get.example.json",
+    "press": [
+      ["GENSHEET", "sheet._$0_"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_username", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_userId"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_password"],
+      ["COPY", "_$1_", "", "json", "password"],
+      ["EDIT", "sheet._$0_", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "_$1_", "", "json", "nino"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "nino", "_PASTE"],
+
+      ["COPY", "_$2_", "", "json", "listOfBusinesses", "0", "", "businessId"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "businessId", "_PASTE"],
+
+      ["EDIT", "sheet._$0_", "", "_parameters", "taxYear", "2026-27"],
+      ["ADD", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario", "STATEFUL"],
+      ["SUBMIT", "sheet._$0_", "sheet-info._$0_"],
+      ["VALIDATE", "sheet-info._$0_", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "claims", "carryBack", "earlyYearLosses", 5000.99],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Delete.2026": {
+    "include": "tests/example/individual-losses-api.7.0._individuals_losses_{nino}_businesses_{businessId}_loss-claims_{taxYear}-delete.example.json",
+    "press": [
+      ["GENSHEET", "sheet._$0_"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_username", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_userId"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_password"],
+      ["COPY", "_$1_", "", "json", "password"],
+      ["EDIT", "sheet._$0_", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "_$1_", "", "json", "nino"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "nino", "_PASTE"],
+
+      ["COPY", "_$2_", "", "json", "listOfBusinesses", "0", "", "businessId"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "businessId", "_PASTE"],
+
+      ["EDIT", "sheet._$0_", "", "_parameters", "taxYear", "2026-27"],
+      ["ADD", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario", "STATEFUL"],
+
+      ["SUBMIT", "sheet._$0_", "sheet-info._$0_"],
+      ["VALIDATE", "sheet-info._$0_", "", "_control", "_response", "204"],
+      ["GOTO", "END"]
+    ]
+  }
+}

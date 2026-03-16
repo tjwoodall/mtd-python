@@ -1,0 +1,79 @@
+{
+  "description": "This creates a new agent, a new mtdvat user, gets agent authorisation and then the agent requests the business vat details",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdvat-user.json", "tests/include/create-agent.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Create a new test mtdvat user on sheet new-mtdvat-user"],
+      ["GOTO", "Get test-agent"]
+    ]
+  },
+
+  "Get test-agent": {
+    "press": [
+      ["GOSUB", "Create a new test agent on sheet new-agent"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/agent-authorisation-api.1.0._agents_{arn}_invitations-post.example.json",
+    "press": [
+      ["GENSHEET", "agent-authorisation-api.1.0"],
+      ["COPY", "new-agent", "", "json", "agentServicesAccountNumber"],
+      ["EDIT", "agent-authorisation-api.1.0", "", "_parameters", "arn", "_PASTE"],
+      ["COPY", "new-agent", "", "json", "userId"],
+      ["EDIT", "agent-authorisation-api.1.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "agent-authorisation-api.1.0", "", "_control", "_userId"],
+      ["COPY", "new-agent", "", "json", "userId"],
+      ["EDIT", "agent-authorisation-api.1.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "agent-authorisation-api.1.0", "", "_control", "_password"],
+      ["COPY", "new-agent", "", "json", "password"],
+      ["EDIT", "agent-authorisation-api.1.0", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "agent-authorisation-api.1.0", "", "json", "Agent Invitation Request for VAT-1"],
+      ["COPY", "new-mtdvat-user", "", "json", "vrn"],
+      ["EDIT", "agent-authorisation-api.1.0", "", "json", "", "clientId", "_PASTE"],
+      ["COPY", "new-mtdvat-user", "", "json", "vatRegistrationDate"],
+      ["EDIT", "agent-authorisation-api.1.0", "", "json", "", "knownFact", "_PASTE"],
+      ["SUBMIT", "agent-authorisation-api.1.0", "agent-auth-req"],
+      ["GOTO", "accept request", "agent-auth-req", "", "_control", "_response", "204"]
+    ]
+  },
+
+  "accept request": {
+    "include": "tests/example/agent-authorisation-test-support-api.1.0._agent-authorisation-test-support_invitations_{invitationId}-put.example.json",
+    "press": [
+      ["GENSHEET", "agent-authorisation-test-support-api.1.0"],
+      ["COPY", "agent-auth-req", "", "_parameters", "Location", "value.split('/')[-1]"],
+      ["EDIT", "agent-authorisation-test-support-api.1.0", "", "_parameters", "invitationId", "_PASTE"],
+      ["SUBMIT", "agent-authorisation-test-support-api.1.0", "agent-auth-response"],
+      ["GOTO", "vat-info", "agent-auth-response", "", "_control", "_response", "204"]
+    ]
+  },
+
+  "vat-info": {
+    "include": "tests/example/vat-api.1.0._organisations_vat_{vrn}_information-get.example.json",
+    "press": [
+      ["GENSHEET", "vat-api.1.0"],
+      ["COPY", "new-mtdvat-user", "", "json", "vrn"],
+      ["EDIT", "vat-api.1.0", "", "_parameters", "vrn", "_PASTE"],
+      ["ADD", "vat-api.1.0", "", "_control", "arn"],
+      ["COPY", "new-agent", "", "json", "agentServicesAccountNumber"],
+      ["EDIT", "vat-api.1.0", "", "_control", "arn", "_PASTE"],
+      ["COPY", "new-agent", "", "json", "userId"],
+      ["EDIT", "vat-api.1.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "vat-api.1.0", "", "_control", "_userId"],
+      ["COPY", "new-agent", "", "json", "userId"],
+      ["EDIT", "vat-api.1.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "vat-api.1.0", "", "_control", "_password"],
+      ["COPY", "new-agent", "", "json", "password"],
+      ["EDIT", "vat-api.1.0", "", "_control", "_password", "_PASTE"],
+      ["SUBMIT", "vat-api.1.0", "sheet-vat"],
+      ["VALIDATE", "sheet-vat", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-vat", "", "json", "customerDetails", "effectiveRegistrationDate", "2018-03-04"],
+      ["GOTO", "END"]
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "description": "Test api-notification-pull request",
+  "schema": "artifacts/application.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-business-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test business user 0 on sheet business-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/api-notification-pull.1.0._notifications_unpulled-get.example.json",
+    "press": [
+      ["GENSHEET", "api-notification-pull.1.0"],
+      ["SUBMIT", "api-notification-pull.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info", "", "xml", "", "resource", "@href", "/notifications/unpulled/"],
+      ["GOTO", "END"]
+    ]
+  }
+}

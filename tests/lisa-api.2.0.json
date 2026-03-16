@@ -1,0 +1,35 @@
+{
+  "description": "Test lisa-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-business-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test business user 0 on sheet business-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/lisa-api.2.0._lifetime-isa_manager_{lisaManagerReferenceNumber}-get.example.json",
+    "press": [
+      ["GENSHEET", "lisa-api.2.0"],
+      ["COPY", "business-user-0", "", "json", "lisaManagerReferenceNumber"],
+      ["EDIT", "lisa-api.2.0", "", "_parameters", "lisaManagerReferenceNumber", "_PASTE"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "lisa-api.2.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "lisa-api.2.0", "", "_control", "_userId"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "lisa-api.2.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "lisa-api.2.0", "", "_control", "_password"],
+      ["COPY", "business-user-0", "", "json", "password"],
+      ["EDIT", "lisa-api.2.0", "", "_control", "_password", "_PASTE"],
+      ["SUBMIT", "lisa-api.2.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "200"],
+      ["COPY", "business-user-0", "", "json", "lisaManagerReferenceNumber"],
+      ["VALIDATE", "sheet-info", "", "json", "lisaManagerReferenceNumber", "_PASTE"],
+      ["GOTO", "END"]
+    ]
+  }
+}

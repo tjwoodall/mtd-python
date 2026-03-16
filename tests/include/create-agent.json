@@ -1,0 +1,39 @@
+{
+
+  "_Get agent": {
+    "include": "tests/example/api-platform-test-user.1.0._create-test-user_agents-post.example.json",
+    "press": [
+      ["GENSHEET", "api-platform-test-user.1.0._$0_"],
+      ["GOTO", "_Get _$2_ agent.1"]
+    ]
+  },
+
+  "_Get cache agent.1": {
+    "press": [
+      ["SUBMIT", "api-platform-test-user.1.0._$0_", "_$1_"],
+      ["GOTO", "END"]
+    ],
+    "cache": "artifacts/cache/_$1_.json"
+  },
+
+  "_Get nocache agent.1": {
+    "press": [
+      ["SUBMIT", "api-platform-test-user.1.0._$0_", "_$1_"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Get test agent 0 on sheet agent-0": {
+    "press": [
+      ["GOSUB", "_Get agent", "agent-0", "cache" ],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Create a new test agent on sheet new-agent": {
+    "press": [
+      ["GOSUB", "_Get agent", "new-agent", "nocache" ],
+      ["GOTO", "END"]
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+{
+
+  "_Get sa user": {
+    "include": "tests/example/api-platform-test-user.1.0._create-test-user_individuals-post.example.json",
+    "press": [
+      ["GENSHEET", "api-platform-test-user.1.0._$0_"],
+      ["GOTO", "_Get _$2_ sa user.1"]
+    ]
+  },
+
+  "_Get cache sa user.1": {
+    "press": [
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "self-assessment"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "national-insurance"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "mtd-income-tax"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "customs-services"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "goods-vehicle-movements"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "import-control-system"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "mtd-vat"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "common-transit-convention-traders"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "common-transit-convention-traders-legacy"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "eoriNumber"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "nino"],
+      ["SUBMIT", "api-platform-test-user.1.0._$0_", "_$1_"],
+      ["GOTO", "END"]
+    ],
+    "cache": "artifacts/cache/_$1_.json"
+  },
+
+  "_Get nocache sa user.1": {
+    "press": [
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "self-assessment"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "national-insurance"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "mtd-income-tax"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "customs-services"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "goods-vehicle-movements"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "import-control-system"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "mtd-vat"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "common-transit-convention-traders"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "common-transit-convention-traders-legacy"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "eoriNumber"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "nino"],
+      ["SUBMIT", "api-platform-test-user.1.0._$0_", "_$1_"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Get test sa user 0 on sheet sa-user-0": {
+    "press": [
+      ["GOSUB", "_Get sa user", "sa-user-0", "cache" ],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Get test sa user 1 on sheet sa-user-1": {
+    "press": [
+      ["GOSUB", "_Get sa user", "sa-user-1", "cache" ],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Create a new test sa user on sheet new-sa-user": {
+    "press": [
+      ["GOSUB", "_Get sa user", "new-sa-user", "nocache" ],
+      ["GOTO", "END"]
+    ]
+  }
+}

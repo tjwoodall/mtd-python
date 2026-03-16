@@ -1,0 +1,129 @@
+{
+
+  "_Get business user": {
+    "include": "tests/example/api-platform-test-user.1.0._create-test-user_organisations-post.example.json",
+    "press": [
+      ["GENSHEET", "api-platform-test-user.1.0._$0_"],
+      ["GOTO", "_Get _$2_ business user.1"]
+    ]
+  },
+
+  "_Get cache business user.1": {
+    "press": [
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "import-control-system"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "paye-for-employers"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "modernisation-of-authorisations"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "self-assessment"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "disa"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "safety-and-security"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "national-insurance"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "mtd-income-tax"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "goods-vehicle-movements"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "customs-services"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "relief-at-source"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "corporation-tax"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "excise-movement-control-system"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "common-transit-convention-traders-legacy"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "submit-vat-returns"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "lisa"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "pillar-2"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "secure-electronic-transfer"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "common-transit-convention-traders"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "mtd-vat"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "eoriNumber"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "exciseNumber"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "nino"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "taxPayerType"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "pillar2Id"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "zReference"],
+      ["SUBMIT", "api-platform-test-user.1.0._$0_", "_$1_"],
+      ["GOTO", "END"]
+    ],
+    "cache": "artifacts/cache/_$1_.json"
+  },
+
+  "_Get nocache business user.1": {
+    "press": [
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "import-control-system"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "paye-for-employers"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "modernisation-of-authorisations"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "self-assessment"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "disa"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "safety-and-security"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "national-insurance"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "mtd-income-tax"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "goods-vehicle-movements"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "customs-services"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "relief-at-source"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "corporation-tax"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "excise-movement-control-system"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "common-transit-convention-traders-legacy"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "submit-vat-returns"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "lisa"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "pillar-2"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "secure-electronic-transfer"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "common-transit-convention-traders"],
+      ["ADD", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0"],
+      ["EDIT", "api-platform-test-user.1.0._$0_", "", "json", "serviceNames", "0", "", "mtd-vat"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "eoriNumber"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "exciseNumber"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "nino"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "taxPayerType"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "pillar2Id"],
+      ["DELETE", "api-platform-test-user.1.0._$0_", "", "json", "zReference"],
+      ["SUBMIT", "api-platform-test-user.1.0._$0_", "_$1_"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Get test business user 0 on sheet business-user-0": {
+    "press": [
+      ["GOSUB", "_Get business user", "business-user-0", "cache" ],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Create a new test business user on sheet new-business-user": {
+    "press": [
+      ["GOSUB", "_Get business user", "new-business-user", "nocache" ],
+      ["GOTO", "END"]
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "description": "Test common-transit-convention-guarantee-balance request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-business-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test business user 0 on sheet business-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/common-transit-convention-guarantee-balance.2.0._customs_guarantees_{grn}_balance-post.example.json",
+    "press": [
+      ["GENSHEET", "common-transit-convention-guarantee-balance.2.0"],
+      ["EDIT", "common-transit-convention-guarantee-balance.2.0", "", "_parameters", "grn", "23GB0123456789AB2"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "common-transit-convention-guarantee-balance.2.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "common-transit-convention-guarantee-balance.2.0", "", "_control", "_userId"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "common-transit-convention-guarantee-balance.2.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "common-transit-convention-guarantee-balance.2.0", "", "_control", "_password"],
+      ["COPY", "business-user-0", "", "json", "password"],
+      ["EDIT", "common-transit-convention-guarantee-balance.2.0", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "common-transit-convention-guarantee-balance.2.0", "", "json", "accessCode", "ABC1"],
+      ["SUBMIT", "common-transit-convention-guarantee-balance.2.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "404"],
+      ["VALIDATE", "sheet-info", "", "json", "code", "NOT_FOUND"],
+      ["GOTO", "END"]
+    ]
+  }
+}

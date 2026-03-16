@@ -1,0 +1,34 @@
+{
+  "description": "Test mtd-transaction-risking request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdvat-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test mtdvat user 0 on sheet mtdvat-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/mtd-transaction-risking.1.0._misc_transaction-risking_assist_{vrn}-post.example.json",
+    "press": [
+      ["GENSHEET", "mtd-transaction-risking.1.0"],
+      ["COPY", "mtdvat-user-0", "", "json", "vrn"],
+      ["EDIT", "mtd-transaction-risking.1.0", "", "_parameters", "vrn", "_PASTE"],
+      ["COPY", "mtdvat-user-0", "", "json", "userId"],
+      ["EDIT", "mtd-transaction-risking.1.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "mtd-transaction-risking.1.0", "", "_control", "_userId"],
+      ["COPY", "mtdvat-user-0", "", "json", "userId"],
+      ["EDIT", "mtd-transaction-risking.1.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "mtd-transaction-risking.1.0", "", "_control", "_password"],
+      ["COPY", "mtdvat-user-0", "", "json", "password"],
+      ["EDIT", "mtd-transaction-risking.1.0", "", "_control", "_password", "_PASTE"],
+      ["SUBMIT", "mtd-transaction-risking.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "403"],
+      ["VALIDATE", "sheet-info", "", "json", "code", "RESOURCE_FORBIDDEN"],
+      ["GOTO", "END"]
+    ]
+  }
+}

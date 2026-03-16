@@ -1,0 +1,16 @@
+{
+  "description": "No authentication endpoint",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+
+  "START": {
+    "include": "tests/example/api-example-microservice.1.0._hello_world-get.example.json",
+    "press": [
+      ["GENSHEET", "api-example-microservice.1.0"],
+      ["SUBMIT", "api-example-microservice.1.0", "sheet-hello"],
+      ["VALIDATE", "sheet-hello", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-hello", "", "json", "message", "Hello World"],
+      ["GOTO", "END"]
+    ]
+  }
+}

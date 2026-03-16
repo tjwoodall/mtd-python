@@ -1,0 +1,96 @@
+{
+  "description": "Create and Amend Other Capital Gains and Disposals",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test mtdit user 0 on sheet mtdit-user-0"],
+      ["GOTO", "run"]
+    ]
+  },
+
+  "run": {
+    "include": "tests/example/individuals-capital-gains-income-api.3.0._individuals_disposals-income_other-gains_{nino}_{taxYear}-put.example.json",
+    "press": [
+      ["GENSHEET", "sheet._$0_"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_username", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_password"],
+      ["COPY", "mtdit-user-0", "", "json", "password"],
+      ["EDIT", "sheet._$0_", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "mtdit-user-0", "", "json", "nino"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "nino", "_PASTE"],
+
+      ["GOSUB", "CannedResponse.2026", "sheet._$0_"],
+      ["GOSUB", "CannedResponse.2025", "sheet._$0_"],
+      ["GOSUB", "CannedResponse.2024", "sheet._$0_"],
+
+      ["ADD", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario"],
+      ["xGOSUB", "ErrorChecker", "sheet._$0_", "INVALID_DISPOSAL_DATE", "400", "RULE_DISPOSAL_DATE", "The disposalDate must be within the specified tax year"],
+      ["xGOSUB", "ErrorChecker", "sheet._$0_", "INVALID_ACQUISITION_DATE", "400", "RULE_ACQUISITION_DATE", "The acquisitionDate must not be later than disposalDate"],
+      ["GOSUB", "ErrorChecker", "sheet._$0_", "OUTSIDE_AMENDMENT_WINDOW", "400", "RULE_OUTSIDE_AMENDMENT_WINDOW", "You are outside the amendment window"],
+      ["GOSUB", "ErrorChecker", "sheet._$0_", "REQUEST_CANNOT_BE_FULFILLED", "422", "RULE_REQUEST_CANNOT_BE_FULFILLED", "Custom (will vary in production depending on the actual error)"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "CannedResponse.2026": {
+    "press": [
+      ["EDIT", "_$1_", "", "_parameters", "taxYear", "2026-27"],
+      ["EDIT", "_$1_", "", "json", "TY 2026-27 onwards [Test Only]-2"],
+      ["DELETE", "_$1_", "", "json", "", "cryptoassets", "0", "", "amountOfNetLoss"],
+      ["DELETE", "_$1_", "", "json", "", "otherGains", "0", "", "amountOfNetLoss"],
+      ["EDIT", "_$1_", "", "json", "", "cryptoassets", "0", "", "disposalDate", "2026-05-05"],
+      ["EDIT", "_$1_", "", "json", "", "otherGains", "0", "", "disposalDate", "2026-05-05"],
+      ["EDIT", "_$1_", "", "json", "", "unlistedShares", "0", "", "disposalDate", "2026-05-05"],
+
+      ["SUBMIT", "_$1_", "sheet-info._$0_"],
+      ["GOTO", "END", "sheet-info._$0_", "", "_control", "_response", "204"]
+    ]
+  },
+
+  "CannedResponse.2025": {
+    "press": [
+      ["EDIT", "_$1_", "", "_parameters", "taxYear", "2025-26"],
+      ["EDIT", "_$1_", "", "json", "TY 2025-26-1"],
+      ["DELETE", "_$1_", "", "json", "", "cryptoassets", "0", "", "amountOfNetLoss"],
+      ["DELETE", "_$1_", "", "json", "", "otherGains", "0", "", "amountOfNetLoss"],
+      ["EDIT", "_$1_", "", "json", "", "cryptoassets", "0", "", "disposalDate", "2025-05-05"],
+      ["EDIT", "_$1_", "", "json", "", "otherGains", "0", "", "disposalDate", "2025-05-05"],
+      ["EDIT", "_$1_", "", "json", "", "unlistedShares", "0", "", "disposalDate", "2025-05-05"],
+
+      ["SUBMIT", "_$1_", "sheet-info._$0_"],
+      ["GOTO", "END", "sheet-info._$0_", "", "_control", "_response", "204"]
+    ]
+  },
+
+  "CannedResponse.2024": {
+    "press": [
+      ["EDIT", "_$1_", "", "_parameters", "taxYear", "2024-25"],
+      ["EDIT", "_$1_", "", "json", "TY 2024-25 or before-0"],
+      ["DELETE", "_$1_", "", "json", "", "disposals", "0", "", "lossAfterRelief"],
+      ["DELETE", "_$1_", "", "json", "", "disposals", "0", "", "loss"],
+      ["EDIT", "_$1_", "", "json", "", "disposals", "0", "", "disposalDate", "2024-05-05"],
+
+      ["SUBMIT", "_$1_", "sheet-info._$0_"],
+      ["GOTO", "END", "sheet-info._$0_", "", "_control", "_response", "204"]
+    ]
+  },
+
+  "ErrorChecker": {
+    "press": [
+      ["EDIT", "_$1_", "", "_parameters", "Gov-Test-Scenario", "_$2_"],
+      ["SUBMIT", "_$1_", "response._$0_"],
+      ["VALIDATE", "response._$0_", "", "_control", "_response", "_$3_"],
+      ["VALIDATE", "response._$0_", "", "json", "code", "_$4_"],
+      ["VALIDATE", "response._$0_", "", "json", "message", "_$5_"],
+      ["GOTO", "END"]
+    ]
+  }
+}

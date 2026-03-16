@@ -1,0 +1,39 @@
+{
+  "description": "Test pillar2-submission-api request",
+  "schema": "artifacts/application.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-business-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test business user 0 on sheet business-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/pillar2-submission-api.1.0._organisations_pillar-two_setup_organisation-post.example.json",
+    "press": [
+      ["GENSHEET", "pillar2-submission-api.1.0"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "pillar2-submission-api.1.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "pillar2-submission-api.1.0", "", "_control", "_userId"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "pillar2-submission-api.1.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "pillar2-submission-api.1.0", "", "_control", "_password"],
+      ["COPY", "business-user-0", "", "json", "password"],
+      ["EDIT", "pillar2-submission-api.1.0", "", "_control", "_password", "_PASTE"],
+
+      ["EDIT", "pillar2-submission-api.1.0", "", "json", "orgDetails", "organisationName", "PILLAR2 TEST ORG"],
+      ["EDIT", "pillar2-submission-api.1.0", "", "json", "orgDetails", "registrationDate", "2025-02-12"],
+      ["ADD", "pillar2-submission-api.1.0", "", "json", "orgDetails", "additional-0"],
+      ["EDIT", "pillar2-submission-api.1.0", "", "json", "accountingPeriod", "startDate", "2026-04-06"],
+      ["EDIT", "pillar2-submission-api.1.0", "", "json", "accountingPeriod", "endDate", "2026-05-06"],
+
+      ["SUBMIT", "pillar2-submission-api.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "403"],
+      ["VALIDATE", "sheet-info", "", "json", "code", "RESOURCE_FORBIDDEN"],
+      ["GOTO", "END"]
+    ]
+  }
+}

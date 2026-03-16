@@ -1,0 +1,256 @@
+individuals-other-income-api.2.0.json - Create, Retrieve, Delete and STATEFUL
+individuals-charges-api.3.0.json - Multiple C,R,D,S example
+individuals-capital-gains-income-api.3.0.json - Multiple C,R,D,S example
+
+business-details-api.2.0._individuals_business_details_{nino}_list-get.example.json
+business-details-api.2.0._individuals_business_details_{nino}_{businessId}-get.example.json
+business-details-api.2.0._individuals_business_details_{nino}_{businessId}_{taxYear}-put.example.json
+business-details-api.2.0._individuals_business_details_{nino}_{businessId}_{taxYear}_accounting-type-get.example.json
+business-details-api.2.0._individuals_business_details_{nino}_{businessId}_{taxYear}_accounting-type-put.example.json
+business-details-api.2.0._individuals_business_details_{nino}_{businessId}_{taxYear}_late-accounting-date-rule-election-get.example.json
+business-details-api.2.0._individuals_business_details_{nino}_{businessId}_{taxYear}_late-accounting-date-rule-election_disapply-post.example.json
+business-details-api.2.0._individuals_business_details_{nino}_{businessId}_{taxYear}_late-accounting-date-rule-election_withdraw-delete.example.json
+business-details-api.2.0._individuals_business_details_{nino}_{businessId}_{taxYear}_periods-of-account-get.example.json
+business-details-api.2.0._individuals_business_details_{nino}_{businessId}_{taxYear}_periods-of-account-put.example.json
+
+cis-deductions-api.3.0._individuals_deductions_cis_{nino}_amendments-post.example.json
+cis-deductions-api.3.0._individuals_deductions_cis_{nino}_amendments_{submissionId}-put.example.json
+cis-deductions-api.3.0._individuals_deductions_cis_{nino}_amendments_{submissionId}_{taxYear}-delete.example.json
+cis-deductions-api.3.0._individuals_deductions_cis_{nino}_current-position_{taxYear}_{source}-get.example.json
+
+individual-losses-api.6.0._individuals_losses_{nino}_brought-forward-losses_tax-year_brought-forward-from_{taxYear}-post.example.json
+individual-losses-api.6.0._individuals_losses_{nino}_brought-forward-losses_tax-year_{taxYearBroughtForwardFrom}-get.example.json
+individual-losses-api.6.0._individuals_losses_{nino}_brought-forward-losses_{lossId}-get.example.json
+individual-losses-api.6.0._individuals_losses_{nino}_brought-forward-losses_{lossId}_tax-year_{taxYear}-delete.example.json
+individual-losses-api.6.0._individuals_losses_{nino}_brought-forward-losses_{lossId}_tax-year_{taxYear}_change-loss-amount-post.example.json
+individual-losses-api.6.0._individuals_losses_{nino}_loss-claims-post.example.json
+individual-losses-api.6.0._individuals_losses_{nino}_loss-claims_order_{taxYearClaimedFor}-put.example.json
+individual-losses-api.6.0._individuals_losses_{nino}_loss-claims_tax-year_{taxYearClaimedFor}-get.example.json
+individual-losses-api.6.0._individuals_losses_{nino}_loss-claims_{claimId}-get.example.json
+individual-losses-api.6.0._individuals_losses_{nino}_loss-claims_{claimId}_tax-year_{taxYearClaimedFor}-delete.example.json
+individual-losses-api.6.0._individuals_losses_{nino}_loss-claims_{claimId}_tax-year_{taxYearClaimedFor}_change-type-of-claim-post.example.json
+DONE individual-losses-api.7.0._individuals_losses_{nino}_businesses_{businessId}_loss-claims_{taxYear}-delete.example.json
+DONE individual-losses-api.7.0._individuals_losses_{nino}_businesses_{businessId}_loss-claims_{taxYear}-get.example.json
+DONE individual-losses-api.7.0._individuals_losses_{nino}_businesses_{businessId}_loss-claims_{taxYear}-put.example.json
+
+individuals-capital-gains-income-api.2.0._individuals_disposals-income_other-gains_{nino}_{taxYear}-delete.example.json
+individuals-capital-gains-income-api.2.0._individuals_disposals-income_other-gains_{nino}_{taxYear}-get.example.json
+individuals-capital-gains-income-api.2.0._individuals_disposals-income_other-gains_{nino}_{taxYear}-put.example.json
+individuals-capital-gains-income-api.2.0._individuals_disposals-income_residential-property_{nino}_{taxYear}-delete.example.json
+individuals-capital-gains-income-api.2.0._individuals_disposals-income_residential-property_{nino}_{taxYear}-get.example.json
+individuals-capital-gains-income-api.2.0._individuals_disposals-income_residential-property_{nino}_{taxYear}-put.example.json
+individuals-capital-gains-income-api.2.0._individuals_disposals-income_residential-property_{nino}_{taxYear}_ppd-delete.example.json
+individuals-capital-gains-income-api.2.0._individuals_disposals-income_residential-property_{nino}_{taxYear}_ppd-put.example.json
+DONE individuals-capital-gains-income-api.3.0._individuals_disposals-income_other-gains_{nino}_{taxYear}-delete.example.json
+DONE individuals-capital-gains-income-api.3.0._individuals_disposals-income_other-gains_{nino}_{taxYear}-get.example.json
+DONE individuals-capital-gains-income-api.3.0._individuals_disposals-income_other-gains_{nino}_{taxYear}-put.example.json
+DONE individuals-capital-gains-income-api.3.0._individuals_disposals-income_residential-property_{nino}_{taxYear}-delete.example.json
+DONE individuals-capital-gains-income-api.3.0._individuals_disposals-income_residential-property_{nino}_{taxYear}-get.example.json
+DONE individuals-capital-gains-income-api.3.0._individuals_disposals-income_residential-property_{nino}_{taxYear}-put.example.json
+DONE individuals-capital-gains-income-api.3.0._individuals_disposals-income_residential-property_{nino}_{taxYear}_ppd-delete.example.json
+DONE individuals-capital-gains-income-api.3.0._individuals_disposals-income_residential-property_{nino}_{taxYear}_ppd-get.example.json
+DONE individuals-capital-gains-income-api.3.0._individuals_disposals-income_residential-property_{nino}_{taxYear}_ppd-put.example.json
+
+DONE individuals-charges-api.3.0._individuals_charges_high-income-child-benefit_{nino}_{taxYear}-delete.example.json
+DONE individuals-charges-api.3.0._individuals_charges_high-income-child-benefit_{nino}_{taxYear}-get.example.json
+DONE individuals-charges-api.3.0._individuals_charges_high-income-child-benefit_{nino}_{taxYear}-put.example.json
+DONE individuals-charges-api.3.0._individuals_charges_pensions_{nino}_{taxYear}-delete.example.json
+DONE individuals-charges-api.3.0._individuals_charges_pensions_{nino}_{taxYear}-get.example.json
+DONE individuals-charges-api.3.0._individuals_charges_pensions_{nino}_{taxYear}-put.example.json
+DONE individuals-charges-api.3.0._individuals_charges_winter-fuel-payment_{nino}_{taxYear}-delete.example.json
+DONE individuals-charges-api.3.0._individuals_charges_winter-fuel-payment_{nino}_{taxYear}-get.example.json
+DONE individuals-charges-api.3.0._individuals_charges_winter-fuel-payment_{nino}_{taxYear}-put.example.json
+
+DONE individuals-disclosures-api.2.0._individuals_disclosures_marriage-allowance_{nino}-post.example.json
+DONE individuals-disclosures-api.2.0._individuals_disclosures_{nino}_{taxYear}-delete.example.json
+DONE individuals-disclosures-api.2.0._individuals_disclosures_{nino}_{taxYear}-get.example.json
+DONE individuals-disclosures-api.2.0._individuals_disclosures_{nino}_{taxYear}-put.example.json
+
+individuals-dividends-income-api.2.0._individuals_dividends-income_directorship_{nino}_{taxYear}_{employmentId}-delete.example.json
+individuals-dividends-income-api.2.0._individuals_dividends-income_directorship_{nino}_{taxYear}_{employmentId}-get.example.json
+individuals-dividends-income-api.2.0._individuals_dividends-income_directorship_{nino}_{taxYear}_{employmentId}-put.example.json
+individuals-dividends-income-api.2.0._individuals_dividends-income_uk_{nino}_{taxYear}-delete.example.json
+individuals-dividends-income-api.2.0._individuals_dividends-income_uk_{nino}_{taxYear}-get.example.json
+individuals-dividends-income-api.2.0._individuals_dividends-income_uk_{nino}_{taxYear}-put.example.json
+individuals-dividends-income-api.2.0._individuals_dividends-income_{nino}_{taxYear}-delete.example.json
+individuals-dividends-income-api.2.0._individuals_dividends-income_{nino}_{taxYear}-get.example.json
+individuals-dividends-income-api.2.0._individuals_dividends-income_{nino}_{taxYear}-put.example.json
+
+individuals-employments-income-api.2.0._individuals_employments-income_non-paye_{nino}_{taxYear}-delete.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_non-paye_{nino}_{taxYear}-get.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_non-paye_{nino}_{taxYear}-put.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_other_{nino}_{taxYear}-delete.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_other_{nino}_{taxYear}-get.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_other_{nino}_{taxYear}-put.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_{nino}_{taxYear}-get.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_{nino}_{taxYear}-post.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_{nino}_{taxYear}_{employmentId}-delete.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_{nino}_{taxYear}_{employmentId}-get.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_{nino}_{taxYear}_{employmentId}-put.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_{nino}_{taxYear}_{employmentId}_benefit-in-kind_student-loans-delete.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_{nino}_{taxYear}_{employmentId}_benefit-in-kind_student-loans-get.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_{nino}_{taxYear}_{employmentId}_benefit-in-kind_student-loans-put.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_{nino}_{taxYear}_{employmentId}_financial-details-delete.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_{nino}_{taxYear}_{employmentId}_financial-details-get.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_{nino}_{taxYear}_{employmentId}_financial-details-put.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_{nino}_{taxYear}_{employmentId}_ignore-post.example.json
+individuals-employments-income-api.2.0._individuals_employments-income_{nino}_{taxYear}_{employmentId}_unignore-post.example.json
+
+individuals-expenses-api.3.0._individuals_expenses_employments_{nino}_{taxYear}-delete.example.json
+individuals-expenses-api.3.0._individuals_expenses_employments_{nino}_{taxYear}-get.example.json
+individuals-expenses-api.3.0._individuals_expenses_employments_{nino}_{taxYear}-put.example.json
+individuals-expenses-api.3.0._individuals_expenses_employments_{nino}_{taxYear}_ignore-post.example.json
+individuals-expenses-api.3.0._individuals_expenses_other_{nino}_{taxYear}-delete.example.json
+individuals-expenses-api.3.0._individuals_expenses_other_{nino}_{taxYear}-get.example.json
+individuals-expenses-api.3.0._individuals_expenses_other_{nino}_{taxYear}-put.example.json
+
+individuals-foreign-income-api.2.0._individuals_foreign-income_{nino}_{taxYear}-delete.example.json
+individuals-foreign-income-api.2.0._individuals_foreign-income_{nino}_{taxYear}-get.example.json
+individuals-foreign-income-api.2.0._individuals_foreign-income_{nino}_{taxYear}-put.example.json
+
+individuals-insurance-policies-income-api.2.0._individuals_insurance-policies-income_{nino}_{taxYear}-delete.example.json
+individuals-insurance-policies-income-api.2.0._individuals_insurance-policies-income_{nino}_{taxYear}-get.example.json
+individuals-insurance-policies-income-api.2.0._individuals_insurance-policies-income_{nino}_{taxYear}-put.example.json
+
+DONE individuals-other-income-api.2.0._individuals_other-income_{nino}_{taxYear}-delete.example.json
+DONE individuals-other-income-api.2.0._individuals_other-income_{nino}_{taxYear}-get.example.json
+DONE individuals-other-income-api.2.0._individuals_other-income_{nino}_{taxYear}-put.example.json
+DONE individuals-other-income-api.3.0._individuals_other-income_{nino}_{taxYear}-delete.example.json
+DONE individuals-other-income-api.3.0._individuals_other-income_{nino}_{taxYear}-get.example.json
+DONE individuals-other-income-api.3.0._individuals_other-income_{nino}_{taxYear}-put.example.json
+
+individuals-partner-income-api.1.0._individuals_partner-income_{nino}_{taxYear}_partnership-get.example.json
+individuals-partner-income-api.1.0._individuals_partner-income_{nino}_{taxYear}_partnership-put.example.json
+individuals-partner-income-api.1.0._individuals_partner-income_{nino}_{taxYear}_partnership_{partnershipUtr}-delete.example.json
+individuals-partner-income-api.1.0._individuals_partner-income_{nino}_{taxYear}_partnership_{partnershipUtr}-get.example.json
+
+individuals-pensions-income-api.2.0._individuals_pensions-income_{nino}_{taxYear}-delete.example.json
+individuals-pensions-income-api.2.0._individuals_pensions-income_{nino}_{taxYear}-get.example.json
+individuals-pensions-income-api.2.0._individuals_pensions-income_{nino}_{taxYear}-put.example.json
+
+individuals-reliefs-api.2.0._individuals_reliefs_charitable-giving_{nino}_{taxYear}-delete.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_charitable-giving_{nino}_{taxYear}-get.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_charitable-giving_{nino}_{taxYear}-put.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_foreign_{nino}_{taxYear}-delete.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_foreign_{nino}_{taxYear}-get.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_foreign_{nino}_{taxYear}-put.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_investment_{nino}_{taxYear}-delete.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_investment_{nino}_{taxYear}-get.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_investment_{nino}_{taxYear}-put.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_other_{nino}_{taxYear}-delete.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_other_{nino}_{taxYear}-get.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_other_{nino}_{taxYear}-put.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_pensions_{nino}_{taxYear}-delete.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_pensions_{nino}_{taxYear}-get.example.json
+individuals-reliefs-api.2.0._individuals_reliefs_pensions_{nino}_{taxYear}-put.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_charitable-giving_{nino}_{taxYear}-delete.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_charitable-giving_{nino}_{taxYear}-get.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_charitable-giving_{nino}_{taxYear}-put.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_foreign_{nino}_{taxYear}-delete.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_foreign_{nino}_{taxYear}-get.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_foreign_{nino}_{taxYear}-put.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_investment_{nino}_{taxYear}-delete.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_investment_{nino}_{taxYear}-get.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_investment_{nino}_{taxYear}-put.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_other_{nino}_{taxYear}-delete.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_other_{nino}_{taxYear}-get.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_other_{nino}_{taxYear}-put.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_pensions_{nino}_{taxYear}-delete.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_pensions_{nino}_{taxYear}-get.example.json
+individuals-reliefs-api.3.0._individuals_reliefs_pensions_{nino}_{taxYear}-put.example.json
+
+individuals-savings-income-api.2.0._individuals_savings-income_other_{nino}_{taxYear}-delete.example.json
+individuals-savings-income-api.2.0._individuals_savings-income_other_{nino}_{taxYear}-get.example.json
+individuals-savings-income-api.2.0._individuals_savings-income_other_{nino}_{taxYear}-put.example.json
+individuals-savings-income-api.2.0._individuals_savings-income_uk-accounts_{nino}-get.example.json
+individuals-savings-income-api.2.0._individuals_savings-income_uk-accounts_{nino}-post.example.json
+individuals-savings-income-api.2.0._individuals_savings-income_uk-accounts_{nino}_account-name_{savingsAccountId}-put.example.json
+individuals-savings-income-api.2.0._individuals_savings-income_uk-accounts_{nino}_{taxYear}_{savingsAccountId}-get.example.json
+individuals-savings-income-api.2.0._individuals_savings-income_uk-accounts_{nino}_{taxYear}_{savingsAccountId}-put.example.json
+
+individuals-state-benefits-api.2.0._individuals_state-benefits_{nino}_{taxYear}-get.example.json
+individuals-state-benefits-api.2.0._individuals_state-benefits_{nino}_{taxYear}-post.example.json
+individuals-state-benefits-api.2.0._individuals_state-benefits_{nino}_{taxYear}_{benefitId}-delete.example.json
+individuals-state-benefits-api.2.0._individuals_state-benefits_{nino}_{taxYear}_{benefitId}-put.example.json
+individuals-state-benefits-api.2.0._individuals_state-benefits_{nino}_{taxYear}_{benefitId}_amounts-delete.example.json
+individuals-state-benefits-api.2.0._individuals_state-benefits_{nino}_{taxYear}_{benefitId}_amounts-put.example.json
+individuals-state-benefits-api.2.0._individuals_state-benefits_{nino}_{taxYear}_{benefitId}_ignore-post.example.json
+individuals-state-benefits-api.2.0._individuals_state-benefits_{nino}_{taxYear}_{benefitId}_unignore-post.example.json
+
+individuals-tax-liability-adjustments-api.1.0._individuals_tax-liability_adjustments_{nino}_{taxYear}-delete.example.json
+individuals-tax-liability-adjustments-api.1.0._individuals_tax-liability_adjustments_{nino}_{taxYear}-get.example.json
+individuals-tax-liability-adjustments-api.1.0._individuals_tax-liability_adjustments_{nino}_{taxYear}-put.example.json
+
+other-deductions-api.2.0._individuals_deductions_other_{nino}_{taxYear}-delete.example.json
+other-deductions-api.2.0._individuals_deductions_other_{nino}_{taxYear}-get.example.json
+other-deductions-api.2.0._individuals_deductions_other_{nino}_{taxYear}-put.example.json
+
+property-business-api.6.0._individuals_business_property_foreign_{nino}_details_{propertyId}_{taxYear}-put.example.json
+property-business-api.6.0._individuals_business_property_foreign_{nino}_{businessId}_annual_{taxYear}-get.example.json
+property-business-api.6.0._individuals_business_property_foreign_{nino}_{businessId}_annual_{taxYear}-put.example.json
+property-business-api.6.0._individuals_business_property_foreign_{nino}_{businessId}_cumulative_{taxYear}-get.example.json
+property-business-api.6.0._individuals_business_property_foreign_{nino}_{businessId}_cumulative_{taxYear}-put.example.json
+property-business-api.6.0._individuals_business_property_foreign_{nino}_{businessId}_details_{taxYear}-get.example.json
+property-business-api.6.0._individuals_business_property_foreign_{nino}_{businessId}_details_{taxYear}-post.example.json
+property-business-api.6.0._individuals_business_property_foreign_{nino}_{businessId}_period_{taxYear}-post.example.json
+property-business-api.6.0._individuals_business_property_foreign_{nino}_{businessId}_period_{taxYear}_{submissionId}-get.example.json
+property-business-api.6.0._individuals_business_property_foreign_{nino}_{businessId}_period_{taxYear}_{submissionId}-put.example.json
+property-business-api.6.0._individuals_business_property_uk_annual_furnished-holiday-lettings_{nino}_{taxYear}-delete.example.json
+property-business-api.6.0._individuals_business_property_uk_annual_furnished-holiday-lettings_{nino}_{taxYear}-get.example.json
+property-business-api.6.0._individuals_business_property_uk_annual_furnished-holiday-lettings_{nino}_{taxYear}-put.example.json
+property-business-api.6.0._individuals_business_property_uk_annual_non-furnished-holiday-lettings_{nino}_{taxYear}-delete.example.json
+property-business-api.6.0._individuals_business_property_uk_annual_non-furnished-holiday-lettings_{nino}_{taxYear}-get.example.json
+property-business-api.6.0._individuals_business_property_uk_annual_non-furnished-holiday-lettings_{nino}_{taxYear}-put.example.json
+property-business-api.6.0._individuals_business_property_uk_period_furnished-holiday-lettings_{nino}-get.example.json
+property-business-api.6.0._individuals_business_property_uk_period_furnished-holiday-lettings_{nino}-post.example.json
+property-business-api.6.0._individuals_business_property_uk_period_furnished-holiday-lettings_{nino}_{periodId}-get.example.json
+property-business-api.6.0._individuals_business_property_uk_period_furnished-holiday-lettings_{nino}_{periodId}-put.example.json
+property-business-api.6.0._individuals_business_property_uk_period_non-furnished-holiday-lettings_{nino}-get.example.json
+property-business-api.6.0._individuals_business_property_uk_period_non-furnished-holiday-lettings_{nino}-post.example.json
+property-business-api.6.0._individuals_business_property_uk_period_non-furnished-holiday-lettings_{nino}_{periodId}-get.example.json
+property-business-api.6.0._individuals_business_property_uk_period_non-furnished-holiday-lettings_{nino}_{periodId}-put.example.json
+property-business-api.6.0._individuals_business_property_uk_{nino}_{businessId}_annual_{taxYear}-get.example.json
+property-business-api.6.0._individuals_business_property_uk_{nino}_{businessId}_annual_{taxYear}-put.example.json
+property-business-api.6.0._individuals_business_property_uk_{nino}_{businessId}_cumulative_{taxYear}-get.example.json
+property-business-api.6.0._individuals_business_property_uk_{nino}_{businessId}_cumulative_{taxYear}-put.example.json
+property-business-api.6.0._individuals_business_property_uk_{nino}_{businessId}_period_{taxYear}-post.example.json
+property-business-api.6.0._individuals_business_property_uk_{nino}_{businessId}_period_{taxYear}_{submissionId}-get.example.json
+property-business-api.6.0._individuals_business_property_uk_{nino}_{businessId}_period_{taxYear}_{submissionId}-put.example.json
+property-business-api.6.0._individuals_business_property_{nino}_{businessId}_annual_{taxYear}-delete.example.json
+property-business-api.6.0._individuals_business_property_{nino}_{businessId}_period_{taxYear}-get.example.json
+
+self-assessment-accounts-api.4.0._accounts_self-assessment_{nino}_balance-and-transactions-get.example.json
+self-assessment-accounts-api.4.0._accounts_self-assessment_{nino}_charges_chargeReference_{chargeReference}-get.example.json
+self-assessment-accounts-api.4.0._accounts_self-assessment_{nino}_charges_transactionId_{transactionId}-get.example.json
+self-assessment-accounts-api.4.0._accounts_self-assessment_{nino}_charges_{transactionId}-get.example.json
+self-assessment-accounts-api.4.0._accounts_self-assessment_{nino}_payments-and-allocations-get.example.json
+self-assessment-accounts-api.4.0._accounts_self-assessment_{nino}_penalties-get.example.json
+self-assessment-accounts-api.4.0._accounts_self-assessment_{nino}_{taxYear}_collection_tax-code-delete.example.json
+self-assessment-accounts-api.4.0._accounts_self-assessment_{nino}_{taxYear}_collection_tax-code-get.example.json
+self-assessment-accounts-api.4.0._accounts_self-assessment_{nino}_{taxYear}_collection_tax-code-put.example.json
+self-assessment-accounts-api.4.0._accounts_self-assessment_{nino}_{taxYear}_collection_tax-code_coding-out_opt-in-post.example.json
+self-assessment-accounts-api.4.0._accounts_self-assessment_{nino}_{taxYear}_collection_tax-code_coding-out_opt-out-post.example.json
+self-assessment-accounts-api.4.0._accounts_self-assessment_{nino}_{taxYear}_collection_tax-code_coding-out_status-get.example.json
+
+self-assessment-biss-api.3.0._individuals_self-assessment_income-summary_{nino}_{typeOfBusiness}_{taxYear}_{businessId}-get.example.json
+self-assessment-bsas-api.7.0._individuals_self-assessment_adjustable-summary_{nino}_foreign-property_{calculationId}_adjust_{taxYear}-post.example.json
+self-assessment-bsas-api.7.0._individuals_self-assessment_adjustable-summary_{nino}_foreign-property_{calculationId}_{taxYear}-get.example.json
+self-assessment-bsas-api.7.0._individuals_self-assessment_adjustable-summary_{nino}_self-employment_{calculationId}_adjust_{taxYear}-post.example.json
+self-assessment-bsas-api.7.0._individuals_self-assessment_adjustable-summary_{nino}_self-employment_{calculationId}_{taxYear}-get.example.json
+self-assessment-bsas-api.7.0._individuals_self-assessment_adjustable-summary_{nino}_trigger-post.example.json
+self-assessment-bsas-api.7.0._individuals_self-assessment_adjustable-summary_{nino}_uk-property_{calculationId}_adjust_{taxYear}-post.example.json
+self-assessment-bsas-api.7.0._individuals_self-assessment_adjustable-summary_{nino}_uk-property_{calculationId}_{taxYear}-get.example.json
+self-assessment-bsas-api.7.0._individuals_self-assessment_adjustable-summary_{nino}_{taxYear}-get.example.json
+
+self-assessment-individual-details-api.2.0._individuals_person_itsa-status_{nino}_{taxYear}-get.example.json
+
+self-employment-business-api.5.0._individuals_business_self-employment_{nino}_{businessId}_annual_{taxYear}-delete.example.json
+self-employment-business-api.5.0._individuals_business_self-employment_{nino}_{businessId}_annual_{taxYear}-get.example.json
+self-employment-business-api.5.0._individuals_business_self-employment_{nino}_{businessId}_annual_{taxYear}-put.example.json
+self-employment-business-api.5.0._individuals_business_self-employment_{nino}_{businessId}_cumulative_{taxYear}-get.example.json
+self-employment-business-api.5.0._individuals_business_self-employment_{nino}_{businessId}_cumulative_{taxYear}-put.example.json
+self-employment-business-api.5.0._individuals_business_self-employment_{nino}_{businessId}_period-post.example.json
+self-employment-business-api.5.0._individuals_business_self-employment_{nino}_{businessId}_period_{taxYear}-get.example.json
+self-employment-business-api.5.0._individuals_business_self-employment_{nino}_{businessId}_period_{taxYear}_{periodId}-get.example.json
+self-employment-business-api.5.0._individuals_business_self-employment_{nino}_{businessId}_period_{taxYear}_{periodId}-put.example.json
+

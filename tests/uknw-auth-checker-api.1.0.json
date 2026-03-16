@@ -1,0 +1,24 @@
+{
+  "description": "Test uknw-auth-checker-api request",
+  "schema": "artifacts/application.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-business-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test business user 0 on sheet business-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/uknw-auth-checker-api.1.0._customs_uk-notice-of-presentation-waiver_authorisations-post.example.json",
+    "press": [
+      ["GENSHEET", "uknw-auth-checker-api.1.0"],
+      ["SUBMIT", "uknw-auth-checker-api.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info", "", "json", "eoris", "0", "", "eori", "GB123123123333"],
+      ["GOTO", "END"]
+    ]
+  }
+}

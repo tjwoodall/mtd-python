@@ -1,0 +1,31 @@
+{
+  "description": "Test import-control-entry-declaration-outcome request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-business-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test business user 0 on sheet business-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/import-control-entry-declaration-outcome.1.0._customs_imports_outcomes-get.example.json",
+    "press": [
+      ["GENSHEET", "import-control-entry-declaration-outcome.1.0"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "import-control-entry-declaration-outcome.1.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "import-control-entry-declaration-outcome.1.0", "", "_control", "_userId"],
+      ["COPY", "business-user-0", "", "json", "userId"],
+      ["EDIT", "import-control-entry-declaration-outcome.1.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "import-control-entry-declaration-outcome.1.0", "", "_control", "_password"],
+      ["COPY", "business-user-0", "", "json", "password"],
+      ["EDIT", "import-control-entry-declaration-outcome.1.0", "", "_control", "_password", "_PASTE"],
+      ["SUBMIT", "import-control-entry-declaration-outcome.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "204"],
+      ["GOTO", "END"]
+    ]
+  }
+}

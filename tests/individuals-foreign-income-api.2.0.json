@@ -1,0 +1,35 @@
+{
+  "description": "Test individuals-foreign-income-api request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test mtdit user 0 on sheet mtdit-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/individuals-foreign-income-api.2.0._individuals_foreign-income_{nino}_{taxYear}-get.example.json",
+    "press": [
+      ["GENSHEET", "individuals-foreign-income-api.2.0"],
+      ["COPY", "mtdit-user-0", "", "json", "nino"],
+      ["EDIT", "individuals-foreign-income-api.2.0", "", "_parameters", "nino", "_PASTE"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individuals-foreign-income-api.2.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "individuals-foreign-income-api.2.0", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individuals-foreign-income-api.2.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "individuals-foreign-income-api.2.0", "", "_control", "_password"],
+      ["COPY", "mtdit-user-0", "", "json", "password"],
+      ["EDIT", "individuals-foreign-income-api.2.0", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "individuals-foreign-income-api.2.0", "", "_parameters", "taxYear", "2026-27"],
+      ["SUBMIT", "individuals-foreign-income-api.2.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info", "", "json", "unremittableForeignIncome", "0", "", "countryCode", "FRA"],
+      ["GOTO", "END"]
+    ]
+  }
+}

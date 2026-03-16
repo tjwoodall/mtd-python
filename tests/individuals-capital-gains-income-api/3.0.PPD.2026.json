@@ -1,0 +1,85 @@
+{
+  "Create or amend PPD.2026": {
+    "include": "tests/example/individuals-capital-gains-income-api.3.0._individuals_disposals-income_residential-property_{nino}_{taxYear}_ppd-put.example.json",
+    "press": [
+      ["GENSHEET", "sheet._$0_"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_username", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_userId"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_password"],
+      ["COPY", "_$1_", "", "json", "password"],
+      ["EDIT", "sheet._$0_", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "_$1_", "", "json", "nino"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "nino", "_PASTE"],
+
+      ["EDIT", "sheet._$0_", "", "_parameters", "taxYear", "2026-27"],
+      ["EDIT", "sheet._$0_", "", "json", "TY 2025-26 onwards-1"],
+      ["DELETE", "sheet._$0_", "", "json", "", "multiplePropertyDisposals", "0", "", "amountOfNetLoss"],
+      ["DELETE", "sheet._$0_", "", "json", "", "singlePropertyDisposals", "0", "", "amountOfNetLoss"],
+
+      ["ADD", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario", "STATEFUL"],
+
+      ["SUBMIT", "sheet._$0_", "sheet-info._$0_"],
+      ["VALIDATE", "sheet-info._$0_", "", "_control", "_response", "204"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Retrieve PPD.2026": {
+    "include": "tests/example/individuals-capital-gains-income-api.3.0._individuals_disposals-income_residential-property_{nino}_{taxYear}_ppd-get.example.json",
+    "press": [
+      ["GENSHEET", "sheet._$0_"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_username", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_userId"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_password"],
+      ["COPY", "_$1_", "", "json", "password"],
+      ["EDIT", "sheet._$0_", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "_$1_", "", "json", "nino"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "nino", "_PASTE"],
+
+      ["EDIT", "sheet._$0_", "", "_parameters", "taxYear", "2026-27"],
+
+      ["ADD", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario", "STATEFUL"],
+
+      ["SUBMIT", "sheet._$0_", "sheet-info._$0_"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "TY 2025-26 onwards-1"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "Delete PPD.2026": {
+    "include": "tests/example/individuals-capital-gains-income-api.3.0._individuals_disposals-income_residential-property_{nino}_{taxYear}_ppd-delete.example.json",
+    "press": [
+      ["GENSHEET", "sheet._$0_"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_username", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_userId"],
+      ["COPY", "_$1_", "", "json", "userId"],
+      ["EDIT", "sheet._$0_", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "sheet._$0_", "", "_control", "_password"],
+      ["COPY", "_$1_", "", "json", "password"],
+      ["EDIT", "sheet._$0_", "", "_control", "_password", "_PASTE"],
+
+      ["COPY", "_$1_", "", "json", "nino"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "nino", "_PASTE"],
+
+      ["EDIT", "sheet._$0_", "", "_parameters", "taxYear", "2026-27"],
+
+      ["ADD", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "sheet._$0_", "", "_parameters", "Gov-Test-Scenario", "STATEFUL"],
+
+      ["SUBMIT", "sheet._$0_", "sheet-info._$0_"],
+      ["VALIDATE", "sheet-info._$0_", "", "_control", "_response", "204"],
+      ["GOTO", "END"]
+    ]
+  }
+}

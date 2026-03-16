@@ -1,0 +1,34 @@
+{
+  "description": "Test self-assessment-liability-api request (private api)",
+  "schema": "artifacts/application.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-sa-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test sa user 0 on sheet sa-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/self-assessment-liability-api.1.0._individuals_self-assessment_breakdown_{utr}-get.example.json",
+    "press": [
+      ["GENSHEET", "self-assessment-liability-api.1.0"],
+      ["COPY", "sa-user-0", "", "json", "saUtr"],
+      ["EDIT", "self-assessment-liability-api.1.0", "", "_parameters", "utr", "_PASTE"],
+      ["COPY", "sa-user-0", "", "json", "userId"],
+      ["EDIT", "self-assessment-liability-api.1.0", "", "_control", "_username", "_PASTE"],
+      ["ADD", "self-assessment-liability-api.1.0", "", "_control", "_userId"],
+      ["COPY", "sa-user-0", "", "json", "userId"],
+      ["EDIT", "self-assessment-liability-api.1.0", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "self-assessment-liability-api.1.0", "", "_control", "_password"],
+      ["COPY", "sa-user-0", "", "json", "password"],
+      ["EDIT", "self-assessment-liability-api.1.0", "", "_control", "_password", "_PASTE"],
+      ["SUBMIT", "self-assessment-liability-api.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "403"],
+      ["VALIDATE", "sheet-info", "", "json", "code", "RESOURCE_FORBIDDEN"],
+      ["GOTO", "END"]
+    ]
+  }
+}

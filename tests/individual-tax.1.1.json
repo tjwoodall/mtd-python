@@ -1,0 +1,48 @@
+{
+  "description": "Test individual-tax request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-sa-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test sa user 0 on sheet sa-user-0"],
+      ["GOTO", "setup"]
+    ]
+  },
+
+  "setup": {
+    "include": "tests/example/paye-des-stub.2.0._individual-paye-test-support_sa_{utr}_tax_annual-summary_{taxYear}-post.example.json",
+    "press": [
+      ["GENSHEET", "setup-benefits.2.0"],
+      ["COPY", "sa-user-0", "", "json", "saUtr"],
+      ["EDIT", "setup-benefits.2.0", "", "_parameters", "utr", "_PASTE"],
+      ["EDIT", "setup-benefits.2.0", "", "_parameters", "taxYear", "2026-27"],
+      ["EDIT", "setup-benefits.2.0", "", "json", "scenario", "HAPPY_PATH_1"],
+      ["SUBMIT", "setup-benefits.2.0", "create-benefit"],
+      ["GOTO", "setup 2", "create-benefit", "", "_control", "_response", "201"]
+    ]
+  },
+
+  "setup 2": {
+    "include": "tests/example/individual-tax.1.1._individual-tax_sa_{utr}_annual-summary_{taxYear}-get.example.json",
+    "press": [
+      ["GENSHEET", "individual-tax.1.1"],
+      ["COPY", "sa-user-0", "", "json", "saUtr"],
+      ["EDIT", "individual-tax.1.1", "", "_parameters", "utr", "_PASTE"],
+      ["COPY", "sa-user-0", "", "json", "userId"],
+      ["EDIT", "individual-tax.1.1", "", "_control", "_username", "_PASTE"],
+      ["ADD", "individual-tax.1.1", "", "_control", "_userId"],
+      ["COPY", "sa-user-0", "", "json", "userId"],
+      ["EDIT", "individual-tax.1.1", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "individual-tax.1.1", "", "_control", "_password"],
+      ["COPY", "sa-user-0", "", "json", "password"],
+      ["EDIT", "individual-tax.1.1", "", "_control", "_password", "_PASTE"],
+      ["EDIT", "individual-tax.1.1", "", "_parameters", "taxYear", "2026-27"],
+      ["SUBMIT", "individual-tax.1.1", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info", "", "json", "pensionsAnnuitiesAndOtherStateBenefits", "otherPensionsAndRetirementAnnuities", 36.5],
+      ["GOTO", "END"]
+    ]
+  }
+}

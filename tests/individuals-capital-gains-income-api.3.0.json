@@ -1,0 +1,48 @@
+{
+  "description": "Test individuals-capital-gains-income-api STATEFUL requests",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json",
+              "tests/individuals-capital-gains-income-api/3.0.NoPPD.2024.json",
+              "tests/individuals-capital-gains-income-api/3.0.NoPPD.2025.json",
+              "tests/individuals-capital-gains-income-api/3.0.NoPPD.2026.json",
+              "tests/individuals-capital-gains-income-api/3.0.Other.2024.json",
+              "tests/individuals-capital-gains-income-api/3.0.Other.2025.json",
+              "tests/individuals-capital-gains-income-api/3.0.Other.2026.json",
+              "tests/individuals-capital-gains-income-api/3.0.PPD.2024.json",
+              "tests/individuals-capital-gains-income-api/3.0.PPD.2026.json"
+  ],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test mtdit user 0 on sheet mtdit-user-0"],
+      ["GOSUB", "Create or amend NoPPD.2026", "mtdit-user-0"],
+      ["GOSUB", "Retrieve NoPPD.2026", "mtdit-user-0"],
+      ["GOSUB", "Delete NoPPD.2026", "mtdit-user-0"],
+      ["GOSUB", "Create or amend NoPPD.2025", "mtdit-user-0"],
+      ["GOSUB", "Retrieve NoPPD.2025", "mtdit-user-0"],
+      ["GOSUB", "Delete NoPPD.2025", "mtdit-user-0"],
+      ["GOSUB", "Create or amend NoPPD.2024", "mtdit-user-0"],
+      ["GOSUB", "Retrieve NoPPD.2024", "mtdit-user-0"],
+      ["GOSUB", "Delete NoPPD.2024", "mtdit-user-0"],
+
+      ["GOSUB", "Create or amend Other.2026", "mtdit-user-0"],
+      ["GOSUB", "Retrieve Other.2026", "mtdit-user-0"],
+      ["GOSUB", "Delete Other.2026", "mtdit-user-0"],
+      ["GOSUB", "Create or amend Other.2025", "mtdit-user-0"],
+      ["GOSUB", "Retrieve Other.2025", "mtdit-user-0"],
+      ["GOSUB", "Delete Other.2025", "mtdit-user-0"],
+      ["GOSUB", "Create or amend Other.2024", "mtdit-user-0"],
+      ["GOSUB", "Retrieve Other.2024", "mtdit-user-0"],
+      ["GOSUB", "Delete Other.2024", "mtdit-user-0"],
+
+      ["GOSUB", "Create or amend PPD.2026", "mtdit-user-0"],
+      ["GOSUB", "Retrieve PPD.2026", "mtdit-user-0"],
+      ["GOSUB", "Delete PPD.2026", "mtdit-user-0"],
+      ["GOSUB", "Create or amend PPD.2024", "mtdit-user-0"],
+      ["GOSUB", "Retrieve PPD.2024", "mtdit-user-0"],
+      ["GOSUB", "Delete PPD.2024", "mtdit-user-0"],
+      ["GOTO", "END"]
+    ]
+  }
+}

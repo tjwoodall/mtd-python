@@ -1,0 +1,19 @@
+{
+  "description": "Test address-lookup request",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "start": "startup",
+
+  "startup": {
+    "include": "tests/example/address-lookup.1.0._lookup-post.example.json",
+    "press": [
+      ["GENSHEET", "address-lookup.1.0"],
+      ["EDIT", "address-lookup.1.0", "", "json", "postcode", "SW1A 0AA"],
+      ["DELETE", "address-lookup.1.0", "", "json", "filter"],
+      ["SUBMIT", "address-lookup.1.0", "sheet-info"],
+      ["VALIDATE", "sheet-info", "", "_control", "_response", "403"],
+      ["VALIDATE", "sheet-info", "", "json", "code", "RESOURCE_FORBIDDEN"],
+      ["GOTO", "END"]
+    ]
+  }
+}

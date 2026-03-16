@@ -1,0 +1,156 @@
+{
+  "description": "List Self Assessment Tax Calculations",
+  "schema": "artifacts/webscrape.json",
+  "config": "tests/test.db",
+  "include": ["tests/include/create-mtdit-user.json"],
+
+  "START": {
+    "press": [
+      ["GOSUB", "Get test mtdit user 0 on sheet mtdit-user-0"],
+      ["GOTO", "run"]
+    ]
+  },
+
+  "run": {
+    "include": "tests/example/individual-calculations-api.8.0._individuals_calculations_{nino}_self-assessment_{taxYear}-get.example.json",
+    "press": [
+      ["GENSHEET", "individual-calculations-api.8.0._$0_"],
+      ["COPY", "mtdit-user-0", "", "json", "nino"],
+      ["EDIT", "individual-calculations-api.8.0._$0_", "", "_parameters", "nino", "_PASTE"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individual-calculations-api.8.0._$0_", "", "_control", "_username", "_PASTE"],
+      ["ADD", "individual-calculations-api.8.0._$0_", "", "_control", "_userId"],
+      ["COPY", "mtdit-user-0", "", "json", "userId"],
+      ["EDIT", "individual-calculations-api.8.0._$0_", "", "_control", "_userId", "_PASTE"],
+      ["ADD", "individual-calculations-api.8.0._$0_", "", "_control", "_password"],
+      ["COPY", "mtdit-user-0", "", "json", "password"],
+      ["EDIT", "individual-calculations-api.8.0._$0_", "", "_control", "_password", "_PASTE"],
+
+      ["EDIT", "individual-calculations-api.8.0._$0_", "", "_parameters", "taxYear", "2023-24"],
+      ["DELETE", "individual-calculations-api.8.0._$0_", "", "_parameters", "calculationType"],
+      ["GOSUB", "CannedResponse", "individual-calculations-api.8.0._$0_"],
+
+      ["EDIT", "individual-calculations-api.8.0._$0_", "", "_parameters", "taxYear", "2025"],
+      ["GOSUB", "ErrorChecker2", "individual-calculations-api.8.0._$0_", "DUMMY", "400", "FORMAT_TAX_YEAR", "The provided tax year format is invalid"],
+      ["EDIT", "individual-calculations-api.8.0._$0_", "", "_parameters", "taxYear", "2023-24"],
+
+      ["EDIT", "individual-calculations-api.8.0._$0_", "", "_parameters", "nino", "ANINO"],
+      ["GOSUB", "ErrorChecker2", "individual-calculations-api.8.0._$0_", "DUMMY", "400", "FORMAT_NINO", "The NINO format is invalid"],
+      ["COPY", "mtdit-user-0", "", "json", "nino"],
+      ["EDIT", "individual-calculations-api.8.0._$0_", "", "_parameters", "nino", "_PASTE"],
+
+      ["ADD", "individual-calculations-api.8.0._$0_", "", "_parameters", "calculationType"],
+      ["EDIT", "individual-calculations-api.8.0._$0_", "", "_parameters", "calculationType", "ACalculationType"],
+      ["GOSUB", "ErrorChecker2", "individual-calculations-api.8.0._$0_", "DUMMY", "400", "FORMAT_CALCULATION_TYPE", "The provided calculation type is not valid"],
+      ["DELETE", "individual-calculations-api.8.0._$0_", "", "_parameters", "calculationType"],
+
+      ["ADD", "individual-calculations-api.8.0._$0_", "", "_parameters", "Gov-Test-Scenario"],
+      ["EDIT", "individual-calculations-api.8.0._$0_", "", "_parameters", "Gov-Test-Scenario", "DYNAMIC"],
+
+      ["GOSUB", "DYNAMIC-2022-23", "individual-calculations-api.8.0._$0_"],
+      ["GOSUB", "DYNAMIC-2023-24", "individual-calculations-api.8.0._$0_"],
+      ["GOSUB", "DYNAMIC-2024-25", "individual-calculations-api.8.0._$0_"],
+      ["GOSUB", "DYNAMIC-2025-26", "individual-calculations-api.8.0._$0_"],
+      ["GOSUB", "DYNAMIC-2026-27", "individual-calculations-api.8.0._$0_"],
+      ["GOSUB", "DYNAMIC-2026-27-filtered", "individual-calculations-api.8.0._$0_"],
+
+      ["GOSUB", "ErrorChecker", "individual-calculations-api.8.0._$0_", "NOT_FOUND", "404", "MATCHING_RESOURCE_NOT_FOUND", "Matching resource not found"],
+
+      ["GOTO", "END"]
+    ]
+  },
+
+  "DYNAMIC-2022-23": {
+    "press": [
+      ["EDIT", "_$1_", "", "_parameters", "taxYear", "2022-23"],
+      ["SUBMIT", "_$1_", "sheet-info._$0_"],
+      ["VALIDATE", "sheet-info._$0_", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "TY 2022-23 and before-0"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "", "calculations", 3],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "DYNAMIC-2023-24": {
+    "press": [
+      ["EDIT", "_$1_", "", "_parameters", "taxYear", "2023-24"],
+      ["SUBMIT", "_$1_", "sheet-info._$0_"],
+      ["VALIDATE", "sheet-info._$0_", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "TY 2023-24 and 2024-25-1"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "", "calculations", 3],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "DYNAMIC-2024-25": {
+    "press": [
+      ["EDIT", "_$1_", "", "_parameters", "taxYear", "2024-25"],
+      ["SUBMIT", "_$1_", "sheet-info._$0_"],
+      ["VALIDATE", "sheet-info._$0_", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "TY 2023-24 and 2024-25-1"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "", "calculations", 3],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "DYNAMIC-2025-26": {
+    "press": [
+      ["EDIT", "_$1_", "", "_parameters", "taxYear", "2025-26"],
+      ["SUBMIT", "_$1_", "sheet-info._$0_"],
+      ["VALIDATE", "sheet-info._$0_", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "TY 2025-26 onwards-2"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "", "calculations", 3],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "DYNAMIC-2026-27": {
+    "press": [
+      ["EDIT", "_$1_", "", "_parameters", "Gov-Test-Scenario", "DYNAMIC"],
+      ["SUBMIT", "_$1_", "sheet-info._$0_"],
+      ["VALIDATE", "sheet-info._$0_", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "TY 2025-26 onwards-2"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "", "calculations", 3],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "DYNAMIC-2026-27-filtered": {
+    "press": [
+      ["EDIT", "_$1_", "", "_parameters", "taxYear", "2026-27"],
+      ["ADD", "_$1_", "", "_parameters", "calculationType"],
+      ["EDIT", "_$1_", "", "_parameters", "calculationType", "in-year"],
+      ["SUBMIT", "_$1_", "sheet-info._$0_"],
+      ["VALIDATE", "sheet-info._$0_", "", "_control", "_response", "200"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "TY 2025-26 onwards-2"],
+      ["VALIDATE", "sheet-info._$0_", "", "json", "", "calculations", 3],
+      ["note", "Utterly dumb - what's the point of a dynamic endpoint that ignores the parameter - there should be two in-year events here and nothing else"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "CannedResponse": {
+    "press": [
+      ["SUBMIT", "_$1_", "sheet-info._$0_"],
+      ["VALIDATE", "sheet-info._$0_", "", "_control", "_response", "200"],
+      ["GOTO", "END"]
+    ]
+  },
+
+  "ErrorChecker": {
+    "press": [
+      ["EDIT", "_$1_", "", "_parameters", "Gov-Test-Scenario", "_$2_"],
+      ["GOTO", "ErrorChecker2"]
+    ]
+  },
+
+  "ErrorChecker2": {
+    "press": [
+      ["SUBMIT", "_$1_", "response._$0_"],
+      ["VALIDATE", "response._$0_", "", "_control", "_response", "_$3_"],
+      ["VALIDATE", "response._$0_", "", "json", "code", "_$4_"],
+      ["VALIDATE", "response._$0_", "", "json", "message", "_$5_"],
+      ["GOTO", "END"]
+    ]
+  }
+}
