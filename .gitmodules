@@ -1,0 +1,210 @@
+[submodule "agent-authorisation-api"]
+	path = agent-authorisation-api
+	url = https://github.com/tjwoodall/agent-authorisation-api.git
+[submodule "agent-authorisation-test-support-api"]
+	path = agent-authorisation-test-support-api
+	url = https://github.com/tjwoodall/agent-authorisation-test-support-api.git
+[submodule "api-example-microservice"]
+	path = api-example-microservice
+	url = https://github.com/tjwoodall/api-example-microservice.git
+[submodule "api-notification-pull"]
+	path = api-notification-pull
+	url = https://github.com/tjwoodall/api-notification-pull.git
+[submodule "api-platform-test-user"]
+	path = api-platform-test-user
+	url = https://github.com/tjwoodall/api-platform-test-user.git
+[submodule "business-details-api"]
+	path = business-details-api
+	url = https://github.com/tjwoodall/business-details-api.git
+[submodule "business-rates-api"]
+	path = business-rates-api
+	url = https://github.com/tjwoodall/business-rates-api.git
+[submodule "check-eori-number-api"]
+	path = check-eori-number-api
+	url = https://github.com/tjwoodall/check-eori-number-api.git
+[submodule "cis-deductions-api"]
+	path = cis-deductions-api
+	url = https://github.com/tjwoodall/cis-deductions-api.git
+[submodule "common-transit-convention-guarantee-balance"]
+	path = common-transit-convention-guarantee-balance
+	url = https://github.com/tjwoodall/common-transit-convention-guarantee-balance.git
+[submodule "common-transit-convention-traders"]
+	path = common-transit-convention-traders
+	url = https://github.com/tjwoodall/common-transit-convention-traders.git
+[submodule "customs-inventory-linking-exports"]
+	path = customs-inventory-linking-exports
+	url = https://github.com/tjwoodall/customs-inventory-linking-exports.git
+[submodule "disa-returns"]
+	path = disa-returns
+	url = https://github.com/tjwoodall/disa-returns.git
+[submodule "excise-movement-control-system-api"]
+	path = excise-movement-control-system-api
+	url = https://github.com/tjwoodall/excise-movement-control-system-api.git
+[submodule "goods-movement-system-haulier-api"]
+	path = goods-movement-system-haulier-api
+	url = https://github.com/tjwoodall/goods-movement-system-haulier-api.git
+[submodule "import-control-entry-declaration-intervention"]
+	path = import-control-entry-declaration-intervention
+	url = https://github.com/tjwoodall/import-control-entry-declaration-intervention.git
+[submodule "import-control-entry-declaration-outcome"]
+	path = import-control-entry-declaration-outcome
+	url = https://github.com/tjwoodall/import-control-entry-declaration-outcome.git
+[submodule "import-control-entry-declaration-store"]
+	path = import-control-entry-declaration-store
+	url = https://github.com/tjwoodall/import-control-entry-declaration-store.git
+[submodule "import-control-presentation-of-goods"]
+	path = import-control-presentation-of-goods
+	url = https://github.com/tjwoodall/import-control-presentation-of-goods.git
+[submodule "individual-benefits"]
+	path = individual-benefits
+	url = https://github.com/tjwoodall/individual-benefits.git
+[submodule "individual-calculations-api"]
+	path = individual-calculations-api
+	url = https://github.com/tjwoodall/individual-calculations-api.git
+[submodule "individual-employment"]
+	path = individual-employment
+	url = https://github.com/tjwoodall/individual-employment.git
+[submodule "individual-income"]
+	path = individual-income
+	url = https://github.com/tjwoodall/individual-income.git
+[submodule "individual-losses-api"]
+	path = individual-losses-api
+	url = https://github.com/tjwoodall/individual-losses-api.git
+[submodule "individual-tax"]
+	path = individual-tax
+	url = https://github.com/tjwoodall/individual-tax.git
+[submodule "individuals-capital-gains-income-api"]
+	path = individuals-capital-gains-income-api
+	url = https://github.com/tjwoodall/individuals-capital-gains-income-api.git
+[submodule "individuals-charges-api"]
+	path = individuals-charges-api
+	url = https://github.com/tjwoodall/individuals-charges-api.git
+[submodule "individuals-disclosures-api"]
+	path = individuals-disclosures-api
+	url = https://github.com/tjwoodall/individuals-disclosures-api.git
+[submodule "individuals-dividends-income-api"]
+	path = individuals-dividends-income-api
+	url = https://github.com/tjwoodall/individuals-dividends-income-api.git
+[submodule "individuals-employments-income-api"]
+	path = individuals-employments-income-api
+	url = https://github.com/tjwoodall/individuals-employments-income-api.git
+[submodule "individuals-expenses-api"]
+	path = individuals-expenses-api
+	url = https://github.com/tjwoodall/individuals-expenses-api.git
+[submodule "individuals-foreign-income-api"]
+	path = individuals-foreign-income-api
+	url = https://github.com/tjwoodall/individuals-foreign-income-api.git
+[submodule "individuals-insurance-policies-income-api"]
+	path = individuals-insurance-policies-income-api
+	url = https://github.com/tjwoodall/individuals-insurance-policies-income-api.git
+[submodule "individuals-other-income-api"]
+	path = individuals-other-income-api
+	url = https://github.com/tjwoodall/individuals-other-income-api.git
+[submodule "individuals-pensions-income-api"]
+	path = individuals-pensions-income-api
+	url = https://github.com/tjwoodall/individuals-pensions-income-api.git
+[submodule "individuals-reliefs-api"]
+	path = individuals-reliefs-api
+	url = https://github.com/tjwoodall/individuals-reliefs-api.git
+[submodule "individuals-savings-income-api"]
+	path = individuals-savings-income-api
+	url = https://github.com/tjwoodall/individuals-savings-income-api.git
+[submodule "individuals-state-benefits-api"]
+	path = individuals-state-benefits-api
+	url = https://github.com/tjwoodall/individuals-state-benefits-api.git
+[submodule "interest-restriction-return"]
+	path = interest-restriction-return
+	url = https://github.com/tjwoodall/interest-restriction-return.git
+[submodule "lisa-api"]
+	path = lisa-api
+	url = https://github.com/tjwoodall/lisa-api.git
+[submodule "marriage-allowance"]
+	path = marriage-allowance
+	url = https://github.com/tjwoodall/marriage-allowance.git
+[submodule "marriage-allowance-des-stub"]
+	path = marriage-allowance-des-stub
+	url = https://github.com/tjwoodall/marriage-allowance-des-stub.git
+[submodule "mtd-sa-test-support-api"]
+	path = mtd-sa-test-support-api
+	url = https://github.com/tjwoodall/mtd-sa-test-support-api.git
+[submodule "national-insurance"]
+	path = national-insurance
+	url = https://github.com/tjwoodall/national-insurance.git
+[submodule "national-insurance-des-stub"]
+	path = national-insurance-des-stub
+	url = https://github.com/tjwoodall/national-insurance-des-stub.git
+[submodule "obligations-api"]
+	path = obligations-api
+	url = https://github.com/tjwoodall/obligations-api.git
+[submodule "other-deductions-api"]
+	path = other-deductions-api
+	url = https://github.com/tjwoodall/other-deductions-api.git
+[submodule "paye-des-stub"]
+	path = paye-des-stub
+	url = https://github.com/tjwoodall/paye-des-stub.git
+[submodule "pillar2-submission-api"]
+	path = pillar2-submission-api
+	url = https://github.com/tjwoodall/pillar2-submission-api.git
+[submodule "property-business-api"]
+	path = property-business-api
+	url = https://github.com/tjwoodall/property-business-api.git
+[submodule "push-pull-notifications-api"]
+	path = push-pull-notifications-api
+	url = https://github.com/tjwoodall/push-pull-notifications-api.git
+[submodule "ras-api"]
+	path = ras-api
+	url = https://github.com/tjwoodall/ras-api.git
+[submodule "secure-data-exchange-bulk-download"]
+	path = secure-data-exchange-bulk-download
+	url = https://github.com/tjwoodall/secure-data-exchange-bulk-download.git
+[submodule "secure-data-exchange-service-misc-api"]
+	path = secure-data-exchange-service-misc-api
+	url = https://github.com/tjwoodall/secure-data-exchange-service-misc-api.git
+[submodule "self-assessment-accounts-api"]
+	path = self-assessment-accounts-api
+	url = https://github.com/tjwoodall/self-assessment-accounts-api.git
+[submodule "self-assessment-assist"]
+	path = self-assessment-assist
+	url = https://github.com/tjwoodall/self-assessment-assist.git
+[submodule "self-assessment-biss-api"]
+	path = self-assessment-biss-api
+	url = https://github.com/tjwoodall/self-assessment-biss-api.git
+[submodule "self-assessment-bsas-api"]
+	path = self-assessment-bsas-api
+	url = https://github.com/tjwoodall/self-assessment-bsas-api.git
+[submodule "self-assessment-individual-details-api"]
+	path = self-assessment-individual-details-api
+	url = https://github.com/tjwoodall/self-assessment-individual-details-api.git
+[submodule "self-assessment-liability-api"]
+	path = self-assessment-liability-api
+	url = https://github.com/tjwoodall/self-assessment-liability-api.git
+[submodule "self-employment-business-api"]
+	path = self-employment-business-api
+	url = https://github.com/tjwoodall/self-employment-business-api.git
+[submodule "third-party-payments-external-api"]
+	path = third-party-payments-external-api
+	url = https://github.com/tjwoodall/third-party-payments-external-api.git
+[submodule "trader-goods-profiles"]
+	path = trader-goods-profiles
+	url = https://github.com/tjwoodall/trader-goods-profiles.git
+[submodule "trader-goods-profiles-test-support"]
+	path = trader-goods-profiles-test-support
+	url = https://github.com/tjwoodall/trader-goods-profiles-test-support.git
+[submodule "txm-fph-validator-api"]
+	path = txm-fph-validator-api
+	url = https://github.com/tjwoodall/txm-fph-validator-api.git
+[submodule "uknw-auth-checker-api"]
+	path = uknw-auth-checker-api
+	url = https://github.com/tjwoodall/uknw-auth-checker-api.git
+[submodule "vat-api"]
+	path = vat-api
+	url = https://github.com/tjwoodall/vat-api.git
+[submodule "vat-registered-companies-api"]
+	path = vat-registered-companies-api
+	url = https://github.com/tjwoodall/vat-registered-companies-api.git
+[submodule "individuals-partner-income-api"]
+	path = individuals-partner-income-api
+	url = https://github.com/tjwoodall/individuals-partner-income-api.git
+[submodule "individuals-tax-liability-adjustments-api"]
+	path = individuals-tax-liability-adjustments-api
+	url = https://github.com/tjwoodall/individuals-tax-liability-adjustments-api.git
