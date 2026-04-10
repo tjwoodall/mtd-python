@@ -208,3 +208,9 @@
 [submodule "individuals-tax-liability-adjustments-api"]
 	path = individuals-tax-liability-adjustments-api
 	url = https://github.com/tjwoodall/individuals-tax-liability-adjustments-api.git
+[submodule "customs-declarations"]
+	path = customs-declarations
+	url = https://github.com/tjwoodall/customs-declarations.git
+[submodule "customs-declarations-information"]
+	path = customs-declarations-information
+	url = https://github.com/tjwoodall/customs-declarations-information.git
