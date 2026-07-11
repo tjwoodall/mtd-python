@@ -214,3 +214,6 @@
 [submodule "customs-declarations-information"]
 	path = customs-declarations-information
 	url = https://github.com/tjwoodall/customs-declarations-information.git
+[submodule "mtd-transaction-risking"]
+	path = mtd-transaction-risking
+	url = https://github.com/tjwoodall/mtd-transaction-risking.git
