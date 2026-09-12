@@ -217,3 +217,9 @@
 [submodule "mtd-transaction-risking"]
 	path = mtd-transaction-risking
 	url = https://github.com/tjwoodall/mtd-transaction-risking.git
+[submodule "address-lookup"]
+	path = address-lookup
+	url = https://github.com/tjwoodall/address-lookup.git
+[submodule "mobile-startup"]
+	path = mobile-startup
+	url = https://github.com/tjwoodall/mobile-startup.git
