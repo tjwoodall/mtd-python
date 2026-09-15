@@ -1,0 +1,518 @@
+{
+  "individual-employment": {
+    "1": {
+      "2": {
+        "components": {
+          "securitySchemes": {
+            "User-Restricted": {
+              "description": "HMRC supports OAuth 2.0 for authenticating [user-restricted](https://developer.service.hmrc.gov.uk/api-documentation/docs/authorisation/user-restricted-endpoints) API requests using an OAuth 2.0 Bearer Token in the Authorization header.",
+              "flows": {
+                "authorizationCode": {
+                  "authorizationUrl": "https://api.service.hmrc.gov.uk/oauth/authorize",
+                  "refreshUrl": "https://api.service.hmrc.gov.uk/oauth/refresh",
+                  "scopes": {
+                    "read:individual-employment": "Access employment history"
+                  },
+                  "tokenUrl": "https://api.service.hmrc.gov.uk/oauth/token"
+                }
+              },
+              "type": "oauth2"
+            }
+          }
+        },
+        "info": {
+          "description": "# Data availability\n\nData is only available for taxpayers who are registered for Self Assessment and had any employments in the given tax year.\n\nAlso, data is only available once PAYE reconciliation has completed. This is the process that determines whether the individual has paid the right amount of tax and, for PAYE-only taxpayers, results in a P800 in the event of [overpayment or underpayment.](https://www.gov.uk/tax-overpayments-and-underpayments)\n\nReconciliation starts on or around 6th June and runs for around one million individuals per working night. It has usually completed by the end of November. Unfortunately it is not possible to know when reconciliation will be complete for a specific individual.\n\nIf we are expecting a P11D, reconciliation will not start for that individual until we have received and processed the P11D. If we receive a P11D unexpectedly, we will re-run the reconciliation.\n\nData is no longer available once we have received and processed the corresponding Self Assessment return.\n\n# Data quality\n\nThe data from this API is based on information we receive from employers and pension providers.\n\nNote that:\n\n- Pension providers sometimes don't tell us that income has come from a pension. In these cases, \nthe API reports the income source as an employment.\n- If the individual received a State Pension lump sum in the given tax year, \nthis API will report it as an employment with a specific PAYE reference of `267/LS500`.\n\n# Authorisation\n\nThe endpoint in this API is [user-restricted](https://developer.service.hmrc.gov.uk/api-documentation/docs/authorisation/user-restricted-endpoints). \nYour users must grant authority for your software to access it by signing in to their HMRC online account.\n\nThe API supports individual and agent users. Note that:\n- Individual users can only access their own information.\n- Agent users can only access their own clients\u2019 data.\n\nThe following options are supported for agents:\n\n**Option 1: Agent services account**\n\nIf the agent uses an [agent services account](https://www.gov.uk/government/collections/hmrc-online-services-for-agents#agent-services-account), they can access their [existing 64-8 clients](https://www.gov.uk/guidance/how-to-get-authorised-to-act-as-a-tax-agent-on-behalf-of-your-clients#get-authorised-using-online-services-online-forms-or-paper-forms) who they have linked to their agent services account (restricted to 2 years\u2019 history).\n\n**Option 2: HMRC online services for agents account**\n\nIf the agent uses an [HMRC online services for agents account](https://www.gov.uk/government/collections/hmrc-online-services-for-agents#hmrc-online-services-for-agents-account) which is enrolled for [Self Assessment for Agents](https://www.gov.uk/guidance/self-assessment-for-agents-online-service), they will be able to access their [existing 64-8 clients](https://www.gov.uk/guidance/how-to-get-authorised-to-act-as-a-tax-agent-on-behalf-of-your-clients#get-authorised-using-online-services-online-forms-or-paper-forms) (restricted to 2 years\u2019 history).\n",
+          "title": "Individual Employment",
+          "version": "1.2"
+        },
+        "openapi": "3.0.3",
+        "paths": {
+          "/individual-employment/sa/{utr}/annual-summary/{taxYear}": {
+            "get": {
+              "deprecated": false,
+              "description": "Fetches an individual\u2019s employment history for the given tax year.",
+              "operationId": "getEmploymentHistory",
+              "parameters": [
+                {
+                  "description": "The 10 digit self-assessment UTR for the individual.",
+                  "in": "path",
+                  "name": "utr",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "2234567890"
+                  },
+                  "style": "simple"
+                },
+                {
+                  "description": "The tax year for the income being retrieved.",
+                  "in": "path",
+                  "name": "taxYear",
+                  "required": true,
+                  "schema": {
+                    "pattern": "^[0-9]{4}-[0-9]{2}$",
+                    "type": "string",
+                    "example": "2016-17"
+                  },
+                  "style": "simple"
+                },
+                {
+                  "description": "Specifies the response format and the [version](/api-documentation/docs/reference-guide#versioning) of the API to be used.",
+                  "in": "header",
+                  "name": "Accept",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "application/vnd.hmrc.1.2+json"
+                    ]
+                  },
+                  "style": "simple"
+                },
+                {
+                  "description": "An [OAuth 2.0 Bearer Token](/api-documentation/docs/authorisation/user-restricted-endpoints) with the `read:individual-employment` scope.",
+                  "in": "header",
+                  "name": "Authorization",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "Bearer bb7fed3fe10dd235a2ccda3d50fb"
+                  },
+                  "style": "simple"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "employments": [
+                          {
+                            "employerName": "Company XYZ",
+                            "employerPayeReference": "123/AB456",
+                            "offPayrollWorkFlag": true
+                          },
+                          {
+                            "employerName": "Company ABC",
+                            "employerPayeReference": "456/AB456",
+                            "offPayrollWorkFlag": false
+                          }
+                        ]
+                      },
+                      "schema": {
+                        "allOf": [
+                          {
+                            "title": "individualEmploymentSaAnnualSummaryResponse",
+                            "required": [
+                              "employments"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "employments": {
+                                "type": "array",
+                                "items": {
+                                  "title": "employment",
+                                  "required": [
+                                    "employerPayeReference",
+                                    "employerName"
+                                  ],
+                                  "type": "object",
+                                  "properties": {
+                                    "employerPayeReference": {
+                                      "type": "string",
+                                      "description": "The employer\u2019s PAYE reference. A value of 267/LS500 indicates a State Pension lump sum.",
+                                      "example": "123/AB456"
+                                    },
+                                    "employerName": {
+                                      "type": "string",
+                                      "description": "The name of the employer.",
+                                      "example": "Company XYZ"
+                                    },
+                                    "offPayrollWorkFlag": {
+                                      "type": "boolean",
+                                      "description": "The value of OPW flag.",
+                                      "example": false
+                                    }
+                                  }
+                                },
+                                "description": "An unordered list of one or more employments which the taxpayer had in the given tax year."
+                              }
+                            },
+                            "description": "Employers PAYE Charges"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "OK"
+                },
+                "400": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "invalidTaxYear": {
+                          "description": "Invalid tax year",
+                          "value": {
+                            "code": "TAX_YEAR_INVALID",
+                            "message": "The provided Tax Year is invalid"
+                          }
+                        },
+                        "invalidUtr": {
+                          "description": "Invalid UTR",
+                          "value": {
+                            "code": "SA_UTR_INVALID",
+                            "message": "The provided SA UTR is invalid"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "allOf": [
+                          {
+                            "title": "errorResponse",
+                            "required": [
+                              "code",
+                              "message"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "The error code"
+                              },
+                              "message": {
+                                "type": "string",
+                                "description": "The error message"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Bad Request"
+                },
+                "401": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "unauthorisedUser": {
+                          "description": "User not authorised to access data for given UTR",
+                          "value": {
+                            "code": "UNAUTHORIZED",
+                            "message": "Bearer token is missing or not authorized"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "allOf": [
+                          {
+                            "title": "errorResponse",
+                            "required": [
+                              "code",
+                              "message"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "The error code"
+                              },
+                              "message": {
+                                "type": "string",
+                                "description": "The error message"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Unauthorized"
+                },
+                "404": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "unmatchedRecipient": {
+                          "description": "Data not available for given UTR and tax year (see the data availability section for more details)",
+                          "value": {
+                            "code": "NOT_FOUND",
+                            "message": "Resource was not found"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "allOf": [
+                          {
+                            "title": "errorResponse",
+                            "required": [
+                              "code",
+                              "message"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "The error code"
+                              },
+                              "message": {
+                                "type": "string",
+                                "description": "The error message"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Not Found"
+                },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "HTTPS_REQUIRED",
+                              "RESOURCE_FORBIDDEN",
+                              "INVALID_SCOPE",
+                              "FORBIDDEN"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "RESOURCE_FORBIDDEN",
+                          "message": "The application is not subscribed to the API which it is attempting to invoke"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "405": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "METHOD_NOT_ALLOWED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "METHOD_NOT_ALLOWED",
+                          "message": "Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "406": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "ACCEPT_HEADER_INVALID"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "ACCEPT_HEADER_INVALID",
+                          "message": "Missint or invalid Accept header"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "429": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MESSAGE_THROTTLED_OUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MESSAGE_THROTTLED_OUT",
+                          "message": "The application has reached its maximum rate limit"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "500": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "Error Code",
+                                "enum": [
+                                  "INTERNAL_SERVER_ERROR"
+                                ]
+                              },
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object",
+                            "example": {
+                              "code": "INTERNAL_SERVER_ERROR",
+                              "message": "Internal server error"
+                            }
+                          },
+                          {
+                            "type": "string",
+                            "example": "Failed to process request"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "501": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "NOT_IMPLEMENTED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "NOT_IMPLEMENTED",
+                          "message": "API not implemented or deployed"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "503": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "SERVER_ERROR",
+                              "SCHEDULED_MAINTENANCE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "SCHEDULED_MAINTENANCE",
+                          "message": "Scheduled maintenance"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "504": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "GATEWAY_TIMEOUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "GATEWAY_TIMEOUT",
+                          "message": "Request timed out"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                }
+              },
+              "security": [
+                {
+                  "User-Restricted": [
+                    "read:individual-employment"
+                  ]
+                }
+              ],
+              "summary": "Get employment history",
+              "tags": [
+                "individual-employment"
+              ]
+            }
+          }
+        },
+        "servers": [
+          {
+            "description": "Sandbox",
+            "url": "https://test-api.service.hmrc.gov.uk"
+          },
+          {
+            "description": "Production",
+            "url": "https://api.service.hmrc.gov.uk"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,783 @@
+{
+  "third-party-payments-external-api": {
+    "1": {
+      "0": {
+        "components": {
+          "securitySchemes": {
+            "Application-Restricted": {
+              "description": "HMRC supports OAuth 2.0 for authenticating application restricted API requests using an OAuth 2.0 Bearer Token in the AUTHORIZATION header.\nSee https://developer.service.hmrc.gov.uk/api-documentation/docs/authorisation/application-restricted-endpoints for details.\n",
+              "flows": {
+                "clientCredentials": {
+                  "scopes": {},
+                  "tokenUrl": "https://api.service.hmrc.gov.uk/oauth/token"
+                }
+              },
+              "type": "oauth2"
+            },
+            "User-Restricted": {
+              "description": "HMRC supports OAuth 2.0 for authenticating user restricted API requests using an OAuth 2.0 Bearer Token in the AUTHORIZATION header.\nSee https://developer.service.hmrc.gov.uk/api-documentation/docs/authorisation/user-restricted-endpoints for details.\n",
+              "flows": {
+                "authorizationCode": {
+                  "authorizationUrl": "https://api.service.hmrc.gov.uk/oauth/authorize",
+                  "refreshUrl": "https://api.service.hmrc.gov.uk/oauth/refresh",
+                  "scopes": {
+                    "status": "Update the status of fraud check"
+                  },
+                  "tokenUrl": "https://api.service.hmrc.gov.uk/oauth/token"
+                }
+              },
+              "type": "oauth2"
+            }
+          }
+        },
+        "info": {
+          "description": "This API allows users to trigger an HMRC payment journey from their software. \n\nThe workflow enables an API user to redirect a customer through to an HMRC payment journey. \nIf an optional back-url was provided by the API user we will offer this as a link to the customer to continue their journey.\n\nAdditional details about the outcome of the payment can be discovered \nby the API user by taking advantage of the /status endpoint.\n\nTypical lifetimes for journey storage are not yet determined.\n",
+          "title": "Initiate payment",
+          "version": "1.0.3"
+        },
+        "openapi": "3.0.3",
+        "paths": {
+          "/pay": {
+            "post": {
+              "description": "After a successful call to the /pay endpoint, the API user receives JSON with a redirection URL. The API user\nthen redirects the customer's browser to this URL, starting the payment journey.\n",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "title": "Pay request schema",
+                      "description": "The JSON describing an HMRC third party payment /pay payload.",
+                      "type": "object",
+                      "required": [
+                        "taxRegime",
+                        "reference",
+                        "amountInPence"
+                      ],
+                      "properties": {
+                        "taxRegime": {
+                          "type": "string",
+                          "description": "The tax regime under which the liability has arisen. One of a fixed set. Currently supported regimes are: Self Assessment and Vat.\n",
+                          "enum": [
+                            "SelfAssessment",
+                            "Vat"
+                          ],
+                          "example": "SelfAssessment"
+                        },
+                        "reference": {
+                          "description": "The reference identifying the tax liability. For Self Assessment this is the 10 digit Unique Taxpayer Reference. For VAT this is the 9-digit VAT registration number.",
+                          "type": "string",
+                          "example": "1097172564"
+                        },
+                        "amountInPence": {
+                          "description": "The amount to be paid in pence, so \u00a312.34 is 1234, must be greater than or equal to 0. If 0 is provided, the user will be prompted to enter an amount. If non zero is provided, the user will be prompted to select the amount or enter another amount.",
+                          "type": "integer",
+                          "minimum": 0,
+                          "exclusiveMinimum": false,
+                          "example": 1234
+                        },
+                        "backURL": {
+                          "description": "If this is present HMRC will offer this as a link to the customer at the end of the journey, this link can allow them to return to their software.",
+                          "type": "string",
+                          "format": "uri",
+                          "example": "https://some-accounting-software.com/after-pay/a218f71d9bf2438e851c71d50866c2e9"
+                        },
+                        "friendlyName": {
+                          "description": "The name of the software that the user started their payment from. If this is present, then we will display a link to help users go back to their software which says \"return to &lt;friendlyName&gt;\"",
+                          "type": "string",
+                          "example": "Accounting Software Company X"
+                        }
+                      }
+                    }
+                  }
+                },
+                "description": "The request body always contains the fields that allow HMRC to identify the liability that is being paid, so \nthat the funds are not mis-allocated. The required fields are the taxRegime, the reference and amountInPence.\nThe backURL is an optional field containing a url to return the user to after they finish their payment.\nThe friendlyName is an optional field to let the user know where they are being returned to after they finish their payment.\nIf a field is labeled as optional, we intend this to mean that it should be *omitted entirely* - not sent through with a null value etc.\n",
+                "required": true
+              },
+              "responses": {
+                "201": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "clientJourneyId": "a218f71d-9bf2-438e-851c-71d50866c2e9",
+                        "redirectURL": "https://tax.gov.uk/payments/start/jhdugiuygdwuygsxajvbh"
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "redirectURL": {
+                            "type": "string",
+                            "description": "The URL to direct the customer browser to in order to initiate the customer payment journey"
+                          },
+                          "clientJourneyId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "The client identifier created by HMRC for this journey. This will be a UUID (version 4, variant 2). This field is used to identify the journey in calls to the /status endpoint."
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "Created. Body contains url to redirect user to and a UUID to look up the status of the payment journey with."
+                },
+                "400": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "errors": [
+                          "Mandatory reference field was omitted."
+                        ]
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "errors": {
+                            "type": "array",
+                            "description": "The array contains the list of error messages.",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "Bad Request.\n\nA 400 response represents a malformed request. The returned JSON will attempt to guide\nthe API user to the problem.\n"
+                },
+                "500": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "errors": [
+                          "Error from upstream"
+                        ]
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "errors": {
+                            "type": "array",
+                            "description": "The array contains the list of error messages.",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "An error occurred upstream and could not be recovered from."
+                },
+                "401": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MISSING_CREDENTIALS",
+                              "INVALID_CREDENTIALS",
+                              "UNAUTHORIZED",
+                              "INCORRECT_ACCESS_TOKEN_TYPE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MISSING_CREDENTIALS",
+                          "message": "Authentication information is not provided"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "HTTPS_REQUIRED",
+                              "RESOURCE_FORBIDDEN",
+                              "INVALID_SCOPE",
+                              "FORBIDDEN"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "RESOURCE_FORBIDDEN",
+                          "message": "The application is not subscribed to the API which it is attempting to invoke"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "404": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MATCHING_RESOURCE_NOT_FOUND"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MATCHING_RESOURCE_NOT_FOUND",
+                          "message": "No endpoint for the request path"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "405": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "METHOD_NOT_ALLOWED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "METHOD_NOT_ALLOWED",
+                          "message": "Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "406": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "ACCEPT_HEADER_INVALID"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "ACCEPT_HEADER_INVALID",
+                          "message": "Missint or invalid Accept header"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "429": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MESSAGE_THROTTLED_OUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MESSAGE_THROTTLED_OUT",
+                          "message": "The application has reached its maximum rate limit"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "501": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "NOT_IMPLEMENTED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "NOT_IMPLEMENTED",
+                          "message": "API not implemented or deployed"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "503": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "SERVER_ERROR",
+                              "SCHEDULED_MAINTENANCE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "SCHEDULED_MAINTENANCE",
+                          "message": "Scheduled maintenance"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "504": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "GATEWAY_TIMEOUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "GATEWAY_TIMEOUT",
+                          "message": "Request timed out"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                }
+              },
+              "security": [
+                {
+                  "Application-Restricted": []
+                }
+              ],
+              "summary": "Begin a payment journey."
+            }
+          },
+          "/status": {
+            "get": {
+              "description": "The API user can check the payment status by providing the clientJourneyId used \nwhen the payment journey was created.\nThe JSON body returned will include the clientJourneyId, the taxRegime, the amountInPence paid and also the paymentStatus.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is *only available in the sandbox environment*.\nYou will not be able to access the frontend screens to complete the journey, but you can use headers in the POST request \nto set a journey into a certain state. To achieve this send a Gov-Test-Scenario header with a value matching one of the values below. \n\n| Header Value (Gov-Test-Scenario) | Scenario description                                        |\n| -------------------------------- | ----------------------------------------------------------- |\n| COMPLETED                        | The payment has completed and the transfer is made.         |\n| FAILED                           | The payment has failed for one of the following reasons: <br> - The payment was cancelled by the user or timed out at the bank during the payment process. <br> - The bank or building society has rejected the payment. <br> - The payment has failed due to an error. |\n| IN_PROGRESS                      | The payment is in progress but has not completed or failed. |\n",
+              "parameters": [
+                {
+                  "description": "The identifier for the payment journey.",
+                  "in": "query",
+                  "name": "clientJourneyId",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "a218f71d-9bf2-438e-851c-71d50866c2e9"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "amountInPence": 1453,
+                        "clientJourneyId": "a218f71d-9bf2-438e-851c-71d50866c2e9",
+                        "paymentStatus": "Completed",
+                        "taxRegime": "SelfAssessment"
+                      },
+                      "schema": {
+                        "type": "object",
+                        "required": [
+                          "clientJourneyId",
+                          "taxRegime",
+                          "amountInPence",
+                          "paymentStatus"
+                        ],
+                        "properties": {
+                          "clientJourneyId": {
+                            "type": "string",
+                            "description": "The identifier for the payment journey.",
+                            "example": "a218f71d-9bf2-438e-851c-71d50866c2e9"
+                          },
+                          "taxRegime": {
+                            "type": "string",
+                            "description": "The tax regime under which the liability has arisen. One of a fixed set.",
+                            "enum": [
+                              "SelfAssessment",
+                              "Vat"
+                            ],
+                            "example": "SelfAssessment"
+                          },
+                          "amountInPence": {
+                            "description": "Represents the amount actually paid, in pence.",
+                            "type": "integer",
+                            "example": 3456
+                          },
+                          "paymentStatus": {
+                            "description": "The status of the payment within the HMRC system.\n",
+                            "type": "string",
+                            "enum": [
+                              "Completed",
+                              "Failed",
+                              "InProgress"
+                            ],
+                            "example": "Completed"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "A payment matching the query was found and the details returned in the JSON response\n"
+                },
+                "400": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "error": "Mandatory clientJourneyId field of query was omitted."
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string",
+                            "description": "An error containing what may be wrong with the request.\n"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "A malformed request. The returned JSON will attempt to guide\nthe API user to the problem.\n"
+                },
+                "404": {
+                  "description": "Either the payment journey never existed, or HMRC no longer has a record of the journey.\n"
+                },
+                "401": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MISSING_CREDENTIALS",
+                              "INVALID_CREDENTIALS",
+                              "UNAUTHORIZED",
+                              "INCORRECT_ACCESS_TOKEN_TYPE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MISSING_CREDENTIALS",
+                          "message": "Authentication information is not provided"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "HTTPS_REQUIRED",
+                              "RESOURCE_FORBIDDEN",
+                              "INVALID_SCOPE",
+                              "FORBIDDEN"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "RESOURCE_FORBIDDEN",
+                          "message": "The application is not subscribed to the API which it is attempting to invoke"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "405": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "METHOD_NOT_ALLOWED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "METHOD_NOT_ALLOWED",
+                          "message": "Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "406": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "ACCEPT_HEADER_INVALID"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "ACCEPT_HEADER_INVALID",
+                          "message": "Missint or invalid Accept header"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "429": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MESSAGE_THROTTLED_OUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MESSAGE_THROTTLED_OUT",
+                          "message": "The application has reached its maximum rate limit"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "500": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "Error Code",
+                                "enum": [
+                                  "INTERNAL_SERVER_ERROR"
+                                ]
+                              },
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object",
+                            "example": {
+                              "code": "INTERNAL_SERVER_ERROR",
+                              "message": "Internal server error"
+                            }
+                          },
+                          {
+                            "type": "string",
+                            "example": "Failed to process request"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "501": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "NOT_IMPLEMENTED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "NOT_IMPLEMENTED",
+                          "message": "API not implemented or deployed"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "503": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "SERVER_ERROR",
+                              "SCHEDULED_MAINTENANCE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "SCHEDULED_MAINTENANCE",
+                          "message": "Scheduled maintenance"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "504": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "GATEWAY_TIMEOUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "GATEWAY_TIMEOUT",
+                          "message": "Request timed out"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                }
+              },
+              "security": [
+                {
+                  "Application-Restricted": []
+                }
+              ],
+              "summary": "Discover the status of a payment."
+            }
+          }
+        },
+        "servers": [
+          {
+            "description": "Sandbox",
+            "url": "https://test-api.service.hmrc.gov.uk/payments/make-payment"
+          },
+          {
+            "description": "Production",
+            "url": "https://api.service.hmrc.gov.uk/payments/make-payment"
+          }
+        ]
+      }
+    }
+  }
+}

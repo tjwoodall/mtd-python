@@ -1,0 +1,1580 @@
+{
+  "obligations-api": {
+    "3": {
+      "0": {
+        "components": {
+          "securitySchemes": {
+            "User-Restricted": {
+              "description": "HMRC supports OAuth 2.0 for authenticating [User-restricted](https://developer.service.hmrc.gov.uk/api-documentation/docs/authorisation/user-restricted-endpoints) API requests",
+              "flows": {
+                "authorizationCode": {
+                  "authorizationUrl": "https://api.service.hmrc.gov.uk/oauth/authorize",
+                  "refreshUrl": "https://api.service.hmrc.gov.uk/oauth/refresh",
+                  "scopes": {
+                    "read:self-assessment": "Grant read access",
+                    "write:self-assessment": "Grant write access"
+                  },
+                  "tokenUrl": "https://api.service.hmrc.gov.uk/oauth/token"
+                }
+              },
+              "type": "oauth2"
+            }
+          }
+        },
+        "info": {
+          "description": "# Send fraud prevention data\nHMRC monitors transactions to help protect your customers' confidential data from criminals and fraudsters. \n\n<div class=\"govuk-warning-text warning-icon-fix\">\n  <span class=\"govuk-warning-text__icon warning-icon-ui-fix\" aria-hidden=\"true\">!</span>\n  <strong class=\"govuk-warning-text__text\">\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\n    You are required by law to submit header data for this API. This includes all associated APIs and endpoints.\n  </strong>\n</div>\n\n[Check the data you need to send](/guides/fraud-prevention/). You can also use the [Test API](/api-documentation/docs/api/service/txm-fph-validator-api/1.0) during initial development and as part of your quality assurance checks.\n\n# Changelog\nYou can find the changelog in the [income-tax-mtd-changelog](https://github.com/hmrc/income-tax-mtd-changelog/#readme) GitHub wiki.\n\n\n# Support\n\n* Direct reports of bugs or errors in Production or Sandbox code, or queries about HMRC business functionality (such as how a specific field is used by HMRC or why it is needed) to the [Software Development Support Team (SDST)](https://developer.service.hmrc.gov.uk/developer/support).\n* Send queries or feedback related to the design of the APIs (including recommended changes) using the [income-tax-mtd-changelog](https://github.com/hmrc/income-tax-mtd-changelog/issues) GitHub page.\n* <a href=\"/contact/report-technical-problem?newTab=true&service=api-documentation-frontend\" target=\"_blank\">Is this page not working properly? (opens in new tab)</a>\n",
+          "title": "Obligations (MTD)",
+          "version": "3.0"
+        },
+        "openapi": "3.0.3",
+        "paths": {
+          "/obligations/details/{nino}/crystallisation": {
+            "get": {
+              "description": "This endpoint allows a developer to retrieve the final declaration (previously known as crystallisation) obligations for a customer\u2019s Income Tax account. The account identifier (National Insurance number) must be provided.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario)      | Scenario                                                                               |\n|---------------------------------------|----------------------------------------------------------------------------------------|\n| N/A - DEFAULT                         | Simulates a success response with an open obligation.                                  |\n| MULTIPLE                              | Simulates a success response with multiple obligations.                                |\n| INSOLVENT_TRADER                      | Simulates a scenario where the remote endpoint indicates that the trader is insolvent. |\n| NOT_FOUND                             | Simulates a scenario where no data is found.                                           |\n| DYNAMIC                               | The following response values will change to correspond to the values submitted in the request: <br/> \u2022 periodStartDate <br/> \u2022 periodEndDate <br/> \u2022 dueDate <br/> \u2022 receivedDate|\n",
+              "parameters": [
+                {
+                  "description": "National Insurance number, in the format `AA999999A`\n",
+                  "in": "path",
+                  "name": "nino",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "TC663795B"
+                  }
+                },
+                {
+                  "description": "The tax year the data applies to.\n\nIf a tax year is not specified, returns all obligations starting from 4 years before the current tax year.\n\nFor example, if current tax year is 2023-24 and no tax year is specified, all obligations from 2019-20 to 2023-24 are returned.\n\nThe earliest allowable tax year is 2017-18.\n",
+                  "in": "query",
+                  "name": "taxYear",
+                  "required": false,
+                  "schema": {
+                    "type": "string",
+                    "example": "2022-23"
+                  }
+                },
+                {
+                  "description": "Status of the obligations to return.\n\nAccepted values are \u2018open\u2019 and \u2018fulfilled\u2019. If no status is supplied, both open and fulfilled obligations are returned.\n",
+                  "in": "query",
+                  "name": "status",
+                  "required": false,
+                  "schema": {
+                    "type": "string",
+                    "example": "open"
+                  }
+                },
+                {
+                  "description": "Specifies the response format and the version of the API to be used.\n",
+                  "in": "header",
+                  "name": "Accept",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "application/vnd.hmrc.3.0+json"
+                    ]
+                  }
+                },
+                {
+                  "description": "An OAuth 2.0 Bearer Token with the *read:self-assessment* scope.\n",
+                  "in": "header",
+                  "name": "Authorization",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "Bearer bb7fed3fe10dd235a2ccda3d50fb"
+                  }
+                },
+                {
+                  "description": "Only in sandbox environment. See Test Data table for all header values.\n",
+                  "in": "header",
+                  "name": "Gov-Test-Scenario",
+                  "required": false,
+                  "schema": {
+                    "type": "string",
+                    "example": "-"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "example-1": {
+                          "description": "Default",
+                          "value": {
+                            "obligations": [
+                              {
+                                "dueDate": "2020-01-31",
+                                "periodEndDate": "2019-04-05",
+                                "periodStartDate": "2018-04-06",
+                                "receivedDate": "2020-01-25",
+                                "status": "fulfilled"
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "schema": {
+                        "$schema": "http://json-schema.org/draft-04/schema#",
+                        "title": "Retrieve Income Tax Crystallisation Obligations",
+                        "description": "An array to return one or more businesses and their obligations details.",
+                        "type": "object",
+                        "properties": {
+                          "obligations": {
+                            "type": "array",
+                            "description": "An array to return one or more final declaration obligation details.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "periodStartDate": {
+                                  "description": "The start date of this obligation period. Date in the format YYYY-MM-DD.",
+                                  "type": "string",
+                                  "example": "2018-04-06"
+                                },
+                                "periodEndDate": {
+                                  "description": "The end date of this obligation period. Date in the format YYYY-MM-DD.",
+                                  "type": "string",
+                                  "example": "2019-04-05"
+                                },
+                                "dueDate": {
+                                  "description": "The due date for this obligation period. Date in the format YYYY-MM-DD.",
+                                  "type": "string",
+                                  "example": "2020-01-31"
+                                },
+                                "status": {
+                                  "description": "The status of the obligation, one of: `open` or `fulfilled`.",
+                                  "type": "string",
+                                  "enum": [
+                                    "open",
+                                    "fulfilled"
+                                  ]
+                                },
+                                "receivedDate": {
+                                  "description": "The date this obligation period was fulfilled. Date in the format YYYY-MM-DD.",
+                                  "type": "string",
+                                  "example": "2019-12-15"
+                                }
+                              },
+                              "required": [
+                                "periodStartDate",
+                                "periodEndDate",
+                                "dueDate",
+                                "status"
+                              ],
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "obligations"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "description": "Success",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "URL of the documentation for the API.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/obligations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "FORMAT_NINO": {
+                          "description": "The format of the supplied NINO field is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_NINO",
+                            "message": "The provided NINO is invalid"
+                          }
+                        },
+                        "FORMAT_STATUS": {
+                          "description": "The format of the status field is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_STATUS",
+                            "message": "The provided status is invalid"
+                          }
+                        },
+                        "FORMAT_TAX_YEAR": {
+                          "description": "The format of the tax year field is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_TAX_YEAR",
+                            "message": "The provided tax year is invalid"
+                          }
+                        },
+                        "RULE_INCORRECT_GOV_TEST_SCENARIO": {
+                          "description": "The request did not match any available sandbox data. \nCheck that the supplied Gov-Test-Scenario is correct for this endpoint version. \nThis error will only be returned in the sandbox environment.\n",
+                          "value": {
+                            "code": "RULE_INCORRECT_GOV_TEST_SCENARIO",
+                            "message": "The supplied Gov-Test-Scenario is not valid"
+                          }
+                        },
+                        "RULE_INSOLVENT_TRADER": {
+                          "description": "The request could not be completed as it relates to an insolvent trader, which are not supported by this API.\n",
+                          "value": {
+                            "code": "RULE_INSOLVENT_TRADER",
+                            "message": "The remote endpoint has indicated that the Trader is insolvent"
+                          }
+                        },
+                        "RULE_TAX_YEAR_NOT_SUPPORTED": {
+                          "description": "The specified tax year is not supported.  Either the tax year is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "value": {
+                            "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
+                            "message": "The tax year specified does not lie within the supported range"
+                          }
+                        },
+                        "RULE_TAX_YEAR_RANGE_INVALID": {
+                          "description": "Tax year range invalid. A tax year range of one year is required.\n",
+                          "value": {
+                            "code": "RULE_TAX_YEAR_RANGE_INVALID",
+                            "message": "A tax year range of one year is required"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "description": "Error Response",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "description": "The error code",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "The error message",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Bad request",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "URL of the documentation for the API.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/obligations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "CLIENT_OR_AGENT_NOT_AUTHORISED": {
+                          "description": "The client or agent is not authorised. This is because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.\n",
+                          "value": {
+                            "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
+                            "message": "The client or agent is not authorised"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "description": "Error Response",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "description": "The error code",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "The error message",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Forbidden",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "URL of the documentation for the API.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/obligations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "MATCHING_RESOURCE_NOT_FOUND": {
+                          "description": "The supplied income source could not be found.\n",
+                          "value": {
+                            "code": "MATCHING_RESOURCE_NOT_FOUND",
+                            "message": "Matching resource not found"
+                          }
+                        },
+                        "NO_OBLIGATIONS_FOUND": {
+                          "description": "No obligations found using this filter.\n",
+                          "value": {
+                            "code": "NO_OBLIGATIONS_FOUND",
+                            "message": "No obligations found using this filter"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "description": "Error Response",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "description": "The error code",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "The error message",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Not Found",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "URL of the documentation for the API.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/obligations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "401": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MISSING_CREDENTIALS",
+                              "INVALID_CREDENTIALS",
+                              "UNAUTHORIZED",
+                              "INCORRECT_ACCESS_TOKEN_TYPE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MISSING_CREDENTIALS",
+                          "message": "Authentication information is not provided"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "405": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "METHOD_NOT_ALLOWED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "METHOD_NOT_ALLOWED",
+                          "message": "Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "406": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "ACCEPT_HEADER_INVALID"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "ACCEPT_HEADER_INVALID",
+                          "message": "Missint or invalid Accept header"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "429": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MESSAGE_THROTTLED_OUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MESSAGE_THROTTLED_OUT",
+                          "message": "The application has reached its maximum rate limit"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "500": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "Error Code",
+                                "enum": [
+                                  "INTERNAL_SERVER_ERROR"
+                                ]
+                              },
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object",
+                            "example": {
+                              "code": "INTERNAL_SERVER_ERROR",
+                              "message": "Internal server error"
+                            }
+                          },
+                          {
+                            "type": "string",
+                            "example": "Failed to process request"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "501": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "NOT_IMPLEMENTED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "NOT_IMPLEMENTED",
+                          "message": "API not implemented or deployed"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "503": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "SERVER_ERROR",
+                              "SCHEDULED_MAINTENANCE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "SCHEDULED_MAINTENANCE",
+                          "message": "Scheduled maintenance"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "504": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "GATEWAY_TIMEOUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "GATEWAY_TIMEOUT",
+                          "message": "Request timed out"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                }
+              },
+              "security": [
+                {
+                  "User-Restricted": [
+                    "read:self-assessment"
+                  ]
+                }
+              ],
+              "summary": "Retrieve Income Tax (Self Assessment) Final Declaration Obligations"
+            }
+          },
+          "/obligations/details/{nino}/income-and-expenditure": {
+            "get": {
+              "description": "This endpoint allows a developer to retrieve obligations for a user's business income sources. The account identifier (National Insurance number) must be provided.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario)      | Scenario                                                                               |\n|---------------------------------------|----------------------------------------------------------------------------------------|\n| N/A - DEFAULT                         | Simulates a success response.                                                          |\n| OPEN                                  | Simulates a success response with an open obligation. <br/><br/>For a response with a self-employment business, use businessId: <br/> \u2022 XBIS12345678903 <br/>For a response with a UK property business, use businessId: <br/> \u2022 XPIS12345678903 <br/>For a response with a foreign property business, use businessId: <br/> \u2022 XFIS12345678903 |\n| FULFILLED                             | Simulates a success response with a fulfilled obligation. <br/><br/>For a response with a self-employment business, use businessId: <br/> \u2022 XBIS12345678902 <br/>For a response with a UK property business, use businessId: <br/> \u2022 XPIS12345678902 <br/>For a response with a foreign property business, use businessId: <br/> \u2022 XFIS12345678902 |\n| INSOLVENT_TRADER                      | Simulates a scenario where the remote endpoint indicates that the trader is insolvent. |\n| NOT_FOUND                             | Simulates a scenario where no data is found.                                           |\n| NO_OBLIGATIONS_FOUND                  | Simulates a scenario where no obligations are found.                                   |\n| DYNAMIC                               | The following response values will change to correspond to the values submitted in the request: <br/> \u2022 fromDate <br/> \u2022 toDate <br/> \u2022 status (open or fulfilled) <br/><br/>For a response with a self-employment business, use businessId: <br/> \u2022 XBIS12345678901 <br/>For a response with a UK property business, use businessId: <br/> \u2022 XPIS12345678901 <br/>For a response with a foreign property business, use businessId: <br/> \u2022 XFIS12345678901 |\n| CUMULATIVE                            | Simulates a success response with cumulative quarterly updates.                        |\n",
+              "parameters": [
+                {
+                  "description": "National Insurance number, in the format `AA999999A`\n",
+                  "in": "path",
+                  "name": "nino",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "TC663795B"
+                  }
+                },
+                {
+                  "description": "The type of business whose obligations are to be returned.\nIf the type is not specified the default is to return obligations for all businesses.\nThe type must be provided if \"businessId\" is provided.\n",
+                  "in": "query",
+                  "name": "typeOfBusiness",
+                  "required": false,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "self-employment",
+                      "uk-property",
+                      "foreign-property"
+                    ],
+                    "example": "self-employment"
+                  }
+                },
+                {
+                  "description": "The unique identifier for the business whose obligations are to be returned.\n",
+                  "in": "query",
+                  "name": "businessId",
+                  "required": false,
+                  "schema": {
+                    "type": "string",
+                    "pattern": "^X[a-zA-Z0-9]{1}IS[0-9]{11}$",
+                    "example": "XAIS12345678901"
+                  }
+                },
+                {
+                  "description": "The start date of the range to filter obligations in the format YYYY-MM-DD.\nMandatory if the \u201cto\u201d query parameter is supplied. If the \u201cfrom\u201d and \u201cto\u201d date parameters are not supplied, the date range will default to a year from today unless the status parameter is set to \"open\".\nThe toDate & fromDate can be a maximum of 366 days apart.\n",
+                  "in": "query",
+                  "name": "fromDate",
+                  "required": false,
+                  "schema": {
+                    "type": "string",
+                    "example": "2018-04-06"
+                  }
+                },
+                {
+                  "description": "The end date of the range to filter obligations in the format YYYY-MM-DD.\nMandatory if the \u201cfrom\u201d query parameter is supplied. If the \u201cfrom\u201d and \u201cto\u201d date parameters are not supplied, the date range will default to a year from today unless the status parameter is set to \"open\".\nThe toDate & fromDate can be a maximum of 366 days apart.\n",
+                  "in": "query",
+                  "name": "toDate",
+                  "required": false,
+                  "schema": {
+                    "type": "string",
+                    "example": "2019-04-05"
+                  }
+                },
+                {
+                  "description": "Status of the obligations to return.\n\nAccepted values are \u2018open\u2019 and \u2018fulfilled\u2019. If no status is supplied, both open and fulfilled obligations are returned.\n",
+                  "in": "query",
+                  "name": "status",
+                  "required": false,
+                  "schema": {
+                    "type": "string",
+                    "example": "open"
+                  }
+                },
+                {
+                  "description": "Specifies the response format and the version of the API to be used.\n",
+                  "in": "header",
+                  "name": "Accept",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "application/vnd.hmrc.3.0+json"
+                    ]
+                  }
+                },
+                {
+                  "description": "An OAuth 2.0 Bearer Token with the *read:self-assessment* scope.\n",
+                  "in": "header",
+                  "name": "Authorization",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "Bearer bb7fed3fe10dd235a2ccda3d50fb"
+                  }
+                },
+                {
+                  "description": "Only in sandbox environment. See Test Data table for all header values.\n",
+                  "in": "header",
+                  "name": "Gov-Test-Scenario",
+                  "required": false,
+                  "schema": {
+                    "type": "string",
+                    "example": "-"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "Cumulative response for TY 2025-26": {
+                          "value": {
+                            "obligations": [
+                              {
+                                "businessId": "XAIS12345678910",
+                                "obligationDetails": [
+                                  {
+                                    "dueDate": "2025-08-05",
+                                    "periodEndDate": "2025-07-05",
+                                    "periodStartDate": "2025-04-06",
+                                    "receivedDate": "2025-08-01",
+                                    "status": "fulfilled"
+                                  },
+                                  {
+                                    "dueDate": "2025-11-05",
+                                    "periodEndDate": "2025-10-05",
+                                    "periodStartDate": "2025-04-06",
+                                    "receivedDate": "2025-11-01",
+                                    "status": "fulfilled"
+                                  },
+                                  {
+                                    "dueDate": "2026-02-05",
+                                    "periodEndDate": "2026-01-05",
+                                    "periodStartDate": "2025-04-06",
+                                    "receivedDate": "2026-02-01",
+                                    "status": "fulfilled"
+                                  },
+                                  {
+                                    "dueDate": "2026-05-05",
+                                    "periodEndDate": "2026-04-05",
+                                    "periodStartDate": "2025-04-06",
+                                    "status": "open"
+                                  }
+                                ],
+                                "typeOfBusiness": "self-employment"
+                              }
+                            ]
+                          }
+                        },
+                        "Cumulative response for TY 2026-27 and after": {
+                          "value": {
+                            "obligations": [
+                              {
+                                "businessId": "XAIS12345678910",
+                                "obligationDetails": [
+                                  {
+                                    "dueDate": "2026-08-07",
+                                    "periodEndDate": "2026-07-05",
+                                    "periodStartDate": "2026-04-06",
+                                    "receivedDate": "2026-08-01",
+                                    "status": "fulfilled"
+                                  },
+                                  {
+                                    "dueDate": "2026-11-07",
+                                    "periodEndDate": "2026-10-05",
+                                    "periodStartDate": "2026-04-06",
+                                    "receivedDate": "2026-11-01",
+                                    "status": "fulfilled"
+                                  },
+                                  {
+                                    "dueDate": "2027-02-07",
+                                    "periodEndDate": "2027-01-05",
+                                    "periodStartDate": "2026-04-06",
+                                    "receivedDate": "2027-02-01",
+                                    "status": "fulfilled"
+                                  },
+                                  {
+                                    "dueDate": "2027-05-07",
+                                    "periodEndDate": "2027-04-05",
+                                    "periodStartDate": "2026-04-06",
+                                    "status": "open"
+                                  }
+                                ],
+                                "typeOfBusiness": "self-employment"
+                              }
+                            ]
+                          }
+                        },
+                        "Non-cumulative response for TY 2024-25 and before": {
+                          "value": {
+                            "obligations": [
+                              {
+                                "businessId": "XAIS12345678910",
+                                "obligationDetails": [
+                                  {
+                                    "dueDate": "2019-08-05",
+                                    "periodEndDate": "2019-07-05",
+                                    "periodStartDate": "2019-04-06",
+                                    "receivedDate": "2019-08-01",
+                                    "status": "fulfilled"
+                                  },
+                                  {
+                                    "dueDate": "2019-11-05",
+                                    "periodEndDate": "2019-10-05",
+                                    "periodStartDate": "2019-07-06",
+                                    "receivedDate": "2019-11-01",
+                                    "status": "fulfilled"
+                                  },
+                                  {
+                                    "dueDate": "2020-02-05",
+                                    "periodEndDate": "2020-01-05",
+                                    "periodStartDate": "2019-10-06",
+                                    "receivedDate": "2020-02-01",
+                                    "status": "fulfilled"
+                                  },
+                                  {
+                                    "dueDate": "2020-05-05",
+                                    "periodEndDate": "2020-04-05",
+                                    "periodStartDate": "2020-01-06",
+                                    "status": "open"
+                                  }
+                                ],
+                                "typeOfBusiness": "self-employment"
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "schema": {
+                        "$schema": "http://json-schema.org/draft-04/schema#",
+                        "title": "Retrieve obligations for a user's business income sources",
+                        "description": "An array to return one or more businesses and their obligations details.",
+                        "type": "object",
+                        "properties": {
+                          "obligations": {
+                            "type": "array",
+                            "description": "An array to return one or more businesses and their obligations details.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "typeOfBusiness": {
+                                  "description": "Identifies the type of business income source. One of \"self-employment\", \"uk-property\" or \"foreign-property\".",
+                                  "type": "string",
+                                  "example": "self-employment"
+                                },
+                                "businessId": {
+                                  "description": "The unique identifier for this business income source.",
+                                  "type": "string",
+                                  "example": "XAIS12345678910",
+                                  "pattern": "^X[a-zA-Z0-9]{1}IS[0-9]{11}$"
+                                },
+                                "obligationDetails": {
+                                  "type": "array",
+                                  "description": "An array holding the obligations for the business income source.",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "periodStartDate": {
+                                        "description": "The start date of this obligation period in the format YYYY-MM-DD.",
+                                        "type": "string",
+                                        "example": "2018-04-06"
+                                      },
+                                      "periodEndDate": {
+                                        "description": "The end date of this obligation period in the format YYYY-MM-DD.",
+                                        "type": "string",
+                                        "example": "2019-04-05"
+                                      },
+                                      "dueDate": {
+                                        "description": "The due date for this obligation period in the format YYYY-MM-DD.",
+                                        "type": "string",
+                                        "example": "2018-04-06"
+                                      },
+                                      "status": {
+                                        "description": "The status of the obligation, one of: \"open\" or \"fulfilled\".",
+                                        "type": "string",
+                                        "example": "open"
+                                      },
+                                      "receivedDate": {
+                                        "description": "The date this obligation period was fulfilled in the format YYYY-MM-DD.",
+                                        "type": "string",
+                                        "example": "2019-12-15"
+                                      }
+                                    },
+                                    "required": [
+                                      "periodStartDate",
+                                      "periodEndDate",
+                                      "dueDate",
+                                      "status"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "typeOfBusiness",
+                                "businessId",
+                                "obligationDetails"
+                              ],
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "obligations"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "description": "Success",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "URL of the documentation for the API.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/obligations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "FORMAT_BUSINESS_ID": {
+                          "description": "The format of the business ID field is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_BUSINESS_ID",
+                            "message": "The provided businessId is invalid"
+                          }
+                        },
+                        "FORMAT_FROM_DATE": {
+                          "description": "The format of the From date field is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_FROM_DATE",
+                            "message": "The provided fromDate is invalid"
+                          }
+                        },
+                        "FORMAT_NINO": {
+                          "description": "The format of the supplied NINO field is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_NINO",
+                            "message": "The provided NINO is invalid"
+                          }
+                        },
+                        "FORMAT_STATUS": {
+                          "description": "The format of the status field is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_STATUS",
+                            "message": "The provided status is invalid"
+                          }
+                        },
+                        "FORMAT_TO_DATE": {
+                          "description": "The format of the To date field is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_TO_DATE",
+                            "message": "The provided toDate is invalid"
+                          }
+                        },
+                        "FORMAT_TYPE_OF_BUSINESS": {
+                          "description": "The format of the type of business field is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_TYPE_OF_BUSINESS",
+                            "message": "The provided typeOfBusiness field is invalid"
+                          }
+                        },
+                        "MISSING_FROM_DATE": {
+                          "description": "The From date parameter is missing.\n",
+                          "value": {
+                            "code": "MISSING_FROM_DATE",
+                            "message": "The From date parameter is missing"
+                          }
+                        },
+                        "MISSING_TO_DATE": {
+                          "description": "The To date parameter is missing.\n",
+                          "value": {
+                            "code": "MISSING_TO_DATE",
+                            "message": "The To date parameter is missing"
+                          }
+                        },
+                        "MISSING_TYPE_OF_BUSINESS": {
+                          "description": "The Type of Business Parameter is missing.\n",
+                          "value": {
+                            "code": "MISSING_TYPE_OF_BUSINESS",
+                            "message": "The type of business query parameter must be provided when an incomeSourceId is supplied"
+                          }
+                        },
+                        "RANGE_TO_DATE_BEFORE_FROM_DATE": {
+                          "description": "The To date is before the From date.\n",
+                          "value": {
+                            "code": "RANGE_TO_DATE_BEFORE_FROM_DATE",
+                            "message": "The To date must be after the From date"
+                          }
+                        },
+                        "RULE_DATE_RANGE_INVALID": {
+                          "description": "The date range is longer than 366 days.\n",
+                          "value": {
+                            "code": "RULE_DATE_RANGE_INVALID",
+                            "message": "The specified date range is invalid"
+                          }
+                        },
+                        "RULE_FROM_DATE_NOT_SUPPORTED": {
+                          "description": "The From date specified is before 2018-04-06.\n",
+                          "value": {
+                            "code": "RULE_FROM_DATE_NOT_SUPPORTED",
+                            "message": "The specified From date is not supported as too early"
+                          }
+                        },
+                        "RULE_INCORRECT_GOV_TEST_SCENARIO": {
+                          "description": "The request did not match any available sandbox data. \nCheck that the supplied Gov-Test-Scenario is correct for this endpoint version. \nThis error will only be returned in the sandbox environment.\n",
+                          "value": {
+                            "code": "RULE_INCORRECT_GOV_TEST_SCENARIO",
+                            "message": "The supplied Gov-Test-Scenario is not valid"
+                          }
+                        },
+                        "RULE_INSOLVENT_TRADER": {
+                          "description": "The request could not be completed as it relates to an insolvent trader, which are not supported by this API.\n",
+                          "value": {
+                            "code": "RULE_INSOLVENT_TRADER",
+                            "message": "The remote endpoint has indicated that the Trader is insolvent"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "description": "Error Response",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "description": "The error code",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "The error message",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Bad request",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "URL of the documentation for the API.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/obligations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "CLIENT_OR_AGENT_NOT_AUTHORISED": {
+                          "description": "The client or agent is not authorised. This is because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.\n",
+                          "value": {
+                            "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
+                            "message": "The client or agent is not authorised"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "description": "Error Response",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "description": "The error code",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "The error message",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Forbidden",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "URL of the documentation for the API.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/obligations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "MATCHING_RESOURCE_NOT_FOUND": {
+                          "description": "The supplied income source could not be found.\n",
+                          "value": {
+                            "code": "MATCHING_RESOURCE_NOT_FOUND",
+                            "message": "Matching resource not found"
+                          }
+                        },
+                        "NO_OBLIGATIONS_FOUND": {
+                          "description": "No obligations found using this filter.\n",
+                          "value": {
+                            "code": "NO_OBLIGATIONS_FOUND",
+                            "message": "No obligations found using this filter"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "description": "Error Response",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "description": "The error code",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "The error message",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Not Found",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "URL of the documentation for the API.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/obligations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "401": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MISSING_CREDENTIALS",
+                              "INVALID_CREDENTIALS",
+                              "UNAUTHORIZED",
+                              "INCORRECT_ACCESS_TOKEN_TYPE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MISSING_CREDENTIALS",
+                          "message": "Authentication information is not provided"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "405": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "METHOD_NOT_ALLOWED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "METHOD_NOT_ALLOWED",
+                          "message": "Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "406": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "ACCEPT_HEADER_INVALID"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "ACCEPT_HEADER_INVALID",
+                          "message": "Missint or invalid Accept header"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "429": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MESSAGE_THROTTLED_OUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MESSAGE_THROTTLED_OUT",
+                          "message": "The application has reached its maximum rate limit"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "500": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "Error Code",
+                                "enum": [
+                                  "INTERNAL_SERVER_ERROR"
+                                ]
+                              },
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object",
+                            "example": {
+                              "code": "INTERNAL_SERVER_ERROR",
+                              "message": "Internal server error"
+                            }
+                          },
+                          {
+                            "type": "string",
+                            "example": "Failed to process request"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "501": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "NOT_IMPLEMENTED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "NOT_IMPLEMENTED",
+                          "message": "API not implemented or deployed"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "503": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "SERVER_ERROR",
+                              "SCHEDULED_MAINTENANCE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "SCHEDULED_MAINTENANCE",
+                          "message": "Scheduled maintenance"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "504": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "GATEWAY_TIMEOUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "GATEWAY_TIMEOUT",
+                          "message": "Request timed out"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                }
+              },
+              "security": [
+                {
+                  "User-Restricted": [
+                    "read:self-assessment"
+                  ]
+                }
+              ],
+              "summary": "Retrieve Income Tax (Self Assessment) Income and Expenditure Obligations"
+            }
+          }
+        },
+        "servers": [
+          {
+            "description": "Sandbox",
+            "url": "https://test-api.service.hmrc.gov.uk"
+          },
+          {
+            "description": "Production",
+            "url": "https://api.service.hmrc.gov.uk"
+          }
+        ]
+      }
+    }
+  }
+}
