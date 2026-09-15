@@ -1,0 +1,2688 @@
+{
+  "import-control-entry-declaration-intervention": {
+    "1": {
+      "0": {
+        "components": {
+          "securitySchemes": {
+            "User-Restricted": {
+              "description": "HMRC supports OAuth 2.0 for authenticating User-restricted API requests",
+              "flows": {
+                "authorizationCode": {
+                  "authorizationUrl": "https://api.service.hmrc.gov.uk/oauth/authorize",
+                  "refreshUrl": "https://api.service.hmrc.gov.uk/oauth/refresh",
+                  "scopes": {
+                    "write:import-control-system": "Access Import Control System"
+                  },
+                  "tokenUrl": "https://api.service.hmrc.gov.uk/oauth/token"
+                }
+              },
+              "type": "oauth2"
+            }
+          }
+        },
+        "info": {
+          "contact": {},
+          "title": "Safety and security import control entry summary declaration notifications",
+          "version": "1.0"
+        },
+        "openapi": "3.0.3",
+        "paths": {
+          "/customs/imports/notifications": {
+            "get": {
+              "deprecated": false,
+              "description": "This endpoint allows a developer to retrieve a list of advanced notifications that are yet to be acknowledged.\n",
+              "operationId": "Getalistofnotifications",
+              "parameters": [
+                {
+                  "description": "Specifies the response format and the [version](/api-documentation/docs/reference-guide#versioning) of the API to be used.\n\nFor example: application/vnd.hmrc.1.0+xml\n",
+                  "in": "header",
+                  "name": "Accept",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "application/vnd.hmrc.1.0+xml"
+                    ]
+                  }
+                },
+                {
+                  "description": "An [OAuth 2.0 Bearer Token](/api-documentation/docs/authorisation/user-restricted-endpoints) with the write:import-control-system scope.\n\nFor example: Bearer bb7fed3fe10dd235a2ccda3d50fb\n",
+                  "in": "header",
+                  "name": "Authorization",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "Bearer bb7fed3fe10dd235a2ccda3d50fb"
+                    ]
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "content": {
+                    "application/xml": {
+                      "examples": {
+                        "advancedNotificationsExample": {
+                          "description": "The response will contain a list (schema [here](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/download/import-control-entry-declaration-intervention/1.0/schemas/listInterventions.xsd)) of Notication IDs corresponding to advanced notifications for ENS submissions. Each one will be listed along with the Correlation ID that identifies the submission.\n\nThe list will include only those notifications that have not been acknowledged.\n\nThis is an example response:\n",
+                          "value": "<advancedNotifications>\n  <response>\n    <correlationId>1234567890</correlationId>\n    <notificationId>1D45fQ563</notificationId>\n    <link>/customs/imports/notifications/1D45fQ563</link>\n  </response>\n  <response>\n    <correlationId>0987654321</correlationId>\n    <notificationId>ABx4414f4</notificationId>\n    <link>/customs/imports/notifications/ABx4414f4</link>\n  </response>\n</advancedNotifications>\n"
+                        }
+                      },
+                      "schema": {
+                        "allOf": [
+                          {
+                            "title": "advancedNotifications",
+                            "required": [
+                              "advancedNotifications"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "advancedNotifications": {
+                                "allOf": [
+                                  {
+                                    "title": "advancedNotifications",
+                                    "required": [
+                                      "response"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                      "response": {
+                                        "type": "array",
+                                        "items": {
+                                          "title": "response",
+                                          "required": [
+                                            "correlationId",
+                                            "notificationId",
+                                            "link"
+                                          ],
+                                          "type": "object",
+                                          "properties": {
+                                            "correlationId": {
+                                              "type": "string",
+                                              "xml": {
+                                                "name": "correlationId",
+                                                "namespace": "",
+                                                "attribute": false,
+                                                "wrapped": false
+                                              }
+                                            },
+                                            "notificationId": {
+                                              "type": "string",
+                                              "xml": {
+                                                "name": "notificationId",
+                                                "namespace": "",
+                                                "attribute": false,
+                                                "wrapped": false
+                                              }
+                                            },
+                                            "link": {
+                                              "type": "string",
+                                              "xml": {
+                                                "name": "link",
+                                                "namespace": "",
+                                                "attribute": false,
+                                                "wrapped": false
+                                              }
+                                            }
+                                          },
+                                          "xml": {
+                                            "name": "response",
+                                            "namespace": "",
+                                            "attribute": false,
+                                            "wrapped": false
+                                          }
+                                        },
+                                        "description": "",
+                                        "xml": {
+                                          "namespace": "",
+                                          "attribute": false,
+                                          "wrapped": false
+                                        }
+                                      }
+                                    },
+                                    "xml": {
+                                      "name": "advancedNotifications",
+                                      "namespace": "",
+                                      "attribute": false,
+                                      "wrapped": false
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "OK",
+                  "headers": {}
+                },
+                "204": {
+                  "description": "No Content - There are no notifications available",
+                  "headers": {}
+                },
+                "401": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MISSING_CREDENTIALS",
+                              "INVALID_CREDENTIALS",
+                              "UNAUTHORIZED",
+                              "INCORRECT_ACCESS_TOKEN_TYPE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MISSING_CREDENTIALS",
+                          "message": "Authentication information is not provided"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "HTTPS_REQUIRED",
+                              "RESOURCE_FORBIDDEN",
+                              "INVALID_SCOPE",
+                              "FORBIDDEN"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "RESOURCE_FORBIDDEN",
+                          "message": "The application is not subscribed to the API which it is attempting to invoke"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "404": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MATCHING_RESOURCE_NOT_FOUND"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MATCHING_RESOURCE_NOT_FOUND",
+                          "message": "No endpoint for the request path"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "405": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "METHOD_NOT_ALLOWED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "METHOD_NOT_ALLOWED",
+                          "message": "Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "406": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "ACCEPT_HEADER_INVALID"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "ACCEPT_HEADER_INVALID",
+                          "message": "Missint or invalid Accept header"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "429": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MESSAGE_THROTTLED_OUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MESSAGE_THROTTLED_OUT",
+                          "message": "The application has reached its maximum rate limit"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "500": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "Error Code",
+                                "enum": [
+                                  "INTERNAL_SERVER_ERROR"
+                                ]
+                              },
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object",
+                            "example": {
+                              "code": "INTERNAL_SERVER_ERROR",
+                              "message": "Internal server error"
+                            }
+                          },
+                          {
+                            "type": "string",
+                            "example": "Failed to process request"
+                          }
+                        ]
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "501": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "NOT_IMPLEMENTED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "NOT_IMPLEMENTED",
+                          "message": "API not implemented or deployed"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "503": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "SERVER_ERROR",
+                              "SCHEDULED_MAINTENANCE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "SCHEDULED_MAINTENANCE",
+                          "message": "Scheduled maintenance"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "504": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "GATEWAY_TIMEOUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "GATEWAY_TIMEOUT",
+                          "message": "Request timed out"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                }
+              },
+              "security": [
+                {
+                  "User-Restricted": [
+                    "write:import-control-system"
+                  ]
+                }
+              ],
+              "summary": "Get a list of notifications",
+              "tags": [
+                "customs"
+              ]
+            }
+          },
+          "/customs/imports/notifications/{notificationId}": {
+            "delete": {
+              "deprecated": false,
+              "description": "This endpoint allows a developer to acknowledge the receipt of an advanced notification for a given Notification ID.\n",
+              "operationId": "Acknowledgeanotification",
+              "parameters": [
+                {
+                  "description": "The Notification ID that uniquely identifies the notification.",
+                  "in": "path",
+                  "name": "notificationId",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  },
+                  "style": "simple"
+                },
+                {
+                  "description": "Specifies the response format and the [version](/api-documentation/docs/reference-guide#versioning) of the API to be used.\n\nFor example: application/vnd.hmrc.1.0+xml\n",
+                  "in": "header",
+                  "name": "Accept",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "application/vnd.hmrc.1.0+xml"
+                    ]
+                  }
+                },
+                {
+                  "description": "An [OAuth 2.0 Bearer Token](/api-documentation/docs/authorisation/user-restricted-endpoints) with the write:import-control-system scope.\n\nFor example: Bearer bb7fed3fe10dd235a2ccda3d50fb\n",
+                  "in": "header",
+                  "name": "Authorization",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "Bearer bb7fed3fe10dd235a2ccda3d50fb"
+                    ]
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "OK - The notification has successfully been acknowledged",
+                  "headers": {}
+                },
+                "404": {
+                  "content": {
+                    "application/xml": {
+                      "examples": {
+                        "notFoundExample": {
+                          "description": "No notification for the submission with the specified Notification ID  is currently available or the notification has already been acknowledged.\n",
+                          "value": "<error>\n   <code>NOTIFICATION_NOT_FOUND</code>\n   <message>No unacknowledged notification found</message>\n</error>\n"
+                        }
+                      },
+                      "schema": {
+                        "allOf": [
+                          {
+                            "title": "notFound",
+                            "required": [
+                              "error"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "error": {
+                                "allOf": [
+                                  {
+                                    "title": "error",
+                                    "required": [
+                                      "code",
+                                      "message"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                      "code": {
+                                        "description": "The error code",
+                                        "type": "string"
+                                      },
+                                      "message": {
+                                        "description": "The error message",
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Not Found",
+                  "headers": {}
+                },
+                "401": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MISSING_CREDENTIALS",
+                              "INVALID_CREDENTIALS",
+                              "UNAUTHORIZED",
+                              "INCORRECT_ACCESS_TOKEN_TYPE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MISSING_CREDENTIALS",
+                          "message": "Authentication information is not provided"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "HTTPS_REQUIRED",
+                              "RESOURCE_FORBIDDEN",
+                              "INVALID_SCOPE",
+                              "FORBIDDEN"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "RESOURCE_FORBIDDEN",
+                          "message": "The application is not subscribed to the API which it is attempting to invoke"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "405": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "METHOD_NOT_ALLOWED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "METHOD_NOT_ALLOWED",
+                          "message": "Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "406": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "ACCEPT_HEADER_INVALID"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "ACCEPT_HEADER_INVALID",
+                          "message": "Missint or invalid Accept header"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "429": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MESSAGE_THROTTLED_OUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MESSAGE_THROTTLED_OUT",
+                          "message": "The application has reached its maximum rate limit"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "500": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "Error Code",
+                                "enum": [
+                                  "INTERNAL_SERVER_ERROR"
+                                ]
+                              },
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object",
+                            "example": {
+                              "code": "INTERNAL_SERVER_ERROR",
+                              "message": "Internal server error"
+                            }
+                          },
+                          {
+                            "type": "string",
+                            "example": "Failed to process request"
+                          }
+                        ]
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "501": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "NOT_IMPLEMENTED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "NOT_IMPLEMENTED",
+                          "message": "API not implemented or deployed"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "503": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "SERVER_ERROR",
+                              "SCHEDULED_MAINTENANCE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "SCHEDULED_MAINTENANCE",
+                          "message": "Scheduled maintenance"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "504": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "GATEWAY_TIMEOUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "GATEWAY_TIMEOUT",
+                          "message": "Request timed out"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                }
+              },
+              "security": [
+                {
+                  "User-Restricted": [
+                    "write:import-control-system"
+                  ]
+                }
+              ],
+              "summary": "Acknowledge a notification",
+              "tags": [
+                "customs"
+              ]
+            },
+            "get": {
+              "deprecated": false,
+              "description": "This endpoint allows a developer to retrieve an advanced notification for a given Notification ID.\n",
+              "operationId": "Retrieveanotification",
+              "parameters": [
+                {
+                  "description": "The Notification ID that uniquely identifies the notification.",
+                  "in": "path",
+                  "name": "notificationId",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  },
+                  "style": "simple"
+                },
+                {
+                  "description": "Specifies the response format and the [version](/api-documentation/docs/reference-guide#versioning) of the API to be used.\n\nFor example: application/vnd.hmrc.1.0+xml\n",
+                  "in": "header",
+                  "name": "Accept",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "application/vnd.hmrc.1.0+xml"
+                    ]
+                  }
+                },
+                {
+                  "description": "An [OAuth 2.0 Bearer Token](/api-documentation/docs/authorisation/user-restricted-endpoints) with the write:import-control-system scope.\n\nFor example: Bearer bb7fed3fe10dd235a2ccda3d50fb\n",
+                  "in": "header",
+                  "name": "Authorization",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "Bearer bb7fed3fe10dd235a2ccda3d50fb"
+                    ]
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "content": {
+                    "application/xml": {
+                      "examples": {
+                        "notificationReponseExample": {
+                          "description": "A notification for the Notification ID (schema [here](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/download/import-control-entry-declaration-intervention/1.0/schemas/advancedNotification.xsd)).\n\nThe content of response element will be determined by the type of notification.\nCurrently the following types of notification can be returned:\n\n* Do Not Load: schema [http://ics.dgtaxud.ec/CC351A](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/download/import-control-entry-declaration-intervention/1.0/schemas/CC351A-v10-0.xsd).\n\nThis schema imports a number of other schemas:\n\n* [http://ics.dgtaxud.ec/doc](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/download/import-control-entry-declaration-intervention/1.0/schemas/doc-v10-0.xsd)\n* [http://ics.dgtaxud.ec/complex_ics](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/download/import-control-entry-declaration-intervention/1.0/schemas/complex_types_ics-v10-0.xsd)\n* [http://ics.dgtaxud.ec/simple](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/download/import-control-entry-declaration-intervention/1.0/schemas/simple_types-v10-0.xsd)\n* [http://ics.dgtaxud.ec/simple_ics](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/download/import-control-entry-declaration-intervention/1.0/schemas/simple_types_ics-v10-0.xsd)\n* [http://ics.dgtaxud.ec/tcl](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/download/import-control-entry-declaration-intervention/1.0/schemas/tcl-v10-0.xsd)\n* [http://ics.dgtaxud.ec/tcl_ics](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/download/import-control-entry-declaration-intervention/1.0/schemas/tcl_ics-v10-0.xsd)\n\nThis is an example response:\n",
+                          "value": "<notificationResponse xmlns:cc3=\"http://ics.dgtaxud.ec/CC351A\">\n    <response>\n        <cc3:CC351A>\n            <MesSenMES3>GBCD1234/1234567890</MesSenMES3>\n            <MesRecMES6>GBC123</MesRecMES6>\n            <DatOfPreMES9>030211</DatOfPreMES9>\n            <TimOfPreMES10>0123</TimOfPreMES10>\n            <MesIdeMES19>ABC123</MesIdeMES19>\n            <MesTypMES20>CC313A</MesTypMES20>\n            <CorIdeMES25>ABC123</CorIdeMES25>\n            <HEAHEA>\n                <RefNumHEA4>ABCD1234</RefNumHEA4>\n                <DocNumHEA5>12AB3C4D5E6F7G8H90</DocNumHEA5>\n                <TraModAtBorHEA76>4</TraModAtBorHEA76>\n                <NatHEA001>GB</NatHEA001>\n                <IdeOfMeaOfTraCroHEA85>ABC123</IdeOfMeaOfTraCroHEA85>\n                <TotNumOfIteHEA305>42</TotNumOfIteHEA305>\n                <ComRefNumHEA>ABC123</ComRefNumHEA>\n                <ConRefNumHEA>ABC123</ConRefNumHEA>\n                <NotDatTimHEA104>200302111234</NotDatTimHEA104>\n                <DecRegDatTimHEA115>200302111234</DecRegDatTimHEA115>\n                <DecSubDatTimHEA118>200302111234</DecSubDatTimHEA118>\n            </HEAHEA>\n            <GOOITEGDS>\n                <IteNumGDS7>1</IteNumGDS7>\n                <ComRefNumGIM1>ABC123</ComRefNumGIM1>\n                <PRODOCDC2>\n                    <DocTypDC21>AB12</DocTypDC21>\n                    <DocRefDC23>ABC123</DocRefDC23>\n                    <DocRefDCLNG>en</DocRefDCLNG>\n                </PRODOCDC2>\n                <CONNR2>\n                    <ConNumNR21>ABC123</ConNumNR21>\n                </CONNR2>\n                <IDEMEATRAGI970>\n                    <NatIDEMEATRAGI973>EN</NatIDEMEATRAGI973>\n                    <IdeMeaTraGIMEATRA971>ABC123</IdeMeaTraGIMEATRA971>\n                    <IdeMeaTraGIMEATRA972LNG>en</IdeMeaTraGIMEATRA972LNG>\n                </IDEMEATRAGI970>\n            </GOOITEGDS>\n            <CUSOFFLON>\n                <RefNumCOL1>ES000055</RefNumCOL1>\n            </CUSOFFLON>\n            <TRAREP>\n                <NamTRE1>ABC123</NamTRE1>\n                <StrAndNumTRE1>ABC123</StrAndNumTRE1>\n                <PosCodTRE1>ABC123</PosCodTRE1>\n                <CitTRE1>ABC123</CitTRE1>\n                <CouCodTRE1>EN</CouCodTRE1>\n                <TRAREPLNG>en</TRAREPLNG>\n                <TINTRE1>YZ^</TINTRE1>\n            </TRAREP>\n            <PERLODSUMDEC>\n                <NamPLD1>ABC123</NamPLD1>\n                <StrAndNumPLD1>ABC123</StrAndNumPLD1>\n                <PosCodPLD1>ABC123</PosCodPLD1>\n                <CitPLD1>ABC123</CitPLD1>\n                <CouCodPLD1>EN</CouCodPLD1>\n                <PERLODSUMDECLNG>en</PERLODSUMDECLNG>\n                <TINPLD1>YZ^</TINPLD1>\n            </PERLODSUMDEC>\n            <CUSOFFFENT730>\n                <RefNumCUSOFFFENT731>AB3C4D5E</RefNumCUSOFFFENT731>\n                <ExpDatOfArrFIRENT733>200302111234</ExpDatOfArrFIRENT733>\n            </CUSOFFFENT730>\n            <TRACARENT601>\n                <NamTRACARENT604>ABC123</NamTRACARENT604>\n                <StrNumTRACARENT607>ABC123</StrNumTRACARENT607>\n                <PstCodTRACARENT606>ABC123</PstCodTRACARENT606>\n                <CtyTRACARENT603>ABC123</CtyTRACARENT603>\n                <CouCodTRACARENT605>EN</CouCodTRACARENT605>\n                <TRACARENT601LNG>en</TRACARENT601LNG>\n                <TINTRACARENT602>YZ^</TINTRACARENT602>\n            </TRACARENT601>\n            <CUSINT632>\n                <IteNumConCUSINT668>1</IteNumConCUSINT668>\n                <CusIntCodCUSINT665>ABCD</CusIntCodCUSINT665>\n                <CusIntTexCUSINT666>ABC12</CusIntTexCUSINT666>\n                <CusIntTexCUSINT667LNG>en</CusIntTexCUSINT667LNG>\n            </CUSINT632>\n        </cc3:CC351A>\n    </response>\n    <acknowledgement method='DELETE' href='/customs/imports/notifications/0JRF7UncK0t004'/>\n</notificationResponse>\n"
+                        }
+                      },
+                      "schema": {
+                        "allOf": [
+                          {
+                            "title": "notificationResponseWrapper",
+                            "required": [
+                              "notificationResponse"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "notificationResponse": {
+                                "allOf": [
+                                  {
+                                    "title": "notificationResponse",
+                                    "required": [
+                                      "response",
+                                      "acknowledgement"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                      "response": {
+                                        "allOf": [
+                                          {
+                                            "title": "response",
+                                            "required": [
+                                              "CC351A"
+                                            ],
+                                            "type": "object",
+                                            "properties": {
+                                              "CC351A": {
+                                                "allOf": [
+                                                  {
+                                                    "title": "CC351A",
+                                                    "required": [
+                                                      "MesSenMES3",
+                                                      "MesRecMES6",
+                                                      "DatOfPreMES9",
+                                                      "TimOfPreMES10",
+                                                      "MesIdeMES19",
+                                                      "MesTypMES20",
+                                                      "CorIdeMES25",
+                                                      "HEAHEA",
+                                                      "GOOITEGDS",
+                                                      "CUSOFFLON",
+                                                      "TRAREP",
+                                                      "PERLODSUMDEC",
+                                                      "CUSOFFFENT730",
+                                                      "TRACARENT601",
+                                                      "CUSINT632"
+                                                    ],
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "MesSenMES3": {
+                                                        "type": "string",
+                                                        "xml": {
+                                                          "name": "MesSenMES3",
+                                                          "namespace": "",
+                                                          "attribute": false,
+                                                          "wrapped": false
+                                                        }
+                                                      },
+                                                      "MesRecMES6": {
+                                                        "type": "string",
+                                                        "xml": {
+                                                          "name": "MesRecMES6",
+                                                          "namespace": "",
+                                                          "attribute": false,
+                                                          "wrapped": false
+                                                        }
+                                                      },
+                                                      "DatOfPreMES9": {
+                                                        "type": "string",
+                                                        "xml": {
+                                                          "name": "DatOfPreMES9",
+                                                          "namespace": "",
+                                                          "attribute": false,
+                                                          "wrapped": false
+                                                        }
+                                                      },
+                                                      "TimOfPreMES10": {
+                                                        "type": "string",
+                                                        "xml": {
+                                                          "name": "TimOfPreMES10",
+                                                          "namespace": "",
+                                                          "attribute": false,
+                                                          "wrapped": false
+                                                        }
+                                                      },
+                                                      "MesIdeMES19": {
+                                                        "type": "string",
+                                                        "xml": {
+                                                          "name": "MesIdeMES19",
+                                                          "namespace": "",
+                                                          "attribute": false,
+                                                          "wrapped": false
+                                                        }
+                                                      },
+                                                      "MesTypMES20": {
+                                                        "type": "string",
+                                                        "xml": {
+                                                          "name": "MesTypMES20",
+                                                          "namespace": "",
+                                                          "attribute": false,
+                                                          "wrapped": false
+                                                        }
+                                                      },
+                                                      "CorIdeMES25": {
+                                                        "type": "string",
+                                                        "xml": {
+                                                          "name": "CorIdeMES25",
+                                                          "namespace": "",
+                                                          "attribute": false,
+                                                          "wrapped": false
+                                                        }
+                                                      },
+                                                      "HEAHEA": {
+                                                        "allOf": [
+                                                          {
+                                                            "title": "HEAHEA",
+                                                            "required": [
+                                                              "RefNumHEA4",
+                                                              "DocNumHEA5",
+                                                              "TraModAtBorHEA76",
+                                                              "NatHEA001",
+                                                              "IdeOfMeaOfTraCroHEA85",
+                                                              "ComRefNumHEA",
+                                                              "ConRefNumHEA",
+                                                              "NotDatTimHEA104",
+                                                              "DecRegDatTimHEA115",
+                                                              "DecSubDatTimHEA118"
+                                                            ],
+                                                            "type": "object",
+                                                            "properties": {
+                                                              "RefNumHEA4": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "RefNumHEA4",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "DocNumHEA5": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "DocNumHEA5",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "TraModAtBorHEA76": {
+                                                                "type": "integer",
+                                                                "format": "int32",
+                                                                "xml": {
+                                                                  "name": "TraModAtBorHEA76",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "NatHEA001": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "NatHEA001",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "IdeOfMeaOfTraCroHEA85": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "IdeOfMeaOfTraCroHEA85",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "TotNumOfIteHEA305": {
+                                                                "type": "integer",
+                                                                "format": "int32",
+                                                                "xml": {
+                                                                  "name": "TotNumOfIteHEA305",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "ComRefNumHEA": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "ComRefNumHEA",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "ConRefNumHEA": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "ConRefNumHEA",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "NotDatTimHEA104": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "xml": {
+                                                                  "name": "NotDatTimHEA104",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "DecRegDatTimHEA115": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "xml": {
+                                                                  "name": "DecRegDatTimHEA115",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "DecSubDatTimHEA118": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "xml": {
+                                                                  "name": "DecSubDatTimHEA118",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              }
+                                                            },
+                                                            "xml": {
+                                                              "name": "HEAHEA",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "xml": {
+                                                              "name": "HEAHEA",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          }
+                                                        ]
+                                                      },
+                                                      "GOOITEGDS": {
+                                                        "allOf": [
+                                                          {
+                                                            "title": "GOOITEGDS",
+                                                            "required": [
+                                                              "IteNumGDS7",
+                                                              "ComRefNumGIM1",
+                                                              "PRODOCDC2",
+                                                              "CONNR2",
+                                                              "IDEMEATRAGI970"
+                                                            ],
+                                                            "type": "object",
+                                                            "properties": {
+                                                              "IteNumGDS7": {
+                                                                "type": "integer",
+                                                                "format": "int32",
+                                                                "xml": {
+                                                                  "name": "IteNumGDS7",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "ComRefNumGIM1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "ComRefNumGIM1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "PRODOCDC2": {
+                                                                "allOf": [
+                                                                  {
+                                                                    "title": "PRODOCDC2",
+                                                                    "required": [
+                                                                      "DocTypDC21",
+                                                                      "DocRefDC23",
+                                                                      "DocRefDCLNG"
+                                                                    ],
+                                                                    "type": "object",
+                                                                    "properties": {
+                                                                      "DocTypDC21": {
+                                                                        "type": "string",
+                                                                        "xml": {
+                                                                          "name": "DocTypDC21",
+                                                                          "namespace": "",
+                                                                          "attribute": false,
+                                                                          "wrapped": false
+                                                                        }
+                                                                      },
+                                                                      "DocRefDC23": {
+                                                                        "type": "string",
+                                                                        "xml": {
+                                                                          "name": "DocRefDC23",
+                                                                          "namespace": "",
+                                                                          "attribute": false,
+                                                                          "wrapped": false
+                                                                        }
+                                                                      },
+                                                                      "DocRefDCLNG": {
+                                                                        "type": "string",
+                                                                        "xml": {
+                                                                          "name": "DocRefDCLNG",
+                                                                          "namespace": "",
+                                                                          "attribute": false,
+                                                                          "wrapped": false
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "xml": {
+                                                                      "name": "PRODOCDC2",
+                                                                      "namespace": "",
+                                                                      "attribute": false,
+                                                                      "wrapped": false
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "xml": {
+                                                                      "name": "PRODOCDC2",
+                                                                      "namespace": "",
+                                                                      "attribute": false,
+                                                                      "wrapped": false
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "CONNR2": {
+                                                                "allOf": [
+                                                                  {
+                                                                    "title": "CONNR2",
+                                                                    "required": [
+                                                                      "ConNumNR21"
+                                                                    ],
+                                                                    "type": "object",
+                                                                    "properties": {
+                                                                      "ConNumNR21": {
+                                                                        "type": "string",
+                                                                        "xml": {
+                                                                          "name": "ConNumNR21",
+                                                                          "namespace": "",
+                                                                          "attribute": false,
+                                                                          "wrapped": false
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "xml": {
+                                                                      "name": "CONNR2",
+                                                                      "namespace": "",
+                                                                      "attribute": false,
+                                                                      "wrapped": false
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "xml": {
+                                                                      "name": "CONNR2",
+                                                                      "namespace": "",
+                                                                      "attribute": false,
+                                                                      "wrapped": false
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "IDEMEATRAGI970": {
+                                                                "allOf": [
+                                                                  {
+                                                                    "title": "IDEMEATRAGI970",
+                                                                    "required": [
+                                                                      "NatIDEMEATRAGI973",
+                                                                      "IdeMeaTraGIMEATRA971",
+                                                                      "IdeMeaTraGIMEATRA972LNG"
+                                                                    ],
+                                                                    "type": "object",
+                                                                    "properties": {
+                                                                      "NatIDEMEATRAGI973": {
+                                                                        "type": "string",
+                                                                        "xml": {
+                                                                          "name": "NatIDEMEATRAGI973",
+                                                                          "namespace": "",
+                                                                          "attribute": false,
+                                                                          "wrapped": false
+                                                                        }
+                                                                      },
+                                                                      "IdeMeaTraGIMEATRA971": {
+                                                                        "type": "string",
+                                                                        "xml": {
+                                                                          "name": "IdeMeaTraGIMEATRA971",
+                                                                          "namespace": "",
+                                                                          "attribute": false,
+                                                                          "wrapped": false
+                                                                        }
+                                                                      },
+                                                                      "IdeMeaTraGIMEATRA972LNG": {
+                                                                        "type": "string",
+                                                                        "xml": {
+                                                                          "name": "IdeMeaTraGIMEATRA972LNG",
+                                                                          "namespace": "",
+                                                                          "attribute": false,
+                                                                          "wrapped": false
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "xml": {
+                                                                      "name": "IDEMEATRAGI970",
+                                                                      "namespace": "",
+                                                                      "attribute": false,
+                                                                      "wrapped": false
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "xml": {
+                                                                      "name": "IDEMEATRAGI970",
+                                                                      "namespace": "",
+                                                                      "attribute": false,
+                                                                      "wrapped": false
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            },
+                                                            "xml": {
+                                                              "name": "GOOITEGDS",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "xml": {
+                                                              "name": "GOOITEGDS",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          }
+                                                        ]
+                                                      },
+                                                      "CUSOFFLON": {
+                                                        "allOf": [
+                                                          {
+                                                            "title": "CUSOFFLON",
+                                                            "required": [
+                                                              "RefNumCOL1"
+                                                            ],
+                                                            "type": "object",
+                                                            "properties": {
+                                                              "RefNumCOL1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "RefNumCOL1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              }
+                                                            },
+                                                            "xml": {
+                                                              "name": "CUSOFFLON",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "xml": {
+                                                              "name": "CUSOFFLON",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          }
+                                                        ]
+                                                      },
+                                                      "TRAREP": {
+                                                        "allOf": [
+                                                          {
+                                                            "title": "TRAREP",
+                                                            "required": [
+                                                              "NamTRE1",
+                                                              "StrAndNumTRE1",
+                                                              "PosCodTRE1",
+                                                              "CitTRE1",
+                                                              "CouCodTRE1",
+                                                              "TRAREPLNG",
+                                                              "TINTRE1"
+                                                            ],
+                                                            "type": "object",
+                                                            "properties": {
+                                                              "NamTRE1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "NamTRE1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "StrAndNumTRE1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "StrAndNumTRE1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "PosCodTRE1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "PosCodTRE1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "CitTRE1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "CitTRE1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "CouCodTRE1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "CouCodTRE1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "TRAREPLNG": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "TRAREPLNG",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "TINTRE1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "TINTRE1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              }
+                                                            },
+                                                            "xml": {
+                                                              "name": "TRAREP",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "xml": {
+                                                              "name": "TRAREP",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          }
+                                                        ]
+                                                      },
+                                                      "PERLODSUMDEC": {
+                                                        "allOf": [
+                                                          {
+                                                            "title": "PERLODSUMDEC",
+                                                            "required": [
+                                                              "NamPLD1",
+                                                              "StrAndNumPLD1",
+                                                              "PosCodPLD1",
+                                                              "CitPLD1",
+                                                              "CouCodPLD1",
+                                                              "PERLODSUMDECLNG",
+                                                              "TINPLD1"
+                                                            ],
+                                                            "type": "object",
+                                                            "properties": {
+                                                              "NamPLD1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "NamPLD1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "StrAndNumPLD1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "StrAndNumPLD1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "PosCodPLD1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "PosCodPLD1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "CitPLD1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "CitPLD1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "CouCodPLD1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "CouCodPLD1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "PERLODSUMDECLNG": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "PERLODSUMDECLNG",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "TINPLD1": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "TINPLD1",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              }
+                                                            },
+                                                            "xml": {
+                                                              "name": "PERLODSUMDEC",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "xml": {
+                                                              "name": "PERLODSUMDEC",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          }
+                                                        ]
+                                                      },
+                                                      "CUSOFFFENT730": {
+                                                        "allOf": [
+                                                          {
+                                                            "title": "CUSOFFFENT730",
+                                                            "required": [
+                                                              "RefNumCUSOFFFENT731",
+                                                              "ExpDatOfArrFIRENT733"
+                                                            ],
+                                                            "type": "object",
+                                                            "properties": {
+                                                              "RefNumCUSOFFFENT731": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "RefNumCUSOFFFENT731",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "ExpDatOfArrFIRENT733": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "xml": {
+                                                                  "name": "ExpDatOfArrFIRENT733",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              }
+                                                            },
+                                                            "xml": {
+                                                              "name": "CUSOFFFENT730",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "xml": {
+                                                              "name": "CUSOFFFENT730",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          }
+                                                        ]
+                                                      },
+                                                      "TRACARENT601": {
+                                                        "allOf": [
+                                                          {
+                                                            "title": "TRACARENT601",
+                                                            "required": [
+                                                              "NamTRACARENT604",
+                                                              "StrNumTRACARENT607",
+                                                              "PstCodTRACARENT606",
+                                                              "CtyTRACARENT603",
+                                                              "CouCodTRACARENT605",
+                                                              "TRACARENT601LNG",
+                                                              "TINTRACARENT602"
+                                                            ],
+                                                            "type": "object",
+                                                            "properties": {
+                                                              "NamTRACARENT604": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "NamTRACARENT604",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "StrNumTRACARENT607": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "StrNumTRACARENT607",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "PstCodTRACARENT606": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "PstCodTRACARENT606",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "CtyTRACARENT603": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "CtyTRACARENT603",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "CouCodTRACARENT605": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "CouCodTRACARENT605",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "TRACARENT601LNG": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "TRACARENT601LNG",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "TINTRACARENT602": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "TINTRACARENT602",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              }
+                                                            },
+                                                            "xml": {
+                                                              "name": "TRACARENT601",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "xml": {
+                                                              "name": "TRACARENT601",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          }
+                                                        ]
+                                                      },
+                                                      "CUSINT632": {
+                                                        "allOf": [
+                                                          {
+                                                            "title": "CUSINT632",
+                                                            "required": [
+                                                              "IteNumConCUSINT668",
+                                                              "CusIntCodCUSINT665",
+                                                              "CusIntTexCUSINT666",
+                                                              "CusIntTexCUSINT667LNG"
+                                                            ],
+                                                            "type": "object",
+                                                            "properties": {
+                                                              "IteNumConCUSINT668": {
+                                                                "type": "integer",
+                                                                "format": "int32",
+                                                                "xml": {
+                                                                  "name": "IteNumConCUSINT668",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "CusIntCodCUSINT665": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "CusIntCodCUSINT665",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "CusIntTexCUSINT666": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "CusIntTexCUSINT666",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              },
+                                                              "CusIntTexCUSINT667LNG": {
+                                                                "type": "string",
+                                                                "xml": {
+                                                                  "name": "CusIntTexCUSINT667LNG",
+                                                                  "namespace": "",
+                                                                  "attribute": false,
+                                                                  "wrapped": false
+                                                                }
+                                                              }
+                                                            },
+                                                            "xml": {
+                                                              "name": "CUSINT632",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "xml": {
+                                                              "name": "CUSINT632",
+                                                              "namespace": "",
+                                                              "attribute": false,
+                                                              "wrapped": false
+                                                            }
+                                                          }
+                                                        ]
+                                                      }
+                                                    },
+                                                    "xml": {
+                                                      "name": "CC351A",
+                                                      "namespace": "http://ics.dgtaxud.ec/CC351A",
+                                                      "prefix": "cc3",
+                                                      "attribute": false,
+                                                      "wrapped": false
+                                                    }
+                                                  },
+                                                  {
+                                                    "xml": {
+                                                      "name": "CC351A",
+                                                      "namespace": "http://ics.dgtaxud.ec/CC351A",
+                                                      "prefix": "cc3",
+                                                      "attribute": false,
+                                                      "wrapped": false
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            "xml": {
+                                              "name": "response",
+                                              "namespace": "",
+                                              "attribute": false,
+                                              "wrapped": false
+                                            }
+                                          },
+                                          {
+                                            "xml": {
+                                              "name": "response",
+                                              "namespace": "",
+                                              "attribute": false,
+                                              "wrapped": false
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "acknowledgement": {
+                                        "allOf": [
+                                          {
+                                            "title": "acknowledgement",
+                                            "required": [
+                                              "method",
+                                              "href"
+                                            ],
+                                            "type": "object",
+                                            "properties": {
+                                              "method": {
+                                                "type": "string",
+                                                "xml": {
+                                                  "name": "method",
+                                                  "attribute": true,
+                                                  "wrapped": false
+                                                }
+                                              },
+                                              "href": {
+                                                "type": "string",
+                                                "xml": {
+                                                  "name": "href",
+                                                  "attribute": true,
+                                                  "wrapped": false
+                                                }
+                                              }
+                                            },
+                                            "xml": {
+                                              "name": "acknowledgement",
+                                              "namespace": "",
+                                              "attribute": false,
+                                              "wrapped": false
+                                            }
+                                          },
+                                          {
+                                            "xml": {
+                                              "name": "acknowledgement",
+                                              "namespace": "",
+                                              "attribute": false,
+                                              "wrapped": false
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "xml": {
+                                      "name": "notificationResponse",
+                                      "namespace": "",
+                                      "attribute": false,
+                                      "wrapped": false
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "OK",
+                  "headers": {}
+                },
+                "404": {
+                  "content": {
+                    "application/xml": {
+                      "examples": {
+                        "notFoundExample": {
+                          "description": "No notification for the submission with the specified Notification ID  is currently available or the notification has already been acknowledged.\n",
+                          "value": "<error>\n   <code>NOTIFICATION_NOT_FOUND</code>\n   <message>No unacknowledged notification found</message>\n</error>\n"
+                        }
+                      },
+                      "schema": {
+                        "allOf": [
+                          {
+                            "title": "notFound",
+                            "required": [
+                              "error"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "error": {
+                                "allOf": [
+                                  {
+                                    "title": "error",
+                                    "required": [
+                                      "code",
+                                      "message"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                      "code": {
+                                        "description": "The error code",
+                                        "type": "string"
+                                      },
+                                      "message": {
+                                        "description": "The error message",
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Not Found",
+                  "headers": {}
+                },
+                "401": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MISSING_CREDENTIALS",
+                              "INVALID_CREDENTIALS",
+                              "UNAUTHORIZED",
+                              "INCORRECT_ACCESS_TOKEN_TYPE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MISSING_CREDENTIALS",
+                          "message": "Authentication information is not provided"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "HTTPS_REQUIRED",
+                              "RESOURCE_FORBIDDEN",
+                              "INVALID_SCOPE",
+                              "FORBIDDEN"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "RESOURCE_FORBIDDEN",
+                          "message": "The application is not subscribed to the API which it is attempting to invoke"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "405": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "METHOD_NOT_ALLOWED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "METHOD_NOT_ALLOWED",
+                          "message": "Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "406": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "ACCEPT_HEADER_INVALID"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "ACCEPT_HEADER_INVALID",
+                          "message": "Missint or invalid Accept header"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "429": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MESSAGE_THROTTLED_OUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MESSAGE_THROTTLED_OUT",
+                          "message": "The application has reached its maximum rate limit"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "500": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "Error Code",
+                                "enum": [
+                                  "INTERNAL_SERVER_ERROR"
+                                ]
+                              },
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object",
+                            "example": {
+                              "code": "INTERNAL_SERVER_ERROR",
+                              "message": "Internal server error"
+                            }
+                          },
+                          {
+                            "type": "string",
+                            "example": "Failed to process request"
+                          }
+                        ]
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "501": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "NOT_IMPLEMENTED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "NOT_IMPLEMENTED",
+                          "message": "API not implemented or deployed"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "503": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "SERVER_ERROR",
+                              "SCHEDULED_MAINTENANCE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "SCHEDULED_MAINTENANCE",
+                          "message": "Scheduled maintenance"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "504": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "GATEWAY_TIMEOUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "GATEWAY_TIMEOUT",
+                          "message": "Request timed out"
+                        }
+                      }
+                    },
+                    "application/xml": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "xml": {
+                          "name": "errorResponse"
+                        }
+                      },
+                      "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<errorResponse>\n  <code>CDS60001</code>\n  <message>Declaration not found</message>\n</errorResponse>"
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                }
+              },
+              "security": [
+                {
+                  "User-Restricted": [
+                    "write:import-control-system"
+                  ]
+                }
+              ],
+              "summary": "Retrieve a notification",
+              "tags": [
+                "customs"
+              ]
+            }
+          }
+        },
+        "servers": [
+          {
+            "description": "Sandbox",
+            "url": "https://test-api.service.hmrc.gov.uk"
+          },
+          {
+            "description": "Production",
+            "url": "https://api.service.hmrc.gov.uk"
+          }
+        ],
+        "tags": [
+          {
+            "description": "",
+            "name": "customs"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "_data": null,
+  "_headers": {
+    "Location": "/agents/ZARN0557200/invitations/ACZ71NCJCAJTY"
+  },
+  "_api": "agent-authorisation-api",
+  "_major": "1",
+  "_minor": "0",
+  "_path": "/agents/{arn}/invitations",
+  "_action": "post",
+  "_response": "204"
+}

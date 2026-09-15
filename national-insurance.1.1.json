@@ -1,0 +1,510 @@
+{
+  "national-insurance": {
+    "1": {
+      "1": {
+        "components": {
+          "securitySchemes": {
+            "User-Restricted": {
+              "description": "HMRC supports OAuth 2.0 for authenticating [user-restricted](https://developer.service.hmrc.gov.uk/api-documentation/docs/authorisation/user-restricted-endpoints) API requests using an OAuth 2.0 Bearer Token in the Authorization header.",
+              "flows": {
+                "authorizationCode": {
+                  "authorizationUrl": "https://api.service.hmrc.gov.uk/oauth/authorize",
+                  "refreshUrl": "https://api.service.hmrc.gov.uk/oauth/refresh",
+                  "scopes": {
+                    "read:national-insurance": "Access National Insurance contribution information"
+                  },
+                  "tokenUrl": "https://api.service.hmrc.gov.uk/oauth/token"
+                }
+              },
+              "type": "oauth2"
+            }
+          }
+        },
+        "info": {
+          "description": "# Data availability\n\nData is available for taxpayers who, in the given tax year, have:\n\n- self-employment income\n- self-employment and employment income\n\nClass 1 NICable earnings data is not available until Class 1 NICs reconciliation is complete. This starts in May and is usually complete by the end of August. Before reconciliation, Class 1 NICable earnings is returned as \u00a30.00.\n\nClass 2 NI contributions data should be available immediately at the end of the relevant tax year. However it can change after that date due to Class 1 NICs reconciliation or if we receive late changes from the taxpayer.\n\nFind out more about [National Insurance](https://www.gov.uk/national-insurance/overview).\n\n# Authorisation\n\nThe endpoint in this API is [user-restricted](https://developer.service.hmrc.gov.uk/api-documentation/docs/authorisation/user-restricted-endpoints).\nYour users must grant authority for your software to access it by signing in to their HMRC online account.\n\nThe API supports individual and agent users. Note that:\n- Individual users can only access their own information.\n- Agent users can only access their own clients\u2019 data.\n\nThe following options are supported for agents:\n\n**Option 1: Agent services account**\n\nIf the agent uses an [agent services account](https://www.gov.uk/government/collections/hmrc-online-services-for-agents#agent-services-account), they can access their [existing 64-8 clients](https://www.gov.uk/guidance/how-to-get-authorised-to-act-as-a-tax-agent-on-behalf-of-your-clients#get-authorised-using-online-services-online-forms-or-paper-forms) who they have linked to their agent services account (restricted to 2 years\u2019 history).\n\n**Option 2: HMRC online services for agents account**\n\nIf the agent uses an [HMRC online services for agents account](https://www.gov.uk/government/collections/hmrc-online-services-for-agents#hmrc-online-services-for-agents-account) which is enrolled for [Self Assessment for Agents](https://www.gov.uk/guidance/self-assessment-for-agents-online-service), they will be able to access their [existing 64-8 clients](https://www.gov.uk/guidance/how-to-get-authorised-to-act-as-a-tax-agent-on-behalf-of-your-clients#get-authorised-using-online-services-online-forms-or-paper-forms) (restricted to 2 years\u2019 history).\n",
+          "title": "National Insurance",
+          "version": "1.1"
+        },
+        "openapi": "3.0.3",
+        "paths": {
+          "/national-insurance/sa/{utr}/annual-summary/{taxYear}": {
+            "get": {
+              "deprecated": false,
+              "description": "Fetches an individual\u2019s National Insurance contributions for the given tax year.",
+              "operationId": "getNationalInsuranceAnnualSummary",
+              "parameters": [
+                {
+                  "description": "The 10 digit self-assessment UTR for the individual.",
+                  "in": "path",
+                  "name": "utr",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "2234567890"
+                  },
+                  "style": "simple"
+                },
+                {
+                  "description": "The tax year for the National Insurance Contribution being retrieved.",
+                  "in": "path",
+                  "name": "taxYear",
+                  "required": true,
+                  "schema": {
+                    "pattern": "^[0-9]{4}-[0-9]{2}$",
+                    "type": "string",
+                    "example": "2014-15"
+                  },
+                  "style": "simple"
+                },
+                {
+                  "description": "Specifies the response format and the [version](/api-documentation/docs/reference-guide#versioning) of the API to be used.",
+                  "in": "header",
+                  "name": "Accept",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "application/vnd.hmrc.1.1+json"
+                    ]
+                  },
+                  "style": "simple"
+                },
+                {
+                  "description": "An [OAuth 2.0 Bearer Token](/api-documentation/docs/authorisation/user-restricted-endpoints) with the `read:national-insurance` scope.",
+                  "in": "header",
+                  "name": "Authorization",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "Bearer bb7fed3fe10dd235a2ccda3d50fb"
+                  },
+                  "style": "simple"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "allOf": [
+                          {
+                            "title": "nationalInsuranceSaAnnualSummaryResponse",
+                            "required": [
+                              "class1",
+                              "class2",
+                              "maxNICsReached"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "class1": {
+                                "title": "class1",
+                                "required": [
+                                  "totalNICableEarnings"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                  "totalNICableEarnings": {
+                                    "type": "number",
+                                    "description": "Total Class 1 earnings subject to National Insurance contributions between the Primary Threshold and the Upper Earnings Limit",
+                                    "example": 10
+                                  }
+                                }
+                              },
+                              "class2": {
+                                "title": "class2",
+                                "required": [
+                                  "totalDue"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                  "totalDue": {
+                                    "type": "number",
+                                    "description": "Total Class 2 National Insurance contributions due",
+                                    "example": 20
+                                  }
+                                }
+                              },
+                              "maxNICsReached": {
+                                "type": "boolean",
+                                "description": "A flag indicating whether the maximum National Insurance contributions has been reached",
+                                "example": false
+                              }
+                            },
+                            "description": "National Insurance annual summary"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "OK"
+                },
+                "400": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "invalidTaxYear": {
+                          "description": "Invalid tax year",
+                          "value": {
+                            "code": "TAX_YEAR_INVALID",
+                            "message": "The provided Tax Year is invalid"
+                          }
+                        },
+                        "invalidUtr": {
+                          "description": "Invalid UTR",
+                          "value": {
+                            "code": "SA_UTR_INVALID",
+                            "message": "The provided SA UTR is invalid"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "allOf": [
+                          {
+                            "title": "errorResponse",
+                            "required": [
+                              "code",
+                              "message"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "The error code"
+                              },
+                              "message": {
+                                "type": "string",
+                                "description": "The error message"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Bad Request"
+                },
+                "401": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "userNotAuthorised": {
+                          "description": "User not authorised to access data for given UTR",
+                          "value": {
+                            "code": "UNAUTHORIZED",
+                            "message": "Bearer token is missing or not authorized"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "allOf": [
+                          {
+                            "title": "errorResponse",
+                            "required": [
+                              "code",
+                              "message"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "The error code"
+                              },
+                              "message": {
+                                "type": "string",
+                                "description": "The error message"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Unauthorized"
+                },
+                "404": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "dataNotAvailable": {
+                          "description": "Data not available for given UTR and tax year (see the data availability section for more details)",
+                          "value": {
+                            "code": "NOT_FOUND",
+                            "message": "Resource was not found"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "allOf": [
+                          {
+                            "title": "errorResponse",
+                            "required": [
+                              "code",
+                              "message"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "The error code"
+                              },
+                              "message": {
+                                "type": "string",
+                                "description": "The error message"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Not Found"
+                },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "HTTPS_REQUIRED",
+                              "RESOURCE_FORBIDDEN",
+                              "INVALID_SCOPE",
+                              "FORBIDDEN"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "RESOURCE_FORBIDDEN",
+                          "message": "The application is not subscribed to the API which it is attempting to invoke"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "405": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "METHOD_NOT_ALLOWED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "METHOD_NOT_ALLOWED",
+                          "message": "Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "406": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "ACCEPT_HEADER_INVALID"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "ACCEPT_HEADER_INVALID",
+                          "message": "Missint or invalid Accept header"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "429": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MESSAGE_THROTTLED_OUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MESSAGE_THROTTLED_OUT",
+                          "message": "The application has reached its maximum rate limit"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "500": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "Error Code",
+                                "enum": [
+                                  "INTERNAL_SERVER_ERROR"
+                                ]
+                              },
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object",
+                            "example": {
+                              "code": "INTERNAL_SERVER_ERROR",
+                              "message": "Internal server error"
+                            }
+                          },
+                          {
+                            "type": "string",
+                            "example": "Failed to process request"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "501": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "NOT_IMPLEMENTED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "NOT_IMPLEMENTED",
+                          "message": "API not implemented or deployed"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "503": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "SERVER_ERROR",
+                              "SCHEDULED_MAINTENANCE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "SCHEDULED_MAINTENANCE",
+                          "message": "Scheduled maintenance"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "504": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "GATEWAY_TIMEOUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "GATEWAY_TIMEOUT",
+                          "message": "Request timed out"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                }
+              },
+              "security": [
+                {
+                  "User-Restricted": [
+                    "read:national-insurance"
+                  ]
+                }
+              ],
+              "summary": "Get National Insurance annual summary",
+              "tags": [
+                "national-insurance"
+              ]
+            }
+          }
+        },
+        "servers": [
+          {
+            "description": "Sandbox",
+            "url": "https://test-api.service.hmrc.gov.uk"
+          },
+          {
+            "description": "Production",
+            "url": "https://api.service.hmrc.gov.uk"
+          }
+        ]
+      }
+    }
+  }
+}

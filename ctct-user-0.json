@@ -1,0 +1,32 @@
+{
+  "_data": {
+    "json": {
+      "userId": "866325695145",
+      "password": "26aDZu9V45ir",
+      "userFullName": "Frankie Stafford",
+      "emailAddress": "frankie.stafford@example.com",
+      "individualDetails": {
+        "firstName": "Frankie",
+        "lastName": "Stafford",
+        "dateOfBirth": "1962-03-28",
+        "address": {
+          "line1": "11 Kensington High Street",
+          "line2": "Fleet",
+          "postcode": "TS2 1PA"
+        }
+      },
+      "eoriNumber": "GB028180581086",
+      "groupIdentifier": "797508768970"
+    }
+  },
+  "_parameters": {},
+  "_control": {
+    "_api": "api-platform-test-user",
+    "_major": "1",
+    "_minor": "0",
+    "_path": "/create-test-user/individuals",
+    "_action": "post",
+    "_response": "201",
+    "_output": "json"
+  }
+}

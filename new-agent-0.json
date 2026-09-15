@@ -1,0 +1,17 @@
+{
+  "data": {
+    "userId": "533965377160",
+    "password": "U7fuf7CrgnEN",
+    "userFullName": "Deane Paisley",
+    "emailAddress": "deane.paisley@example.com",
+    "agentServicesAccountNumber": "WARN0250637",
+    "groupIdentifier": "770154427946",
+    "agentCode": "4404552280"
+  },
+  "api": "api-platform-test-user",
+  "major": "1",
+  "minor": "0",
+  "path": "/create-test-user/agents",
+  "action": "post",
+  "response": "201"
+}

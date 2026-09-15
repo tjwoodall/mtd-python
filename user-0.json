@@ -1,0 +1,27 @@
+{
+  "data": {
+    "userId": "447206268033",
+    "password": "O6d0B9ak9qjO",
+    "userFullName": "Mercer Kerr",
+    "emailAddress": "mercer.kerr@example.com",
+    "individualDetails": {
+      "firstName": "Mercer",
+      "lastName": "Kerr",
+      "dateOfBirth": "1953-12-06",
+      "address": {
+        "line1": "44 Rathbone Street",
+        "line2": "Thatcham",
+        "postcode": "TS17 1PA"
+      }
+    },
+    "nino": "MG111637D",
+    "mtdItId": "XKIT00359973189",
+    "groupIdentifier": "706865011656"
+  },
+  "api": "api-platform-test-user",
+  "major": "1",
+  "minor": "0",
+  "path": "/create-test-user/individuals",
+  "action": "post",
+  "response": "201"
+}

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf8" />
+  <title>Hello World</title>
+  <!-- needed for adaptive design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+  <script src="redoc.standalone.js"></script><style data-styled="true" data-styled-version="6.3.9">.hoYmkG{width:calc(100% - 40%);padding:0 40px;}/*!sc*/
+@media print,screen and (max-width: 75rem){.hoYmkG{width:100%;padding:40px 40px;}}/*!sc*/
+.eiTXyS{width:calc(100% - 40%);padding:0 40px;}/*!sc*/
+@media print,screen and (max-width: 75rem){.eiTXyS{width:100%;padding:0px 40px;}}/*!sc*/
+data-styled.g4[id="sc-hLseeT"]{content:"hoYmkG,eiTXyS,"}/*!sc*/
+.eTiIZG{padding:40px 0;}/*!sc*/
+.eTiIZG:last-child{min-height:calc(100vh + 1px);}/*!sc*/
+.eTiIZG>.eTiIZG:last-child{min-height:initial;}/*!sc*/
+@media print,screen and (max-width: 75rem){.eTiIZG{padding:0;}}/*!sc*/
+.iUTsUN{padding:40px 0;position:relative;}/*!sc*/
+.iUTsUN:last-child{min-height:calc(100vh + 1px);}/*!sc*/
+.iUTsUN>.iUTsUN:last-child{min-height:initial;}/*!sc*/
+@media print,screen and (max-width: 75rem){.iUTsUN{padding:0;}}/*!sc*/
+.iUTsUN:not(:last-of-type):after{position:absolute;bottom:0;width:100%;display:block;content:'';border-bottom:1px solid rgba(0, 0, 0, 0.2);}/*!sc*/
+data-styled.g5[id="sc-eDDNvO"]{content:"eTiIZG,iUTsUN,"}/*!sc*/
+.dVngAA{width:40%;color:#ffffff;background-color:#263238;padding:0 40px;}/*!sc*/
+@media print,screen and (max-width: 75rem){.dVngAA{width:100%;padding:40px 40px;}}/*!sc*/
+data-styled.g6[id="sc-jTrPJt"]{content:"dVngAA,"}/*!sc*/
+.fYLqku{background-color:#263238;}/*!sc*/
+data-styled.g7[id="sc-gLDzao"]{content:"fYLqku,"}/*!sc*/
+.cmAaWK{display:flex;width:100%;padding:0;}/*!sc*/
+@media print,screen and (max-width: 75rem){.cmAaWK{flex-direction:column;}}/*!sc*/
+data-styled.g8[id="sc-iAEyYj"]{content:"cmAaWK,"}/*!sc*/
+.cwJHrm{font-family:DejaVu Sans,sans-serif;font-weight:400;font-size:1.85714em;line-height:1.6em;color:#333333;}/*!sc*/
+data-styled.g9[id="sc-fsQipe"]{content:"cwJHrm,"}/*!sc*/
+.fGyyxY{font-family:DejaVu Sans,sans-serif;font-weight:400;font-size:1.57143em;line-height:1.6em;color:#333333;margin:0 0 20px;}/*!sc*/
+data-styled.g10[id="sc-qRumy"]{content:"fGyyxY,"}/*!sc*/
+.dEbuTz{color:#ffffff;}/*!sc*/
+data-styled.g12[id="sc-kFuwaQ"]{content:"dEbuTz,"}/*!sc*/
+.fA-dGxt{border-bottom:1px solid rgba(38, 50, 56, 0.3);margin:1em 0 1em 0;color:rgba(38, 50, 56, 0.5);font-weight:normal;text-transform:uppercase;font-size:0.929em;line-height:20px;}/*!sc*/
+data-styled.g13[id="sc-irTswZ"]{content:"fA-dGxt,"}/*!sc*/
+.jSIqAu{cursor:pointer;margin-left:-20px;padding:0;line-height:1;width:20px;display:inline-block;outline:0;}/*!sc*/
+.jSIqAu:before{content:'';width:15px;height:15px;background-size:contain;background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMCIgeT0iMCIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cGF0aCBmaWxsPSIjMDEwMTAxIiBkPSJNNDU5LjcgMjMzLjRsLTkwLjUgOTAuNWMtNTAgNTAtMTMxIDUwLTE4MSAwIC03LjktNy44LTE0LTE2LjctMTkuNC0yNS44bDQyLjEtNDIuMWMyLTIgNC41LTMuMiA2LjgtNC41IDIuOSA5LjkgOCAxOS4zIDE1LjggMjcuMiAyNSAyNSA2NS42IDI0LjkgOTAuNSAwbDkwLjUtOTAuNWMyNS0yNSAyNS02NS42IDAtOTAuNSAtMjQuOS0yNS02NS41LTI1LTkwLjUgMGwtMzIuMiAzMi4yYy0yNi4xLTEwLjItNTQuMi0xMi45LTgxLjYtOC45bDY4LjYtNjguNmM1MC01MCAxMzEtNTAgMTgxIDBDNTA5LjYgMTAyLjMgNTA5LjYgMTgzLjQgNDU5LjcgMjMzLjR6TTIyMC4zIDM4Mi4ybC0zMi4yIDMyLjJjLTI1IDI0LjktNjUuNiAyNC45LTkwLjUgMCAtMjUtMjUtMjUtNjUuNiAwLTkwLjVsOTAuNS05MC41YzI1LTI1IDY1LjUtMjUgOTAuNSAwIDcuOCA3LjggMTIuOSAxNy4yIDE1LjggMjcuMSAyLjQtMS40IDQuOC0yLjUgNi44LTQuNWw0Mi4xLTQyYy01LjQtOS4yLTExLjYtMTgtMTkuNC0yNS44IC01MC01MC0xMzEtNTAtMTgxIDBsLTkwLjUgOTAuNWMtNTAgNTAtNTAgMTMxIDAgMTgxIDUwIDUwIDEzMSA1MCAxODEgMGw2OC42LTY4LjZDMjc0LjYgMzk1LjEgMjQ2LjQgMzkyLjMgMjIwLjMgMzgyLjJ6Ii8+PC9zdmc+Cg==');opacity:0.5;visibility:hidden;display:inline-block;vertical-align:middle;}/*!sc*/
+h1:hover>.jSIqAu::before,h2:hover>.jSIqAu::before,.jSIqAu:hover::before{visibility:visible;}/*!sc*/
+data-styled.g14[id="sc-csCMJq"]{content:"jSIqAu,"}/*!sc*/
+.cNCXIL{height:18px;width:18px;min-width:18px;vertical-align:middle;float:right;transition:transform 0.2s ease-out;transform:rotateZ(-90deg);}/*!sc*/
+.eiOVYa{height:1.3em;width:1.3em;min-width:1.3em;vertical-align:middle;transition:transform 0.2s ease-out;transform:rotateZ(-90deg);}/*!sc*/
+.iZiZiV{height:1.5em;width:1.5em;min-width:1.5em;vertical-align:middle;float:left;transition:transform 0.2s ease-out;transform:rotateZ(-90deg);}/*!sc*/
+.iZiZiV polygon{fill:#1d8127;}/*!sc*/
+.kiMFkB{height:1.5em;width:1.5em;min-width:1.5em;vertical-align:middle;float:left;transition:transform 0.2s ease-out;transform:rotateZ(-90deg);}/*!sc*/
+.kiMFkB polygon{fill:#d41f1c;}/*!sc*/
+.ivEQut{height:20px;width:20px;min-width:20px;vertical-align:middle;float:right;transition:transform 0.2s ease-out;transform:rotateZ(0);}/*!sc*/
+.ivEQut polygon{fill:white;}/*!sc*/
+data-styled.g15[id="sc-fbJfz"]{content:"cNCXIL,eiOVYa,iZiZiV,kiMFkB,ivEQut,"}/*!sc*/
+.kddqHa{border-left:1px solid #7c7cbb;box-sizing:border-box;position:relative;padding:10px 10px 10px 0;}/*!sc*/
+@media screen and (max-width: 50rem){.kddqHa{display:block;overflow:hidden;}}/*!sc*/
+tr:first-of-type>.kddqHa,tr.last>.kddqHa{border-left-width:0;background-position:top left;background-repeat:no-repeat;background-size:1px 100%;}/*!sc*/
+tr:first-of-type>.kddqHa{background-image:linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 22px,
+      #7c7cbb 22px,
+      #7c7cbb 100%
+    );}/*!sc*/
+tr.last>.kddqHa{background-image:linear-gradient(
+      to bottom,
+      #7c7cbb 0%,
+      #7c7cbb 22px,
+      transparent 22px,
+      transparent 100%
+    );}/*!sc*/
+tr.last+tr>.kddqHa{border-left-color:transparent;}/*!sc*/
+tr.last:first-child>.kddqHa{background:none;border-left-color:transparent;}/*!sc*/
+data-styled.g18[id="sc-hAtEya"]{content:"kddqHa,"}/*!sc*/
+.fhcgaP{vertical-align:top;line-height:20px;white-space:nowrap;font-size:13px;font-family:DejaVu Sans Mono,monospace;}/*!sc*/
+.fhcgaP.deprecated{text-decoration:line-through;color:#707070;}/*!sc*/
+data-styled.g20[id="sc-fGFwA-d"]{content:"fhcgaP,"}/*!sc*/
+.bmauLr{border-bottom:1px solid #9fb4be;padding:10px 0;width:75%;box-sizing:border-box;}/*!sc*/
+tr.expanded .bmauLr{border-bottom:none;}/*!sc*/
+@media screen and (max-width: 50rem){.bmauLr{padding:0 20px;border-bottom:none;border-left:1px solid #7c7cbb;}tr.last>.bmauLr{border-left:none;}}/*!sc*/
+data-styled.g21[id="sc-blLsxE"]{content:"bmauLr,"}/*!sc*/
+.bibqxM{color:#7c7cbb;font-family:DejaVu Sans Mono,monospace;margin-right:10px;}/*!sc*/
+.bibqxM::before{content:'';display:inline-block;vertical-align:middle;width:10px;height:1px;background:#7c7cbb;}/*!sc*/
+.bibqxM::after{content:'';display:inline-block;vertical-align:middle;width:1px;background:#7c7cbb;height:7px;}/*!sc*/
+data-styled.g22[id="sc-ieZDjf"]{content:"bibqxM,"}/*!sc*/
+.dybric{border-collapse:separate;border-radius:3px;font-size:14px;border-spacing:0;width:100%;}/*!sc*/
+.dybric >tr{vertical-align:middle;}/*!sc*/
+@media screen and (max-width: 50rem){.dybric{display:block;}.dybric >tr,.dybric >tbody>tr{display:block;}}/*!sc*/
+@media screen and (max-width: 50rem) and (-ms-high-contrast:none){.dybric td{float:left;width:100%;}}/*!sc*/
+.dybric .sc-dKfzgG,.dybric .sc-dKfzgG .sc-dKfzgG .sc-dKfzgG,.dybric .sc-dKfzgG .sc-dKfzgG .sc-dKfzgG .sc-dKfzgG .sc-dKfzgG{margin:1em;margin-right:0;background:#fafafa;}/*!sc*/
+.dybric .sc-dKfzgG .sc-dKfzgG,.dybric .sc-dKfzgG .sc-dKfzgG .sc-dKfzgG .sc-dKfzgG,.dybric .sc-dKfzgG .sc-dKfzgG .sc-dKfzgG .sc-dKfzgG .sc-dKfzgG .sc-dKfzgG{background:#ffffff;}/*!sc*/
+data-styled.g24[id="sc-hIqOWV"]{content:"dybric,"}/*!sc*/
+.lbIFgo >ul{list-style:none;padding:0;margin:0;margin:0 -5px;}/*!sc*/
+.lbIFgo >ul >li{padding:5px 10px;display:inline-block;background-color:#11171a;border-bottom:1px solid rgba(0, 0, 0, 0.5);cursor:pointer;text-align:center;outline:none;color:#ccc;margin:0 5px 5px 5px;border:1px solid #07090b;border-radius:5px;min-width:60px;font-size:0.9em;font-weight:bold;}/*!sc*/
+.lbIFgo >ul >li.react-tabs__tab--selected{color:#333333;background:#ffffff;}/*!sc*/
+.lbIFgo >ul >li.react-tabs__tab--selected:focus{outline:auto;}/*!sc*/
+.lbIFgo >ul >li:only-child{flex:none;min-width:100px;}/*!sc*/
+.lbIFgo >ul >li.tab-success{color:#1d8127;}/*!sc*/
+.lbIFgo >ul >li.tab-redirect{color:#ffa500;}/*!sc*/
+.lbIFgo >ul >li.tab-info{color:#87ceeb;}/*!sc*/
+.lbIFgo >ul >li.tab-error{color:#d41f1c;}/*!sc*/
+.lbIFgo >.react-tabs__tab-panel{background:#11171a;}/*!sc*/
+.lbIFgo >.react-tabs__tab-panel>div,.lbIFgo >.react-tabs__tab-panel>pre{padding:20px;margin:0;}/*!sc*/
+.lbIFgo >.react-tabs__tab-panel>div>pre{padding:0;}/*!sc*/
+data-styled.g30[id="sc-cyRfQY"]{content:"lbIFgo,"}/*!sc*/
+.dXXcln code[class*='language-'],.dXXcln pre[class*='language-']{text-shadow:0 -0.1em 0.2em black;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;}/*!sc*/
+@media print{.dXXcln code[class*='language-'],.dXXcln pre[class*='language-']{text-shadow:none;}}/*!sc*/
+.dXXcln pre[class*='language-']{padding:1em;margin:0.5em 0;overflow:auto;}/*!sc*/
+.dXXcln .token.comment,.dXXcln .token.prolog,.dXXcln .token.doctype,.dXXcln .token.cdata{color:hsl(30, 20%, 50%);}/*!sc*/
+.dXXcln .token.punctuation{opacity:0.7;}/*!sc*/
+.dXXcln .namespace{opacity:0.7;}/*!sc*/
+.dXXcln .token.property,.dXXcln .token.tag,.dXXcln .token.number,.dXXcln .token.constant,.dXXcln .token.symbol{color:#4a8bb3;}/*!sc*/
+.dXXcln .token.boolean{color:#e64441;}/*!sc*/
+.dXXcln .token.selector,.dXXcln .token.attr-name,.dXXcln .token.string,.dXXcln .token.char,.dXXcln .token.builtin,.dXXcln .token.inserted{color:#a0fbaa;}/*!sc*/
+.dXXcln .token.selector+a,.dXXcln .token.attr-name+a,.dXXcln .token.string+a,.dXXcln .token.char+a,.dXXcln .token.builtin+a,.dXXcln .token.inserted+a,.dXXcln .token.selector+a:visited,.dXXcln .token.attr-name+a:visited,.dXXcln .token.string+a:visited,.dXXcln .token.char+a:visited,.dXXcln .token.builtin+a:visited,.dXXcln .token.inserted+a:visited{color:#4ed2ba;text-decoration:underline;}/*!sc*/
+.dXXcln .token.property.string{color:white;}/*!sc*/
+.dXXcln .token.operator,.dXXcln .token.entity,.dXXcln .token.url,.dXXcln .token.variable{color:hsl(40, 90%, 60%);}/*!sc*/
+.dXXcln .token.atrule,.dXXcln .token.attr-value,.dXXcln .token.keyword{color:hsl(350, 40%, 70%);}/*!sc*/
+.dXXcln .token.regex,.dXXcln .token.important{color:#e90;}/*!sc*/
+.dXXcln .token.important,.dXXcln .token.bold{font-weight:bold;}/*!sc*/
+.dXXcln .token.italic{font-style:italic;}/*!sc*/
+.dXXcln .token.entity{cursor:help;}/*!sc*/
+.dXXcln .token.deleted{color:red;}/*!sc*/
+data-styled.g32[id="sc-iKGpAq"]{content:"dXXcln,"}/*!sc*/
+.dLNqBz{opacity:0.7;transition:opacity 0.3s ease;text-align:right;}/*!sc*/
+.dLNqBz:focus-within{opacity:1;}/*!sc*/
+.dLNqBz >button{background-color:transparent;border:0;color:inherit;padding:2px 10px;font-family:DejaVu Sans,sans-serif;font-size:14px;line-height:1.5em;cursor:pointer;outline:0;}/*!sc*/
+.dLNqBz >button :hover,.dLNqBz >button :focus{background:rgba(255, 255, 255, 0.1);}/*!sc*/
+data-styled.g33[id="sc-gjTGSz"]{content:"dLNqBz,"}/*!sc*/
+.bNwKoT{position:relative;}/*!sc*/
+data-styled.g37[id="sc-kMrHXi"]{content:"bNwKoT,"}/*!sc*/
+.djTtq{font-family:DejaVu Sans,sans-serif;font-weight:400;line-height:1.5em;}/*!sc*/
+.djTtq p:last-child{margin-bottom:0;}/*!sc*/
+.djTtq h1{font-family:DejaVu Sans,sans-serif;font-weight:400;font-size:1.85714em;line-height:1.6em;color:#32329f;margin-top:0;}/*!sc*/
+.djTtq h2{font-family:DejaVu Sans,sans-serif;font-weight:400;font-size:1.57143em;line-height:1.6em;color:#333333;}/*!sc*/
+.djTtq code{color:#e53935;background-color:rgba(38, 50, 56, 0.05);font-family:DejaVu Sans Mono,monospace;border-radius:2px;border:1px solid rgba(38, 50, 56, 0.1);padding:0 5px;font-size:13px;font-weight:400;word-break:break-word;}/*!sc*/
+.djTtq pre{font-family:DejaVu Sans Mono,monospace;white-space:pre;background-color:#11171a;color:white;padding:20px;overflow-x:auto;line-height:normal;border-radius:0;border:1px solid rgba(38, 50, 56, 0.1);}/*!sc*/
+.djTtq pre code{background-color:transparent;color:white;padding:0;}/*!sc*/
+.djTtq pre code:before,.djTtq pre code:after{content:none;}/*!sc*/
+.djTtq blockquote{margin:0;margin-bottom:1em;padding:0 15px;color:#777;border-left:4px solid #ddd;}/*!sc*/
+.djTtq img{max-width:100%;box-sizing:content-box;}/*!sc*/
+.djTtq ul,.djTtq ol{padding-left:2em;margin:0;margin-bottom:1em;}/*!sc*/
+.djTtq ul ul,.djTtq ol ul,.djTtq ul ol,.djTtq ol ol{margin-bottom:0;margin-top:0;}/*!sc*/
+.djTtq table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all;border-collapse:collapse;border-spacing:0;margin-top:1.5em;margin-bottom:1.5em;}/*!sc*/
+.djTtq table tr{background-color:#fff;border-top:1px solid #ccc;}/*!sc*/
+.djTtq table tr:nth-child(2n){background-color:#fafafa;}/*!sc*/
+.djTtq table th,.djTtq table td{padding:6px 13px;border:1px solid #ddd;}/*!sc*/
+.djTtq table th{text-align:left;font-weight:bold;}/*!sc*/
+.djTtq .share-link{cursor:pointer;margin-left:-20px;padding:0;line-height:1;width:20px;display:inline-block;outline:0;}/*!sc*/
+.djTtq .share-link:before{content:'';width:15px;height:15px;background-size:contain;background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMCIgeT0iMCIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cGF0aCBmaWxsPSIjMDEwMTAxIiBkPSJNNDU5LjcgMjMzLjRsLTkwLjUgOTAuNWMtNTAgNTAtMTMxIDUwLTE4MSAwIC03LjktNy44LTE0LTE2LjctMTkuNC0yNS44bDQyLjEtNDIuMWMyLTIgNC41LTMuMiA2LjgtNC41IDIuOSA5LjkgOCAxOS4zIDE1LjggMjcuMiAyNSAyNSA2NS42IDI0LjkgOTAuNSAwbDkwLjUtOTAuNWMyNS0yNSAyNS02NS42IDAtOTAuNSAtMjQuOS0yNS02NS41LTI1LTkwLjUgMGwtMzIuMiAzMi4yYy0yNi4xLTEwLjItNTQuMi0xMi45LTgxLjYtOC45bDY4LjYtNjguNmM1MC01MCAxMzEtNTAgMTgxIDBDNTA5LjYgMTAyLjMgNTA5LjYgMTgzLjQgNDU5LjcgMjMzLjR6TTIyMC4zIDM4Mi4ybC0zMi4yIDMyLjJjLTI1IDI0LjktNjUuNiAyNC45LTkwLjUgMCAtMjUtMjUtMjUtNjUuNiAwLTkwLjVsOTAuNS05MC41YzI1LTI1IDY1LjUtMjUgOTAuNSAwIDcuOCA3LjggMTIuOSAxNy4yIDE1LjggMjcuMSAyLjQtMS40IDQuOC0yLjUgNi44LTQuNWw0Mi4xLTQyYy01LjQtOS4yLTExLjYtMTgtMTkuNC0yNS44IC01MC01MC0xMzEtNTAtMTgxIDBsLTkwLjUgOTAuNWMtNTAgNTAtNTAgMTMxIDAgMTgxIDUwIDUwIDEzMSA1MCAxODEgMGw2OC42LTY4LjZDMjc0LjYgMzk1LjEgMjQ2LjQgMzkyLjMgMjIwLjMgMzgyLjJ6Ii8+PC9zdmc+Cg==');opacity:0.5;visibility:hidden;display:inline-block;vertical-align:middle;}/*!sc*/
+.djTtq h1:hover>.share-link::before,.djTtq h2:hover>.share-link::before,.djTtq .share-link:hover::before{visibility:visible;}/*!sc*/
+.djTtq a{text-decoration:auto;color:#32329f;}/*!sc*/
+.djTtq a:visited{color:#32329f;}/*!sc*/
+.djTtq a:hover{color:#6868cf;text-decoration:auto;}/*!sc*/
+.eCNZEA{font-family:DejaVu Sans,sans-serif;font-weight:400;line-height:1.5em;}/*!sc*/
+.eCNZEA p:last-child{margin-bottom:0;}/*!sc*/
+.eCNZEA p:first-child{margin-top:0;}/*!sc*/
+.eCNZEA p:last-child{margin-bottom:0;}/*!sc*/
+.eCNZEA h1{font-family:DejaVu Sans,sans-serif;font-weight:400;font-size:1.85714em;line-height:1.6em;color:#32329f;margin-top:0;}/*!sc*/
+.eCNZEA h2{font-family:DejaVu Sans,sans-serif;font-weight:400;font-size:1.57143em;line-height:1.6em;color:#333333;}/*!sc*/
+.eCNZEA code{color:#e53935;background-color:rgba(38, 50, 56, 0.05);font-family:DejaVu Sans Mono,monospace;border-radius:2px;border:1px solid rgba(38, 50, 56, 0.1);padding:0 5px;font-size:13px;font-weight:400;word-break:break-word;}/*!sc*/
+.eCNZEA pre{font-family:DejaVu Sans Mono,monospace;white-space:pre;background-color:#11171a;color:white;padding:20px;overflow-x:auto;line-height:normal;border-radius:0;border:1px solid rgba(38, 50, 56, 0.1);}/*!sc*/
+.eCNZEA pre code{background-color:transparent;color:white;padding:0;}/*!sc*/
+.eCNZEA pre code:before,.eCNZEA pre code:after{content:none;}/*!sc*/
+.eCNZEA blockquote{margin:0;margin-bottom:1em;padding:0 15px;color:#777;border-left:4px solid #ddd;}/*!sc*/
+.eCNZEA img{max-width:100%;box-sizing:content-box;}/*!sc*/
+.eCNZEA ul,.eCNZEA ol{padding-left:2em;margin:0;margin-bottom:1em;}/*!sc*/
+.eCNZEA ul ul,.eCNZEA ol ul,.eCNZEA ul ol,.eCNZEA ol ol{margin-bottom:0;margin-top:0;}/*!sc*/
+.eCNZEA table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all;border-collapse:collapse;border-spacing:0;margin-top:1.5em;margin-bottom:1.5em;}/*!sc*/
+.eCNZEA table tr{background-color:#fff;border-top:1px solid #ccc;}/*!sc*/
+.eCNZEA table tr:nth-child(2n){background-color:#fafafa;}/*!sc*/
+.eCNZEA table th,.eCNZEA table td{padding:6px 13px;border:1px solid #ddd;}/*!sc*/
+.eCNZEA table th{text-align:left;font-weight:bold;}/*!sc*/
+.eCNZEA .share-link{cursor:pointer;margin-left:-20px;padding:0;line-height:1;width:20px;display:inline-block;outline:0;}/*!sc*/
+.eCNZEA .share-link:before{content:'';width:15px;height:15px;background-size:contain;background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMCIgeT0iMCIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cGF0aCBmaWxsPSIjMDEwMTAxIiBkPSJNNDU5LjcgMjMzLjRsLTkwLjUgOTAuNWMtNTAgNTAtMTMxIDUwLTE4MSAwIC03LjktNy44LTE0LTE2LjctMTkuNC0yNS44bDQyLjEtNDIuMWMyLTIgNC41LTMuMiA2LjgtNC41IDIuOSA5LjkgOCAxOS4zIDE1LjggMjcuMiAyNSAyNSA2NS42IDI0LjkgOTAuNSAwbDkwLjUtOTAuNWMyNS0yNSAyNS02NS42IDAtOTAuNSAtMjQuOS0yNS02NS41LTI1LTkwLjUgMGwtMzIuMiAzMi4yYy0yNi4xLTEwLjItNTQuMi0xMi45LTgxLjYtOC45bDY4LjYtNjguNmM1MC01MCAxMzEtNTAgMTgxIDBDNTA5LjYgMTAyLjMgNTA5LjYgMTgzLjQgNDU5LjcgMjMzLjR6TTIyMC4zIDM4Mi4ybC0zMi4yIDMyLjJjLTI1IDI0LjktNjUuNiAyNC45LTkwLjUgMCAtMjUtMjUtMjUtNjUuNiAwLTkwLjVsOTAuNS05MC41YzI1LTI1IDY1LjUtMjUgOTAuNSAwIDcuOCA3LjggMTIuOSAxNy4yIDE1LjggMjcuMSAyLjQtMS40IDQuOC0yLjUgNi44LTQuNWw0Mi4xLTQyYy01LjQtOS4yLTExLjYtMTgtMTkuNC0yNS44IC01MC01MC0xMzEtNTAtMTgxIDBsLTkwLjUgOTAuNWMtNTAgNTAtNTAgMTMxIDAgMTgxIDUwIDUwIDEzMSA1MCAxODEgMGw2OC42LTY4LjZDMjc0LjYgMzk1LjEgMjQ2LjQgMzkyLjMgMjIwLjMgMzgyLjJ6Ii8+PC9zdmc+Cg==');opacity:0.5;visibility:hidden;display:inline-block;vertical-align:middle;}/*!sc*/
+.eCNZEA h1:hover>.share-link::before,.eCNZEA h2:hover>.share-link::before,.eCNZEA .share-link:hover::before{visibility:visible;}/*!sc*/
+.eCNZEA a{text-decoration:auto;color:#32329f;}/*!sc*/
+.eCNZEA a:visited{color:#32329f;}/*!sc*/
+.eCNZEA a:hover{color:#6868cf;text-decoration:auto;}/*!sc*/
+.fSUkok{font-family:DejaVu Sans,sans-serif;font-weight:400;line-height:1.5em;}/*!sc*/
+.fSUkok p:last-child{margin-bottom:0;}/*!sc*/
+.fSUkok p:first-child{margin-top:0;}/*!sc*/
+.fSUkok p:last-child{margin-bottom:0;}/*!sc*/
+.fSUkok p{display:inline-block;}/*!sc*/
+.fSUkok h1{font-family:DejaVu Sans,sans-serif;font-weight:400;font-size:1.85714em;line-height:1.6em;color:#32329f;margin-top:0;}/*!sc*/
+.fSUkok h2{font-family:DejaVu Sans,sans-serif;font-weight:400;font-size:1.57143em;line-height:1.6em;color:#333333;}/*!sc*/
+.fSUkok code{color:#e53935;background-color:rgba(38, 50, 56, 0.05);font-family:DejaVu Sans Mono,monospace;border-radius:2px;border:1px solid rgba(38, 50, 56, 0.1);padding:0 5px;font-size:13px;font-weight:400;word-break:break-word;}/*!sc*/
+.fSUkok pre{font-family:DejaVu Sans Mono,monospace;white-space:pre;background-color:#11171a;color:white;padding:20px;overflow-x:auto;line-height:normal;border-radius:0;border:1px solid rgba(38, 50, 56, 0.1);}/*!sc*/
+.fSUkok pre code{background-color:transparent;color:white;padding:0;}/*!sc*/
+.fSUkok pre code:before,.fSUkok pre code:after{content:none;}/*!sc*/
+.fSUkok blockquote{margin:0;margin-bottom:1em;padding:0 15px;color:#777;border-left:4px solid #ddd;}/*!sc*/
+.fSUkok img{max-width:100%;box-sizing:content-box;}/*!sc*/
+.fSUkok ul,.fSUkok ol{padding-left:2em;margin:0;margin-bottom:1em;}/*!sc*/
+.fSUkok ul ul,.fSUkok ol ul,.fSUkok ul ol,.fSUkok ol ol{margin-bottom:0;margin-top:0;}/*!sc*/
+.fSUkok table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all;border-collapse:collapse;border-spacing:0;margin-top:1.5em;margin-bottom:1.5em;}/*!sc*/
+.fSUkok table tr{background-color:#fff;border-top:1px solid #ccc;}/*!sc*/
+.fSUkok table tr:nth-child(2n){background-color:#fafafa;}/*!sc*/
+.fSUkok table th,.fSUkok table td{padding:6px 13px;border:1px solid #ddd;}/*!sc*/
+.fSUkok table th{text-align:left;font-weight:bold;}/*!sc*/
+.fSUkok .share-link{cursor:pointer;margin-left:-20px;padding:0;line-height:1;width:20px;display:inline-block;outline:0;}/*!sc*/
+.fSUkok .share-link:before{content:'';width:15px;height:15px;background-size:contain;background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMCIgeT0iMCIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cGF0aCBmaWxsPSIjMDEwMTAxIiBkPSJNNDU5LjcgMjMzLjRsLTkwLjUgOTAuNWMtNTAgNTAtMTMxIDUwLTE4MSAwIC03LjktNy44LTE0LTE2LjctMTkuNC0yNS44bDQyLjEtNDIuMWMyLTIgNC41LTMuMiA2LjgtNC41IDIuOSA5LjkgOCAxOS4zIDE1LjggMjcuMiAyNSAyNSA2NS42IDI0LjkgOTAuNSAwbDkwLjUtOTAuNWMyNS0yNSAyNS02NS42IDAtOTAuNSAtMjQuOS0yNS02NS41LTI1LTkwLjUgMGwtMzIuMiAzMi4yYy0yNi4xLTEwLjItNTQuMi0xMi45LTgxLjYtOC45bDY4LjYtNjguNmM1MC01MCAxMzEtNTAgMTgxIDBDNTA5LjYgMTAyLjMgNTA5LjYgMTgzLjQgNDU5LjcgMjMzLjR6TTIyMC4zIDM4Mi4ybC0zMi4yIDMyLjJjLTI1IDI0LjktNjUuNiAyNC45LTkwLjUgMCAtMjUtMjUtMjUtNjUuNiAwLTkwLjVsOTAuNS05MC41YzI1LTI1IDY1LjUtMjUgOTAuNSAwIDcuOCA3LjggMTIuOSAxNy4yIDE1LjggMjcuMSAyLjQtMS40IDQuOC0yLjUgNi44LTQuNWw0Mi4xLTQyYy01LjQtOS4yLTExLjYtMTgtMTkuNC0yNS44IC01MC01MC0xMzEtNTAtMTgxIDBsLTkwLjUgOTAuNWMtNTAgNTAtNTAgMTMxIDAgMTgxIDUwIDUwIDEzMSA1MCAxODEgMGw2OC42LTY4LjZDMjc0LjYgMzk1LjEgMjQ2LjQgMzkyLjMgMjIwLjMgMzgyLjJ6Ii8+PC9zdmc+Cg==');opacity:0.5;visibility:hidden;display:inline-block;vertical-align:middle;}/*!sc*/
+.fSUkok h1:hover>.share-link::before,.fSUkok h2:hover>.share-link::before,.fSUkok .share-link:hover::before{visibility:visible;}/*!sc*/
+.fSUkok a{text-decoration:auto;color:#32329f;}/*!sc*/
+.fSUkok a:visited{color:#32329f;}/*!sc*/
+.fSUkok a:hover{color:#6868cf;text-decoration:auto;}/*!sc*/
+data-styled.g42[id="sc-cCYyou"]{content:"djTtq,eCNZEA,fSUkok,"}/*!sc*/
+.dkmSdy{display:inline;}/*!sc*/
+data-styled.g43[id="sc-cjERFZ"]{content:"dkmSdy,"}/*!sc*/
+.fJsoyS{position:relative;}/*!sc*/
+data-styled.g44[id="sc-jegxcw"]{content:"fJsoyS,"}/*!sc*/
+.iLjyyA:hover>.sc-gjTGSz{opacity:1;}/*!sc*/
+data-styled.g49[id="sc-cRZddz"]{content:"iLjyyA,"}/*!sc*/
+.ceZGuR{font-family:DejaVu Sans Mono,monospace;font-size:13px;white-space:pre;contain:content;overflow-x:auto;}/*!sc*/
+.ceZGuR .redoc-json code>.collapser{display:none;pointer-events:none;}/*!sc*/
+.ceZGuR .callback-function{color:gray;}/*!sc*/
+.ceZGuR .collapser:after{content:'-';cursor:pointer;}/*!sc*/
+.ceZGuR .collapsed>.collapser:after{content:'+';cursor:pointer;}/*!sc*/
+.ceZGuR .ellipsis:after{content:' … ';}/*!sc*/
+.ceZGuR .collapsible{margin-left:2em;}/*!sc*/
+.ceZGuR .hoverable{padding-top:1px;padding-bottom:1px;padding-left:2px;padding-right:2px;border-radius:2px;}/*!sc*/
+.ceZGuR .hovered{background-color:rgba(235, 238, 249, 1);}/*!sc*/
+.ceZGuR .collapser{background-color:transparent;border:0;color:#fff;font-family:DejaVu Sans Mono,monospace;font-size:13px;padding-right:6px;padding-left:6px;padding-top:0;padding-bottom:0;display:flex;align-items:center;justify-content:center;width:15px;height:15px;position:absolute;top:4px;left:-1.5em;cursor:default;user-select:none;-webkit-user-select:none;padding:2px;}/*!sc*/
+.ceZGuR .collapser:focus{outline-color:#fff;outline-style:dotted;outline-width:1px;}/*!sc*/
+.ceZGuR ul{list-style-type:none;padding:0px;margin:0px 0px 0px 26px;}/*!sc*/
+.ceZGuR li{position:relative;display:block;}/*!sc*/
+.ceZGuR .hoverable{display:inline-block;}/*!sc*/
+.ceZGuR .selected{outline-style:solid;outline-width:1px;outline-style:dotted;}/*!sc*/
+.ceZGuR .collapsed>.collapsible{display:none;}/*!sc*/
+.ceZGuR .ellipsis{display:none;}/*!sc*/
+.ceZGuR .collapsed>.ellipsis{display:inherit;}/*!sc*/
+data-styled.g50[id="sc-jMAIzW"]{content:"ceZGuR,"}/*!sc*/
+.kANSCU{padding:0.9em;background-color:rgba(38,50,56,0.4);margin:0 0 10px 0;display:block;font-family:DejaVu Sans,sans-serif;font-size:0.929em;line-height:1.5em;}/*!sc*/
+data-styled.g51[id="sc-dQelHO"]{content:"kANSCU,"}/*!sc*/
+.kQPESF{font-family:DejaVu Sans,sans-serif;font-size:12px;position:absolute;z-index:1;top:-11px;left:12px;font-weight:600;color:rgba(255,255,255,0.7);}/*!sc*/
+data-styled.g52[id="sc-bCDidX"]{content:"kQPESF,"}/*!sc*/
+.gpxHhK{position:relative;}/*!sc*/
+data-styled.g53[id="sc-cPlDXk"]{content:"gpxHhK,"}/*!sc*/
+.ksuOBo{margin-top:15px;}/*!sc*/
+data-styled.g56[id="sc-hVkBjf"]{content:"ksuOBo,"}/*!sc*/
+.bPAaet{vertical-align:middle;font-size:13px;line-height:20px;}/*!sc*/
+data-styled.g58[id="sc-gUrTyB"]{content:"bPAaet,"}/*!sc*/
+.UMvzF{color:rgba(102,102,102,0.9);}/*!sc*/
+data-styled.g59[id="sc-kZGvTq"]{content:"UMvzF,"}/*!sc*/
+.fEQrHJ{color:#666;}/*!sc*/
+data-styled.g60[id="sc-iMfspz"]{content:"fEQrHJ,"}/*!sc*/
+.boAHLn{color:#d41f1c;font-size:0.9em;font-weight:normal;margin-left:20px;line-height:1;}/*!sc*/
+data-styled.g62[id="sc-eKYjSU"]{content:"boAHLn,"}/*!sc*/
+.iVdPUf{border-radius:2px;word-break:break-word;background-color:rgba(51,51,51,0.05);color:rgba(51,51,51,0.9);padding:0 5px;border:1px solid rgba(51,51,51,0.1);font-family:DejaVu Sans Mono,monospace;}/*!sc*/
+.sc-ldFCYc+.sc-ldFCYc{margin-left:0;}/*!sc*/
+data-styled.g66[id="sc-ldFCYc"]{content:"iVdPUf,"}/*!sc*/
+.cLOXvd:after{content:' and ';font-weight:normal;}/*!sc*/
+.cLOXvd:last-child:after{content:none;}/*!sc*/
+.cLOXvd a{text-decoration:auto;color:#32329f;}/*!sc*/
+.cLOXvd a:visited{color:#32329f;}/*!sc*/
+.cLOXvd a:hover{color:#6868cf;text-decoration:auto;}/*!sc*/
+data-styled.g81[id="sc-hNeXkj"]{content:"cLOXvd,"}/*!sc*/
+.ddMcul{white-space:nowrap;}/*!sc*/
+.ddMcul:after{content:' or ';white-space:pre;}/*!sc*/
+.ddMcul:last-child:after,.ddMcul:only-child:after{content:none;}/*!sc*/
+.ddMcul a{text-decoration:auto;color:#32329f;}/*!sc*/
+.ddMcul a:visited{color:#32329f;}/*!sc*/
+.ddMcul a:hover{color:#6868cf;text-decoration:auto;}/*!sc*/
+data-styled.g82[id="sc-dskThK"]{content:"ddMcul,"}/*!sc*/
+.kuPPCO{flex:1 1 auto;cursor:pointer;}/*!sc*/
+data-styled.g83[id="sc-cYRmzp"]{content:"kuPPCO,"}/*!sc*/
+.gZngKQ{width:75%;text-overflow:ellipsis;border-radius:4px;overflow:hidden;}/*!sc*/
+@media screen and (max-width: 50rem){.gZngKQ{margin-top:10px;}}/*!sc*/
+data-styled.g84[id="sc-jTsRVM"]{content:"gZngKQ,"}/*!sc*/
+.qtYpT{display:inline-block;margin:0;}/*!sc*/
+data-styled.g85[id="sc-jOQpHb"]{content:"qtYpT,"}/*!sc*/
+.pzAgN{width:100%;display:flex;margin:1em 0;flex-direction:row;}/*!sc*/
+@media screen and (max-width: 50rem){.pzAgN{flex-direction:column;}}/*!sc*/
+data-styled.g86[id="sc-ftWlEC"]{content:"pzAgN,"}/*!sc*/
+.bSStQp{margin-top:0;margin-bottom:0.5em;}/*!sc*/
+data-styled.g92[id="sc-crPCXn"]{content:"bSStQp,"}/*!sc*/
+.FLoTo{width:9ex;display:inline-block;height:13px;line-height:13px;background-color:#333;border-radius:3px;background-repeat:no-repeat;background-position:6px 4px;font-size:7px;font-family:Verdana,sans-serif;color:white;text-transform:uppercase;text-align:center;font-weight:bold;vertical-align:middle;margin-right:6px;margin-top:2px;}/*!sc*/
+.FLoTo.get{background-color:#2F8132;}/*!sc*/
+.FLoTo.post{background-color:#186FAF;}/*!sc*/
+.FLoTo.put{background-color:#95507c;}/*!sc*/
+.FLoTo.options{background-color:#947014;}/*!sc*/
+.FLoTo.patch{background-color:#bf581d;}/*!sc*/
+.FLoTo.delete{background-color:#cc3333;}/*!sc*/
+.FLoTo.basic{background-color:#707070;}/*!sc*/
+.FLoTo.link{background-color:#07818F;}/*!sc*/
+.FLoTo.head{background-color:#A23DAD;}/*!sc*/
+.FLoTo.hook{background-color:#32329f;}/*!sc*/
+.FLoTo.schema{background-color:#707070;}/*!sc*/
+data-styled.g100[id="sc-YtoFD"]{content:"FLoTo,"}/*!sc*/
+.fpIsZT{margin:0;padding:0;}/*!sc*/
+.fpIsZT:first-child{padding-bottom:32px;}/*!sc*/
+.sc-imaUOy .sc-imaUOy{font-size:0.929em;}/*!sc*/
+.cjNZVC{margin:0;padding:0;display:none;}/*!sc*/
+.cjNZVC:first-child{padding-bottom:32px;}/*!sc*/
+.sc-imaUOy .sc-imaUOy{font-size:0.929em;}/*!sc*/
+data-styled.g101[id="sc-imaUOy"]{content:"fpIsZT,cjNZVC,"}/*!sc*/
+.cVgssJ{list-style:none inside none;overflow:hidden;text-overflow:ellipsis;padding:0;}/*!sc*/
+data-styled.g102[id="sc-vjKnv"]{content:"cVgssJ,"}/*!sc*/
+.gMKEwD{cursor:pointer;color:#333333;margin:0;padding:12.5px 20px;display:flex;justify-content:space-between;font-family:DejaVu Sans,sans-serif;font-size:0.929em;text-transform:none;background-color:#fafafa;}/*!sc*/
+.gMKEwD:hover{color:#32329f;background-color:#e1e1e1;}/*!sc*/
+.gMKEwD .sc-fbJfz{height:1.5em;width:1.5em;}/*!sc*/
+.gMKEwD .sc-fbJfz polygon{fill:#333333;}/*!sc*/
+.fgiBPF{cursor:pointer;color:#333333;margin:0;padding:12.5px 20px;display:flex;justify-content:space-between;font-family:DejaVu Sans,sans-serif;background-color:#fafafa;}/*!sc*/
+.fgiBPF:hover{color:#32329f;background-color:#ededed;}/*!sc*/
+.fgiBPF .sc-fbJfz{height:1.5em;width:1.5em;}/*!sc*/
+.fgiBPF .sc-fbJfz polygon{fill:#333333;}/*!sc*/
+data-styled.g103[id="sc-bjMMwc"]{content:"gMKEwD,fgiBPF,"}/*!sc*/
+.jZTjzp{display:inline-block;vertical-align:middle;width:calc(100% - 38px);overflow:hidden;text-overflow:ellipsis;}/*!sc*/
+data-styled.g104[id="sc-eIrltV"]{content:"jZTjzp,"}/*!sc*/
+.jKUIUi{font-size:0.8em;margin-top:10px;text-align:center;position:fixed;width:260px;bottom:0;background:#fafafa;}/*!sc*/
+.jKUIUi a,.jKUIUi a:visited,.jKUIUi a:hover{color:#333333!important;padding:5px 0;border-top:1px solid #e1e1e1;text-decoration:none;display:flex;align-items:center;justify-content:center;}/*!sc*/
+.jKUIUi img{width:15px;margin-right:5px;}/*!sc*/
+@media screen and (max-width: 50rem){.jKUIUi{width:100%;}}/*!sc*/
+data-styled.g105[id="sc-hAYhfO"]{content:"jKUIUi,"}/*!sc*/
+.dHdMVa{cursor:pointer;position:relative;margin-bottom:5px;}/*!sc*/
+data-styled.g111[id="sc-fYzRkH"]{content:"dHdMVa,"}/*!sc*/
+.kyZa-dF{font-family:DejaVu Sans Mono,monospace;margin-left:10px;flex:1;overflow-x:hidden;text-overflow:ellipsis;}/*!sc*/
+data-styled.g112[id="sc-GJyyy"]{content:"kyZa-dF,"}/*!sc*/
+.iWrBta{outline:0;color:inherit;width:100%;text-align:left;cursor:pointer;padding:10px 30px 10px 20px;border-radius:4px 4px 0 0;background-color:#11171a;display:flex;white-space:nowrap;align-items:center;border:1px solid transparent;border-bottom:0;transition:border-color 0.25s ease;}/*!sc*/
+.iWrBta ..sc-GJyyy{color:#ffffff;}/*!sc*/
+.iWrBta:focus{box-shadow:inset 0 2px 2px rgba(0, 0, 0, 0.45),0 2px 0 rgba(128, 128, 128, 0.25);}/*!sc*/
+data-styled.g113[id="sc-jYvNnh"]{content:"iWrBta,"}/*!sc*/
+.hCJcWK{font-size:0.929em;line-height:20px;background-color:#2F8132;color:#ffffff;padding:3px 10px;text-transform:uppercase;font-family:DejaVu Sans,sans-serif;margin:0;}/*!sc*/
+data-styled.g114[id="sc-eGFuAY"]{content:"hCJcWK,"}/*!sc*/
+.dplsyJ{position:absolute;width:100%;z-index:100;background:#fafafa;color:#263238;box-sizing:border-box;box-shadow:0 0 6px rgba(0, 0, 0, 0.33);overflow:hidden;border-bottom-left-radius:4px;border-bottom-right-radius:4px;transition:all 0.25s ease;visibility:hidden;transform:translateY(-50%) scaleY(0);}/*!sc*/
+data-styled.g115[id="sc-fnxdBX"]{content:"dplsyJ,"}/*!sc*/
+.cNCbuV{padding:10px;}/*!sc*/
+data-styled.g116[id="sc-llcuoK"]{content:"cNCbuV,"}/*!sc*/
+.eobUac{padding:5px;border:1px solid #ccc;background:#fff;word-break:break-all;color:#32329f;}/*!sc*/
+.eobUac >span{color:#333333;}/*!sc*/
+data-styled.g117[id="sc-jnsZEx"]{content:"eobUac,"}/*!sc*/
+.brztng{display:block;border:0;width:100%;text-align:left;padding:10px;border-radius:2px;margin-bottom:4px;line-height:1.5em;cursor:pointer;color:#1d8127;background-color:rgba(29,129,39,0.07);}/*!sc*/
+.brztng:focus{outline:auto #1d8127;}/*!sc*/
+.fvWYOy{display:block;border:0;width:100%;text-align:left;padding:10px;border-radius:2px;margin-bottom:4px;line-height:1.5em;cursor:pointer;color:#d41f1c;background-color:rgba(212,31,28,0.07);}/*!sc*/
+.fvWYOy:focus{outline:auto #d41f1c;}/*!sc*/
+data-styled.g120[id="sc-caslwi"]{content:"brztng,fvWYOy,"}/*!sc*/
+.jJkGwY{vertical-align:top;}/*!sc*/
+data-styled.g123[id="sc-fYaxgW"]{content:"jJkGwY,"}/*!sc*/
+.hsJdXF{font-size:1.3em;padding:0.2em 0;margin:3em 0 1.1em;color:#333333;font-weight:normal;}/*!sc*/
+data-styled.g124[id="sc-fJjTez"]{content:"hsJdXF,"}/*!sc*/
+.dUdgLx{margin-bottom:30px;}/*!sc*/
+data-styled.g129[id="sc-iERabE"]{content:"dUdgLx,"}/*!sc*/
+.dKxKge{user-select:none;width:20px;height:20px;align-self:center;display:flex;flex-direction:column;color:#32329f;}/*!sc*/
+data-styled.g130[id="sc-iqavZh"]{content:"dKxKge,"}/*!sc*/
+.kBSkUl{width:260px;background-color:#fafafa;overflow:hidden;display:flex;flex-direction:column;backface-visibility:hidden;height:100vh;position:sticky;position:-webkit-sticky;top:0;}/*!sc*/
+@media screen and (max-width: 50rem){.kBSkUl{position:fixed;z-index:20;width:100%;background:#fafafa;display:none;}}/*!sc*/
+@media print{.kBSkUl{display:none;}}/*!sc*/
+data-styled.g131[id="sc-eXHjA-d"]{content:"kBSkUl,"}/*!sc*/
+.laYfRb{outline:none;user-select:none;background-color:#f2f2f2;color:#32329f;display:none;cursor:pointer;position:fixed;right:20px;z-index:100;border-radius:50%;box-shadow:0 0 20px rgba(0, 0, 0, 0.3);bottom:44px;width:60px;height:60px;padding:0 20px;}/*!sc*/
+@media screen and (max-width: 50rem){.laYfRb{display:flex;}}/*!sc*/
+.laYfRb svg{color:#0065FB;}/*!sc*/
+@media print{.laYfRb{display:none;}}/*!sc*/
+data-styled.g132[id="sc-kVmAmQ"]{content:"laYfRb,"}/*!sc*/
+.rPcOf{font-family:DejaVu Sans,sans-serif;font-size:14px;font-weight:400;line-height:1.5em;color:#333333;display:flex;position:relative;text-align:left;-webkit-font-smoothing:antialiased;font-smoothing:antialiased;text-rendering:optimizeSpeed!important;tap-highlight-color:rgba(0, 0, 0, 0);text-size-adjust:100%;}/*!sc*/
+.rPcOf *{box-sizing:border-box;-webkit-tap-highlight-color:rgba(255, 255, 255, 0);}/*!sc*/
+data-styled.g133[id="sc-dxnOzf"]{content:"rPcOf,"}/*!sc*/
+.gfWNtA{z-index:1;position:relative;overflow:hidden;width:calc(100% - 260px);contain:layout;}/*!sc*/
+@media print,screen and (max-width: 50rem){.gfWNtA{width:100%;}}/*!sc*/
+data-styled.g134[id="sc-juTflS"]{content:"gfWNtA,"}/*!sc*/
+.jYOHCb{background:#263238;position:absolute;top:0;bottom:0;right:0;width:calc((100% - 260px) * 0.4);}/*!sc*/
+@media print,screen and (max-width: 75rem){.jYOHCb{display:none;}}/*!sc*/
+data-styled.g135[id="sc-emEvRt"]{content:"jYOHCb,"}/*!sc*/
+.ijJYzO{padding:5px 0;}/*!sc*/
+data-styled.g136[id="sc-kkjMEg"]{content:"ijJYzO,"}/*!sc*/
+.fFmhPu{width:calc(100% - 40px);box-sizing:border-box;margin:0 20px;padding:5px 10px 5px 20px;border:0;border-bottom:1px solid #e1e1e1;font-family:DejaVu Sans,sans-serif;font-weight:bold;font-size:13px;color:#333333;background-color:transparent;outline:none;}/*!sc*/
+data-styled.g137[id="sc-cMlaQv"]{content:"fFmhPu,"}/*!sc*/
+.gtHWGb{position:absolute;left:20px;height:1.8em;width:0.9em;}/*!sc*/
+.gtHWGb path{fill:#333333;}/*!sc*/
+data-styled.g138[id="sc-iJQrDi"]{content:"gtHWGb,"}/*!sc*/
+</style>
+  
+</head>
+
+<body>
+  
+      <div id="redoc"><div class="sc-dxnOzf rPcOf redoc-wrap"><div class="sc-eXHjA-d kBSkUl menu-content" style="top:0px;height:calc(100vh - 0px)"><div role="search" class="sc-kkjMEg ijJYzO"><svg class="sc-iJQrDi gtHWGb search-icon" version="1.1" viewBox="0 0 1000 1000" x="0px" xmlns="http://www.w3.org/2000/svg" y="0px"><path d="M968.2,849.4L667.3,549c83.9-136.5,66.7-317.4-51.7-435.6C477.1-25,252.5-25,113.9,113.4c-138.5,138.3-138.5,362.6,0,501C219.2,730.1,413.2,743,547.6,666.5l301.9,301.4c43.6,43.6,76.9,14.9,104.2-12.4C981,928.3,1011.8,893,968.2,849.4z M524.5,522c-88.9,88.7-233,88.7-321.8,0c-88.9-88.7-88.9-232.6,0-321.3c88.9-88.7,233-88.7,321.8,0C613.4,289.4,613.4,433.3,524.5,522z"></path></svg><input placeholder="Search..." aria-label="Search" type="text" class="sc-cMlaQv fFmhPu search-input" value=""/></div><div class="sc-kMrHXi bNwKoT scrollbar-container undefined"><ul role="menu" class="sc-imaUOy fpIsZT"><li tabindex="0" depth="1" data-item-id="section/Overview" role="menuitem" aria-label="Overview" aria-expanded="false" class="sc-vjKnv cVgssJ"><label class="sc-bjMMwc gMKEwD -depth1"><span width="calc(100% - 38px)" title="Overview" class="sc-eIrltV jZTjzp">Overview</span></label></li><li tabindex="0" depth="1" data-item-id="section/Versioning" role="menuitem" aria-label="Versioning" aria-expanded="false" class="sc-vjKnv cVgssJ"><label class="sc-bjMMwc gMKEwD -depth1"><span width="calc(100% - 38px)" title="Versioning" class="sc-eIrltV jZTjzp">Versioning</span></label></li><li tabindex="0" depth="1" data-item-id="section/Errors" role="menuitem" aria-label="Errors" aria-expanded="false" class="sc-vjKnv cVgssJ"><label class="sc-bjMMwc gMKEwD -depth1"><span width="calc(100% - 38px)" title="Errors" class="sc-eIrltV jZTjzp">Errors</span></label></li><li tabindex="0" depth="1" data-item-id="tag/api-example-microservice" role="menuitem" aria-label="api-example-microservice" aria-expanded="false" class="sc-vjKnv cVgssJ"><label class="sc-bjMMwc gMKEwD -depth1"><span width="calc(100% - 38px)" title="api-example-microservice" class="sc-eIrltV jZTjzp">api-example-microservice</span><svg class="sc-fbJfz cNCXIL" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg></label><ul class="sc-imaUOy cjNZVC"><li tabindex="0" depth="2" data-item-id="tag/api-example-microservice/paths/~1hello~1application/get" role="menuitem" aria-label="Say hello application" aria-expanded="false" class="sc-vjKnv cVgssJ"><label class="sc-bjMMwc fgiBPF -depth2"><span type="get" class="sc-YtoFD FLoTo operation-type get">get</span><span tabindex="0" width="calc(100% - 38px)" class="sc-eIrltV jZTjzp">Say hello application</span></label></li><li tabindex="0" depth="2" data-item-id="tag/api-example-microservice/paths/~1hello~1user/get" role="menuitem" aria-label="Say hello user" aria-expanded="false" class="sc-vjKnv cVgssJ"><label class="sc-bjMMwc fgiBPF -depth2"><span type="get" class="sc-YtoFD FLoTo operation-type get">get</span><span tabindex="0" width="calc(100% - 38px)" class="sc-eIrltV jZTjzp">Say hello user</span></label></li><li tabindex="0" depth="2" data-item-id="tag/api-example-microservice/paths/~1hello~1world/get" role="menuitem" aria-label="Say hello world" aria-expanded="false" class="sc-vjKnv cVgssJ"><label class="sc-bjMMwc fgiBPF -depth2"><span type="get" class="sc-YtoFD FLoTo operation-type get">get</span><span tabindex="0" width="calc(100% - 38px)" class="sc-eIrltV jZTjzp">Say hello world</span></label></li></ul></li></ul><div class="sc-hAYhfO jKUIUi"><a target="_blank" rel="noopener noreferrer" href="https://redocly.com/redoc/">API docs by Redocly</a></div></div></div><div class="sc-kVmAmQ laYfRb"><div class="sc-iqavZh dKxKge"><svg class="" style="transform:translate(2px, -4px) rotate(180deg);transition:transform 0.2s ease" viewBox="0 0 926.23699 573.74994" version="1.1" x="0px" y="0px" width="15" height="15"><g transform="translate(904.92214,-879.1482)"><path d="
+          m -673.67664,1221.6502 -231.2455,-231.24803 55.6165,
+          -55.627 c 30.5891,-30.59485 56.1806,-55.627 56.8701,-55.627 0.6894,
+          0 79.8637,78.60862 175.9427,174.68583 l 174.6892,174.6858 174.6892,
+          -174.6858 c 96.079,-96.07721 175.253196,-174.68583 175.942696,
+          -174.68583 0.6895,0 26.281,25.03215 56.8701,
+          55.627 l 55.6165,55.627 -231.245496,231.24803 c -127.185,127.1864
+          -231.5279,231.248 -231.873,231.248 -0.3451,0 -104.688,
+          -104.0616 -231.873,-231.248 z
+        " fill="currentColor"></path></g></svg><svg class="" style="transform:translate(2px, 4px);transition:transform 0.2s ease" viewBox="0 0 926.23699 573.74994" version="1.1" x="0px" y="0px" width="15" height="15"><g transform="translate(904.92214,-879.1482)"><path d="
+          m -673.67664,1221.6502 -231.2455,-231.24803 55.6165,
+          -55.627 c 30.5891,-30.59485 56.1806,-55.627 56.8701,-55.627 0.6894,
+          0 79.8637,78.60862 175.9427,174.68583 l 174.6892,174.6858 174.6892,
+          -174.6858 c 96.079,-96.07721 175.253196,-174.68583 175.942696,
+          -174.68583 0.6895,0 26.281,25.03215 56.8701,
+          55.627 l 55.6165,55.627 -231.245496,231.24803 c -127.185,127.1864
+          -231.5279,231.248 -231.873,231.248 -0.3451,0 -104.688,
+          -104.0616 -231.873,-231.248 z
+        " fill="currentColor"></path></g></svg></div></div><div class="sc-juTflS gfWNtA api-content"><div class="sc-eDDNvO eTiIZG"><div class="sc-iAEyYj cmAaWK"><div class="sc-hLseeT hoYmkG api-info"><h1 class="sc-fsQipe sc-crPCXn cwJHrm bSStQp">Hello World<!-- --> <span>(<!-- -->1.0<!-- -->)</span></h1><p>Download OpenAPI specification<!-- -->:</p><div class="sc-iKGpAq sc-cCYyou dXXcln djTtq"></div><div data-role="redoc-summary" html="" class="sc-iKGpAq sc-cCYyou dXXcln djTtq"></div><div data-role="redoc-description" html="" class="sc-iKGpAq sc-cCYyou dXXcln djTtq"></div></div></div></div><div id="section/Overview" data-section-id="section/Overview" class="sc-eDDNvO eTiIZG"><div class="sc-iAEyYj cmAaWK"><div class="sc-hLseeT hoYmkG"><h2 class="sc-qRumy fGyyxY"><a class="sc-csCMJq jSIqAu" href="#section/Overview" aria-label="section/Overview"></a>Overview</h2></div></div><div class="sc-hLseeT eiTXyS"><div class="sc-iKGpAq sc-cCYyou dXXcln djTtq redoc-markdown " html="&lt;p&gt;This is an example API that allows software developers to test that their applications can connect with the HMRC API Platform. It also acts as a hands-on tutorial for developers to get started with HMRC APIs.&lt;/p&gt;
+&lt;p&gt;It includes resources for testing access to the three different access levels:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Say hello world is an example of an unrestricted endpoint&lt;/li&gt;
+&lt;li&gt;Say hello user is an example of a user-restricted endpoint&lt;/li&gt;
+&lt;li&gt;Say hello application is an example of an application-restricted endpoint&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Further details of the different access levels are given on 
+the &lt;a href=&quot;/api-documentation/docs/authorisation&quot;&gt;Authorisation&lt;/a&gt; page.&lt;/p&gt;
+&lt;p&gt;For more information about how to develop your own client applications, including example clients
+for this API, see &lt;a href=&quot;/api-documentation/docs/tutorials&quot;&gt;Tutorials&lt;/a&gt;.&lt;/p&gt;
+"><p>This is an example API that allows software developers to test that their applications can connect with the HMRC API Platform. It also acts as a hands-on tutorial for developers to get started with HMRC APIs.</p>
+<p>It includes resources for testing access to the three different access levels:</p>
+<ul>
+<li>Say hello world is an example of an unrestricted endpoint</li>
+<li>Say hello user is an example of a user-restricted endpoint</li>
+<li>Say hello application is an example of an application-restricted endpoint</li>
+</ul>
+<p>Further details of the different access levels are given on 
+the <a href="/api-documentation/docs/authorisation">Authorisation</a> page.</p>
+<p>For more information about how to develop your own client applications, including example clients
+for this API, see <a href="/api-documentation/docs/tutorials">Tutorials</a>.</p>
+</div></div></div><div id="section/Versioning" data-section-id="section/Versioning" class="sc-eDDNvO eTiIZG"><div class="sc-iAEyYj cmAaWK"><div class="sc-hLseeT hoYmkG"><h2 class="sc-qRumy fGyyxY"><a class="sc-csCMJq jSIqAu" href="#section/Versioning" aria-label="section/Versioning"></a>Versioning</h2></div></div><div class="sc-hLseeT eiTXyS"><div class="sc-iKGpAq sc-cCYyou dXXcln djTtq redoc-markdown " html="&lt;p&gt;When an API changes in a way that is backwards-incompatible, we increase the version number of the API. 
+See our &lt;a href=&quot;/api-documentation/docs/reference-guide#versioning&quot;&gt;reference guide&lt;/a&gt; for more on versioning.&lt;/p&gt;
+"><p>When an API changes in a way that is backwards-incompatible, we increase the version number of the API. 
+See our <a href="/api-documentation/docs/reference-guide#versioning">reference guide</a> for more on versioning.</p>
+</div></div></div><div id="section/Errors" data-section-id="section/Errors" class="sc-eDDNvO eTiIZG"><div class="sc-iAEyYj cmAaWK"><div class="sc-hLseeT hoYmkG"><h2 class="sc-qRumy fGyyxY"><a class="sc-csCMJq jSIqAu" href="#section/Errors" aria-label="section/Errors"></a>Errors</h2></div></div><div class="sc-hLseeT eiTXyS"><div class="sc-iKGpAq sc-cCYyou dXXcln djTtq redoc-markdown " html="&lt;p&gt;We use standard HTTP status codes to show whether an API request succeeded or not. They are usually in the range:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;200 to 299 if it succeeded, including code 202 if it was accepted by an API that needs to wait for further action&lt;/li&gt;
+&lt;li&gt;400 to 499 if it failed because of a client error by your application&lt;/li&gt;
+&lt;li&gt;500 to 599 if it failed because of an error on our server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Errors specific to each API are shown in the Endpoints section, under Response. See our 
+&lt;a href=&quot;/api-documentation/docs/reference-guide#errors&quot;&gt;reference guide&lt;/a&gt; for more on errors.&lt;/p&gt;
+"><p>We use standard HTTP status codes to show whether an API request succeeded or not. They are usually in the range:</p>
+<ul>
+<li>200 to 299 if it succeeded, including code 202 if it was accepted by an API that needs to wait for further action</li>
+<li>400 to 499 if it failed because of a client error by your application</li>
+<li>500 to 599 if it failed because of an error on our server</li>
+</ul>
+<p>Errors specific to each API are shown in the Endpoints section, under Response. See our 
+<a href="/api-documentation/docs/reference-guide#errors">reference guide</a> for more on errors.</p>
+</div></div></div><div id="tag/api-example-microservice" data-section-id="tag/api-example-microservice" class="sc-eDDNvO eTiIZG"><div class="sc-iAEyYj cmAaWK"><div class="sc-hLseeT hoYmkG"><h2 class="sc-qRumy fGyyxY"><a class="sc-csCMJq jSIqAu" href="#tag/api-example-microservice" aria-label="tag/api-example-microservice"></a>api-example-microservice</h2></div></div></div><div id="tag/api-example-microservice/paths/~1hello~1application/get" data-section-id="tag/api-example-microservice/paths/~1hello~1application/get" class="sc-eDDNvO iUTsUN"><div class="sc-iAEyYj cmAaWK"><div class="sc-hLseeT hoYmkG"><h2 class="sc-qRumy fGyyxY"><a class="sc-csCMJq jSIqAu" href="#tag/api-example-microservice/paths/~1hello~1application/get" aria-label="tag/api-example-microservice/paths/~1hello~1application/get"></a>Say hello application<!-- --> </h2><div class="sc-iERabE dUdgLx"><div html="&lt;p&gt;A simple example for integrating with an application-restricted service, using an OAuth 2.0 &lt;code&gt;access_token&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Any authorised request to this endpoint initiates a &amp;#39;Hello Application&amp;#39; response.&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou dXXcln djTtq"><p>A simple example for integrating with an application-restricted service, using an OAuth 2.0 <code>access_token</code>.</p>
+<p>Any authorised request to this endpoint initiates a &#39;Hello Application&#39; response.</p>
+</div></div><div class="sc-ftWlEC pzAgN"><div class="sc-cYRmzp kuPPCO"><h5 class="sc-irTswZ sc-jOQpHb fA-dGxt qtYpT">Authorizations:</h5><svg class="sc-fbJfz eiOVYa" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg></div><div class="sc-jTsRVM gZngKQ"><span class="sc-dskThK ddMcul"><span class="sc-hNeXkj cLOXvd"><i>Application-Restricted</i></span></span></div></div><div><h5 class="sc-irTswZ fA-dGxt">header<!-- --> Parameters</h5><table class="sc-hIqOWV dybric"><tbody><tr class="last "><td kind="field" title="Accept" class="sc-hAtEya sc-fGFwA-d kddqHa fhcgaP"><span class="sc-ieZDjf bibqxM"></span><span class="property-name">Accept</span><div class="sc-gUrTyB sc-eKYjSU bPAaet boAHLn">required</div></td><td class="sc-blLsxE bmauLr"><div><div><span class="sc-gUrTyB sc-kZGvTq bPAaet UMvzF"></span><span class="sc-gUrTyB sc-iMfspz bPAaet fEQrHJ">string</span></div><div><span class="sc-gUrTyB bPAaet"> <!-- -->Enum<!-- -->:</span> <span class="sc-gUrTyB sc-ldFCYc bPAaet iVdPUf">&quot;application/vnd.hmrc.1.0+json&quot;</span> <span class="sc-gUrTyB sc-ldFCYc bPAaet iVdPUf">&quot;application/vnd.hmrc.1.0+xml&quot;</span> </div> <div><div html="" class="sc-iKGpAq sc-cCYyou dXXcln eCNZEA"></div></div></div></td></tr></tbody></table></div><div><h3 class="sc-fJjTez hsJdXF">Responses</h3><div><button class="sc-caslwi brztng"><svg class="sc-fbJfz iZiZiV" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">200<!-- --> </strong><div html="&lt;p&gt;OK Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>OK Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">401<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">403<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">404<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">405<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">406<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">429<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">500<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">501<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">503<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">504<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div></div></div><div class="sc-jTrPJt sc-gLDzao dVngAA fYLqku"><div class="sc-fYzRkH dHdMVa"><button class="sc-jYvNnh iWrBta"><span type="get" class="sc-eGFuAY hCJcWK http-verb get">get</span><span class="sc-GJyyy kyZa-dF">/hello/application</span><svg class="sc-fbJfz ivEQut" style="margin-right:-25px" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg></button><div aria-hidden="true" class="sc-fnxdBX dplsyJ"><div class="sc-llcuoK cNCbuV"><div html="&lt;p&gt;Sandbox&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou dXXcln eCNZEA"><p>Sandbox</p>
+</div><div tabindex="0" role="button"><div class="sc-jnsZEx eobUac"><span>https://test-api.service.hmrc.gov.uk</span>/hello/application</div></div></div><div class="sc-llcuoK cNCbuV"><div html="&lt;p&gt;Production&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou dXXcln eCNZEA"><p>Production</p>
+</div><div tabindex="0" role="button"><div class="sc-jnsZEx eobUac"><span>https://api.service.hmrc.gov.uk</span>/hello/application</div></div></div></div></div><div><h3 class="sc-kFuwaQ dEbuTz"> <!-- -->Response samples<!-- --> </h3><div class="sc-cyRfQY lbIFgo" data-rttabs="true"><ul class="react-tabs__tab-list" role="tablist"><li class="tab-success react-tabs__tab--selected" role="tab" id="tab_R_jiqa_0" aria-selected="true" aria-disabled="false" aria-controls="panel_R_jiqa_0" tabindex="0" data-rttab="true">200</li><li class="tab-error" role="tab" id="tab_R_jiqa_1" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jiqa_1" data-rttab="true">401</li><li class="tab-error" role="tab" id="tab_R_jiqa_2" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jiqa_2" data-rttab="true">403</li><li class="tab-error" role="tab" id="tab_R_jiqa_3" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jiqa_3" data-rttab="true">404</li><li class="tab-error" role="tab" id="tab_R_jiqa_4" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jiqa_4" data-rttab="true">405</li><li class="tab-error" role="tab" id="tab_R_jiqa_5" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jiqa_5" data-rttab="true">406</li><li class="tab-error" role="tab" id="tab_R_jiqa_6" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jiqa_6" data-rttab="true">429</li><li class="tab-error" role="tab" id="tab_R_jiqa_7" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jiqa_7" data-rttab="true">500</li><li class="tab-error" role="tab" id="tab_R_jiqa_8" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jiqa_8" data-rttab="true">501</li><li class="tab-error" role="tab" id="tab_R_jiqa_9" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jiqa_9" data-rttab="true">503</li><li class="tab-error" role="tab" id="tab_R_jiqa_10" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jiqa_10" data-rttab="true">504</li></ul><div class="react-tabs__tab-panel react-tabs__tab-panel--selected" role="tabpanel" id="panel_R_jiqa_0" aria-labelledby="tab_R_jiqa_0"><div><div class="sc-cPlDXk gpxHhK"><span class="sc-bCDidX kQPESF">Content type</span><div class="sc-dQelHO kANSCU">application/json</div></div><div class="sc-hVkBjf ksuOBo"><div class="sc-cRZddz iLjyyA"><div class="sc-gjTGSz dLNqBz"><button><div class="sc-jegxcw fJsoyS">Copy</div></button></div><div tabindex="0" class="sc-iKGpAq dXXcln sc-jMAIzW ceZGuR"><div class="redoc-json"><code><button class="collapser" aria-label="collapse"></button><span class="token punctuation">{</span><span class="ellipsis"></span><ul class="obj collapsible"><li><div class="hoverable "><span class="property token string">"message"</span>: <span class="token string">&quot;Hello Application&quot;</span></div></li></ul><span class="token punctuation">}</span></code></div></div></div></div></div></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jiqa_1" aria-labelledby="tab_R_jiqa_1"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jiqa_2" aria-labelledby="tab_R_jiqa_2"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jiqa_3" aria-labelledby="tab_R_jiqa_3"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jiqa_4" aria-labelledby="tab_R_jiqa_4"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jiqa_5" aria-labelledby="tab_R_jiqa_5"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jiqa_6" aria-labelledby="tab_R_jiqa_6"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jiqa_7" aria-labelledby="tab_R_jiqa_7"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jiqa_8" aria-labelledby="tab_R_jiqa_8"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jiqa_9" aria-labelledby="tab_R_jiqa_9"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jiqa_10" aria-labelledby="tab_R_jiqa_10"></div></div></div></div></div></div><div id="tag/api-example-microservice/paths/~1hello~1user/get" data-section-id="tag/api-example-microservice/paths/~1hello~1user/get" class="sc-eDDNvO iUTsUN"><div class="sc-iAEyYj cmAaWK"><div class="sc-hLseeT hoYmkG"><h2 class="sc-qRumy fGyyxY"><a class="sc-csCMJq jSIqAu" href="#tag/api-example-microservice/paths/~1hello~1user/get" aria-label="tag/api-example-microservice/paths/~1hello~1user/get"></a>Say hello user<!-- --> </h2><div class="sc-iERabE dUdgLx"><div html="&lt;p&gt;A simple example for integrating with a user-restricted service, using an OAuth 2.0 &lt;code&gt;access_token&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Any authorised request to this endpoint initiates a &amp;#39;Hello User&amp;#39; response.&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou dXXcln djTtq"><p>A simple example for integrating with a user-restricted service, using an OAuth 2.0 <code>access_token</code>.</p>
+<p>Any authorised request to this endpoint initiates a &#39;Hello User&#39; response.</p>
+</div></div><div class="sc-ftWlEC pzAgN"><div class="sc-cYRmzp kuPPCO"><h5 class="sc-irTswZ sc-jOQpHb fA-dGxt qtYpT">Authorizations:</h5><svg class="sc-fbJfz eiOVYa" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg></div><div class="sc-jTsRVM gZngKQ"><span class="sc-dskThK ddMcul"><span class="sc-hNeXkj cLOXvd"><i>User-Restricted</i></span></span></div></div><div><h5 class="sc-irTswZ fA-dGxt">header<!-- --> Parameters</h5><table class="sc-hIqOWV dybric"><tbody><tr class="last "><td kind="field" title="Accept" class="sc-hAtEya sc-fGFwA-d kddqHa fhcgaP"><span class="sc-ieZDjf bibqxM"></span><span class="property-name">Accept</span><div class="sc-gUrTyB sc-eKYjSU bPAaet boAHLn">required</div></td><td class="sc-blLsxE bmauLr"><div><div><span class="sc-gUrTyB sc-kZGvTq bPAaet UMvzF"></span><span class="sc-gUrTyB sc-iMfspz bPAaet fEQrHJ">string</span></div><div><span class="sc-gUrTyB bPAaet"> <!-- -->Enum<!-- -->:</span> <span class="sc-gUrTyB sc-ldFCYc bPAaet iVdPUf">&quot;application/vnd.hmrc.1.0+json&quot;</span> <span class="sc-gUrTyB sc-ldFCYc bPAaet iVdPUf">&quot;application/vnd.hmrc.1.0+xml&quot;</span> </div> <div><div html="" class="sc-iKGpAq sc-cCYyou dXXcln eCNZEA"></div></div></div></td></tr></tbody></table></div><div><h3 class="sc-fJjTez hsJdXF">Responses</h3><div><button class="sc-caslwi brztng"><svg class="sc-fbJfz iZiZiV" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">200<!-- --> </strong><div html="&lt;p&gt;OK Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>OK Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">401<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">403<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">404<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">405<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">406<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">429<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">500<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">501<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">503<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">504<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div></div></div><div class="sc-jTrPJt sc-gLDzao dVngAA fYLqku"><div class="sc-fYzRkH dHdMVa"><button class="sc-jYvNnh iWrBta"><span type="get" class="sc-eGFuAY hCJcWK http-verb get">get</span><span class="sc-GJyyy kyZa-dF">/hello/user</span><svg class="sc-fbJfz ivEQut" style="margin-right:-25px" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg></button><div aria-hidden="true" class="sc-fnxdBX dplsyJ"><div class="sc-llcuoK cNCbuV"><div html="&lt;p&gt;Sandbox&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou dXXcln eCNZEA"><p>Sandbox</p>
+</div><div tabindex="0" role="button"><div class="sc-jnsZEx eobUac"><span>https://test-api.service.hmrc.gov.uk</span>/hello/user</div></div></div><div class="sc-llcuoK cNCbuV"><div html="&lt;p&gt;Production&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou dXXcln eCNZEA"><p>Production</p>
+</div><div tabindex="0" role="button"><div class="sc-jnsZEx eobUac"><span>https://api.service.hmrc.gov.uk</span>/hello/user</div></div></div></div></div><div><h3 class="sc-kFuwaQ dEbuTz"> <!-- -->Response samples<!-- --> </h3><div class="sc-cyRfQY lbIFgo" data-rttabs="true"><ul class="react-tabs__tab-list" role="tablist"><li class="tab-success react-tabs__tab--selected" role="tab" id="tab_R_jjaa_0" aria-selected="true" aria-disabled="false" aria-controls="panel_R_jjaa_0" tabindex="0" data-rttab="true">200</li><li class="tab-error" role="tab" id="tab_R_jjaa_1" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjaa_1" data-rttab="true">401</li><li class="tab-error" role="tab" id="tab_R_jjaa_2" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjaa_2" data-rttab="true">403</li><li class="tab-error" role="tab" id="tab_R_jjaa_3" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjaa_3" data-rttab="true">404</li><li class="tab-error" role="tab" id="tab_R_jjaa_4" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjaa_4" data-rttab="true">405</li><li class="tab-error" role="tab" id="tab_R_jjaa_5" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjaa_5" data-rttab="true">406</li><li class="tab-error" role="tab" id="tab_R_jjaa_6" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjaa_6" data-rttab="true">429</li><li class="tab-error" role="tab" id="tab_R_jjaa_7" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjaa_7" data-rttab="true">500</li><li class="tab-error" role="tab" id="tab_R_jjaa_8" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjaa_8" data-rttab="true">501</li><li class="tab-error" role="tab" id="tab_R_jjaa_9" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjaa_9" data-rttab="true">503</li><li class="tab-error" role="tab" id="tab_R_jjaa_10" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjaa_10" data-rttab="true">504</li></ul><div class="react-tabs__tab-panel react-tabs__tab-panel--selected" role="tabpanel" id="panel_R_jjaa_0" aria-labelledby="tab_R_jjaa_0"><div><div class="sc-cPlDXk gpxHhK"><span class="sc-bCDidX kQPESF">Content type</span><div class="sc-dQelHO kANSCU">application/json</div></div><div class="sc-hVkBjf ksuOBo"><div class="sc-cRZddz iLjyyA"><div class="sc-gjTGSz dLNqBz"><button><div class="sc-jegxcw fJsoyS">Copy</div></button></div><div tabindex="0" class="sc-iKGpAq dXXcln sc-jMAIzW ceZGuR"><div class="redoc-json"><code><button class="collapser" aria-label="collapse"></button><span class="token punctuation">{</span><span class="ellipsis"></span><ul class="obj collapsible"><li><div class="hoverable "><span class="property token string">"message"</span>: <span class="token string">&quot;Hello User&quot;</span></div></li></ul><span class="token punctuation">}</span></code></div></div></div></div></div></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjaa_1" aria-labelledby="tab_R_jjaa_1"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjaa_2" aria-labelledby="tab_R_jjaa_2"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjaa_3" aria-labelledby="tab_R_jjaa_3"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjaa_4" aria-labelledby="tab_R_jjaa_4"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjaa_5" aria-labelledby="tab_R_jjaa_5"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjaa_6" aria-labelledby="tab_R_jjaa_6"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjaa_7" aria-labelledby="tab_R_jjaa_7"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjaa_8" aria-labelledby="tab_R_jjaa_8"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjaa_9" aria-labelledby="tab_R_jjaa_9"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjaa_10" aria-labelledby="tab_R_jjaa_10"></div></div></div></div></div></div><div id="tag/api-example-microservice/paths/~1hello~1world/get" data-section-id="tag/api-example-microservice/paths/~1hello~1world/get" class="sc-eDDNvO iUTsUN"><div class="sc-iAEyYj cmAaWK"><div class="sc-hLseeT hoYmkG"><h2 class="sc-qRumy fGyyxY"><a class="sc-csCMJq jSIqAu" href="#tag/api-example-microservice/paths/~1hello~1world/get" aria-label="tag/api-example-microservice/paths/~1hello~1world/get"></a>Say hello world<!-- --> </h2><div class="sc-iERabE dUdgLx"><div html="&lt;p&gt;A simple example for integrating with an unrestricted service.&lt;/p&gt;
+&lt;p&gt;Any request to this endpoint initiates a &amp;#39;Hello World&amp;#39; response.&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou dXXcln djTtq"><p>A simple example for integrating with an unrestricted service.</p>
+<p>Any request to this endpoint initiates a &#39;Hello World&#39; response.</p>
+</div></div><div class="sc-ftWlEC pzAgN"><div class="sc-cYRmzp kuPPCO"><h5 class="sc-irTswZ sc-jOQpHb fA-dGxt qtYpT">Authorizations:</h5><svg class="sc-fbJfz eiOVYa" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg></div><div class="sc-jTsRVM gZngKQ"><span class="sc-dskThK ddMcul">None</span></div></div><div><h5 class="sc-irTswZ fA-dGxt">header<!-- --> Parameters</h5><table class="sc-hIqOWV dybric"><tbody><tr class="last "><td kind="field" title="Accept" class="sc-hAtEya sc-fGFwA-d kddqHa fhcgaP"><span class="sc-ieZDjf bibqxM"></span><span class="property-name">Accept</span><div class="sc-gUrTyB sc-eKYjSU bPAaet boAHLn">required</div></td><td class="sc-blLsxE bmauLr"><div><div><span class="sc-gUrTyB sc-kZGvTq bPAaet UMvzF"></span><span class="sc-gUrTyB sc-iMfspz bPAaet fEQrHJ">string</span></div><div><span class="sc-gUrTyB bPAaet"> <!-- -->Enum<!-- -->:</span> <span class="sc-gUrTyB sc-ldFCYc bPAaet iVdPUf">&quot;application/vnd.hmrc.1.0+json&quot;</span> <span class="sc-gUrTyB sc-ldFCYc bPAaet iVdPUf">&quot;application/vnd.hmrc.1.0+xml&quot;</span> </div> <div><div html="" class="sc-iKGpAq sc-cCYyou dXXcln eCNZEA"></div></div></div></td></tr></tbody></table></div><div><h3 class="sc-fJjTez hsJdXF">Responses</h3><div><button class="sc-caslwi brztng"><svg class="sc-fbJfz iZiZiV" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">200<!-- --> </strong><div html="&lt;p&gt;OK Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>OK Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">401<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">403<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">404<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">405<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">406<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">429<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">500<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">501<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">503<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div><div><button class="sc-caslwi fvWYOy"><svg class="sc-fbJfz kiMFkB" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-fYaxgW jJkGwY">504<!-- --> </strong><div html="&lt;p&gt;UNAUTHORISED Response&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fSUkok dkmSdy"><p>UNAUTHORISED Response</p>
+</div></button></div></div></div><div class="sc-jTrPJt sc-gLDzao dVngAA fYLqku"><div class="sc-fYzRkH dHdMVa"><button class="sc-jYvNnh iWrBta"><span type="get" class="sc-eGFuAY hCJcWK http-verb get">get</span><span class="sc-GJyyy kyZa-dF">/hello/world</span><svg class="sc-fbJfz ivEQut" style="margin-right:-25px" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg></button><div aria-hidden="true" class="sc-fnxdBX dplsyJ"><div class="sc-llcuoK cNCbuV"><div html="&lt;p&gt;Sandbox&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou dXXcln eCNZEA"><p>Sandbox</p>
+</div><div tabindex="0" role="button"><div class="sc-jnsZEx eobUac"><span>https://test-api.service.hmrc.gov.uk</span>/hello/world</div></div></div><div class="sc-llcuoK cNCbuV"><div html="&lt;p&gt;Production&lt;/p&gt;
+" class="sc-iKGpAq sc-cCYyou dXXcln eCNZEA"><p>Production</p>
+</div><div tabindex="0" role="button"><div class="sc-jnsZEx eobUac"><span>https://api.service.hmrc.gov.uk</span>/hello/world</div></div></div></div></div><div><h3 class="sc-kFuwaQ dEbuTz"> <!-- -->Response samples<!-- --> </h3><div class="sc-cyRfQY lbIFgo" data-rttabs="true"><ul class="react-tabs__tab-list" role="tablist"><li class="tab-success react-tabs__tab--selected" role="tab" id="tab_R_jjqa_0" aria-selected="true" aria-disabled="false" aria-controls="panel_R_jjqa_0" tabindex="0" data-rttab="true">200</li><li class="tab-error" role="tab" id="tab_R_jjqa_1" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjqa_1" data-rttab="true">401</li><li class="tab-error" role="tab" id="tab_R_jjqa_2" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjqa_2" data-rttab="true">403</li><li class="tab-error" role="tab" id="tab_R_jjqa_3" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjqa_3" data-rttab="true">404</li><li class="tab-error" role="tab" id="tab_R_jjqa_4" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjqa_4" data-rttab="true">405</li><li class="tab-error" role="tab" id="tab_R_jjqa_5" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjqa_5" data-rttab="true">406</li><li class="tab-error" role="tab" id="tab_R_jjqa_6" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjqa_6" data-rttab="true">429</li><li class="tab-error" role="tab" id="tab_R_jjqa_7" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjqa_7" data-rttab="true">500</li><li class="tab-error" role="tab" id="tab_R_jjqa_8" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjqa_8" data-rttab="true">501</li><li class="tab-error" role="tab" id="tab_R_jjqa_9" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjqa_9" data-rttab="true">503</li><li class="tab-error" role="tab" id="tab_R_jjqa_10" aria-selected="false" aria-disabled="false" aria-controls="panel_R_jjqa_10" data-rttab="true">504</li></ul><div class="react-tabs__tab-panel react-tabs__tab-panel--selected" role="tabpanel" id="panel_R_jjqa_0" aria-labelledby="tab_R_jjqa_0"><div><div class="sc-cPlDXk gpxHhK"><span class="sc-bCDidX kQPESF">Content type</span><div class="sc-dQelHO kANSCU">application/json</div></div><div class="sc-hVkBjf ksuOBo"><div class="sc-cRZddz iLjyyA"><div class="sc-gjTGSz dLNqBz"><button><div class="sc-jegxcw fJsoyS">Copy</div></button></div><div tabindex="0" class="sc-iKGpAq dXXcln sc-jMAIzW ceZGuR"><div class="redoc-json"><code><button class="collapser" aria-label="collapse"></button><span class="token punctuation">{</span><span class="ellipsis"></span><ul class="obj collapsible"><li><div class="hoverable "><span class="property token string">"message"</span>: <span class="token string">&quot;Hello World&quot;</span></div></li></ul><span class="token punctuation">}</span></code></div></div></div></div></div></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjqa_1" aria-labelledby="tab_R_jjqa_1"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjqa_2" aria-labelledby="tab_R_jjqa_2"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjqa_3" aria-labelledby="tab_R_jjqa_3"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjqa_4" aria-labelledby="tab_R_jjqa_4"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjqa_5" aria-labelledby="tab_R_jjqa_5"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjqa_6" aria-labelledby="tab_R_jjqa_6"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjqa_7" aria-labelledby="tab_R_jjqa_7"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjqa_8" aria-labelledby="tab_R_jjqa_8"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjqa_9" aria-labelledby="tab_R_jjqa_9"></div><div class="react-tabs__tab-panel" role="tabpanel" id="panel_R_jjqa_10" aria-labelledby="tab_R_jjqa_10"></div></div></div></div></div></div></div><div class="sc-emEvRt jYOHCb"></div></div></div>
+      <script>
+      const __redoc_state = {"menu":{"activeItemIdx":-1},"spec":{"data":{"components":{"securitySchemes":{"Application-Restricted":{"description":"HMRC supports OAuth 2.0 for authenticating application restricted API requests using an OAuth 2.0 Bearer Token in the AUTHORIZATION header.\nSee https://developer.service.hmrc.gov.uk/api-documentation/docs/authorisation/application-restricted-endpoints for details.\n","flows":{"clientCredentials":{"scopes":{},"tokenUrl":"https://api.service.hmrc.gov.uk/oauth/token"}},"type":"oauth2"},"User-Restricted":{"description":"HMRC supports OAuth 2.0 for authenticating user restricted API requests using an OAuth 2.0 Bearer Token in the AUTHORIZATION header.\nSee https://developer.service.hmrc.gov.uk/api-documentation/docs/authorisation/user-restricted-endpoints for details.\n","flows":{"authorizationCode":{"authorizationUrl":"https://api.service.hmrc.gov.uk/oauth/authorize","refreshUrl":"https://api.service.hmrc.gov.uk/oauth/refresh","scopes":{"hello":"access hello user"},"tokenUrl":"https://api.service.hmrc.gov.uk/oauth/token"}},"type":"oauth2"}}},"info":{"description":"# Overview\nThis is an example API that allows software developers to test that their applications can connect with the HMRC API Platform. It also acts as a hands-on tutorial for developers to get started with HMRC APIs.\n\nIt includes resources for testing access to the three different access levels:\n\n- Say hello world is an example of an unrestricted endpoint\n- Say hello user is an example of a user-restricted endpoint\n- Say hello application is an example of an application-restricted endpoint\n\nFurther details of the different access levels are given on \nthe [Authorisation](/api-documentation/docs/authorisation) page.\n\nFor more information about how to develop your own client applications, including example clients\nfor this API, see [Tutorials](/api-documentation/docs/tutorials).\n\n# Versioning\nWhen an API changes in a way that is backwards-incompatible, we increase the version number of the API. \nSee our [reference guide](/api-documentation/docs/reference-guide#versioning) for more on versioning.\n\n# Errors\nWe use standard HTTP status codes to show whether an API request succeeded or not. They are usually in the range:\n\n- 200 to 299 if it succeeded, including code 202 if it was accepted by an API that needs to wait for further action\n- 400 to 499 if it failed because of a client error by your application\n- 500 to 599 if it failed because of an error on our server\n\nErrors specific to each API are shown in the Endpoints section, under Response. See our \n[reference guide](/api-documentation/docs/reference-guide#errors) for more on errors.\n","title":"Hello World","version":"1.0"},"openapi":"3.0.3","paths":{"/hello/application":{"get":{"description":"A simple example for integrating with an application-restricted service, using an OAuth 2.0 `access_token`.\n\nAny authorised request to this endpoint initiates a 'Hello Application' response.\n","parameters":[{"in":"header","name":"Accept","required":true,"schema":{"type":"string","enum":["application/vnd.hmrc.1.0+json","application/vnd.hmrc.1.0+xml"]}}],"responses":{"200":{"content":{"application/json":{"schema":{"properties":{"message":{"type":"string"}},"type":"object","example":{"message":"Hello Application"}}}},"description":"OK Response"},"401":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string"},"message":{"type":"string"}},"type":"object","example":{"code":"MISSING_CREDENTIALS","message":"Authentication information is not provided"}}}},"description":"UNAUTHORISED Response"},"403":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["HTTPS_REQUIRED","RESOURCE_FORBIDDEN","INVALID_SCOPE","FORBIDDEN"]},"message":{"type":"string"}},"type":"object","example":{"code":"RESOURCE_FORBIDDEN","message":"The application is not subscribed to the API which it is attempting to invoke"}}}},"description":"UNAUTHORISED Response"},"404":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["MATCHING_RESOURCE_NOT_FOUND"]},"message":{"type":"string"}},"type":"object","example":{"code":"MATCHING_RESOURCE_NOT_FOUND","message":"No endpoint for the request path"}}}},"description":"UNAUTHORISED Response"},"405":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["METHOD_NOT_ALLOWED"]},"message":{"type":"string"}},"type":"object","example":{"code":"METHOD_NOT_ALLOWED","message":"Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"}}}},"description":"UNAUTHORISED Response"},"406":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["ACCEPT_HEADER_INVALID"]},"message":{"type":"string"}},"type":"object","example":{"code":"ACCEPT_HEADER_INVALID","message":"Missint or invalid Accept header"}}}},"description":"UNAUTHORISED Response"},"429":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["MESSAGE_THROTTLED_OUT"]},"message":{"type":"string"}},"type":"object","example":{"code":"MESSAGE_THROTTLED_OUT","message":"The application has reached its maximum rate limit"}}}},"description":"UNAUTHORISED Response"},"500":{"content":{"application/json":{"schema":{"oneOf":[{"properties":{"code":{"type":"string","description":"Error Code","enum":["INTERNAL_SERVER_ERROR"]},"message":{"type":"string"}},"type":"object","example":{"code":"INTERNAL_SERVER_ERROR","message":"Internal server error"}},{"type":"string","example":"Failed to process request"}]}}},"description":"UNAUTHORISED Response"},"501":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["NOT_IMPLEMENTED"]},"message":{"type":"string"}},"type":"object","example":{"code":"NOT_IMPLEMENTED","message":"API not implemented or deployed"}}}},"description":"UNAUTHORISED Response"},"503":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["SERVER_ERROR","SCHEDULED_MAINTENANCE"]},"message":{"type":"string"}},"type":"object","example":{"code":"SCHEDULED_MAINTENANCE","message":"Scheduled maintenance"}}}},"description":"UNAUTHORISED Response"},"504":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["GATEWAY_TIMEOUT"]},"message":{"type":"string"}},"type":"object","example":{"code":"GATEWAY_TIMEOUT","message":"Request timed out"}}}},"description":"UNAUTHORISED Response"}},"security":[{"Application-Restricted":[]}],"summary":"Say hello application","tags":["api-example-microservice"]}},"/hello/user":{"get":{"description":"A simple example for integrating with a user-restricted service, using an OAuth 2.0 `access_token`.\n\nAny authorised request to this endpoint initiates a 'Hello User' response.\n","parameters":[{"in":"header","name":"Accept","required":true,"schema":{"type":"string","enum":["application/vnd.hmrc.1.0+json","application/vnd.hmrc.1.0+xml"]}}],"responses":{"200":{"content":{"application/json":{"schema":{"properties":{"message":{"type":"string"}},"type":"object","example":{"message":"Hello User"}}}},"description":"OK Response"},"401":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string"},"message":{"type":"string"}},"type":"object","example":{"code":"MISSING_CREDENTIALS","message":"Authentication information is not provided"}}}},"description":"UNAUTHORISED Response"},"403":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["HTTPS_REQUIRED","RESOURCE_FORBIDDEN","INVALID_SCOPE","FORBIDDEN"]},"message":{"type":"string"}},"type":"object","example":{"code":"RESOURCE_FORBIDDEN","message":"The application is not subscribed to the API which it is attempting to invoke"}}}},"description":"UNAUTHORISED Response"},"404":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["MATCHING_RESOURCE_NOT_FOUND"]},"message":{"type":"string"}},"type":"object","example":{"code":"MATCHING_RESOURCE_NOT_FOUND","message":"No endpoint for the request path"}}}},"description":"UNAUTHORISED Response"},"405":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["METHOD_NOT_ALLOWED"]},"message":{"type":"string"}},"type":"object","example":{"code":"METHOD_NOT_ALLOWED","message":"Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"}}}},"description":"UNAUTHORISED Response"},"406":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["ACCEPT_HEADER_INVALID"]},"message":{"type":"string"}},"type":"object","example":{"code":"ACCEPT_HEADER_INVALID","message":"Missint or invalid Accept header"}}}},"description":"UNAUTHORISED Response"},"429":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["MESSAGE_THROTTLED_OUT"]},"message":{"type":"string"}},"type":"object","example":{"code":"MESSAGE_THROTTLED_OUT","message":"The application has reached its maximum rate limit"}}}},"description":"UNAUTHORISED Response"},"500":{"content":{"application/json":{"schema":{"oneOf":[{"properties":{"code":{"type":"string","description":"Error Code","enum":["INTERNAL_SERVER_ERROR"]},"message":{"type":"string"}},"type":"object","example":{"code":"INTERNAL_SERVER_ERROR","message":"Internal server error"}},{"type":"string","example":"Failed to process request"}]}}},"description":"UNAUTHORISED Response"},"501":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["NOT_IMPLEMENTED"]},"message":{"type":"string"}},"type":"object","example":{"code":"NOT_IMPLEMENTED","message":"API not implemented or deployed"}}}},"description":"UNAUTHORISED Response"},"503":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["SERVER_ERROR","SCHEDULED_MAINTENANCE"]},"message":{"type":"string"}},"type":"object","example":{"code":"SCHEDULED_MAINTENANCE","message":"Scheduled maintenance"}}}},"description":"UNAUTHORISED Response"},"504":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["GATEWAY_TIMEOUT"]},"message":{"type":"string"}},"type":"object","example":{"code":"GATEWAY_TIMEOUT","message":"Request timed out"}}}},"description":"UNAUTHORISED Response"}},"security":[{"User-Restricted":["hello"]}],"summary":"Say hello user","tags":["api-example-microservice"]}},"/hello/world":{"get":{"description":"A simple example for integrating with an unrestricted service.\n\nAny request to this endpoint initiates a 'Hello World' response.\n","parameters":[{"in":"header","name":"Accept","required":true,"schema":{"type":"string","enum":["application/vnd.hmrc.1.0+json","application/vnd.hmrc.1.0+xml"]}}],"responses":{"200":{"content":{"application/json":{"schema":{"properties":{"message":{"type":"string"}},"type":"object","example":{"message":"Hello World"}}}},"description":"OK Response"},"401":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["MISSING_CREDENTIALS","INVALID_CREDENTIALS","UNAUTHORIZED","INCORRECT_ACCESS_TOKEN_TYPE"]},"message":{"type":"string"}},"type":"object","example":{"code":"MISSING_CREDENTIALS","message":"Authentication information is not provided"}}}},"description":"UNAUTHORISED Response"},"403":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["HTTPS_REQUIRED","RESOURCE_FORBIDDEN","INVALID_SCOPE","FORBIDDEN"]},"message":{"type":"string"}},"type":"object","example":{"code":"RESOURCE_FORBIDDEN","message":"The application is not subscribed to the API which it is attempting to invoke"}}}},"description":"UNAUTHORISED Response"},"404":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["MATCHING_RESOURCE_NOT_FOUND"]},"message":{"type":"string"}},"type":"object","example":{"code":"MATCHING_RESOURCE_NOT_FOUND","message":"No endpoint for the request path"}}}},"description":"UNAUTHORISED Response"},"405":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["METHOD_NOT_ALLOWED"]},"message":{"type":"string"}},"type":"object","example":{"code":"METHOD_NOT_ALLOWED","message":"Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"}}}},"description":"UNAUTHORISED Response"},"406":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["ACCEPT_HEADER_INVALID"]},"message":{"type":"string"}},"type":"object","example":{"code":"ACCEPT_HEADER_INVALID","message":"Missint or invalid Accept header"}}}},"description":"UNAUTHORISED Response"},"429":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["MESSAGE_THROTTLED_OUT"]},"message":{"type":"string"}},"type":"object","example":{"code":"MESSAGE_THROTTLED_OUT","message":"The application has reached its maximum rate limit"}}}},"description":"UNAUTHORISED Response"},"500":{"content":{"application/json":{"schema":{"oneOf":[{"properties":{"code":{"type":"string","description":"Error Code","enum":["INTERNAL_SERVER_ERROR"]},"message":{"type":"string"}},"type":"object","example":{"code":"INTERNAL_SERVER_ERROR","message":"Internal server error"}},{"type":"string","example":"Failed to process request"}]}}},"description":"UNAUTHORISED Response"},"501":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["NOT_IMPLEMENTED"]},"message":{"type":"string"}},"type":"object","example":{"code":"NOT_IMPLEMENTED","message":"API not implemented or deployed"}}}},"description":"UNAUTHORISED Response"},"503":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["SERVER_ERROR","SCHEDULED_MAINTENANCE"]},"message":{"type":"string"}},"type":"object","example":{"code":"SCHEDULED_MAINTENANCE","message":"Scheduled maintenance"}}}},"description":"UNAUTHORISED Response"},"504":{"content":{"application/json":{"schema":{"properties":{"code":{"type":"string","description":"Error Code","enum":["GATEWAY_TIMEOUT"]},"message":{"type":"string"}},"type":"object","example":{"code":"GATEWAY_TIMEOUT","message":"Request timed out"}}}},"description":"UNAUTHORISED Response"}},"security":[{}],"summary":"Say hello world","tags":["api-example-microservice"]}}},"servers":[{"description":"Sandbox","url":"https://test-api.service.hmrc.gov.uk"},{"description":"Production","url":"https://api.service.hmrc.gov.uk"}]}},"searchIndex":{"store":["section/Overview","section/Versioning","section/Errors","tag/api-example-microservice","tag/api-example-microservice/paths/~1hello~1application/get","tag/api-example-microservice/paths/~1hello~1user/get","tag/api-example-microservice/paths/~1hello~1world/get"],"index":{"version":"2.3.9","fields":["title","description"],"fieldVectors":[["title/0",[0,1.908]],["description/0",[1,0.835,2,1.105,3,1.028,4,1.028,5,1.98,6,1.608,7,0.68,8,1.028,9,1.608,10,1.028,11,1.028,12,1.028,13,1.028,14,1.028,15,1.117,16,1.028,17,1.98,18,1.028,19,1.608,20,1.608,21,1.376,22,0.076,23,0.508,24,0.715,25,0.443,26,0.508,27,0.715,28,0.715,29,0.715,30,1.028,31,1.028,32,1.028,33,1.028,34,0.508,35,1.028,36,1.117,37,0.508,38,1.028]],["title/1",[39,1.326]],["description/1",[2,1.313,34,1.027,37,1.027,39,1.847,40,2.08,41,2.08,42,2.08,43,2.08,44,2.08,45,1.445,46,2.08]],["title/2",[47,1.326]],["description/2",[2,1.053,7,0.398,15,0.804,21,1.481,25,0.259,29,0.804,34,0.571,36,0.804,37,0.571,45,0.804,47,1.656,48,0.571,49,1.157,50,1.157,51,1.157,52,1.761,53,1.157,54,1.157,55,0.398,56,1.761,57,1.157,58,1.157,59,1.157,60,1.157,61,1.157,62,1.157,63,1.157,64,1.157,65,1.157,66,1.157,67,1.157,68,1.761,69,1.157,70,1.157,71,1.157,72,1.157,73,1.157,74,1.157,75,1.157,76,1.157,77,0.398,78,1.157]],["title/3",[79,1.908]],["description/3",[]],["title/4",[7,0.494,22,0.055]],["description/4",[1,0.661,7,0.661,22,0.074,25,0.43,28,1.336,48,0.949,55,0.661,77,0.661,80,0.949,81,0.949,82,0.949,83,1.336,84,1.336,85,1.336,86,1.336,87,0.949,88,1.923]],["title/5",[22,0.055,26,0.71]],["description/5",[1,0.661,22,0.074,25,0.43,26,0.949,27,1.336,48,0.949,55,0.661,77,0.661,80,0.949,81,0.949,82,0.949,83,1.336,84,1.336,85,1.336,86,1.336,87,0.949,89,1.923]],["title/6",[22,0.055,23,0.71]],["description/6",[1,0.73,22,0.082,23,1.049,24,1.475,25,0.475,55,0.73,77,0.73,80,1.049,81,1.049,82,1.049,87,1.049,90,2.123]]],"invertedIndex":[["",{"_index":21,"title":{},"description":{"0":{},"2":{}}}],["2.0",{"_index":84,"title":{},"description":{"4":{},"5":{}}}],["200",{"_index":59,"title":{},"description":{"2":{}}}],["202",{"_index":61,"title":{},"description":{"2":{}}}],["299",{"_index":60,"title":{},"description":{"2":{}}}],["400",{"_index":66,"title":{},"description":{"2":{}}}],["499",{"_index":67,"title":{},"description":{"2":{}}}],["500",{"_index":69,"title":{},"description":{"2":{}}}],["599",{"_index":70,"title":{},"description":{"2":{}}}],["accept",{"_index":62,"title":{},"description":{"2":{}}}],["access",{"_index":17,"title":{},"description":{"0":{}}}],["access_token",{"_index":85,"title":{},"description":{"4":{},"5":{}}}],["act",{"_index":11,"title":{},"description":{"0":{}}}],["action",{"_index":65,"title":{},"description":{"2":{}}}],["allow",{"_index":3,"title":{},"description":{"0":{}}}],["api",{"_index":2,"title":{},"description":{"0":{},"1":{},"2":{}}}],["api-example-microservic",{"_index":79,"title":{"3":{}},"description":{}}],["applic",{"_index":7,"title":{"4":{}},"description":{"0":{},"2":{},"4":{}}}],["application-restrict",{"_index":28,"title":{},"description":{"0":{},"4":{}}}],["authoris",{"_index":86,"title":{},"description":{"4":{},"5":{}}}],["authorisation](/api-documentation/docs/authoris",{"_index":32,"title":{},"description":{"0":{}}}],["backwards-incompat",{"_index":42,"title":{},"description":{"1":{}}}],["chang",{"_index":40,"title":{},"description":{"1":{}}}],["client",{"_index":36,"title":{},"description":{"0":{},"2":{}}}],["code",{"_index":52,"title":{},"description":{"2":{}}}],["connect",{"_index":8,"title":{},"description":{"0":{}}}],["detail",{"_index":30,"title":{},"description":{"0":{}}}],["develop",{"_index":5,"title":{},"description":{"0":{}}}],["differ",{"_index":19,"title":{},"description":{"0":{}}}],["each",{"_index":73,"title":{},"description":{"2":{}}}],["endpoint",{"_index":25,"title":{},"description":{"0":{},"2":{},"4":{},"5":{},"6":{}}}],["error",{"_index":47,"title":{"2":{}},"description":{"2":{}}}],["exampl",{"_index":1,"title":{},"description":{"0":{},"4":{},"5":{},"6":{}}}],["fail",{"_index":68,"title":{},"description":{"2":{}}}],["further",{"_index":29,"title":{},"description":{"0":{},"2":{}}}],["given",{"_index":31,"title":{},"description":{"0":{}}}],["guide](/api-documentation/docs/reference-guide#error",{"_index":78,"title":{},"description":{"2":{}}}],["guide](/api-documentation/docs/reference-guide#vers",{"_index":46,"title":{},"description":{"1":{}}}],["hands-on",{"_index":12,"title":{},"description":{"0":{}}}],["hello",{"_index":22,"title":{"4":{},"5":{},"6":{}},"description":{"0":{},"4":{},"5":{},"6":{}}}],["hello/appl",{"_index":88,"title":{},"description":{"4":{}}}],["hello/us",{"_index":89,"title":{},"description":{"5":{}}}],["hello/world",{"_index":90,"title":{},"description":{"6":{}}}],["hmrc",{"_index":9,"title":{},"description":{"0":{}}}],["http",{"_index":50,"title":{},"description":{"2":{}}}],["includ",{"_index":15,"title":{},"description":{"0":{},"2":{}}}],["increas",{"_index":43,"title":{},"description":{"1":{}}}],["inform",{"_index":35,"title":{},"description":{"0":{}}}],["initi",{"_index":87,"title":{},"description":{"4":{},"5":{},"6":{}}}],["integr",{"_index":81,"title":{},"description":{"4":{},"5":{},"6":{}}}],["level",{"_index":20,"title":{},"description":{"0":{}}}],["more",{"_index":34,"title":{},"description":{"0":{},"1":{},"2":{}}}],["need",{"_index":63,"title":{},"description":{"2":{}}}],["number",{"_index":44,"title":{},"description":{"1":{}}}],["oauth",{"_index":83,"title":{},"description":{"4":{},"5":{}}}],["overview",{"_index":0,"title":{"0":{}},"description":{}}],["page",{"_index":33,"title":{},"description":{"0":{}}}],["platform",{"_index":10,"title":{},"description":{"0":{}}}],["rang",{"_index":58,"title":{},"description":{"2":{}}}],["refer",{"_index":45,"title":{},"description":{"1":{},"2":{}}}],["request",{"_index":55,"title":{},"description":{"2":{},"4":{},"5":{},"6":{}}}],["resourc",{"_index":16,"title":{},"description":{"0":{}}}],["respons",{"_index":77,"title":{},"description":{"2":{},"4":{},"5":{},"6":{}}}],["section",{"_index":75,"title":{},"description":{"2":{}}}],["see",{"_index":37,"title":{},"description":{"0":{},"1":{},"2":{}}}],["server",{"_index":71,"title":{},"description":{"2":{}}}],["servic",{"_index":82,"title":{},"description":{"4":{},"5":{},"6":{}}}],["show",{"_index":53,"title":{},"description":{"2":{}}}],["shown",{"_index":74,"title":{},"description":{"2":{}}}],["simpl",{"_index":80,"title":{},"description":{"4":{},"5":{},"6":{}}}],["softwar",{"_index":4,"title":{},"description":{"0":{}}}],["specif",{"_index":72,"title":{},"description":{"2":{}}}],["standard",{"_index":49,"title":{},"description":{"2":{}}}],["start",{"_index":14,"title":{},"description":{"0":{}}}],["statu",{"_index":51,"title":{},"description":{"2":{}}}],["succeed",{"_index":56,"title":{},"description":{"2":{}}}],["test",{"_index":6,"title":{},"description":{"0":{}}}],["three",{"_index":18,"title":{},"description":{"0":{}}}],["tutori",{"_index":13,"title":{},"description":{"0":{}}}],["tutorials](/api-documentation/docs/tutori",{"_index":38,"title":{},"description":{"0":{}}}],["under",{"_index":76,"title":{},"description":{"2":{}}}],["unrestrict",{"_index":24,"title":{},"description":{"0":{},"6":{}}}],["us",{"_index":48,"title":{},"description":{"2":{},"4":{},"5":{}}}],["user",{"_index":26,"title":{"5":{}},"description":{"0":{},"5":{}}}],["user-restrict",{"_index":27,"title":{},"description":{"0":{},"5":{}}}],["usual",{"_index":57,"title":{},"description":{"2":{}}}],["version",{"_index":39,"title":{"1":{}},"description":{"1":{}}}],["wait",{"_index":64,"title":{},"description":{"2":{}}}],["way",{"_index":41,"title":{},"description":{"1":{}}}],["whether",{"_index":54,"title":{},"description":{"2":{}}}],["world",{"_index":23,"title":{"6":{}},"description":{"0":{},"6":{}}}]],"pipeline":[]}},"options":{"theme":{"typography":{"fontFamily":"DejaVu Sans, sans-serif","headings":{"fontFamily":"DejaVu Sans, sans-serif"},"code":{"fontFamily":"DejaVu Sans Mono, monospace"}}}}};
+
+      var container = document.getElementById('redoc');
+      Redoc.hydrate(__redoc_state, container);
+
+      </script>
+</body>
+
+</html>

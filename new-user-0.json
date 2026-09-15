@@ -1,0 +1,27 @@
+{
+  "data": {
+    "userId": "797875716049",
+    "password": "CdWQ9teZAwZR",
+    "userFullName": "Iona Mansell",
+    "emailAddress": "iona.mansell@example.com",
+    "individualDetails": {
+      "firstName": "Iona",
+      "lastName": "Mansell",
+      "dateOfBirth": "1995-12-04",
+      "address": {
+        "line1": "43 Queensland Road",
+        "line2": "Slough",
+        "postcode": "TS17 1PA"
+      }
+    },
+    "nino": "GW306444D",
+    "mtdItId": "XFIT00030125515",
+    "groupIdentifier": "545477731174"
+  },
+  "api": "api-platform-test-user",
+  "major": "1",
+  "minor": "0",
+  "path": "/create-test-user/individuals",
+  "action": "post",
+  "response": "201"
+}

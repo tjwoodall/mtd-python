@@ -1,0 +1,35 @@
+{
+  "data": {
+    "userId": "204994506176",
+    "password": "vDxIrsYKhiOH",
+    "userFullName": "Marlowe Newton",
+    "emailAddress": "marlowe.newton@example.com",
+    "organisationDetails": {
+      "name": "Company VZUGRG",
+      "address": {
+        "line1": "40 North End Road",
+        "line2": "London",
+        "postcode": "TS22 1PA"
+      }
+    },
+    "individualDetails": {
+      "firstName": "Marlowe",
+      "lastName": "Newton",
+      "dateOfBirth": "1984-05-11",
+      "address": {
+        "line1": "28 Battersea Bridge Road",
+        "line2": "Cambridge",
+        "postcode": "TS2 1PA"
+      }
+    },
+    "vrn": "717079818",
+    "vatRegistrationDate": "2013-06-13",
+    "groupIdentifier": "129572966129"
+  },
+  "api": "api-platform-test-user",
+  "major": "1",
+  "minor": "0",
+  "path": "/create-test-user/organisations",
+  "action": "post",
+  "response": "201"
+}
