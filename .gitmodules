@@ -223,3 +223,12 @@
 [submodule "mobile-startup"]
 	path = mobile-startup
 	url = https://github.com/tjwoodall/mobile-startup.git
+[submodule "customs-inventory-linking-imports"]
+	path = customs-inventory-linking-imports
+	url = https://github.com/tjwoodall/customs-inventory-linking-imports.git
+[submodule "mobile-push-notifications-orchestration"]
+	path = mobile-push-notifications-orchestration
+	url = https://github.com/tjwoodall/mobile-push-notifications-orchestration.git
+[submodule "mobile-push-notifications-registration"]
+	path = mobile-push-notifications-registration
+	url = https://github.com/tjwoodall/mobile-push-notifications-registration.git
