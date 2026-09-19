@@ -38109,10 +38109,10 @@
                     "application/json": {
                       "examples": {
                         "MATCHING_RESOURCE_NOT_FOUND": {
-                          "description": "Either the calculation ID was not found or the calculation was in year.\n",
+                          "description": "The calculation ID was not found or does not correspond to the most recent calculation.\n",
                           "value": {
                             "code": "MATCHING_RESOURCE_NOT_FOUND",
-                            "message": "Matching resource not found"
+                            "message": "The calculation ID was not found or does not correspond to the most recent calculation"
                           }
                         }
                       },

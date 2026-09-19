@@ -148,26 +148,40 @@
                               ]
                             },
                             "service": {
-                              "maxItems": 1,
-                              "type": "array",
-                              "items": {
-                                "oneOf": [
-                                  {
+                              "oneOf": [
+                                {
+                                  "title": "MTD-IT",
+                                  "type": "array",
+                                  "minItems": 1,
+                                  "maxItems": 1,
+                                  "items": {
+                                    "type": "string",
                                     "enum": [
                                       "MTD-IT"
-                                    ],
-                                    "type": "string",
-                                    "description": "MTD IT service"
+                                    ]
                                   },
-                                  {
+                                  "example": [
+                                    "MTD-IT"
+                                  ],
+                                  "description": "MTD IT service"
+                                },
+                                {
+                                  "title": "MTD-VAT",
+                                  "type": "array",
+                                  "minItems": 1,
+                                  "maxItems": 1,
+                                  "items": {
+                                    "type": "string",
                                     "enum": [
                                       "MTD-VAT"
-                                    ],
-                                    "type": "string",
-                                    "description": "MTD VAT service"
-                                  }
-                                ]
-                              },
+                                    ]
+                                  },
+                                  "example": [
+                                    "MTD-VAT"
+                                  ],
+                                  "description": "MTD VAT service"
+                                }
+                              ],
                               "description": "The service to which this invitation refers"
                             },
                             "arn": {
@@ -627,7 +641,9 @@
                           "clientIdType": "ni",
                           "clientType": "personal",
                           "knownFact": "AA11 1AA",
-                          "service": "MTD-IT"
+                          "service": [
+                            "MTD-IT"
+                          ]
                         }
                       },
                       "example-ITSA-main": {
@@ -637,7 +653,9 @@
                           "clientIdType": "ni",
                           "clientType": "personal",
                           "knownFact": "AA11 1AA",
-                          "service": "MTD-IT"
+                          "service": [
+                            "MTD-IT"
+                          ]
                         }
                       },
                       "example-ITSA-supporting": {
@@ -647,7 +665,9 @@
                           "clientIdType": "ni",
                           "clientType": "personal",
                           "knownFact": "AA11 1AA",
-                          "service": "MTD-IT"
+                          "service": [
+                            "MTD-IT"
+                          ]
                         }
                       },
                       "example-VAT": {
@@ -656,7 +676,9 @@
                           "clientIdType": "vrn",
                           "clientType": "business",
                           "knownFact": "2007-05-18",
-                          "service": "MTD-VAT"
+                          "service": [
+                            "MTD-VAT"
+                          ]
                         }
                       }
                     },
@@ -676,10 +698,19 @@
                             "service": {
                               "allOf": [
                                 {
-                                  "enum": [
+                                  "title": "MTD-IT",
+                                  "type": "array",
+                                  "minItems": 1,
+                                  "maxItems": 1,
+                                  "items": {
+                                    "type": "string",
+                                    "enum": [
+                                      "MTD-IT"
+                                    ]
+                                  },
+                                  "example": [
                                     "MTD-IT"
                                   ],
-                                  "type": "string",
                                   "description": "MTD IT service"
                                 }
                               ]
@@ -753,10 +784,19 @@
                             "service": {
                               "allOf": [
                                 {
-                                  "enum": [
+                                  "title": "MTD-VAT",
+                                  "type": "array",
+                                  "minItems": 1,
+                                  "maxItems": 1,
+                                  "items": {
+                                    "type": "string",
+                                    "enum": [
+                                      "MTD-VAT"
+                                    ]
+                                  },
+                                  "example": [
                                     "MTD-VAT"
                                   ],
-                                  "type": "string",
                                   "description": "MTD VAT service"
                                 }
                               ]
@@ -1808,26 +1848,40 @@
                             ]
                           },
                           "service": {
-                            "maxItems": 1,
-                            "type": "array",
-                            "items": {
-                              "oneOf": [
-                                {
+                            "oneOf": [
+                              {
+                                "title": "MTD-IT",
+                                "type": "array",
+                                "minItems": 1,
+                                "maxItems": 1,
+                                "items": {
+                                  "type": "string",
                                   "enum": [
                                     "MTD-IT"
-                                  ],
-                                  "type": "string",
-                                  "description": "MTD IT service"
+                                  ]
                                 },
-                                {
+                                "example": [
+                                  "MTD-IT"
+                                ],
+                                "description": "MTD IT service"
+                              },
+                              {
+                                "title": "MTD-VAT",
+                                "type": "array",
+                                "minItems": 1,
+                                "maxItems": 1,
+                                "items": {
+                                  "type": "string",
                                   "enum": [
                                     "MTD-VAT"
-                                  ],
-                                  "type": "string",
-                                  "description": "MTD VAT service"
-                                }
-                              ]
-                            },
+                                  ]
+                                },
+                                "example": [
+                                  "MTD-VAT"
+                                ],
+                                "description": "MTD VAT service"
+                              }
+                            ],
                             "description": "The service to which this invitation refers"
                           },
                           "arn": {
@@ -2286,7 +2340,9 @@
                           "clientId": "AA999999A",
                           "clientIdType": "ni",
                           "knownFact": "AA11 1AA",
-                          "service": "MTD-IT"
+                          "service": [
+                            "MTD-IT"
+                          ]
                         }
                       },
                       "example-ITSA-main": {
@@ -2295,7 +2351,9 @@
                           "clientId": "AA999999A",
                           "clientIdType": "ni",
                           "knownFact": "AA11 1AA",
-                          "service": "MTD-IT"
+                          "service": [
+                            "MTD-IT"
+                          ]
                         }
                       },
                       "example-ITSA-supporting": {
@@ -2304,7 +2362,9 @@
                           "clientId": "AA999999A",
                           "clientIdType": "ni",
                           "knownFact": "AA11 1AA",
-                          "service": "MTD-IT"
+                          "service": [
+                            "MTD-IT"
+                          ]
                         }
                       },
                       "example-VAT": {
@@ -2312,7 +2372,9 @@
                           "clientId": "101747696",
                           "clientIdType": "vrn",
                           "knownFact": "2007-05-18",
-                          "service": "MTD-VAT"
+                          "service": [
+                            "MTD-VAT"
+                          ]
                         }
                       }
                     },
@@ -2331,10 +2393,19 @@
                             "service": {
                               "allOf": [
                                 {
-                                  "enum": [
+                                  "title": "MTD-VAT",
+                                  "type": "array",
+                                  "minItems": 1,
+                                  "maxItems": 1,
+                                  "items": {
+                                    "type": "string",
+                                    "enum": [
+                                      "MTD-VAT"
+                                    ]
+                                  },
+                                  "example": [
                                     "MTD-VAT"
                                   ],
-                                  "type": "string",
                                   "description": "MTD VAT service"
                                 }
                               ]
@@ -2383,10 +2454,19 @@
                             "service": {
                               "allOf": [
                                 {
-                                  "enum": [
+                                  "title": "MTD-IT",
+                                  "type": "array",
+                                  "minItems": 1,
+                                  "maxItems": 1,
+                                  "items": {
+                                    "type": "string",
+                                    "enum": [
+                                      "MTD-IT"
+                                    ]
+                                  },
+                                  "example": [
                                     "MTD-IT"
                                   ],
-                                  "type": "string",
                                   "description": "MTD IT service"
                                 }
                               ]

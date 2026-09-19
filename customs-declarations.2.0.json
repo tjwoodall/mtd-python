@@ -22,7 +22,7 @@
         },
         "info": {
           "contact": {},
-          "description": "# Schemas and examples\n\nYou can download the following zipped archive, which contains XML schemas and examples of the request and response payloads for each of the API endpoints:\n\n[Schemas and example messages](/api-documentation/docs/api/download/customs-declarations/2.0/wco-declaration-schemas.zip)\n\nZIP, 3.2MB last updated 23/07/2026\n",
+          "description": "# Schemas and examples\n\nYou can download the following zipped archive, which contains XML schemas and examples of the request and response payloads for each of the API endpoints:\n\n[Schemas and example messages](/api-documentation/docs/api/download/customs-declarations/2.0/wco-declaration-schemas.zip)\n\nZIP, 3.2MB last updated 17/09/2026\n",
           "title": "Customs Declarations",
           "version": "2.0"
         },

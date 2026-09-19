@@ -1061,8 +1061,7 @@
                             },
                             "tradingName": "ABC Ltd.",
                             "tradingType": "Plastering",
-                            "typeOfBusiness": "self-employment",
-                            "yearOfMigration": "2022"
+                            "typeOfBusiness": "self-employment"
                           }
                         }
                       },
@@ -1101,12 +1100,6 @@
                             "description": "The trading name of the business.",
                             "example": "ABC Ltd.",
                             "maxLength": 105
-                          },
-                          "yearOfMigration": {
-                            "type": "string",
-                            "description": "Year of migration.",
-                            "pattern": "^(\\d{4})$",
-                            "example": "2022"
                           },
                           "firstAccountingPeriodStartDate": {
                             "type": "string",

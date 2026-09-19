@@ -23,13 +23,13 @@
         },
         "info": {
           "contact": {},
-          "description": "# Overview\nUse this API to get HMRC Assist feedback about potential inaccuracies in returns before they are formally submitted.\nYou must follow a two-step process:\n1. Send draft return data.\n2. Use the relevant acknowledgement endpoint to confirm that your software has presented the HMRC Assist feedback messages to the user.\n\nBecause this process operates on draft, unfinalised data, requesting feedback carries no formal declaration. Also, the process does not block formal declaration submission via the *returns* endpoint of the [VAT (MTD) API](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api/). Your software must allow customers to submit their VAT return, irrespective of any HMRC Assist submission feedback.\n",
+          "description": "# Overview\nUse this API to get HMRC Assist feedback about potential inaccuracies in returns before they are formally submitted.\n\nThe endpoints must be used in this order:\n1. Use the *feedback* endpoint to send draft return data, and receive HMRC Assist feedback messages about that data.\n2. Use the *acknowledge* endpoint to confirm that your software has presented the HMRC Assist feedback messages to the user.\n\nBecause this process operates on draft, unfinalised data, requesting feedback carries no formal declaration. Also, the process does not block formal declaration submission via the *returns* endpoint of the [VAT (MTD) API](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api/). Your software must allow customers to submit their VAT return, irrespective of any HMRC Assist submission feedback.\n\nFor more information about HMRC Assist for VAT, see the [VAT (MTD) end-to-end service guide](https://developer.service.hmrc.gov.uk/guides/vat-mtd-end-to-end-service-guide/documentation/hmrc-assist-for-vat.html).\n",
           "title": "VAT Assist (MTD)",
           "version": "1.0"
         },
         "openapi": "3.0.3",
         "paths": {
-          "/misc/transaction-risking/acknowledge/{vrn}/{reportId}/{correlationId}": {
+          "/organisations/vat-assist/acknowledge/{vrn}/{reportId}/{correlationId}": {
             "post": {
               "description": "Acknowledge an HMRC Assist for VAT report, and confirm that your software has presented the feedback messages verbatim to the user.\n\n### Test data\n<p>Scenario simulations using Gov-Test-Scenario headers are only available in the sandbox environment.</p>\n<table>\n  <thead>\n    <tr>\n      <th>Header Value (Gov-Test-Scenario)</th>\n      <th>Scenario</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><p>Default (No header value)</p></td>\n      <td><p>Acknowledgement received.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_VRN</p></td>\n      <td><p>Scenario where the VRN has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_REPORTID</p></td>\n      <td><p>Scenario where the reportId has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_DATETIME</p></td>\n      <td><p>Scenario where the presented DateTime has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_CREDENTIALS</p></td>\n      <td><p>Scenario where invalid authentication information is provided.</p></td>\n    </tr>\n    <tr>\n      <td><p>NOT_AUTHORISED</p></td>\n      <td><p>Scenario where the client or their agent is not authorised.</p></td>\n    </tr>\n    <tr>\n      <td><p>CORRELATION_ID</p></td>\n      <td><p>Scenario where the correlation ID does not match.</p></td>\n    </tr>\n    <tr>\n      <td><p>NOT_FOUND</p></td>\n      <td><p>Simulates the scenario where the report cannot be found.</p></td>\n    </tr>\n  </tbody>\n</table>\n",
               "operationId": "AcknowledgeVATAssistReport",
@@ -490,9 +490,9 @@
               ]
             }
           },
-          "/misc/transaction-risking/assist/{vrn}": {
+          "/organisations/vat-assist/feedback/{vrn}": {
             "post": {
-              "description": "Send VAT return data, to receive feedback from HMRC before formally submitting a VAT return. \n\nThe response will contain feedback messages in English and Welsh, highlighting potential mistakes or discrepancies in the VAT return data.\n\n**Note:** Before using this endpoint, you must first call the obligations endpoint on the [VAT (MTD) API](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api/) to get the period key.\n\n### Test data\n<p>Scenario simulations using Gov-Test-Scenario headers are only available in the sandbox environment.</p>\n<table>\n  <thead>\n    <tr>\n      <th>Header Value (Gov-Test-Scenario)</th>\n      <th>Scenario</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><p>Default (No header value)</p></td>\n      <td><p>Simulates the scenario where there is one HMRC Assist feedback message.</p></td>\n    </tr>\n    <tr>\n      <td><p>MULTIPLE_FEEDBACK</p></td>\n      <td><p>Simulates the scenario where there are more than one HMRC VAT Assist feedback messages.</p></td>\n    </tr>\n    <tr>\n      <td><p>NO_FEEDBACK</p></td>\n      <td><p>Simulates the scenario where there is no HMRC VAT Assist feedback.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_VRN</p></td>\n      <td><p>Simulates the scenario where the VRN has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_PERIODKEY</p></td>\n      <td><p>Simulates the scenario where the periodKey has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_REQUEST</p></td>\n      <td><p>Submission has not passed validation. Invalid values.</p></td>\n    </tr>\n    <tr>\n      <td><p>TAX_PERIOD_NOT_ENDED</p></td>\n      <td><p>Simulates the scenario where the accounting period has not ended.</p></td>\n    </tr>\n    <tr>\n      <td><p>INSOLVENT_TRADER</p></td>\n      <td><p>Simulates the scenario where the client is an insolvent trader.</p></td>\n    </tr>\n  </tbody>\n</table>\n",
+              "description": "Send draft VAT return data, to receive feedback from HMRC before formally submitting a VAT return. \n\nThe response will contain feedback messages in English and Welsh, highlighting potential mistakes or discrepancies in the VAT return data.\n\n**Note:** Before using this endpoint, you must first call the obligations endpoint on the [VAT (MTD) API](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api/) to get the period key.\n\n### Test data\n<p>Scenario simulations using Gov-Test-Scenario headers are only available in the sandbox environment.</p>\n<table>\n  <thead>\n    <tr>\n      <th>Header Value (Gov-Test-Scenario)</th>\n      <th>Scenario</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><p>Default (No header value)</p></td>\n      <td><p>Simulates the scenario where there is one HMRC Assist feedback message.</p></td>\n    </tr>\n    <tr>\n      <td><p>MULTIPLE_FEEDBACK</p></td>\n      <td><p>Simulates the scenario where there are more than one HMRC VAT Assist feedback messages.</p></td>\n    </tr>\n    <tr>\n      <td><p>NO_FEEDBACK</p></td>\n      <td><p>Simulates the scenario where there is no HMRC VAT Assist feedback.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_VRN</p></td>\n      <td><p>Simulates the scenario where the VRN has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_PERIODKEY</p></td>\n      <td><p>Simulates the scenario where the periodKey has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_REQUEST</p></td>\n      <td><p>Submission has not passed validation. Invalid values.</p></td>\n    </tr>\n    <tr>\n      <td><p>TAX_PERIOD_NOT_ENDED</p></td>\n      <td><p>Simulates the scenario where the accounting period has not ended.</p></td>\n    </tr>\n    <tr>\n      <td><p>INSOLVENT_TRADER</p></td>\n      <td><p>Simulates the scenario where the client is an insolvent trader.</p></td>\n    </tr>\n  </tbody>\n</table>\n",
               "operationId": "RequestVATAssistFeedback",
               "parameters": [
                 {
@@ -836,7 +836,7 @@
                                 "itemNumber": {
                                   "type": "string",
                                   "pattern": "^[0-9]{3}$",
-                                  "description": "The unique identifier for the feedback message. Corresponding English and Welsh feedback messages will have the same number.",
+                                  "description": "The unique identifier for the feedback message. Corresponding English and Welsh feedback messages will have the same number.\n\nIf there is no HMRC Assist feedback, a single message to that effect will be returned. It will have *itemNumber* \"0\".\n",
                                   "example": "001"
                                 },
                                 "title": {
@@ -882,7 +882,7 @@
                                 "path": {
                                   "type": "string",
                                   "maxLength": 32767,
-                                  "description": "The VAT box numbers and equivalent descriptions (as appearing on a paper return) that are the focus of the feedback presented in the message.",
+                                  "description": "The name of the request field that is the focus of the feedback message.\n\nIf only a \"no feedback\" message is returned, this field will not be present.\n",
                                   "example": "vatDueSales"
                                 }
                               }
@@ -903,7 +903,7 @@
                                 "itemNumber": {
                                   "type": "string",
                                   "pattern": "^[0-9]{3}$",
-                                  "description": "The unique identifier for the feedback message. Corresponding English and Welsh feedback messages will have the same number.",
+                                  "description": "The unique identifier for the feedback message. Corresponding English and Welsh feedback messages will have the same number.\n\nIf there is no HMRC Assist feedback, a single message to that effect will be returned. It will have *itemNumber* \"0\".\n",
                                   "example": "001"
                                 },
                                 "title": {
@@ -949,7 +949,7 @@
                                 "path": {
                                   "type": "string",
                                   "maxLength": 32767,
-                                  "description": "The VAT box numbers and equivalent descriptions (as appearing on a paper return) that are the focus of the feedback presented in the message.",
+                                  "description": "The name of the request field that is the focus of the feedback message.\n\nIf only a \"no feedback\" message is returned, this field will not be present.\n",
                                   "example": "vatDueSales"
                                 }
                               }

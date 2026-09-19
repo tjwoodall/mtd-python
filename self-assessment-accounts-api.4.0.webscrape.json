@@ -198,6 +198,7 @@
                               "totalBalance": -99999999999.99,
                               "totalBcdBalance": 2600.24,
                               "totalCredit": 4567.67,
+                              "totalFormalInformalStandovers": 5009.99,
                               "unallocatedCredit": 3456.67
                             },
                             "codingDetails": [
@@ -214,6 +215,8 @@
                             "documentDetails": [
                               {
                                 "amountCodedOut": 5009.99,
+                                "chargeClassification": "enquiry-amendment",
+                                "collectableAmount": 5009.99,
                                 "creditReason": "Voluntary Payment",
                                 "documentDate": "2018-04-05",
                                 "documentDescription": "ITSA- POA 1",
@@ -250,7 +253,8 @@
                                   "documentNumber": "1234567890123456",
                                   "taxYear": "2017-18"
                                 },
-                                "taxYear": "2020-21"
+                                "taxYear": "2020-21",
+                                "totalStandoverAmount": 5009.99
                               }
                             ],
                             "financialDetails": [
@@ -280,10 +284,11 @@
                                     "isReturn": true,
                                     "itemId": "001",
                                     "locks": {
-                                      "isChargeOnHold": false,
-                                      "isEstimatedChargeOnHold": false,
-                                      "isInterestAccrualOnHold": false,
-                                      "isInterestChargeOnHold": false
+                                      "dunningLock": "currently suspended on appeal",
+                                      "isChargeOnHold": true,
+                                      "isEstimatedChargeOnHold": true,
+                                      "isInterestAccrualOnHold": true,
+                                      "isInterestChargeOnHold": true
                                     },
                                     "outgoingPaymentMethod": "Payable Order Repayment",
                                     "paymentAmount": 10000,
@@ -408,6 +413,14 @@
                                 "minimum": -99999999999.99,
                                 "maximum": 99999999999.99,
                                 "multipleOf": 0.01
+                              },
+                              "totalFormalAndInformalStandovers": {
+                                "description": "[Test only] Total value of the formal and informal standover amounts. \r\nThe value must be between -99999999999.99 and 99999999999.99 to 2 decimal places.",
+                                "type": "number",
+                                "multipleOf": 0.01,
+                                "minimum": -99999999999.99,
+                                "maximum": 99999999999.99,
+                                "example": 5009.99
                               },
                               "unallocatedCredit": {
                                 "description": "Sum of all the Open credit Items on the customer's account, posted for Income tax Self-assessment.\r\nThe value must be between -99999999999.99 and 99999999999.99 to 2 decimal places.",
@@ -596,6 +609,18 @@
                                     "Repayment"
                                   ]
                                 },
+                                "chargeClassification": {
+                                  "description": "[Test only] Helps distinguish documents across different amendment types when similar main transactions are used.\n\nLimited to one of the following possible values:\n\n\"enquiry-amendment\" - Charge resulting from a Revenue Amendment made as part of an enquiry.\n\n\"auto-correction\" - Charge resulting from an automatic correction.\n\n\"manual-correction\" - Charge resulting from a manual correction.\n\n\"customer-rejection-of-a-correction\" - Charge resulting from the customer's rejection of a correction.\n\n\"automatic-financial-adjustment\" -  Charge resulting from an automatic financial adjustment.",
+                                  "type": "string",
+                                  "enum": [
+                                    "enquiry-amendment",
+                                    "auto-correction",
+                                    "manual-correction",
+                                    "customer-rejection-of-a-correction",
+                                    "automatic-financial-adjustment"
+                                  ],
+                                  "example": "enquiry-amendment"
+                                },
                                 "originalAmount": {
                                   "description": "The original value of this transaction before payments, credits, or adjustments.\r\nThe value must be between -99999999999.99 and 99999999999.99 to 2 decimal places.",
                                   "type": "number",
@@ -747,6 +772,22 @@
                                       "example": 5009.99
                                     }
                                   }
+                                },
+                                "totalStandoverAmount": {
+                                  "description": "[Test only] Total formal or informal standover amount related to the document. \r\nThe value must be between -99999999999.99 and 99999999999.99 to 2 decimal places.",
+                                  "type": "number",
+                                  "multipleOf": 0.01,
+                                  "minimum": -99999999999.99,
+                                  "maximum": 99999999999.99,
+                                  "example": 5009.99
+                                },
+                                "collectableAmount": {
+                                  "description": "[Test only] Outstanding amount remaining to be collected after deducting the standover amount. \r\nThe value must be between -99999999999.99 and 99999999999.99 to 2 decimal places.",
+                                  "type": "number",
+                                  "multipleOf": 0.01,
+                                  "minimum": -99999999999.99,
+                                  "maximum": 99999999999.99,
+                                  "example": 5009.99
                                 },
                                 "amountCodedOut": {
                                   "description": "The amount from the total tax return charge that has been coded out. \r\nThe value must be between -9999.99 and 2999.99 to 2 decimal places.",
@@ -1025,6 +1066,13 @@
                                             "description": "A lock has been put in so the interest will not be charged to the customer.",
                                             "type": "boolean",
                                             "example": true
+                                          },
+                                          "dunningLock": {
+                                            "description": "The reason the interest charge is on hold.",
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 30,
+                                            "example": "currently suspended on appeal"
                                           }
                                         },
                                         "required": [
@@ -1766,6 +1814,7 @@
                                 "changeDate": "2018-04-05",
                                 "changeReason": "Amended return, Customer Request",
                                 "changeTimestamp": "2018-04-05T14:15:22.802Z",
+                                "chargeClassification": "enquiry-amendment",
                                 "description": "POA1, Balancing charge",
                                 "poaAdjustmentReason": "004",
                                 "taxYear": "2022-23",
@@ -1817,6 +1866,18 @@
                                   "minLength": 1,
                                   "maxLength": 50,
                                   "example": "POA1, Balancing charge"
+                                },
+                                "chargeClassification": {
+                                  "description": "[Test only] Helps distinguish documents across different amendment types when similar main transactions are used.\n\nLimited to one of the following possible values:\n\n\"enquiry-amendment\" - Charge resulting from a Revenue Amendment made as part of an enquiry.\n\n\"auto-correction\" - Charge resulting from an automatic correction.\n\n\"manual-correction\" - Charge resulting from a manual correction.\n\n\"customer-rejection-of-a-correction\" - Charge resulting from the customer's rejection of a correction.\n\n\"automatic-financial-adjustment\" -  Charge resulting from an automatic financial adjustment.",
+                                  "type": "string",
+                                  "enum": [
+                                    "enquiry-amendment",
+                                    "auto-correction",
+                                    "manual-correction",
+                                    "customer-rejection-of-a-correction",
+                                    "automatic-financial-adjustment"
+                                  ],
+                                  "example": "enquiry-amendment"
                                 },
                                 "totalAmount": {
                                   "description": "The value of the charge following the change. The value must be between -99999999999.99 and 99999999999.99 up to 2 decimal places.",
@@ -2425,6 +2486,7 @@
                                 "changeDate": "2018-04-05",
                                 "changeReason": "Amended return, Customer Request",
                                 "changeTimestamp": "2018-04-05T14:15:22.802Z",
+                                "chargeClassification": "enquiry-amendment",
                                 "description": "POA1, Balancing charge",
                                 "poaAdjustmentReason": "004",
                                 "taxYear": "2022-23",
@@ -2476,6 +2538,18 @@
                                   "minLength": 1,
                                   "maxLength": 50,
                                   "example": "POA1, Balancing charge"
+                                },
+                                "chargeClassification": {
+                                  "description": "[Test only] Helps distinguish documents across different amendment types when similar main transactions are used.\n\nLimited to one of the following possible values:\n\n\"enquiry-amendment\" - Charge resulting from a Revenue Amendment made as part of an enquiry.\n\n\"auto-correction\" - Charge resulting from an automatic correction.\n\n\"manual-correction\" - Charge resulting from a manual correction.\n\n\"customer-rejection-of-a-correction\" - Charge resulting from the customer's rejection of a correction.\n\n\"automatic-financial-adjustment\" -  Charge resulting from an automatic financial adjustment.",
+                                  "type": "string",
+                                  "enum": [
+                                    "enquiry-amendment",
+                                    "auto-correction",
+                                    "manual-correction",
+                                    "customer-rejection-of-a-correction",
+                                    "automatic-financial-adjustment"
+                                  ],
+                                  "example": "enquiry-amendment"
                                 },
                                 "totalAmount": {
                                   "description": "The value of the charge following the change. The value must be between -99999999999.99 and 99999999999.99 up to 2 decimal places.",
@@ -3084,6 +3158,7 @@
                                 "changeDate": "2018-04-05",
                                 "changeReason": "Amended return, Customer Request",
                                 "changeTimestamp": "2018-04-05T14:15:22.802Z",
+                                "chargeClassification": "enquiry-amendment",
                                 "description": "POA1, Balancing charge",
                                 "poaAdjustmentReason": "004",
                                 "taxYear": "2022-23",
@@ -3135,6 +3210,18 @@
                                   "minLength": 1,
                                   "maxLength": 50,
                                   "example": "POA1, Balancing charge"
+                                },
+                                "chargeClassification": {
+                                  "description": "[Test only] Helps distinguish documents across different amendment types when similar main transactions are used.\n\nLimited to one of the following possible values:\n\n\"enquiry-amendment\" - Charge resulting from a Revenue Amendment made as part of an enquiry.\n\n\"auto-correction\" - Charge resulting from an automatic correction.\n\n\"manual-correction\" - Charge resulting from a manual correction.\n\n\"customer-rejection-of-a-correction\" - Charge resulting from the customer's rejection of a correction.\n\n\"automatic-financial-adjustment\" -  Charge resulting from an automatic financial adjustment.",
+                                  "type": "string",
+                                  "enum": [
+                                    "enquiry-amendment",
+                                    "auto-correction",
+                                    "manual-correction",
+                                    "customer-rejection-of-a-correction",
+                                    "automatic-financial-adjustment"
+                                  ],
+                                  "example": "enquiry-amendment"
                                 },
                                 "totalAmount": {
                                   "description": "The value of the charge following the change. The value must be between -99999999999.99 and 99999999999.99 up to 2 decimal places.",
@@ -3676,7 +3763,7 @@
           },
           "/accounts/self-assessment/{nino}/payments-and-allocations": {
             "get": {
-              "description": "This endpoint enables you to list the payments and allocation details of one or more liabilities for a National insurance number.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario) | Scenario                                                         |\n|----------------------------------|------------------------------------------------------------------|\n| N/A - DEFAULT                    | Simulates success response.                                      |\n| NOT_FOUND                        | Simulates the scenario where no data is found.                   |\n| INVALID_DATE_RANGE               | Simulates the scenario where the provided date range is invalid. |    \n",
+              "description": "This endpoint enables you to list the payments and allocation details of one or more liabilities for a National insurance number.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario) | Scenario                                                         |\n|----------------------------------|------------------------------------------------------------------|\n| N/A - DEFAULT                    | Simulates success response.                                      |\n| NOT_FOUND                        | Simulates the scenario where no data is found.                   |  \n",
               "parameters": [
                 {
                   "description": "National Insurance number, in the format `AA999999A`.\n",
@@ -5771,7 +5858,7 @@
                   ]
                 }
               ],
-              "summary": "Retrieve ITSA Penalties [test only]",
+              "summary": "Retrieve ITSA Penalties",
               "tags": [
                 "ITSA Penalties"
               ]

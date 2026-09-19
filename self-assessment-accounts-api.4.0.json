@@ -284,10 +284,11 @@
                                     "isReturn": true,
                                     "itemId": "001",
                                     "locks": {
-                                      "isChargeOnHold": false,
-                                      "isEstimatedChargeOnHold": false,
-                                      "isInterestAccrualOnHold": false,
-                                      "isInterestChargeOnHold": false
+                                      "dunningLock": "currently suspended on appeal",
+                                      "isChargeOnHold": true,
+                                      "isEstimatedChargeOnHold": true,
+                                      "isInterestAccrualOnHold": true,
+                                      "isInterestChargeOnHold": true
                                     },
                                     "outgoingPaymentMethod": "Payable Order Repayment",
                                     "paymentAmount": 10000,
@@ -1065,6 +1066,13 @@
                                             "description": "A lock has been put in so the interest will not be charged to the customer.",
                                             "type": "boolean",
                                             "example": true
+                                          },
+                                          "dunningLock": {
+                                            "description": "The reason the interest charge is on hold.",
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 30,
+                                            "example": "currently suspended on appeal"
                                           }
                                         },
                                         "required": [
@@ -3755,7 +3763,7 @@
           },
           "/accounts/self-assessment/{nino}/payments-and-allocations": {
             "get": {
-              "description": "This endpoint enables you to list the payments and allocation details of one or more liabilities for a National insurance number.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario) | Scenario                                                         |\n|----------------------------------|------------------------------------------------------------------|\n| N/A - DEFAULT                    | Simulates success response.                                      |\n| NOT_FOUND                        | Simulates the scenario where no data is found.                   |\n| INVALID_DATE_RANGE               | Simulates the scenario where the provided date range is invalid. |    \n",
+              "description": "This endpoint enables you to list the payments and allocation details of one or more liabilities for a National insurance number.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario) | Scenario                                                         |\n|----------------------------------|------------------------------------------------------------------|\n| N/A - DEFAULT                    | Simulates success response.                                      |\n| NOT_FOUND                        | Simulates the scenario where no data is found.                   |  \n",
               "parameters": [
                 {
                   "description": "National Insurance number, in the format `AA999999A`.\n",

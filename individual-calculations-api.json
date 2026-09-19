@@ -38443,10 +38443,10 @@
                     "application/json": {
                       "examples": {
                         "MATCHING_RESOURCE_NOT_FOUND": {
-                          "description": "Either the calculation ID was not found or the calculation was in year.\n",
+                          "description": "The calculation ID was not found or does not correspond to the most recent calculation.\n",
                           "value": {
                             "code": "MATCHING_RESOURCE_NOT_FOUND",
-                            "message": "Matching resource not found"
+                            "message": "The calculation ID was not found or does not correspond to the most recent calculation"
                           }
                         }
                       },
@@ -75014,7 +75014,7 @@
                                             ]
                                           },
                                           "winterFuelPaymentCharge": {
-                                            "description": "[Test only] The income tax charge applied to recover the Winter Fuel Payment from individuals whose income exceeds the threshold. This value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                            "description": "The income tax charge applied to recover the Winter Fuel Payment from individuals whose income exceeds the threshold. This value must be between 0 and 99999999999.99 up to 2 decimal places.",
                                             "allOf": [
                                               {
                                                 "type": "number",
@@ -77489,10 +77489,10 @@
                     "application/json": {
                       "examples": {
                         "MATCHING_RESOURCE_NOT_FOUND": {
-                          "description": "Either the calculation ID was not found or the calculation was in year.\n",
+                          "description": "The calculation ID was not found or does not correspond to the most recent calculation.\n",
                           "value": {
                             "code": "MATCHING_RESOURCE_NOT_FOUND",
-                            "message": "Matching resource not found"
+                            "message": "The calculation ID was not found or does not correspond to the most recent calculation"
                           }
                         }
                       },
