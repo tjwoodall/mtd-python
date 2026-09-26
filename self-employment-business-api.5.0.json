@@ -2090,7 +2090,7 @@
                           },
                           {
                             "$schema": "http://json-schema.org/draft-04/schema#",
-                            "title": "[Test only] TY 2026-27 onwards",
+                            "title": "TY 2026-27 onwards",
                             "description": "Retrieves a self-employment annual summary for a tax year.",
                             "type": "object",
                             "properties": {
@@ -4412,7 +4412,7 @@
                         },
                         {
                           "$schema": "http://json-schema.org/draft-04/schema#",
-                          "title": "[Test only] TY 2026-27 onwards",
+                          "title": "TY 2026-27 onwards",
                           "description": "Create and Amend Self-Employment Annual Submission Request",
                           "type": "object",
                           "properties": {
