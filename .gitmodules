@@ -226,3 +226,15 @@
 [submodule "disa-returns-test-support-api"]
 	path = disa-returns-test-support-api
 	url = https://github.com/tjwoodall/disa-returns-test-support-api.git
+[submodule "compliance-cases-api"]
+	path = compliance-cases-api
+	url = https://github.com/tjwoodall/compliance-cases-api.git
+[submodule "compliance-documents-api"]
+	path = compliance-documents-api
+	url = https://github.com/tjwoodall/compliance-documents-api.git
+[submodule "customer-profile"]
+	path = customer-profile
+	url = https://github.com/tjwoodall/customer-profile.git
+[submodule "email-events"]
+	path = email-events
+	url = https://github.com/tjwoodall/email-events.git
