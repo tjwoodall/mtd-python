@@ -54,7 +54,7 @@
                   }
                 },
                 {
-                  "description": "The tax year to which the data applies. For example: 2022-23. The start year and end year must not span two tax years.\nThe minimum tax year is 2022-23. No gaps are allowed, for example, 2022-24 is not valid. (The minimum tax year in Sandbox is 2021-22.)\n",
+                  "description": "The tax year to which the data applies. For example: 2022-23. The start year and end year must not span 2 tax years.\nNo gaps are allowed, for example, 2022-24 is not valid. The minimum tax year for UK property and Self Employment is 2017-18, and for Foreign property is 2019-20.\n",
                   "in": "path",
                   "name": "taxYear",
                   "required": true,
