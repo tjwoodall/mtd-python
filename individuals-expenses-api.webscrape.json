@@ -1597,10 +1597,10 @@
                           }
                         },
                         "RULE_TAX_YEAR_NOT_ENDED": {
-                          "description": "The submission has been made before the Tax year it relates to has ended.",
+                          "description": "The submission has been made before the tax year it relates to has ended.",
                           "value": {
                             "code": "RULE_TAX_YEAR_NOT_ENDED",
-                            "message": "Tax year not ended"
+                            "message": "The specified tax year has not yet ended"
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {
@@ -2180,10 +2180,10 @@
                           }
                         },
                         "RULE_TAX_YEAR_NOT_ENDED": {
-                          "description": "The submission has been made before the Tax year it relates to has ended.",
+                          "description": "The submission has been made before the tax year it relates to has ended.",
                           "value": {
                             "code": "RULE_TAX_YEAR_NOT_ENDED",
-                            "message": "Tax year not ended"
+                            "message": "The specified tax year has not yet ended"
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {

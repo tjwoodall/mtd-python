@@ -47,7 +47,7 @@
                   "style": "simple"
                 },
                 {
-                  "description": "The unique identifier for the report.",
+                  "description": "The unique identifier for the report, as returned by the *feedback* endpoint.",
                   "in": "path",
                   "name": "reportId",
                   "required": true,
@@ -59,7 +59,7 @@
                   "style": "simple"
                 },
                 {
-                  "description": "The correlation ID of the report.",
+                  "description": "The correlation ID of the report, as returned by the *feedback* endpoint.",
                   "in": "path",
                   "name": "correlationId",
                   "required": true,
@@ -767,7 +767,6 @@
                         "Example 3 (no feedback)": {
                           "description": "The scenario where there is no HMRC Assist feedback.\n\nNote that the message in this example is for illustration purposes only.\n",
                           "value": {
-                            "correlationId": "E9F65715BBC9222477B27074804BBDD5C73CDE62F84D8B00CFD05B883534AF3D",
                             "englishFeedback": [
                               {
                                 "action": "Consider any further checks before finalising your return.",
@@ -804,7 +803,6 @@
                         "title": "VATAssistResponse",
                         "required": [
                           "reportId",
-                          "correlationId",
                           "englishFeedback",
                           "welshFeedback"
                         ],
@@ -818,7 +816,7 @@
                           },
                           "correlationId": {
                             "type": "string",
-                            "description": "The correlation ID of the report.",
+                            "description": "The correlation ID of the report.\n\nIt will not be present in the scenario where there is no HMRC Assist feedback.\n",
                             "example": "E9F65715BBC9222477B27074804BBDD5C73CDE62F84D8B00CFD05B883534AF3D"
                           },
                           "englishFeedback": {

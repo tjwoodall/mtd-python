@@ -1386,15 +1386,6 @@
                                     "maximum": 99999999999.99,
                                     "example": 2000.99
                                   },
-                                  "overlapReliefUsed": {
-                                    "description": "Overlap relief used this year. The value must be between 0 and 99999999999.99 up to 2 decimal places. This field is deprecated and will be removed in a future release.",
-                                    "type": "number",
-                                    "multipleOf": 0.01,
-                                    "minimum": 0,
-                                    "maximum": 99999999999.99,
-                                    "example": 2000.99,
-                                    "deprecated": true
-                                  },
                                   "accountingAdjustment": {
                                     "description": "Adjustment for change of accounting practice. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
                                     "type": "number",
@@ -1757,15 +1748,6 @@
                                     "minimum": -99999999999.99,
                                     "maximum": 99999999999.99,
                                     "example": 2000.99
-                                  },
-                                  "overlapReliefUsed": {
-                                    "description": "Overlap relief used this year. The value must be between 0 and 99999999999.99 up to 2 decimal places. This field is deprecated and will be removed in a future release.",
-                                    "type": "number",
-                                    "multipleOf": 0.01,
-                                    "minimum": 0,
-                                    "maximum": 99999999999.99,
-                                    "example": 2000.99,
-                                    "deprecated": true
                                   },
                                   "accountingAdjustment": {
                                     "description": "Adjustment for change of accounting practice. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
@@ -3718,15 +3700,6 @@
                                   "maximum": 99999999999.99,
                                   "example": 2000.99
                                 },
-                                "overlapReliefUsed": {
-                                  "description": "Overlap relief used this year. This value must be between 0 and 99999999999.99 up to 2 decimal places. This field is deprecated and will be removed in a future release.",
-                                  "type": "number",
-                                  "multipleOf": 0.01,
-                                  "minimum": 0,
-                                  "maximum": 99999999999.99,
-                                  "example": 2000.99,
-                                  "deprecated": true
-                                },
                                 "accountingAdjustment": {
                                   "description": "Adjustment for change of accounting practice. This value must be between 0 and 99999999999.99 up to 2 decimal places.",
                                   "type": "number",
@@ -4084,15 +4057,6 @@
                                   "minimum": -99999999999.99,
                                   "maximum": 99999999999.99,
                                   "example": 2000.99
-                                },
-                                "overlapReliefUsed": {
-                                  "description": "Overlap relief used this year. This value must be between 0 and 99999999999.99 up to 2 decimal places. This field is deprecated and will be removed in a future release.",
-                                  "type": "number",
-                                  "multipleOf": 0.01,
-                                  "minimum": 0,
-                                  "maximum": 99999999999.99,
-                                  "example": 2000.99,
-                                  "deprecated": true
                                 },
                                 "accountingAdjustment": {
                                   "description": "Adjustment for change of accounting practice. This value must be between 0 and 99999999999.99 up to 2 decimal places.",
@@ -4898,13 +4862,6 @@
                           "value": {
                             "code": "RULE_OUTSIDE_AMENDMENT_WINDOW",
                             "message": "You are outside the amendment window"
-                          }
-                        },
-                        "RULE_OVERLAP_RELIEF_USED_NOT_ALLOWED": {
-                          "description": "The final tax year for the utilisation of overlap relief was 2023\u201324 as part of the basis period reform. Therefore, the overlapReliefUsed field is not applicable for tax years 2024\u201325 and later.",
-                          "value": {
-                            "code": "RULE_OVERLAP_RELIEF_USED_NOT_ALLOWED",
-                            "message": "The overlapReliefUsed field is not applicable for this tax year"
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {
