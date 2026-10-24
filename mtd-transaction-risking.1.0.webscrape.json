@@ -1376,7 +1376,7 @@
                   ]
                 }
               ],
-              "summary": "Request HMRC Assist feedback for VAT [test only]",
+              "summary": "Request HMRC Assist for VAT feedback [test only]",
               "tags": [
                 "Endpoints"
               ]

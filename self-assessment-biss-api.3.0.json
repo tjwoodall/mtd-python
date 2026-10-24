@@ -136,9 +136,32 @@
                             }
                           }
                         },
-                        "Response for TY 2025-26 onwards": {
+                        "Response for TY 2025-26": {
                           "value": {
                             "loss": {
+                              "net": 0.01,
+                              "taxable": 35.1
+                            },
+                            "outstandingBusinessIncome": 35.01,
+                            "profit": {
+                              "adjusted": 30.01,
+                              "net": 20.2,
+                              "taxable": 35.55
+                            },
+                            "total": {
+                              "accountingAdjustments": -30.01,
+                              "additions": 575.71,
+                              "deductions": 60.01,
+                              "expenses": 50.01,
+                              "income": 100.35
+                            }
+                          }
+                        },
+                        "Response for TY 2026-27 onwards": {
+                          "value": {
+                            "foreignTaxPaid": 30.01,
+                            "loss": {
+                              "adjusted": 30.01,
                               "net": 0.01,
                               "taxable": 35.1
                             },
@@ -267,12 +290,28 @@
                                 "minimum": 0,
                                 "maximum": 99999999999.99,
                                 "multipleOf": 0.01
+                              },
+                              "adjusted": {
+                                "description": "[Test only] The adjusted loss for the income source. The value must be between 0 and 99999999999.99 up to 2 decimal places. This field will only be returned for tax year 2026-27 and onwards.",
+                                "type": "number",
+                                "example": 30,
+                                "minimum": 0,
+                                "maximum": 99999999999.99,
+                                "multipleOf": 0.01
                               }
                             },
                             "required": [
                               "net",
                               "taxable"
                             ]
+                          },
+                          "foreignTaxPaid": {
+                            "description": "[Test only] The amount of foreign tax paid in pounds sterling. The value must be between 0 and 99999999999.99 up to 2 decimal places. This field will only be returned for tax year 2026-27 onwards and is applicable only to foreign property.",
+                            "type": "number",
+                            "example": 30,
+                            "minimum": 0,
+                            "maximum": 99999999999.99,
+                            "multipleOf": 0.01
                           },
                           "outstandingBusinessIncome": {
                             "description": "Any other business income not included in other fields. The value must be between 0 and 99999999999.99 up to 2 decimal places. This field will only be returned for tax year 2025-26 and onwards.",
