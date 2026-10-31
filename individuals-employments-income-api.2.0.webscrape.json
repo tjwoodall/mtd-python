@@ -1202,6 +1202,16 @@
                   "schema": {
                     "type": "string"
                   }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "type": "boolean",
+                    "example": true
+                  }
                 }
               ],
               "requestBody": {
@@ -5014,6 +5024,16 @@
                   "schema": {
                     "type": "string"
                   }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "type": "boolean",
+                    "example": true
+                  }
                 }
               ],
               "requestBody": {
@@ -6848,6 +6868,16 @@
                   "required": false,
                   "schema": {
                     "type": "string"
+                  }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "type": "boolean",
+                    "example": true
                   }
                 }
               ],
@@ -11777,7 +11807,7 @@
               ]
             },
             "put": {
-              "description": "This endpoint enables you to submit or overwrite financial data for an individual employment.\nA National Insurance number, tax year and Employment ID are required.\n**This endpoint can only be used after the tax year has ended.**\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario)  | Scenario                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| N/A - DEFAULT                     | Simulates success response.                                                                                                                                                                                                                                                                                                                                                                                                    |\n| NOT_FOUND                         | Simulates the scenario where no data is found.                                                                                                                                                                                                                                                                                                                                                                                 |\n| TAX_YEAR_NOT_ENDED                | Simulates the scenario where the tax year provided has not ended.                                                                                                                                                                                                                                                                                                                                                              |\n| INVALID_SUBMISSION_PENSION_SCHEME | Simulates the scenario where customer with single employment source that has \"occupational pension\" indicator cannot submit benefit in kind if it contains anything other than medical insurance.                                                                                                                                                                                                                              |\n| STATEFUL                          | Performs a stateful create or update. <br><br> Note: this endpoint relies on the prior creation of a STATEFUL custom employment. If a relevant STATEFUL custom employment has not been created, a 404 MATCHING_RESOURCE_NOT_FOUND error is returned. <br><br> A custom employment with \u2018occupationalPension = false\u2019 must be created before you can submit deductions or benefitsInKind for the given National insurance number (nino), taxYear and employmentId. |\n| REQUEST_CANNOT_BE_FULFILLED       | Simulates the scenario where the request cannot be fulfilled for various reasons other than the ones triggering other errors.                                                                                                                                                                                                                                                                                                  |\n| OUTSIDE_AMENDMENT_WINDOW          | Simulates the scenario where request cannot be completed as it is outside the amendment window.                                                                                                                                                                                                                                                                                                                            |\n",
+              "description": "This endpoint enables you to submit or overwrite financial data for an individual employment.\nA National Insurance number, tax year and Employment ID are required.\n**This endpoint can only be used after the tax year has ended.**\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario)  | Scenario                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| N/A - DEFAULT                     | Simulates success response.                                                                                                                                                                                                                                                                                                                                                                                                    |\n| NOT_FOUND                         | Simulates the scenario where no data is found.                                                                                                                                                                                                                                                                                                                                                                                 |\n| INVALID_SUBMISSION_PENSION_SCHEME | Simulates the scenario where customer with single employment source that has \"occupational pension\" indicator cannot submit benefit in kind if it contains anything other than medical insurance.                                                                                                                                                                                                                              |\n| STATEFUL                          | Performs a stateful create or update. <br><br> Note: this endpoint relies on the prior creation of a STATEFUL custom employment. If a relevant STATEFUL custom employment has not been created, a 404 MATCHING_RESOURCE_NOT_FOUND error is returned. <br><br> A custom employment with \u2018occupationalPension = false\u2019 must be created before you can submit deductions or benefitsInKind for the given National insurance number (nino), taxYear and employmentId. |\n| REQUEST_CANNOT_BE_FULFILLED       | Simulates the scenario where the request cannot be fulfilled for various reasons other than the ones triggering other errors.                                                                                                                                                                                                                                                                                                  |\n| OUTSIDE_AMENDMENT_WINDOW          | Simulates the scenario where request cannot be completed as it is outside the amendment window.                                                                                                                                                                                                                                                                                                                            |\n",
               "parameters": [
                 {
                   "description": "National Insurance number, in the format `AA999999A`\n",
@@ -11852,6 +11882,16 @@
                   "required": false,
                   "schema": {
                     "type": "string"
+                  }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "type": "boolean",
+                    "example": true
                   }
                 }
               ],
@@ -13080,7 +13120,7 @@
           },
           "/individuals/employments-income/{nino}/{taxYear}/{employmentId}/ignore": {
             "post": {
-              "description": "This endpoint enables you to ignore an HMRC-provided employment from a list of employments.\n<strong>This endpoint can only be used after the tax year has ended.</strong>\nA National Insurance number, tax year and Employment ID must be provided.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario) | Scenario                                                          |\n|----------------------------------|-------------------------------------------------------------------|\n| N/A - DEFAULT                    | Simulates success response.                                       |\n| CUSTOM_EMPLOYMENT                | Simulates the scenario where a custom employment is submitted.    |\n| NOT_FOUND                        | Simulates the scenario where no data is found.                    |\n| TAX_YEAR_NOT_ENDED               | Simulates the scenario where the tax year provided has not ended. |\n| REQUEST_CANNOT_BE_FULFILLED      | Simulates the scenario where the request cannot be fulfilled for various reasons other than the ones triggering other errors.|\n| OUTSIDE_AMENDMENT_WINDOW         | Simulates the scenario where request cannot be completed as it is outside the amendment window.|\n",
+              "description": "This endpoint enables you to ignore an HMRC-provided employment from a list of employments.\n<strong>This endpoint can only be used after the tax year has ended.</strong>\nA National Insurance number, tax year and Employment ID must be provided.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario) | Scenario                                                          |\n|----------------------------------|-------------------------------------------------------------------|\n| N/A - DEFAULT                    | Simulates success response.                                       |\n| CUSTOM_EMPLOYMENT                | Simulates the scenario where a custom employment is submitted.    |\n| NOT_FOUND                        | Simulates the scenario where no data is found.                    |\n| REQUEST_CANNOT_BE_FULFILLED      | Simulates the scenario where the request cannot be fulfilled for various reasons other than the ones triggering other errors.|\n| OUTSIDE_AMENDMENT_WINDOW         | Simulates the scenario where request cannot be completed as it is outside the amendment window.|\n",
               "parameters": [
                 {
                   "description": "National Insurance number, in the format `AA999999A`\n",
@@ -13143,6 +13183,16 @@
                   "required": false,
                   "schema": {
                     "type": "string"
+                  }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "type": "boolean",
+                    "example": true
                   }
                 }
               ],
@@ -13624,7 +13674,7 @@
           },
           "/individuals/employments-income/{nino}/{taxYear}/{employmentId}/unignore": {
             "post": {
-              "description": "This endpoint enables you to unignore the HMRC provided employment from a list of employments for this user.\n<strong>This endpoint can only be used after the tax year has ended.</strong>\nA National Insurance number, tax year and Employment ID must be provided.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario) | Scenario                                                          |\n|----------------------------------|-------------------------------------------------------------------|\n| N/A - DEFAULT                    | Simulates success response.                                       |\n| CUSTOM_EMPLOYMENT                | Simulates the scenario where a custom employment is submitted.    |\n| NOT_FOUND                        | Simulates the scenario where no data is found.                    |\n| TAX_YEAR_NOT_ENDED               | Simulates the scenario where the tax year provided has not ended. | \n| REQUEST_CANNOT_BE_FULFILLED      | Simulates the scenario where the request cannot be fulfilled for various reasons other than the ones triggering other errors.|\n| OUTSIDE_AMENDMENT_WINDOW         | Simulates the scenario where request cannot be completed as it is outside the amendment window. |\n",
+              "description": "This endpoint enables you to unignore the HMRC provided employment from a list of employments for this user.\n<strong>This endpoint can only be used after the tax year has ended.</strong>\nA National Insurance number, tax year and Employment ID must be provided.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario) | Scenario                                                          |\n|----------------------------------|-------------------------------------------------------------------|\n| N/A - DEFAULT                    | Simulates success response.                                       |\n| CUSTOM_EMPLOYMENT                | Simulates the scenario where a custom employment is submitted.    |\n| NOT_FOUND                        | Simulates the scenario where no data is found.                    |\n| REQUEST_CANNOT_BE_FULFILLED      | Simulates the scenario where the request cannot be fulfilled for various reasons other than the ones triggering other errors.|\n| OUTSIDE_AMENDMENT_WINDOW         | Simulates the scenario where request cannot be completed as it is outside the amendment window. |\n",
               "parameters": [
                 {
                   "description": "National Insurance number, in the format `AA999999A`\n",
@@ -13687,6 +13737,16 @@
                   "required": false,
                   "schema": {
                     "type": "string"
+                  }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "type": "boolean",
+                    "example": true
                   }
                 }
               ],

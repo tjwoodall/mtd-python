@@ -3463,12 +3463,16 @@
                                 "balancingCharge": 0.12,
                                 "privateUseAdjustment": 0.12
                               },
+                              "adjustedLoss": 0.12,
+                              "adjustedProfit": 0.12,
                               "countryLevelDetail": [
                                 {
                                   "additions": {
                                     "balancingCharge": 0.12,
                                     "privateUseAdjustment": 0.12
                                   },
+                                  "adjustedLoss": 0.12,
+                                  "adjustedProfit": 0.12,
                                   "countryCode": "CYM",
                                   "deductions": {
                                     "annualInvestmentAllowance": 0.12,
@@ -3487,6 +3491,7 @@
                                     "repairsAndMaintenance": 0.12,
                                     "travelCosts": 0.12
                                   },
+                                  "foreignTaxPaid": 0.12,
                                   "income": {
                                     "otherPropertyIncome": 0.12,
                                     "premiumsOfLeaseGrant": 0.12,
@@ -3500,6 +3505,8 @@
                                         "privateUseAdjustment": 0.19
                                       },
                                       "adjustedIncomeTaxLoss": 1.13,
+                                      "adjustedLoss": 0.12,
+                                      "adjustedProfit": 0.12,
                                       "deductions": {
                                         "annualInvestmentAllowance": 0.22,
                                         "costOfReplacingDomesticItems": 0.23,
@@ -3518,6 +3525,7 @@
                                         "repairsAndMaintenance": 0.08,
                                         "travelCosts": 0.11
                                       },
+                                      "foreignTaxPaid": 0.12,
                                       "income": {
                                         "otherPropertyIncome": 0.04,
                                         "premiumsOfLeaseGrant": 0.03,
@@ -3557,6 +3565,7 @@
                                 "repairsAndMaintenance": 50,
                                 "travelCosts": 82.78
                               },
+                              "foreignTaxPaid": 0.12,
                               "income": {
                                 "otherPropertyIncome": 0.12,
                                 "premiumsOfLeaseGrant": 0.12,
@@ -3574,12 +3583,16 @@
                                 "balancingCharge": 0.12,
                                 "privateUseAdjustment": 0.12
                               },
+                              "adjustedLoss": 0.12,
+                              "adjustedProfit": 0.12,
                               "countryLevelDetail": [
                                 {
                                   "additions": {
                                     "balancingCharge": 0.12,
                                     "privateUseAdjustment": 0.12
                                   },
+                                  "adjustedLoss": 0.12,
+                                  "adjustedProfit": 0.12,
                                   "countryCode": "CYM",
                                   "deductions": {
                                     "annualInvestmentAllowance": 0.12,
@@ -3596,6 +3609,7 @@
                                     "repairsAndMaintenance": 50,
                                     "travelCosts": 82.78
                                   },
+                                  "foreignTaxPaid": 0.12,
                                   "income": {
                                     "otherPropertyIncome": 0.12,
                                     "premiumsOfLeaseGrant": 0.12,
@@ -3609,6 +3623,8 @@
                                         "privateUseAdjustment": 0.19
                                       },
                                       "adjustedIncomeTaxLoss": 1.13,
+                                      "adjustedLoss": 0.12,
+                                      "adjustedProfit": 0.12,
                                       "deductions": {
                                         "annualInvestmentAllowance": 0.22,
                                         "costOfReplacingDomesticItems": 0.23,
@@ -3627,6 +3643,7 @@
                                         "repairsAndMaintenance": 0.08,
                                         "travelCosts": 0.11
                                       },
+                                      "foreignTaxPaid": 0.12,
                                       "income": {
                                         "otherPropertyIncome": 0.04,
                                         "premiumsOfLeaseGrant": 0.03,
@@ -3664,6 +3681,7 @@
                                 "repairsAndMaintenance": 0.12,
                                 "travelCosts": -0.12
                               },
+                              "foreignTaxPaid": 0.12,
                               "income": {
                                 "otherPropertyIncome": 0.12,
                                 "premiumsOfLeaseGrant": 0.12,
@@ -3727,6 +3745,8 @@
                                 "balancingCharge": 0.12,
                                 "privateUseAdjustment": 0.12
                               },
+                              "adjustedLoss": 0.12,
+                              "adjustedProfit": 0.12,
                               "deductions": {
                                 "annualInvestmentAllowance": 0.12,
                                 "otherCapitalAllowance": 0.12,
@@ -3735,6 +3755,7 @@
                               "expenses": {
                                 "consolidatedExpenses": 0.12
                               },
+                              "foreignTaxPaid": 0.12,
                               "income": {
                                 "totalRentsReceived": 0.12
                               },
@@ -3750,6 +3771,8 @@
                                 "balancingCharge": 0.12,
                                 "privateUseAdjustment": 0.12
                               },
+                              "adjustedLoss": 0.12,
+                              "adjustedProfit": 0.12,
                               "deductions": {
                                 "annualInvestmentAllowance": 0.12,
                                 "otherCapitalAllowance": 0.12,
@@ -3758,6 +3781,7 @@
                               "expenses": {
                                 "consolidatedExpenses": 0.89
                               },
+                              "foreignTaxPaid": 0.12,
                               "income": {
                                 "totalRentsReceived": 0.12
                               },
@@ -3810,6 +3834,8 @@
                               "additions": {
                                 "balancingCharge": 0.12
                               },
+                              "adjustedLoss": 0.12,
+                              "adjustedProfit": 0.12,
                               "deductions": {
                                 "propertyAllowance": 0.12
                               },
@@ -3822,6 +3848,7 @@
                                 "repairsAndMaintenance": 50,
                                 "travelCosts": 82.78
                               },
+                              "foreignTaxPaid": 0.12,
                               "income": {
                                 "totalRentsReceived": 0.12
                               },
@@ -3836,6 +3863,8 @@
                               "additions": {
                                 "balancingCharge": 0.12
                               },
+                              "adjustedLoss": 0.12,
+                              "adjustedProfit": 0.12,
                               "deductions": {
                                 "propertyAllowance": 0.12
                               },
@@ -3848,6 +3877,7 @@
                                 "repairsAndMaintenance": 50,
                                 "travelCosts": 82.78
                               },
+                              "foreignTaxPaid": 0.12,
                               "income": {
                                 "totalRentsReceived": 0.12
                               },
@@ -3891,12 +3921,16 @@
                                 "balancingCharge": 0.12,
                                 "privateUseAdjustment": 0.12
                               },
+                              "adjustedLoss": 0.12,
+                              "adjustedProfit": 0.12,
                               "countryLevelDetail": [
                                 {
                                   "additions": {
                                     "balancingCharge": 0.12,
                                     "privateUseAdjustment": 0.12
                                   },
+                                  "adjustedLoss": 0.12,
+                                  "adjustedProfit": 0.12,
                                   "countryCode": "CYM",
                                   "deductions": {
                                     "propertyAllowance": 0.25
@@ -3910,6 +3944,7 @@
                                     "repairsAndMaintenance": 0.12,
                                     "travelCosts": 0.12
                                   },
+                                  "foreignTaxPaid": 0.12,
                                   "income": {
                                     "otherPropertyIncome": 0.12,
                                     "premiumsOfLeaseGrant": 0.12,
@@ -3923,6 +3958,8 @@
                                         "privateUseAdjustment": 0.19
                                       },
                                       "adjustedIncomeTaxLoss": 1.13,
+                                      "adjustedLoss": 0.12,
+                                      "adjustedProfit": 0.12,
                                       "deductions": {
                                         "propertyAllowance": 0.25
                                       },
@@ -3935,6 +3972,7 @@
                                         "repairsAndMaintenance": 0.08,
                                         "travelCosts": 0.11
                                       },
+                                      "foreignTaxPaid": 0.12,
                                       "income": {
                                         "otherPropertyIncome": 0.04,
                                         "premiumsOfLeaseGrant": 0.03,
@@ -3969,6 +4007,7 @@
                                 "repairsAndMaintenance": 50,
                                 "travelCosts": 82.78
                               },
+                              "foreignTaxPaid": 0.12,
                               "income": {
                                 "otherPropertyIncome": 0.12,
                                 "premiumsOfLeaseGrant": 0.12,
@@ -3986,12 +4025,16 @@
                                 "balancingCharge": 0.12,
                                 "privateUseAdjustment": 0.12
                               },
+                              "adjustedLoss": 0.12,
+                              "adjustedProfit": 0.12,
                               "countryLevelDetail": [
                                 {
                                   "additions": {
                                     "balancingCharge": 0.12,
                                     "privateUseAdjustment": 0.12
                                   },
+                                  "adjustedLoss": 0.12,
+                                  "adjustedProfit": 0.12,
                                   "countryCode": "CYM",
                                   "deductions": {
                                     "propertyAllowance": 0.25
@@ -4005,6 +4048,7 @@
                                     "repairsAndMaintenance": 50,
                                     "travelCosts": 82.78
                                   },
+                                  "foreignTaxPaid": 0.12,
                                   "income": {
                                     "otherPropertyIncome": 0.12,
                                     "premiumsOfLeaseGrant": 0.12,
@@ -4018,6 +4062,8 @@
                                         "privateUseAdjustment": 0.19
                                       },
                                       "adjustedIncomeTaxLoss": 1.13,
+                                      "adjustedLoss": 0.12,
+                                      "adjustedProfit": 0.12,
                                       "deductions": {
                                         "propertyAllowance": 0.25
                                       },
@@ -4030,6 +4076,7 @@
                                         "repairsAndMaintenance": 0.08,
                                         "travelCosts": 0.11
                                       },
+                                      "foreignTaxPaid": 0.12,
                                       "income": {
                                         "otherPropertyIncome": 0.04,
                                         "premiumsOfLeaseGrant": 0.03,
@@ -4064,6 +4111,7 @@
                                 "repairsAndMaintenance": 0.12,
                                 "travelCosts": -0.12
                               },
+                              "foreignTaxPaid": 0.12,
                               "income": {
                                 "otherPropertyIncome": 0.12,
                                 "premiumsOfLeaseGrant": 0.12,
@@ -9026,6 +9074,30 @@
                                     },
                                     "additionalProperties": false
                                   },
+                                  "adjustedProfit": {
+                                    "description": "[ Test Only ] The adjusted profit for the year for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                    "type": "number",
+                                    "multipleOf": 0.01,
+                                    "minimum": 0,
+                                    "maximum": 99999999999.99,
+                                    "example": 1000.45
+                                  },
+                                  "adjustedLoss": {
+                                    "description": "[ Test Only ] The adjusted loss for the year for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                    "type": "number",
+                                    "multipleOf": 0.01,
+                                    "minimum": 0,
+                                    "maximum": 99999999999.99,
+                                    "example": 1000.45
+                                  },
+                                  "foreignTaxPaid": {
+                                    "description": "[ Test Only ] The amount of foreign tax paid in pounds sterling for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                    "type": "number",
+                                    "multipleOf": 0.01,
+                                    "minimum": 0,
+                                    "maximum": 99999999999.99,
+                                    "example": 1000.45
+                                  },
                                   "taxableProfit": {
                                     "description": "Amount of taxable net profit. The value must be between 0 and 99999999999 no decimal places.",
                                     "type": "number",
@@ -9305,6 +9377,30 @@
                                             }
                                           },
                                           "additionalProperties": false
+                                        },
+                                        "adjustedProfit": {
+                                          "description": "[ Test Only ] The adjusted profit for the year for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                          "type": "number",
+                                          "multipleOf": 0.01,
+                                          "minimum": 0,
+                                          "maximum": 99999999999.99,
+                                          "example": 1000.45
+                                        },
+                                        "adjustedLoss": {
+                                          "description": "[ Test Only ] The adjusted loss for the year for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                          "type": "number",
+                                          "multipleOf": 0.01,
+                                          "minimum": 0,
+                                          "maximum": 99999999999.99,
+                                          "example": 1000.45
+                                        },
+                                        "foreignTaxPaid": {
+                                          "description": "[ Test Only ] The amount of foreign tax paid in pounds sterling for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                          "type": "number",
+                                          "multipleOf": 0.01,
+                                          "minimum": 0,
+                                          "maximum": 99999999999.99,
+                                          "example": 1000.45
                                         },
                                         "taxableProfit": {
                                           "description": "Amount of taxable net profit. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
@@ -9586,6 +9682,30 @@
                                                   }
                                                 },
                                                 "additionalProperties": false
+                                              },
+                                              "adjustedProfit": {
+                                                "description": "[ Test Only ] The adjusted profit for the year for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                                "type": "number",
+                                                "multipleOf": 0.01,
+                                                "minimum": 0,
+                                                "maximum": 99999999999.99,
+                                                "example": 1000.45
+                                              },
+                                              "adjustedLoss": {
+                                                "description": "[ Test Only ] The adjusted loss for the year for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                                "type": "number",
+                                                "multipleOf": 0.01,
+                                                "minimum": 0,
+                                                "maximum": 99999999999.99,
+                                                "example": 1000.45
+                                              },
+                                              "foreignTaxPaid": {
+                                                "description": "[ Test Only ] The amount of foreign tax paid in pounds sterling for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                                "type": "number",
+                                                "multipleOf": 0.01,
+                                                "minimum": 0,
+                                                "maximum": 99999999999.99,
+                                                "example": 1000.45
                                               },
                                               "taxableProfit": {
                                                 "description": "Amount of taxable net profit. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
@@ -10021,6 +10141,30 @@
                                     },
                                     "additionalProperties": false
                                   },
+                                  "adjustedProfit": {
+                                    "description": "[ Test Only ] The adjusted profit for the year for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                    "type": "number",
+                                    "multipleOf": 0.01,
+                                    "minimum": 0,
+                                    "maximum": 99999999999.99,
+                                    "example": 1000.45
+                                  },
+                                  "adjustedLoss": {
+                                    "description": "[ Test Only ] The adjusted loss for the year for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                    "type": "number",
+                                    "multipleOf": 0.01,
+                                    "minimum": 0,
+                                    "maximum": 99999999999.99,
+                                    "example": 1000.45
+                                  },
+                                  "foreignTaxPaid": {
+                                    "description": "[ Test Only ] The amount of foreign tax paid in pounds sterling for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                    "type": "number",
+                                    "multipleOf": 0.01,
+                                    "minimum": 0,
+                                    "maximum": 99999999999.99,
+                                    "example": 1000.45
+                                  },
                                   "taxableProfit": {
                                     "description": "Amount of taxable net profit. The value must be between 0 and 99999999999 no decimal places.",
                                     "type": "integer",
@@ -10299,6 +10443,30 @@
                                             }
                                           },
                                           "additionalProperties": false
+                                        },
+                                        "adjustedProfit": {
+                                          "description": "[ Test Only ] The adjusted profit for the year for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                          "type": "number",
+                                          "multipleOf": 0.01,
+                                          "minimum": 0,
+                                          "maximum": 99999999999.99,
+                                          "example": 1000.45
+                                        },
+                                        "adjustedLoss": {
+                                          "description": "[ Test Only ] The adjusted loss for the year for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                          "type": "number",
+                                          "multipleOf": 0.01,
+                                          "minimum": 0,
+                                          "maximum": 99999999999.99,
+                                          "example": 1000.45
+                                        },
+                                        "foreignTaxPaid": {
+                                          "description": "[ Test Only ] The amount of foreign tax paid in pounds sterling for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                          "type": "number",
+                                          "multipleOf": 0.01,
+                                          "minimum": 0,
+                                          "maximum": 99999999999.99,
+                                          "example": 1000.45
                                         },
                                         "taxableProfit": {
                                           "description": "Amount of taxable net profit. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
@@ -10580,6 +10748,30 @@
                                                   }
                                                 },
                                                 "additionalProperties": false
+                                              },
+                                              "adjustedProfit": {
+                                                "description": "[ Test Only ] The adjusted profit for the year for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                                "type": "number",
+                                                "multipleOf": 0.01,
+                                                "minimum": 0,
+                                                "maximum": 99999999999.99,
+                                                "example": 1000.45
+                                              },
+                                              "adjustedLoss": {
+                                                "description": "[ Test Only ] The adjusted profit for the year for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                                "type": "number",
+                                                "multipleOf": 0.01,
+                                                "minimum": 0,
+                                                "maximum": 99999999999.99,
+                                                "example": 1000.45
+                                              },
+                                              "foreignTaxPaid": {
+                                                "description": "[ Test Only ] The amount of foreign tax paid in pounds sterling for the foreign property business. The value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                                "type": "number",
+                                                "multipleOf": 0.01,
+                                                "minimum": 0,
+                                                "maximum": 99999999999.99,
+                                                "example": 1000.45
                                               },
                                               "taxableProfit": {
                                                 "description": "Amount of taxable net profit. The value must be between 0 and 99999999999.99 up to 2 decimal places.",

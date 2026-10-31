@@ -6591,7 +6591,7 @@
               "responses": {
                 "204": {
                   "content": {},
-                  "description": "Success - invitation has been rejected",
+                  "description": "Success - invitation has been rejected or was already rejected",
                   "headers": {}
                 },
                 "400": {
@@ -6636,6 +6636,11 @@
                     }
                   },
                   "description": "",
+                  "headers": {}
+                },
+                "403": {
+                  "content": {},
+                  "description": "The invitation cannot be rejected in its current state or the client is not authorised",
                   "headers": {}
                 },
                 "404": {
@@ -6689,7 +6694,7 @@
                 },
                 "409": {
                   "content": {},
-                  "description": "Invitation has already been rejected or it has expired",
+                  "description": "Invitation has already been accepted, has expired, has been cancelled or has partial authorisation",
                   "headers": {}
                 },
                 "401": {
@@ -6715,35 +6720,6 @@
                         "example": {
                           "code": "MISSING_CREDENTIALS",
                           "message": "Authentication information is not provided"
-                        }
-                      }
-                    }
-                  },
-                  "description": "UNAUTHORISED Response"
-                },
-                "403": {
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "properties": {
-                          "code": {
-                            "type": "string",
-                            "description": "Error Code",
-                            "enum": [
-                              "HTTPS_REQUIRED",
-                              "RESOURCE_FORBIDDEN",
-                              "INVALID_SCOPE",
-                              "FORBIDDEN"
-                            ]
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "type": "object",
-                        "example": {
-                          "code": "RESOURCE_FORBIDDEN",
-                          "message": "The application is not subscribed to the API which it is attempting to invoke"
                         }
                       }
                     }
@@ -6966,7 +6942,7 @@
               "responses": {
                 "204": {
                   "content": {},
-                  "description": "Success - invitation has been accepted",
+                  "description": "Success - invitation has been accepted or was already accepted",
                   "headers": {}
                 },
                 "400": {
@@ -7004,6 +6980,11 @@
                     }
                   },
                   "description": "",
+                  "headers": {}
+                },
+                "403": {
+                  "content": {},
+                  "description": "The invitation cannot be accepted in its current state or the client is not authorised",
                   "headers": {}
                 },
                 "404": {
@@ -7057,7 +7038,7 @@
                 },
                 "409": {
                   "content": {},
-                  "description": "Invitation has already been rejected or it has expired",
+                  "description": "Invitation has already been rejected, has expired, has been cancelled or has partial authorisation",
                   "headers": {}
                 },
                 "401": {
@@ -7083,35 +7064,6 @@
                         "example": {
                           "code": "MISSING_CREDENTIALS",
                           "message": "Authentication information is not provided"
-                        }
-                      }
-                    }
-                  },
-                  "description": "UNAUTHORISED Response"
-                },
-                "403": {
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "properties": {
-                          "code": {
-                            "type": "string",
-                            "description": "Error Code",
-                            "enum": [
-                              "HTTPS_REQUIRED",
-                              "RESOURCE_FORBIDDEN",
-                              "INVALID_SCOPE",
-                              "FORBIDDEN"
-                            ]
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "type": "object",
-                        "example": {
-                          "code": "RESOURCE_FORBIDDEN",
-                          "message": "The application is not subscribed to the API which it is attempting to invoke"
                         }
                       }
                     }
@@ -15075,6 +15027,20 @@
                                       "common-transit-convention-traders-legacy"
                                     ],
                                     "title": "common-transit-convention-traders-legacy"
+                                  },
+                                  {
+                                    "description": "Generates a Capital Gains Tax on UK Property reference and enrols the user for Capital Gains Tax on UK Property.",
+                                    "enum": [
+                                      "capital-gains-tax-uk-property"
+                                    ],
+                                    "title": "capital-gains-tax-uk-property"
+                                  },
+                                  {
+                                    "description": "Generates a Plastic Packaging Tax registration number and enrols the user for Plastic Packaging Tax.",
+                                    "enum": [
+                                      "plastic-packaging-tax"
+                                    ],
+                                    "title": "plastic-packaging-tax"
                                   }
                                 ],
                                 "type": "string"
@@ -15105,6 +15071,10 @@
                             "$schema": "http://json-schema.org/draft-04/schema#",
                             "description": "Create Individual Response",
                             "properties": {
+                              "capitalGainsTaxOnUKPropertyReference": {
+                                "description": "Capital Gains Tax on UK Property reference.",
+                                "type": "string"
+                              },
                               "emailAddress": {
                                 "description": "Government Gateway user's email address.",
                                 "type": "string"
@@ -15169,6 +15139,10 @@
                               },
                               "password": {
                                 "description": "Government Gateway password.",
+                                "type": "string"
+                              },
+                              "plasticPackagingTaxRegistrationNumber": {
+                                "description": "Plastic Packaging Tax registration number.",
                                 "type": "string"
                               },
                               "saUtr": {
@@ -15675,6 +15649,34 @@
                                       "disa"
                                     ],
                                     "title": "disa"
+                                  },
+                                  {
+                                    "description": "Generates a Capital Gains Tax on UK Property reference and enrols the user for Capital Gains Tax on UK Property.",
+                                    "enum": [
+                                      "capital-gains-tax-uk-property"
+                                    ],
+                                    "title": "capital-gains-tax-uk-property"
+                                  },
+                                  {
+                                    "description": "Generates a Plastic Packaging Tax registration number and enrols the user for Plastic Packaging Tax.",
+                                    "enum": [
+                                      "plastic-packaging-tax"
+                                    ],
+                                    "title": "plastic-packaging-tax"
+                                  },
+                                  {
+                                    "description": "Generates a Country-by-Country Reporting ID and Unique Taxpayer Reference and enrols the user for UK Country-by-Country Reporting.",
+                                    "enum": [
+                                      "country-by-country-reporting"
+                                    ],
+                                    "title": "country-by-country-reporting"
+                                  },
+                                  {
+                                    "description": "Generates a Unique Taxpayer Reference and Unique Reference Number and enrols the user for both taxable and non-taxable Trusts. This combined profile is intended for delegated-authorisation testing.",
+                                    "enum": [
+                                      "trusts"
+                                    ],
+                                    "title": "trusts"
                                   }
                                 ],
                                 "type": "string"
@@ -15713,6 +15715,14 @@
                             "$schema": "http://json-schema.org/draft-04/schema#",
                             "description": "Create Organisation Response",
                             "properties": {
+                              "capitalGainsTaxOnUKPropertyReference": {
+                                "description": "Capital Gains Tax on UK Property reference.",
+                                "type": "string"
+                              },
+                              "countryByCountryReportingId": {
+                                "description": "Country-by-Country Reporting ID.",
+                                "type": "string"
+                              },
                               "crn": {
                                 "description": "Company Reference Number",
                                 "type": "string"
@@ -15842,6 +15852,10 @@
                                 "description": "Pillar 2 ID",
                                 "type": "string"
                               },
+                              "plasticPackagingTaxRegistrationNumber": {
+                                "description": "Plastic Packaging Tax registration number.",
+                                "type": "string"
+                              },
                               "saUtr": {
                                 "description": "Self Assessment UTR.",
                                 "type": "string"
@@ -15852,6 +15866,14 @@
                               },
                               "taxPayerType": {
                                 "description": "Type of Self Assessment taxpayer One of 'Individual' or 'Partnership'",
+                                "type": "string"
+                              },
+                              "trustsUniqueReferenceNumber": {
+                                "description": "Unique Reference Number for a non-taxable trust.",
+                                "type": "string"
+                              },
+                              "trustsUniqueTaxpayerReference": {
+                                "description": "Unique Taxpayer Reference for a taxable trust.",
                                 "type": "string"
                               },
                               "userFullName": {
@@ -270317,6 +270339,16 @@
                   "schema": {
                     "type": "string"
                   }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "example": true,
+                    "type": "boolean"
+                  }
                 }
               ],
               "requestBody": {
@@ -274129,6 +274161,16 @@
                   "schema": {
                     "type": "string"
                   }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "example": true,
+                    "type": "boolean"
+                  }
                 }
               ],
               "requestBody": {
@@ -275963,6 +276005,16 @@
                   "required": false,
                   "schema": {
                     "type": "string"
+                  }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "example": true,
+                    "type": "boolean"
                   }
                 }
               ],
@@ -280892,7 +280944,7 @@
               ]
             },
             "put": {
-              "description": "This endpoint enables you to submit or overwrite financial data for an individual employment.\nA National Insurance number, tax year and Employment ID are required.\n**This endpoint can only be used after the tax year has ended.**\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario)  | Scenario                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| N/A - DEFAULT                     | Simulates success response.                                                                                                                                                                                                                                                                                                                                                                                                    |\n| NOT_FOUND                         | Simulates the scenario where no data is found.                                                                                                                                                                                                                                                                                                                                                                                 |\n| TAX_YEAR_NOT_ENDED                | Simulates the scenario where the tax year provided has not ended.                                                                                                                                                                                                                                                                                                                                                              |\n| INVALID_SUBMISSION_PENSION_SCHEME | Simulates the scenario where customer with single employment source that has \"occupational pension\" indicator cannot submit benefit in kind if it contains anything other than medical insurance.                                                                                                                                                                                                                              |\n| STATEFUL                          | Performs a stateful create or update. <br><br> Note: this endpoint relies on the prior creation of a STATEFUL custom employment. If a relevant STATEFUL custom employment has not been created, a 404 MATCHING_RESOURCE_NOT_FOUND error is returned. <br><br> A custom employment with \u2018occupationalPension = false\u2019 must be created before you can submit deductions or benefitsInKind for the given National insurance number (nino), taxYear and employmentId. |\n| REQUEST_CANNOT_BE_FULFILLED       | Simulates the scenario where the request cannot be fulfilled for various reasons other than the ones triggering other errors.                                                                                                                                                                                                                                                                                                  |\n| OUTSIDE_AMENDMENT_WINDOW          | Simulates the scenario where request cannot be completed as it is outside the amendment window.                                                                                                                                                                                                                                                                                                                            |\n",
+              "description": "This endpoint enables you to submit or overwrite financial data for an individual employment.\nA National Insurance number, tax year and Employment ID are required.\n**This endpoint can only be used after the tax year has ended.**\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario)  | Scenario                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| N/A - DEFAULT                     | Simulates success response.                                                                                                                                                                                                                                                                                                                                                                                                    |\n| NOT_FOUND                         | Simulates the scenario where no data is found.                                                                                                                                                                                                                                                                                                                                                                                 |\n| INVALID_SUBMISSION_PENSION_SCHEME | Simulates the scenario where customer with single employment source that has \"occupational pension\" indicator cannot submit benefit in kind if it contains anything other than medical insurance.                                                                                                                                                                                                                              |\n| STATEFUL                          | Performs a stateful create or update. <br><br> Note: this endpoint relies on the prior creation of a STATEFUL custom employment. If a relevant STATEFUL custom employment has not been created, a 404 MATCHING_RESOURCE_NOT_FOUND error is returned. <br><br> A custom employment with \u2018occupationalPension = false\u2019 must be created before you can submit deductions or benefitsInKind for the given National insurance number (nino), taxYear and employmentId. |\n| REQUEST_CANNOT_BE_FULFILLED       | Simulates the scenario where the request cannot be fulfilled for various reasons other than the ones triggering other errors.                                                                                                                                                                                                                                                                                                  |\n| OUTSIDE_AMENDMENT_WINDOW          | Simulates the scenario where request cannot be completed as it is outside the amendment window.                                                                                                                                                                                                                                                                                                                            |\n",
               "parameters": [
                 {
                   "description": "National Insurance number, in the format `AA999999A`\n",
@@ -280967,6 +281019,16 @@
                   "required": false,
                   "schema": {
                     "type": "string"
+                  }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "example": true,
+                    "type": "boolean"
                   }
                 }
               ],
@@ -282195,7 +282257,7 @@
           },
           "/individuals/employments-income/{nino}/{taxYear}/{employmentId}/ignore": {
             "post": {
-              "description": "This endpoint enables you to ignore an HMRC-provided employment from a list of employments.\n<strong>This endpoint can only be used after the tax year has ended.</strong>\nA National Insurance number, tax year and Employment ID must be provided.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario) | Scenario                                                          |\n|----------------------------------|-------------------------------------------------------------------|\n| N/A - DEFAULT                    | Simulates success response.                                       |\n| CUSTOM_EMPLOYMENT                | Simulates the scenario where a custom employment is submitted.    |\n| NOT_FOUND                        | Simulates the scenario where no data is found.                    |\n| TAX_YEAR_NOT_ENDED               | Simulates the scenario where the tax year provided has not ended. |\n| REQUEST_CANNOT_BE_FULFILLED      | Simulates the scenario where the request cannot be fulfilled for various reasons other than the ones triggering other errors.|\n| OUTSIDE_AMENDMENT_WINDOW         | Simulates the scenario where request cannot be completed as it is outside the amendment window.|\n",
+              "description": "This endpoint enables you to ignore an HMRC-provided employment from a list of employments.\n<strong>This endpoint can only be used after the tax year has ended.</strong>\nA National Insurance number, tax year and Employment ID must be provided.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario) | Scenario                                                          |\n|----------------------------------|-------------------------------------------------------------------|\n| N/A - DEFAULT                    | Simulates success response.                                       |\n| CUSTOM_EMPLOYMENT                | Simulates the scenario where a custom employment is submitted.    |\n| NOT_FOUND                        | Simulates the scenario where no data is found.                    |\n| REQUEST_CANNOT_BE_FULFILLED      | Simulates the scenario where the request cannot be fulfilled for various reasons other than the ones triggering other errors.|\n| OUTSIDE_AMENDMENT_WINDOW         | Simulates the scenario where request cannot be completed as it is outside the amendment window.|\n",
               "parameters": [
                 {
                   "description": "National Insurance number, in the format `AA999999A`\n",
@@ -282258,6 +282320,16 @@
                   "required": false,
                   "schema": {
                     "type": "string"
+                  }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "example": true,
+                    "type": "boolean"
                   }
                 }
               ],
@@ -282739,7 +282811,7 @@
           },
           "/individuals/employments-income/{nino}/{taxYear}/{employmentId}/unignore": {
             "post": {
-              "description": "This endpoint enables you to unignore the HMRC provided employment from a list of employments for this user.\n<strong>This endpoint can only be used after the tax year has ended.</strong>\nA National Insurance number, tax year and Employment ID must be provided.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario) | Scenario                                                          |\n|----------------------------------|-------------------------------------------------------------------|\n| N/A - DEFAULT                    | Simulates success response.                                       |\n| CUSTOM_EMPLOYMENT                | Simulates the scenario where a custom employment is submitted.    |\n| NOT_FOUND                        | Simulates the scenario where no data is found.                    |\n| TAX_YEAR_NOT_ENDED               | Simulates the scenario where the tax year provided has not ended. | \n| REQUEST_CANNOT_BE_FULFILLED      | Simulates the scenario where the request cannot be fulfilled for various reasons other than the ones triggering other errors.|\n| OUTSIDE_AMENDMENT_WINDOW         | Simulates the scenario where request cannot be completed as it is outside the amendment window. |\n",
+              "description": "This endpoint enables you to unignore the HMRC provided employment from a list of employments for this user.\n<strong>This endpoint can only be used after the tax year has ended.</strong>\nA National Insurance number, tax year and Employment ID must be provided.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario) | Scenario                                                          |\n|----------------------------------|-------------------------------------------------------------------|\n| N/A - DEFAULT                    | Simulates success response.                                       |\n| CUSTOM_EMPLOYMENT                | Simulates the scenario where a custom employment is submitted.    |\n| NOT_FOUND                        | Simulates the scenario where no data is found.                    |\n| REQUEST_CANNOT_BE_FULFILLED      | Simulates the scenario where the request cannot be fulfilled for various reasons other than the ones triggering other errors.|\n| OUTSIDE_AMENDMENT_WINDOW         | Simulates the scenario where request cannot be completed as it is outside the amendment window. |\n",
               "parameters": [
                 {
                   "description": "National Insurance number, in the format `AA999999A`\n",
@@ -282802,6 +282874,16 @@
                   "required": false,
                   "schema": {
                     "type": "string"
+                  }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "example": true,
+                    "type": "boolean"
                   }
                 }
               ],
@@ -312792,7 +312874,7 @@
                             "description": "Object that holds the key value for tax relief on pension contributions.",
                             "properties": {
                               "oneOffPensionContributionsPaid": {
-                                "description": "The amount of one-off pension contribution already included in the total pension contribution.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                "description": "The amount of one off pension contributions paid.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                                 "example": 1999.99,
                                 "maximum": 99999999999.99,
                                 "minimum": 0,
@@ -312816,7 +312898,7 @@
                                 "type": "number"
                               },
                               "regularPensionContributions": {
-                                "description": "The total amount of pension contributions, including both regular and one-off payments.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                "description": "The total amount of regular pension contributions.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                                 "example": 1999.99,
                                 "maximum": 99999999999.99,
                                 "minimum": 0,
@@ -313347,7 +313429,7 @@
                           "description": "Object that holds the key value for pensions reliefs on.",
                           "properties": {
                             "oneOffPensionContributionsPaid": {
-                              "description": "The amount of one-off pension contribution already included in the total pension contribution.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                              "description": "The amount of one off pension contributions paid.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                               "example": 1999.99,
                               "maximum": 99999999999.99,
                               "minimum": 0,
@@ -313371,7 +313453,7 @@
                               "type": "number"
                             },
                             "regularPensionContributions": {
-                              "description": "The total amount of pension contributions, including both regular and one-off payments.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                              "description": "The total amount of regular pension contributions.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                               "example": 1999.99,
                               "maximum": 99999999999.99,
                               "minimum": 0,
@@ -322647,7 +322729,7 @@
                             "description": "Object that holds the key value for tax relief on pension contributions.",
                             "properties": {
                               "oneOffPensionContributionsPaid": {
-                                "description": "The amount of one-off pension contribution already included in the total pension contribution.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                "description": "The amount of one off pension contributions paid.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                                 "example": 1999.99,
                                 "maximum": 99999999999.99,
                                 "minimum": 0,
@@ -322671,7 +322753,7 @@
                                 "type": "number"
                               },
                               "regularPensionContributions": {
-                                "description": "The total amount of pension contributions, including both regular and one-off payments.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                "description": "The total amount of regular pension contributions.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                                 "example": 1999.99,
                                 "maximum": 99999999999.99,
                                 "minimum": 0,
@@ -323203,7 +323285,7 @@
                           "description": "Object that holds the key value for pensions reliefs on.",
                           "properties": {
                             "oneOffPensionContributionsPaid": {
-                              "description": "The amount of one-off pension contribution already included in the total pension contribution.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                              "description": "The amount of one off pension contributions paid.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                               "example": 1999.99,
                               "maximum": 99999999999.99,
                               "minimum": 0,
@@ -323227,7 +323309,7 @@
                               "type": "number"
                             },
                             "regularPensionContributions": {
-                              "description": "The total amount of pension contributions, including both regular and one-off payments.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                              "description": "The total amount of regular pension contributions.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                               "example": 1999.99,
                               "maximum": 99999999999.99,
                               "minimum": 0,
@@ -366801,7 +366883,7 @@
         },
         "info": {
           "contact": {},
-          "description": "# Overview\nUse this API to get HMRC Assist feedback about potential inaccuracies in returns before they are formally submitted.\n\nThe endpoints must be used in this order:\n1. Use the *feedback* endpoint to send draft return data, and receive HMRC Assist feedback messages about that data.\n2. Use the *acknowledge* endpoint to confirm that your software has presented the HMRC Assist feedback messages to the user.\n\nBecause this process operates on draft, unfinalised data, requesting feedback carries no formal declaration. Also, the process does not block formal declaration submission via the *returns* endpoint of the [VAT (MTD) API](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api/). Your software must allow customers to submit their VAT return, irrespective of any HMRC Assist submission feedback.\n\nFor more information about HMRC Assist for VAT, see the [VAT (MTD) end-to-end service guide](https://developer.service.hmrc.gov.uk/guides/vat-mtd-end-to-end-service-guide/documentation/hmrc-assist-for-vat.html).\n",
+          "description": "# Overview\nUse this API to get HMRC Assist feedback about potential inaccuracies in returns before they are formally submitted.\n\nThe endpoints must be used in this order:\n1. Use the *feedback* endpoint to send draft return data, and receive HMRC Assist feedback messages about that data.\n2. Use the *acknowledge* endpoint to confirm that your software has presented the HMRC Assist feedback messages to the user. If there is no feedback (a single message with *itemNumber* \"0\"), the response has no *correlationId* and you do not need to acknowledge it.\n\nBecause this process operates on draft, unfinalised data, requesting feedback carries no formal declaration. Also, the process does not block formal declaration submission via the *returns* endpoint of the [VAT (MTD) API](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api/). Your software must allow customers to submit their VAT return, irrespective of any HMRC Assist submission feedback.\n\nFor more information about HMRC Assist for VAT, see the [VAT (MTD) end-to-end service guide](https://developer.service.hmrc.gov.uk/guides/vat-mtd-end-to-end-service-guide/documentation/hmrc-assist-for-vat.html).\n",
           "title": "VAT Assist (MTD)",
           "version": "1.0"
         },
@@ -366809,7 +366891,7 @@
         "paths": {
           "/organisations/vat-assist/acknowledge/{vrn}/{reportId}/{correlationId}": {
             "post": {
-              "description": "Acknowledge an HMRC Assist for VAT report, and confirm that your software has presented the feedback messages verbatim to the user.\n\n### Test data\n<p>Scenario simulations using Gov-Test-Scenario headers are only available in the sandbox environment.</p>\n<table>\n  <thead>\n    <tr>\n      <th>Header Value (Gov-Test-Scenario)</th>\n      <th>Scenario</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><p>Default (No header value)</p></td>\n      <td><p>Acknowledgement received.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_VRN</p></td>\n      <td><p>Scenario where the VRN has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_REPORTID</p></td>\n      <td><p>Scenario where the reportId has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_DATETIME</p></td>\n      <td><p>Scenario where the presented DateTime has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_CREDENTIALS</p></td>\n      <td><p>Scenario where invalid authentication information is provided.</p></td>\n    </tr>\n    <tr>\n      <td><p>NOT_AUTHORISED</p></td>\n      <td><p>Scenario where the client or their agent is not authorised.</p></td>\n    </tr>\n    <tr>\n      <td><p>CORRELATION_ID</p></td>\n      <td><p>Scenario where the correlation ID does not match.</p></td>\n    </tr>\n    <tr>\n      <td><p>NOT_FOUND</p></td>\n      <td><p>Simulates the scenario where the report cannot be found.</p></td>\n    </tr>\n  </tbody>\n</table>\n",
+              "description": "Acknowledge an HMRC Assist for VAT report, and confirm that your software has presented the feedback messages verbatim to the user.\n\n### Test data\n<p>Scenario simulations using Gov-Test-Scenario headers are only available in the sandbox environment.</p>\n<table>\n  <thead>\n    <tr>\n      <th>Header Value (Gov-Test-Scenario)</th>\n      <th>Scenario</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><p>Default (No header value)</p></td>\n      <td><p>Simulates the scenario where the acknowledgement is received.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_VRN</p></td>\n      <td><p>Simulates the scenario where the VRN has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_REPORTID</p></td>\n      <td><p>Simulates the scenario where the reportId has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_CORRELATIONID</p></td>\n      <td><p>Simulates the scenario where the correlationId has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_DATETIME</p></td>\n      <td><p>Simulates the scenario where the presentedDateTime has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_CREDENTIALS</p></td>\n      <td><p>Simulates the scenario where invalid authentication information is provided.</p></td>\n    </tr>\n    <tr>\n      <td><p>NOT_AUTHORISED</p></td>\n      <td><p>Simulates the scenario where the client or their agent is not authorised.</p></td>\n    </tr>\n    <tr>\n      <td><p>ACKNOWLEDGEMENT_VALIDATION_FAILED</p></td>\n      <td><p>Simulates the scenario where the VRN, reportId and correlationId do not match a report issued by HMRC Assist.</p></td>\n    </tr>\n    <tr>\n      <td><p>NOT_FOUND</p></td>\n      <td><p>Simulates the scenario where the request does not match the API.</p></td>\n    </tr>\n  </tbody>\n</table>\n",
               "operationId": "AcknowledgeVATAssistReport",
               "parameters": [
                 {
@@ -366837,12 +366919,13 @@
                   "style": "simple"
                 },
                 {
-                  "description": "The correlation ID of the report, as returned by the *feedback* endpoint.",
+                  "description": "The correlation ID of the report, as returned by the *feedback* endpoint. 64 hexadecimal characters.",
                   "in": "path",
                   "name": "correlationId",
                   "required": true,
                   "schema": {
                     "example": "E9F65715BBC9222477B27074804BBDD5C73CDE62F84D8B00CFD05B883534AF3D",
+                    "pattern": "^[0-9A-Fa-f]{64}$",
                     "type": "string"
                   },
                   "style": "simple"
@@ -366915,25 +366998,40 @@
                   "content": {
                     "application/json": {
                       "examples": {
-                        "FORMAT_DATETIME": {
-                          "summary": "Invalid presentedDateTime",
+                        "ACKNOWLEDGEMENT_VALIDATION_FAILED": {
+                          "description": "The VRN, report ID and correlation ID do not match a report issued by HMRC Assist.",
+                          "summary": "Acknowledgement not accepted",
                           "value": {
-                            "code": "FORMAT_DATETIME",
-                            "message": "The provided Presented Date Time is invalid."
+                            "code": "ACKNOWLEDGEMENT_VALIDATION_FAILED",
+                            "message": "The acknowledgement request failed validation"
                           }
                         },
-                        "FORMAT_REPORT_ID": {
-                          "summary": "Invalid Report ID",
+                        "CORRELATION_ID_INVALID": {
+                          "summary": "Invalid correlation ID",
                           "value": {
-                            "code": "FORMAT_REPORT_ID",
-                            "message": "The provided Report ID is invalid."
+                            "code": "CORRELATION_ID_INVALID",
+                            "message": "The provided correlation ID is invalid"
+                          }
+                        },
+                        "PRESENTED_DATE_TIME_INVALID": {
+                          "summary": "Missing or invalid presentedDateTime",
+                          "value": {
+                            "code": "PRESENTED_DATE_TIME_INVALID",
+                            "message": "The presentedDateTime query parameter is missing or invalid"
+                          }
+                        },
+                        "REPORT_ID_INVALID": {
+                          "summary": "Invalid report ID",
+                          "value": {
+                            "code": "REPORT_ID_INVALID",
+                            "message": "The provided report ID is invalid"
                           }
                         },
                         "VRN_INVALID": {
                           "summary": "Invalid VRN",
                           "value": {
                             "code": "VRN_INVALID",
-                            "message": "The provided VRN is invalid."
+                            "message": "The provided VRN is invalid"
                           }
                         }
                       },
@@ -366941,12 +367039,12 @@
                         "properties": {
                           "code": {
                             "description": "The error code.",
-                            "example": "INVALID_VRN",
+                            "example": "VRN_INVALID",
                             "type": "string"
                           },
                           "message": {
                             "description": "A human-readable description of the error.",
-                            "example": "The provided VRN is invalid.",
+                            "example": "The provided VRN is invalid",
                             "type": "string"
                           }
                         },
@@ -366972,12 +367070,12 @@
                         "properties": {
                           "code": {
                             "description": "The error code.",
-                            "example": "INVALID_VRN",
+                            "example": "VRN_INVALID",
                             "type": "string"
                           },
                           "message": {
                             "description": "A human-readable description of the error.",
-                            "example": "The provided VRN is invalid.",
+                            "example": "The provided VRN is invalid",
                             "type": "string"
                           }
                         },
@@ -367000,14 +367098,7 @@
                           "summary": "Client and/or agent not authorised",
                           "value": {
                             "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                            "message": "Client and/or agent is not authorised."
-                          }
-                        },
-                        "CORRELATION_ID": {
-                          "summary": "Mismatching correlation ID",
-                          "value": {
-                            "code": "CORRELATION_ID",
-                            "message": "The Correlation ID is not the expected value for this report."
+                            "message": "The client and/or agent is not authorised"
                           }
                         }
                       },
@@ -367015,12 +367106,12 @@
                         "properties": {
                           "code": {
                             "description": "The error code.",
-                            "example": "INVALID_VRN",
+                            "example": "VRN_INVALID",
                             "type": "string"
                           },
                           "message": {
                             "description": "A human-readable description of the error.",
-                            "example": "The provided VRN is invalid.",
+                            "example": "The provided VRN is invalid",
                             "type": "string"
                           }
                         },
@@ -367046,12 +367137,12 @@
                         "properties": {
                           "code": {
                             "description": "The error code.",
-                            "example": "INVALID_VRN",
+                            "example": "VRN_INVALID",
                             "type": "string"
                           },
                           "message": {
                             "description": "A human-readable description of the error.",
-                            "example": "The provided VRN is invalid.",
+                            "example": "The provided VRN is invalid",
                             "type": "string"
                           }
                         },
@@ -367077,12 +367168,12 @@
                         "properties": {
                           "code": {
                             "description": "The error code.",
-                            "example": "INVALID_VRN",
+                            "example": "VRN_INVALID",
                             "type": "string"
                           },
                           "message": {
                             "description": "A human-readable description of the error.",
-                            "example": "The provided VRN is invalid.",
+                            "example": "The provided VRN is invalid",
                             "type": "string"
                           }
                         },
@@ -367096,6 +367187,37 @@
                     }
                   },
                   "description": "Internal server error."
+                },
+                "503": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "code": "SERVICE_UNAVAILABLE",
+                        "message": "The service is currently unavailable"
+                      },
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "description": "The error code.",
+                            "example": "VRN_INVALID",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "A human-readable description of the error.",
+                            "example": "The provided VRN is invalid",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code",
+                          "message"
+                        ],
+                        "title": "ErrorResponse",
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "description": "Service unavailable. A service that HMRC Assist depends on is temporarily unavailable. Try again later."
                 },
                 "405": {
                   "content": {
@@ -367201,33 +367323,6 @@
                   },
                   "description": "UNAUTHORISED Response"
                 },
-                "503": {
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "properties": {
-                          "code": {
-                            "type": "string",
-                            "description": "Error Code",
-                            "enum": [
-                              "SERVER_ERROR",
-                              "SCHEDULED_MAINTENANCE"
-                            ]
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "type": "object",
-                        "example": {
-                          "code": "SCHEDULED_MAINTENANCE",
-                          "message": "Scheduled maintenance"
-                        }
-                      }
-                    }
-                  },
-                  "description": "UNAUTHORISED Response"
-                },
                 "504": {
                   "content": {
                     "application/json": {
@@ -367270,7 +367365,7 @@
           },
           "/organisations/vat-assist/feedback/{vrn}": {
             "post": {
-              "description": "Send draft VAT return data, to receive feedback from HMRC before formally submitting a VAT return. \n\nThe response will contain feedback messages in English and Welsh, highlighting potential mistakes or discrepancies in the VAT return data.\n\n**Note:** Before using this endpoint, you must first call the obligations endpoint on the [VAT (MTD) API](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api/) to get the period key.\n\n### Test data\n<p>Scenario simulations using Gov-Test-Scenario headers are only available in the sandbox environment.</p>\n<table>\n  <thead>\n    <tr>\n      <th>Header Value (Gov-Test-Scenario)</th>\n      <th>Scenario</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><p>Default (No header value)</p></td>\n      <td><p>Simulates the scenario where there is one HMRC Assist feedback message.</p></td>\n    </tr>\n    <tr>\n      <td><p>MULTIPLE_FEEDBACK</p></td>\n      <td><p>Simulates the scenario where there are more than one HMRC VAT Assist feedback messages.</p></td>\n    </tr>\n    <tr>\n      <td><p>NO_FEEDBACK</p></td>\n      <td><p>Simulates the scenario where there is no HMRC VAT Assist feedback.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_VRN</p></td>\n      <td><p>Simulates the scenario where the VRN has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_PERIODKEY</p></td>\n      <td><p>Simulates the scenario where the periodKey has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_REQUEST</p></td>\n      <td><p>Submission has not passed validation. Invalid values.</p></td>\n    </tr>\n    <tr>\n      <td><p>TAX_PERIOD_NOT_ENDED</p></td>\n      <td><p>Simulates the scenario where the accounting period has not ended.</p></td>\n    </tr>\n    <tr>\n      <td><p>INSOLVENT_TRADER</p></td>\n      <td><p>Simulates the scenario where the client is an insolvent trader.</p></td>\n    </tr>\n  </tbody>\n</table>\n",
+              "description": "Send draft VAT return data, to receive feedback from HMRC before formally submitting a VAT return. \n\nThe response will contain feedback messages in English and Welsh, highlighting potential mistakes or discrepancies in the VAT return data.\n\n**Note:** Before using this endpoint, you must first call the obligations endpoint on the [VAT (MTD) API](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api/) to get the period key.\n\n### Test data\n<p>Scenario simulations using Gov-Test-Scenario headers are only available in the sandbox environment.</p>\n<table>\n  <thead>\n    <tr>\n      <th>Header Value (Gov-Test-Scenario)</th>\n      <th>Scenario</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><p>Default (No header value)</p></td>\n      <td><p>Simulates the scenario where there is one HMRC Assist feedback message.</p></td>\n    </tr>\n    <tr>\n      <td><p>MULTIPLE_FEEDBACK</p></td>\n      <td><p>Simulates the scenario where there is more than one HMRC Assist feedback message.</p></td>\n    </tr>\n    <tr>\n      <td><p>NO_FEEDBACK</p></td>\n      <td><p>Simulates the scenario where there is no HMRC Assist feedback.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_VRN</p></td>\n      <td><p>Simulates the scenario where the VRN has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_PERIODKEY</p></td>\n      <td><p>Simulates the scenario where the periodKey has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_REQUEST</p></td>\n      <td><p>Simulates the scenario where the request body has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>TAX_PERIOD_NOT_ENDED</p></td>\n      <td><p>Simulates the scenario where the accounting period has not ended.</p></td>\n    </tr>\n    <tr>\n      <td><p>INSOLVENT_TRADER</p></td>\n      <td><p>Simulates the scenario where the client is an insolvent trader.</p></td>\n    </tr>\n  </tbody>\n</table>\n",
               "operationId": "RequestVATAssistFeedback",
               "parameters": [
                 {
@@ -367474,7 +367569,7 @@
                                   }
                                 ],
                                 "path": "vatDueSales",
-                                "title": "Mae TAW sy'n ddyledus ar werthiannau yn ymddangos yn isel"
+                                "title": "Adborth CThEF: Mae TAW sy'n ddyledus ar werthiannau yn ymddangos yn isel"
                               }
                             ]
                           }
@@ -367508,7 +367603,7 @@
                                   }
                                 ],
                                 "path": "totalValuePurchasesExVAT",
-                                "title": "Total value of purchases appears high"
+                                "title": "HMRC feedback: Total value of purchases appears high"
                               }
                             ],
                             "reportId": "f2fb30e5-4ab6-4a29-b3c1-c00000000001",
@@ -367524,7 +367619,7 @@
                                   }
                                 ],
                                 "path": "vatDueSales",
-                                "title": "Mae TAW sy'n ddyledus ar werthiannau yn ymddangos yn isel"
+                                "title": "Adborth CThEF: Mae TAW sy'n ddyledus ar werthiannau yn ymddangos yn isel"
                               },
                               {
                                 "action": "Adolygwch flwch 7 o'ch ffurflen TAW.",
@@ -367537,7 +367632,7 @@
                                   }
                                 ],
                                 "path": "totalValuePurchasesExVAT",
-                                "title": "Mae cyfanswm pryniannau'n uchel"
+                                "title": "Adborth CThEF: Mae cyfanswm pryniannau'n uchel"
                               }
                             ]
                           }
@@ -367563,7 +367658,7 @@
                             "welshFeedback": [
                               {
                                 "action": "Ystyriwch unrhyw wiriadau pellach cyn cwblhau eich datganiad.",
-                                "body": "Nid yw hwn yn wiriad cyflawn o'ch datganiad nac yn gadarnhad bod  eich datganiad yn gywir. Nid yw eich datganiad wedi'i gyflwyno ar y cam hwn.",
+                                "body": "Nid yw hwn yn wiriad cyflawn o'ch datganiad nac yn gadarnhad bod eich datganiad yn gywir. Nid yw eich datganiad wedi'i gyflwyno ar y cam hwn.",
                                 "itemNumber": "000",
                                 "links": [
                                   {
@@ -367571,7 +367666,7 @@
                                     "url": "https://www.gov.uk"
                                   }
                                 ],
-                                "title": "Nid yw HMRC Assist wedi dychwelyd unrhyw negeseuon."
+                                "title": "Adborth CThEF: Nid yw HMRC Assist wedi dychwelyd unrhyw negeseuon."
                               }
                             ]
                           }
@@ -367580,8 +367675,9 @@
                       "schema": {
                         "properties": {
                           "correlationId": {
-                            "description": "The correlation ID of the report.\n\nIt will not be present in the scenario where there is no HMRC Assist feedback.\n",
+                            "description": "The correlation ID of the report. Use it with *reportId* to call the *acknowledge* endpoint.\n\nIt will not be present in the scenario where there is no HMRC Assist feedback as no acknowledgement is needed.\n",
                             "example": "E9F65715BBC9222477B27074804BBDD5C73CDE62F84D8B00CFD05B883534AF3D",
+                            "pattern": "^[0-9A-Fa-f]{64}$",
                             "type": "string"
                           },
                           "englishFeedback": {
@@ -367603,7 +367699,7 @@
                                 "itemNumber": {
                                   "description": "The unique identifier for the feedback message. Corresponding English and Welsh feedback messages will have the same number.\n\nIf there is no HMRC Assist feedback, a single message to that effect will be returned. It will have *itemNumber* \"0\".\n",
                                   "example": "001",
-                                  "pattern": "^[0-9]{3}$",
+                                  "pattern": "^[0-9]{1,3}$",
                                   "type": "string"
                                 },
                                 "links": {
@@ -367676,7 +367772,7 @@
                                 "itemNumber": {
                                   "description": "The unique identifier for the feedback message. Corresponding English and Welsh feedback messages will have the same number.\n\nIf there is no HMRC Assist feedback, a single message to that effect will be returned. It will have *itemNumber* \"0\".\n",
                                   "example": "001",
-                                  "pattern": "^[0-9]{3}$",
+                                  "pattern": "^[0-9]{1,3}$",
                                   "type": "string"
                                 },
                                 "links": {
@@ -367755,7 +367851,7 @@
                     "application/json": {
                       "examples": {
                         "invalidMonetaryAmount": {
-                          "description": "The monetary amount is invalid",
+                          "description": "A monetary amount is outside the permitted range or has more than 2 decimal places.",
                           "value": {
                             "code": "INVALID_MONETARY_AMOUNT",
                             "message": "amount should be a monetary value (to 2 decimal places), between 0 and 99,999,999,999.99"
@@ -367802,52 +367898,6 @@
                             "code": "VRN_INVALID",
                             "message": "The provided VRN is invalid"
                           }
-                        }
-                      },
-                      "schema": {
-                        "allOf": [
-                          {
-                            "properties": {
-                              "code": {
-                                "description": "The error code.",
-                                "example": "INVALID_VRN",
-                                "type": "string"
-                              },
-                              "message": {
-                                "description": "A human-readable description of the error.",
-                                "example": "The provided VRN is invalid.",
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "code",
-                              "message"
-                            ],
-                            "title": "ErrorResponse",
-                            "type": "object"
-                          },
-                          {
-                            "example": {
-                              "code": "INVALID_VRN",
-                              "message": "The provided VRN is invalid."
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  "description": "Bad request. Invalid request body or parameters."
-                },
-                "403": {
-                  "content": {
-                    "application/json": {
-                      "examples": {
-                        "clientNotSubscribedToMTD": {
-                          "description": "The client and/or agent is not authorised. This is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.",
-                          "value": {
-                            "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                            "message": "The client and/or agent is not authorised"
-                          }
                         },
                         "ruleInsolventTrader": {
                           "description": "The request could not be completed as it relates to an insolvent trader, which are not supported by this API.",
@@ -367865,56 +367915,15 @@
                         }
                       },
                       "schema": {
-                        "allOf": [
-                          {
-                            "properties": {
-                              "code": {
-                                "description": "The error code.",
-                                "example": "INVALID_VRN",
-                                "type": "string"
-                              },
-                              "message": {
-                                "description": "A human-readable description of the error.",
-                                "example": "The provided VRN is invalid.",
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "code",
-                              "message"
-                            ],
-                            "title": "ErrorResponse",
-                            "type": "object"
-                          },
-                          {
-                            "example": {
-                              "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                              "message": "The client and/or agent is not authorised."
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  "description": "Forbidden. The client is not authorised to access this resource."
-                },
-                "404": {
-                  "content": {
-                    "application/json": {
-                      "example": {
-                        "code": "VRN_NOT_FOUND",
-                        "message": "The remote endpoint has indicated that the VRN could not be found."
-                      },
-                      "schema": {
                         "properties": {
                           "code": {
                             "description": "The error code.",
-                            "example": "INVALID_VRN",
+                            "example": "VRN_INVALID",
                             "type": "string"
                           },
                           "message": {
                             "description": "A human-readable description of the error.",
-                            "example": "The provided VRN is invalid.",
+                            "example": "The provided VRN is invalid",
                             "type": "string"
                           }
                         },
@@ -367927,7 +367936,105 @@
                       }
                     }
                   },
-                  "description": "Not found. The VRN could not be found."
+                  "description": "Bad request. Invalid request body or parameters."
+                },
+                "401": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "code": "INVALID_CREDENTIALS",
+                        "message": "Invalid Authentication information provided"
+                      },
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "description": "The error code.",
+                            "example": "VRN_INVALID",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "A human-readable description of the error.",
+                            "example": "The provided VRN is invalid",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code",
+                          "message"
+                        ],
+                        "title": "ErrorResponse",
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "description": "Unauthorised. Invalid authentication information provided."
+                },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "clientNotSubscribedToMTD": {
+                          "description": "The client and/or agent is not authorised. This is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.",
+                          "value": {
+                            "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
+                            "message": "The client and/or agent is not authorised"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "description": "The error code.",
+                            "example": "VRN_INVALID",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "A human-readable description of the error.",
+                            "example": "The provided VRN is invalid",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code",
+                          "message"
+                        ],
+                        "title": "ErrorResponse",
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "description": "Forbidden."
+                },
+                "404": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "code": "VRN_NOT_FOUND",
+                        "message": "The remote endpoint has indicated that the VRN could not be found."
+                      },
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "description": "The error code.",
+                            "example": "VRN_INVALID",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "A human-readable description of the error.",
+                            "example": "The provided VRN is invalid",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code",
+                          "message"
+                        ],
+                        "title": "ErrorResponse",
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "description": "Not found. The VRN could not be found. This response cannot be simulated in the sandbox."
                 },
                 "500": {
                   "content": {
@@ -367940,12 +368047,12 @@
                         "properties": {
                           "code": {
                             "description": "The error code.",
-                            "example": "INVALID_VRN",
+                            "example": "VRN_INVALID",
                             "type": "string"
                           },
                           "message": {
                             "description": "A human-readable description of the error.",
-                            "example": "The provided VRN is invalid.",
+                            "example": "The provided VRN is invalid",
                             "type": "string"
                           }
                         },
@@ -367960,34 +368067,36 @@
                   },
                   "description": "Internal server error."
                 },
-                "401": {
+                "503": {
                   "content": {
                     "application/json": {
+                      "example": {
+                        "code": "SERVICE_UNAVAILABLE",
+                        "message": "The service is currently unavailable"
+                      },
                       "schema": {
                         "properties": {
                           "code": {
-                            "type": "string",
-                            "description": "Error Code",
-                            "enum": [
-                              "MISSING_CREDENTIALS",
-                              "INVALID_CREDENTIALS",
-                              "UNAUTHORIZED",
-                              "INCORRECT_ACCESS_TOKEN_TYPE"
-                            ]
+                            "description": "The error code.",
+                            "example": "VRN_INVALID",
+                            "type": "string"
                           },
                           "message": {
+                            "description": "A human-readable description of the error.",
+                            "example": "The provided VRN is invalid",
                             "type": "string"
                           }
                         },
-                        "type": "object",
-                        "example": {
-                          "code": "MISSING_CREDENTIALS",
-                          "message": "Authentication information is not provided"
-                        }
+                        "required": [
+                          "code",
+                          "message"
+                        ],
+                        "title": "ErrorResponse",
+                        "type": "object"
                       }
                     }
                   },
-                  "description": "UNAUTHORISED Response"
+                  "description": "Service unavailable. A service that HMRC Assist depends on is temporarily unavailable. Try again later."
                 },
                 "405": {
                   "content": {
@@ -368087,33 +368196,6 @@
                         "example": {
                           "code": "NOT_IMPLEMENTED",
                           "message": "API not implemented or deployed"
-                        }
-                      }
-                    }
-                  },
-                  "description": "UNAUTHORISED Response"
-                },
-                "503": {
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "properties": {
-                          "code": {
-                            "type": "string",
-                            "description": "Error Code",
-                            "enum": [
-                              "SERVER_ERROR",
-                              "SCHEDULED_MAINTENANCE"
-                            ]
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "type": "object",
-                        "example": {
-                          "code": "SCHEDULED_MAINTENANCE",
-                          "message": "Scheduled maintenance"
                         }
                       }
                     }
@@ -433011,6 +433093,16 @@
                   "schema": {
                     "example": "2021-22",
                     "type": "string"
+                  }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "example": true,
+                    "type": "boolean"
                   }
                 }
               ],

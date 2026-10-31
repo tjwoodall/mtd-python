@@ -8271,7 +8271,7 @@
                             "properties": {
                               "regularPensionContributions": {
                                 "type": "number",
-                                "description": "The total amount of pension contributions, including both regular and one-off payments.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                "description": "The total amount of regular pension contributions.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                                 "example": 1999.99,
                                 "multipleOf": 0.01,
                                 "minimum": 0,
@@ -8279,7 +8279,7 @@
                               },
                               "oneOffPensionContributionsPaid": {
                                 "type": "number",
-                                "description": "The amount of one-off pension contribution already included in the total pension contribution.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                "description": "The amount of one off pension contributions paid.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                                 "example": 1999.99,
                                 "multipleOf": 0.01,
                                 "minimum": 0,
@@ -8821,7 +8821,7 @@
                           "properties": {
                             "regularPensionContributions": {
                               "type": "number",
-                              "description": "The total amount of pension contributions, including both regular and one-off payments.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                              "description": "The total amount of regular pension contributions.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                               "example": 1999.99,
                               "multipleOf": 0.01,
                               "minimum": 0,
@@ -8829,7 +8829,7 @@
                             },
                             "oneOffPensionContributionsPaid": {
                               "type": "number",
-                              "description": "The amount of one-off pension contribution already included in the total pension contribution.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                              "description": "The amount of one off pension contributions paid.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                               "example": 1999.99,
                               "multipleOf": 0.01,
                               "minimum": 0,
@@ -18127,7 +18127,7 @@
                             "properties": {
                               "regularPensionContributions": {
                                 "type": "number",
-                                "description": "The total amount of pension contributions, including both regular and one-off payments.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                "description": "The total amount of regular pension contributions.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                                 "example": 1999.99,
                                 "multipleOf": 0.01,
                                 "minimum": 0,
@@ -18135,7 +18135,7 @@
                               },
                               "oneOffPensionContributionsPaid": {
                                 "type": "number",
-                                "description": "The amount of one-off pension contribution already included in the total pension contribution.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                "description": "The amount of one off pension contributions paid.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                                 "example": 1999.99,
                                 "multipleOf": 0.01,
                                 "minimum": 0,
@@ -18677,7 +18677,7 @@
                           "properties": {
                             "regularPensionContributions": {
                               "type": "number",
-                              "description": "The total amount of pension contributions, including both regular and one-off payments.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                              "description": "The total amount of regular pension contributions.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                               "example": 1999.99,
                               "multipleOf": 0.01,
                               "minimum": 0,
@@ -18685,7 +18685,7 @@
                             },
                             "oneOffPensionContributionsPaid": {
                               "type": "number",
-                              "description": "The amount of one-off pension contribution already included in the total pension contribution.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                              "description": "The amount of one off pension contributions paid.\n\nThe value must be between 0 and 99999999999.99 up to 2 decimal places.",
                               "example": 1999.99,
                               "multipleOf": 0.01,
                               "minimum": 0,

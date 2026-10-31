@@ -42,7 +42,7 @@
               "responses": {
                 "204": {
                   "content": {},
-                  "description": "Success - invitation has been rejected",
+                  "description": "Success - invitation has been rejected or was already rejected",
                   "headers": {}
                 },
                 "400": {
@@ -87,6 +87,11 @@
                     }
                   },
                   "description": "",
+                  "headers": {}
+                },
+                "403": {
+                  "content": {},
+                  "description": "The invitation cannot be rejected in its current state or the client is not authorised",
                   "headers": {}
                 },
                 "404": {
@@ -140,7 +145,7 @@
                 },
                 "409": {
                   "content": {},
-                  "description": "Invitation has already been rejected or it has expired",
+                  "description": "Invitation has already been accepted, has expired, has been cancelled or has partial authorisation",
                   "headers": {}
                 },
                 "401": {
@@ -166,35 +171,6 @@
                         "example": {
                           "code": "MISSING_CREDENTIALS",
                           "message": "Authentication information is not provided"
-                        }
-                      }
-                    }
-                  },
-                  "description": "UNAUTHORISED Response"
-                },
-                "403": {
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "properties": {
-                          "code": {
-                            "type": "string",
-                            "description": "Error Code",
-                            "enum": [
-                              "HTTPS_REQUIRED",
-                              "RESOURCE_FORBIDDEN",
-                              "INVALID_SCOPE",
-                              "FORBIDDEN"
-                            ]
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "type": "object",
-                        "example": {
-                          "code": "RESOURCE_FORBIDDEN",
-                          "message": "The application is not subscribed to the API which it is attempting to invoke"
                         }
                       }
                     }
@@ -417,7 +393,7 @@
               "responses": {
                 "204": {
                   "content": {},
-                  "description": "Success - invitation has been accepted",
+                  "description": "Success - invitation has been accepted or was already accepted",
                   "headers": {}
                 },
                 "400": {
@@ -455,6 +431,11 @@
                     }
                   },
                   "description": "",
+                  "headers": {}
+                },
+                "403": {
+                  "content": {},
+                  "description": "The invitation cannot be accepted in its current state or the client is not authorised",
                   "headers": {}
                 },
                 "404": {
@@ -508,7 +489,7 @@
                 },
                 "409": {
                   "content": {},
-                  "description": "Invitation has already been rejected or it has expired",
+                  "description": "Invitation has already been rejected, has expired, has been cancelled or has partial authorisation",
                   "headers": {}
                 },
                 "401": {
@@ -534,35 +515,6 @@
                         "example": {
                           "code": "MISSING_CREDENTIALS",
                           "message": "Authentication information is not provided"
-                        }
-                      }
-                    }
-                  },
-                  "description": "UNAUTHORISED Response"
-                },
-                "403": {
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "properties": {
-                          "code": {
-                            "type": "string",
-                            "description": "Error Code",
-                            "enum": [
-                              "HTTPS_REQUIRED",
-                              "RESOURCE_FORBIDDEN",
-                              "INVALID_SCOPE",
-                              "FORBIDDEN"
-                            ]
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "type": "object",
-                        "example": {
-                          "code": "RESOURCE_FORBIDDEN",
-                          "message": "The application is not subscribed to the API which it is attempting to invoke"
                         }
                       }
                     }
