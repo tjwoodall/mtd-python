@@ -6550,6 +6550,7 @@
                               "lossesFromQahc": 99999999999.99
                             },
                             "submittedOn": "2027-02-07T16:18:44.403Z",
+                            "supplementaryInformation": "Additional information relating to the disposal of an asset and the justification for the relief code applied.",
                             "unlistedShares": [
                               {
                                 "acquisitionDate": "2026-04-10",
@@ -8168,6 +8169,12 @@
                                     "maximum": 99999999999.99
                                   }
                                 }
+                              },
+                              "supplementaryInformation": {
+                                "type": "string",
+                                "description": "[Test only] Additional information relating to Capital Gains Tax (CGT), including justifications for relief codes. Must not be empty or contain only whitespace.",
+                                "example": "Additional information relating to the disposal of an asset and the justification for the relief code applied.",
+                                "pattern": "^[A-Za-z0-9 &'\"()*,\\-./@\u00a3]{1,20480}$"
                               }
                             },
                             "required": [

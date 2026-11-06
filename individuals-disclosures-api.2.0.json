@@ -1266,7 +1266,7 @@
                             "class2Nics": {
                               "class2VoluntaryContributions": true
                             },
-                            "submittedOn": "2020-07-06T09:37:17Z",
+                            "submittedOn": "2020-07-06T09:37:17.003Z",
                             "taxAvoidance": [
                               {
                                 "srn": "14211123",
@@ -1280,11 +1280,12 @@
                             "class2Nics": {
                               "class2VoluntaryContributions": true
                             },
-                            "submittedOn": "2020-07-06T09:37:17Z",
+                            "submittedOn": "2026-07-06T09:37:17.003Z",
                             "taxAvoidance": [
                               {
                                 "srn": "14211123",
-                                "taxYear": "2020-21"
+                                "supplementaryInformation": "Additional information relating to a counter-avoidance disclosure and the circumstances being disclosed.",
+                                "taxYear": "2026-27"
                               }
                             ]
                           }
@@ -1306,9 +1307,9 @@
                               },
                               "taxAvoidance": {
                                 "type": "array",
+                                "description": "Details of tax avoidance scheme.",
                                 "items": {
                                   "type": "object",
-                                  "description": "Details of tax avoidance scheme",
                                   "properties": {
                                     "srn": {
                                       "type": "string",
@@ -1318,26 +1319,28 @@
                                     },
                                     "taxYear": {
                                       "type": "string",
-                                      "description": "The tax year in which the expected advantage arises. Date in the format `YYYY-YY`",
+                                      "description": "The tax year in which the expected advantage arises, in the format `YYYY-YY`",
                                       "example": "2020-21"
                                     }
                                   },
                                   "required": [
                                     "srn",
                                     "taxYear"
-                                  ]
+                                  ],
+                                  "additionalProperties": false
                                 }
                               },
                               "class2Nics": {
                                 "type": "object",
-                                "description": "Object containing the Voluntary Class 2 National Insurance Contributions toggle",
+                                "description": "Object containing the Voluntary Class 2 National Insurance Contributions toggle.",
                                 "properties": {
                                   "class2VoluntaryContributions": {
                                     "type": "boolean",
                                     "description": "Indicates whether Voluntary Class 2 contributions have been captured. The value must be true if this is the case.",
                                     "example": true
                                   }
-                                }
+                                },
+                                "additionalProperties": false
                               }
                             },
                             "required": [
@@ -1358,9 +1361,9 @@
                               },
                               "taxAvoidance": {
                                 "type": "array",
+                                "description": "Details of tax avoidance scheme.",
                                 "items": {
                                   "type": "object",
-                                  "description": "Details of tax avoidance scheme",
                                   "properties": {
                                     "srn": {
                                       "type": "string",
@@ -1370,31 +1373,40 @@
                                     },
                                     "taxYear": {
                                       "type": "string",
-                                      "description": "The tax year in which the expected advantage arises. Date in the format `YYYY-YY`",
+                                      "description": "The tax year in which the expected advantage arises, in the format `YYYY-YY`",
                                       "example": "2020-21"
+                                    },
+                                    "supplementaryInformation": {
+                                      "type": "string",
+                                      "description": "[Test only] Additional information relating to counter-avoidance disclosures. Must not be empty or contain only whitespace.",
+                                      "example": "Additional information relating to a counter-avoidance disclosure and the circumstances being disclosed.",
+                                      "pattern": "^[A-Za-z0-9 &'\"()*,\\-./@\u00a3]{1,4000}$"
                                     }
                                   },
                                   "required": [
                                     "srn",
                                     "taxYear"
-                                  ]
+                                  ],
+                                  "additionalProperties": false
                                 }
                               },
                               "class2Nics": {
                                 "type": "object",
-                                "description": "Object containing the Voluntary Class 2 National Insurance Contributions toggle",
+                                "description": "Object containing the Voluntary Class 2 National Insurance Contributions toggle.",
                                 "properties": {
                                   "class2VoluntaryContributions": {
                                     "type": "boolean",
                                     "description": "Indicates whether Voluntary Class 2 contributions have been captured. The value must be true if this is the case.",
                                     "example": true
                                   }
-                                }
+                                },
+                                "additionalProperties": false
                               }
                             },
                             "required": [
                               "submittedOn"
-                            ]
+                            ],
+                            "additionalProperties": false
                           }
                         ]
                       }
@@ -1970,7 +1982,7 @@
                 "content": {
                   "application/json": {
                     "examples": {
-                      "Request": {
+                      "Before TY 2026-27": {
                         "value": {
                           "class2Nics": {
                             "class2VoluntaryContributions": true
@@ -1982,50 +1994,122 @@
                             }
                           ]
                         }
+                      },
+                      "TY 2026-27 onwards": {
+                        "value": {
+                          "class2Nics": {
+                            "class2VoluntaryContributions": true
+                          },
+                          "taxAvoidance": [
+                            {
+                              "srn": "14211123",
+                              "supplementaryInformation": "Additional information relating to a counter-avoidance disclosure and the circumstances being disclosed.",
+                              "taxYear": "2026-27"
+                            }
+                          ]
+                        }
                       }
                     },
                     "schema": {
-                      "$schema": "http://json-schema.org/draft-04/schema#",
-                      "title": "Create and Amend Disclosures Request",
-                      "description": "Create and Amend Disclosures Request",
-                      "type": "object",
-                      "properties": {
-                        "taxAvoidance": {
-                          "type": "array",
-                          "description": "Details of tax avoidance scheme",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "srn": {
-                                "type": "string",
-                                "description": "Scheme Reference Number (SRN) of the tax avoidance scheme.",
-                                "example": "14211123",
-                                "pattern": "^[0-9]{8}$"
-                              },
-                              "taxYear": {
-                                "type": "string",
-                                "description": "The tax year in which the expected advantage arises. Date in the format `YYYY-YY`",
-                                "example": "2020-21"
+                      "anyOf": [
+                        {
+                          "$schema": "http://json-schema.org/draft-04/schema#",
+                          "title": "Before TY 2026-27",
+                          "description": "Create and Amend Disclosures Request",
+                          "type": "object",
+                          "properties": {
+                            "taxAvoidance": {
+                              "type": "array",
+                              "description": "Details of tax avoidance scheme.",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "srn": {
+                                    "type": "string",
+                                    "description": "Scheme Reference Number (SRN) of the tax avoidance scheme.",
+                                    "example": "14211123",
+                                    "pattern": "^[0-9]{8}$"
+                                  },
+                                  "taxYear": {
+                                    "type": "string",
+                                    "description": "The tax year in which the expected advantage arises, in the format `YYYY-YY`",
+                                    "example": "2020-21"
+                                  }
+                                },
+                                "required": [
+                                  "srn",
+                                  "taxYear"
+                                ],
+                                "additionalProperties": false
                               }
                             },
-                            "required": [
-                              "srn",
-                              "taxYear"
-                            ]
-                          }
-                        },
-                        "class2Nics": {
-                          "type": "object",
-                          "description": "Object containing the Voluntary Class 2 National Insurance Contributions toggle",
-                          "properties": {
-                            "class2VoluntaryContributions": {
-                              "type": "boolean",
-                              "description": "Indicates whether Voluntary Class 2 contributions are to be captured. The value can only be set to true.",
-                              "example": true
+                            "class2Nics": {
+                              "type": "object",
+                              "description": "Object containing the Voluntary Class 2 National Insurance Contributions toggle.",
+                              "properties": {
+                                "class2VoluntaryContributions": {
+                                  "type": "boolean",
+                                  "description": "Indicates whether Voluntary Class 2 contributions are to be captured. The value can only be set to true.",
+                                  "example": true
+                                }
+                              },
+                              "additionalProperties": false
                             }
                           }
+                        },
+                        {
+                          "$schema": "http://json-schema.org/draft-04/schema#",
+                          "title": "TY 2026-27 onwards",
+                          "description": "Create and Amend Disclosures Request",
+                          "type": "object",
+                          "properties": {
+                            "taxAvoidance": {
+                              "type": "array",
+                              "description": "Details of tax avoidance scheme.",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "srn": {
+                                    "type": "string",
+                                    "description": "Scheme Reference Number (SRN) of the tax avoidance scheme.",
+                                    "example": "14211123",
+                                    "pattern": "^[0-9]{8}$"
+                                  },
+                                  "taxYear": {
+                                    "type": "string",
+                                    "description": "The tax year in which the expected advantage arises, in the format `YYYY-YY`",
+                                    "example": "2020-21"
+                                  },
+                                  "supplementaryInformation": {
+                                    "type": "string",
+                                    "description": "[Test only] Additional information relating to counter-avoidance disclosures. Must not be empty or contain only whitespace.",
+                                    "example": "Additional information relating to a counter-avoidance disclosure and the circumstances being disclosed.",
+                                    "pattern": "^[A-Za-z0-9 &'\"()*,\\-./@\u00a3]{1,4000}$"
+                                  }
+                                },
+                                "required": [
+                                  "srn",
+                                  "taxYear"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "class2Nics": {
+                              "type": "object",
+                              "description": "Object containing the Voluntary Class 2 National Insurance Contributions toggle.",
+                              "properties": {
+                                "class2VoluntaryContributions": {
+                                  "type": "boolean",
+                                  "description": "Indicates whether Voluntary Class 2 contributions are to be captured. The value can only be set to true.",
+                                  "example": true
+                                }
+                              },
+                              "additionalProperties": false
+                            }
+                          },
+                          "additionalProperties": false
                         }
-                      }
+                      ]
                     }
                   }
                 }
@@ -2084,6 +2168,13 @@
                           "value": {
                             "code": "FORMAT_SRN_INVALID",
                             "message": "The provided scheme reference number is invalid"
+                          }
+                        },
+                        "FORMAT_SUPPLEMENTARY_INFORMATION": {
+                          "description": "The format of the supplied supplementaryInformation is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_SUPPLEMENTARY_INFORMATION",
+                            "message": "The provided supplementaryInformation is invalid"
                           }
                         },
                         "FORMAT_TAX_YEAR": {

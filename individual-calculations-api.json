@@ -39059,7 +39059,7 @@
                     "application/json": {
                       "examples": {
                         "MATCHING_RESOURCE_NOT_FOUND": {
-                          "description": "The supplied income source could not be found.\n",
+                          "description": "The matching resource was not found.\n",
                           "value": {
                             "code": "MATCHING_RESOURCE_NOT_FOUND",
                             "message": "Matching resource not found"
@@ -39350,6 +39350,610 @@
                 }
               ],
               "summary": "Delete Provisional Figures Information [test only]",
+              "tags": [
+                "Provisional Figures Information"
+              ]
+            },
+            "get": {
+              "description": "This endpoint is used to retrieve the provisional figures information recorded for a tax return. A National Insurance number and tax year are required.\n\n### Test data\nScenario simulations using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario)      | Scenario                                                                                        |\n|---------------------------------------|-------------------------------------------------------------------------------------------------|\n| N/A - DEFAULT                         | Simulates success response.                                                                     |                                                \n| NOT_FOUND                             | Simulates the scenario where no data is found.                                                  |\n| STATEFUL                              | Performs a stateful retrieve.                                                                     |\n",
+              "parameters": [
+                {
+                  "description": "National Insurance number, in the format `AA999999A`\n",
+                  "in": "path",
+                  "name": "nino",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "TC663795B"
+                  }
+                },
+                {
+                  "description": "The tax year the data applies to, for example, 2026-27. \nThe start year and end year must not span two tax years. \nThe minimum tax year is 2026-27. No gaps are allowed, for example, 2026-28 is not valid.\n",
+                  "in": "path",
+                  "name": "taxYear",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "2026-27"
+                  }
+                },
+                {
+                  "description": "Specifies the response format and the version of the API to be used.\n",
+                  "in": "header",
+                  "name": "Accept",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "application/vnd.hmrc.9.0+json"
+                    ]
+                  }
+                },
+                {
+                  "description": "An OAuth 2.0 Bearer Token with the *read:self-assessment* scope.\n",
+                  "in": "header",
+                  "name": "Authorization",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "Bearer bb7fed3fe10dd235a2ccda3d50fb"
+                  }
+                },
+                {
+                  "description": "Only in sandbox environment. See Test Data table for all header values.\n",
+                  "in": "header",
+                  "name": "Gov-Test-Scenario",
+                  "required": false,
+                  "schema": {
+                    "type": "string",
+                    "example": "-"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "Example response for TY 2026-27 onwards": {
+                          "value": {
+                            "expectedDate": "2027-10-05",
+                            "provisionalFiguresIndicator": true,
+                            "submittedOn": "2027-08-24T14:15:22.544Z",
+                            "supplementaryInformation": "Provisional figures used pending final confirmation."
+                          }
+                        }
+                      },
+                      "schema": {
+                        "$schema": "http://json-schema.org/draft-04/schema#",
+                        "title": "Retrieve Provisional Figures Information",
+                        "description": "This endpoint is used to retrieve the provisional figures information recorded for a tax return. A National Insurance number and tax year are required.",
+                        "type": "object",
+                        "properties": {
+                          "submittedOn": {
+                            "description": "The date and time the supplementary information was submitted, in the format YYYY-MM-DDThh:mm:ss.SSSZ",
+                            "type": "string",
+                            "example": "2027-08-24T14:15:22.544Z"
+                          },
+                          "provisionalFiguresIndicator": {
+                            "description": "Indicates whether provisional figures are included in the tax return. The value must be true.",
+                            "type": "boolean",
+                            "example": true
+                          },
+                          "expectedDate": {
+                            "description": "The expected date when the final figures will be available. This date must be in the future. Must conform to the format: YYYY-MM-DD",
+                            "type": "string",
+                            "example": "2027-10-05"
+                          },
+                          "supplementaryInformation": {
+                            "description": "Additional information describing the use of provisional figures. Must not be empty or contain only whitespace.",
+                            "type": "string",
+                            "pattern": "^[A-Za-z0-9 &'\"()*,\\-./@\u00a3]{1,4000}$",
+                            "example": "Provisional figures used pending final confirmation."
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "submittedOn",
+                          "provisionalFiguresIndicator"
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Success",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "See the API documentation:\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/individual-calculations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "FORMAT_NINO": {
+                          "description": "The format of the supplied NINO field is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_NINO",
+                            "message": "The provided NINO is invalid"
+                          }
+                        },
+                        "FORMAT_TAX_YEAR": {
+                          "description": "The format of the supplied taxYear value is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_TAX_YEAR",
+                            "message": "The provided tax year is invalid"
+                          }
+                        },
+                        "RULE_INCORRECT_GOV_TEST_SCENARIO": {
+                          "description": "The request did not match any available Sandbox data. Check that the supplied Gov-Test-Scenario is correct for this endpoint version. \n\nThis error will only be returned in the Sandbox environment.\n",
+                          "value": {
+                            "code": "RULE_INCORRECT_GOV_TEST_SCENARIO",
+                            "message": "The supplied Gov-Test-Scenario is not valid"
+                          }
+                        },
+                        "RULE_TAX_YEAR_NOT_SUPPORTED": {
+                          "description": "The specified tax year is not supported. \nEither the tax year specified is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "value": {
+                            "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
+                            "message": "The tax year specified does not lie within the supported range"
+                          }
+                        },
+                        "RULE_TAX_YEAR_RANGE_INVALID": {
+                          "description": "Tax year range invalid. A tax year range of one year is required.",
+                          "value": {
+                            "code": "RULE_TAX_YEAR_RANGE_INVALID",
+                            "message": "Tax year range invalid. A tax year range of one year is required"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "description": "Error Response",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "description": "The error code",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "The error message",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Bad request",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "See the API documentation:\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/individual-calculations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "CLIENT_OR_AGENT_NOT_AUTHORISED": {
+                          "description": "The client and/or agent is not authorised. \nThis is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, \nor the client has not authorised the agent to act on their behalf.\n",
+                          "value": {
+                            "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
+                            "message": "The client and/or agent is not authorised"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "description": "Error Response",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "description": "The error code",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "The error message",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Forbidden",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "See the API documentation:\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/individual-calculations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "MATCHING_RESOURCE_NOT_FOUND": {
+                          "description": "The matching resource was not found.\n",
+                          "value": {
+                            "code": "MATCHING_RESOURCE_NOT_FOUND",
+                            "message": "Matching resource not found"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "description": "Error Response",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "description": "The error code",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "The error message",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Not Found",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "See the API documentation:\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/individual-calculations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "401": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MISSING_CREDENTIALS",
+                              "INVALID_CREDENTIALS",
+                              "UNAUTHORIZED",
+                              "INCORRECT_ACCESS_TOKEN_TYPE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MISSING_CREDENTIALS",
+                          "message": "Authentication information is not provided"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "405": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "METHOD_NOT_ALLOWED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "METHOD_NOT_ALLOWED",
+                          "message": "Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "406": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "ACCEPT_HEADER_INVALID"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "ACCEPT_HEADER_INVALID",
+                          "message": "Missint or invalid Accept header"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "429": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MESSAGE_THROTTLED_OUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MESSAGE_THROTTLED_OUT",
+                          "message": "The application has reached its maximum rate limit"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "500": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "Error Code",
+                                "enum": [
+                                  "INTERNAL_SERVER_ERROR"
+                                ]
+                              },
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object",
+                            "example": {
+                              "code": "INTERNAL_SERVER_ERROR",
+                              "message": "Internal server error"
+                            }
+                          },
+                          {
+                            "type": "string",
+                            "example": "Failed to process request"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "501": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "NOT_IMPLEMENTED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "NOT_IMPLEMENTED",
+                          "message": "API not implemented or deployed"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "503": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "SERVER_ERROR",
+                              "SCHEDULED_MAINTENANCE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "SCHEDULED_MAINTENANCE",
+                          "message": "Scheduled maintenance"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "504": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "GATEWAY_TIMEOUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "GATEWAY_TIMEOUT",
+                          "message": "Request timed out"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                }
+              },
+              "security": [
+                {
+                  "User-Restricted": [
+                    "read:self-assessment"
+                  ]
+                }
+              ],
+              "summary": "Retrieve Provisional Figures Information [test only]",
               "tags": [
                 "Provisional Figures Information"
               ]
@@ -46035,7 +46639,8 @@
                                     "ukPropertyIncome": {
                                       "currentYearLossAppliedToGeneralIncome": 5000.99,
                                       "profitOrLossAdjustment": -99999999999.99,
-                                      "shareOfProfitOrLoss": -99999999999.99
+                                      "shareOfProfitOrLoss": -99999999999.99,
+                                      "shareOfTaxableProfit": 5000.99
                                     },
                                     "untaxedSavings": 5000.99
                                   }
@@ -83664,6 +84269,14 @@
                                                 },
                                                 "currentYearLossAppliedToGeneralIncome": {
                                                   "description": "The amount of the current tax year's UK property loss set off against the individual's other income for the tax year. This value must be between 0 and 99999999999.99 up to 2 decimal places.",
+                                                  "type": "number",
+                                                  "multipleOf": 0.01,
+                                                  "minimum": 0,
+                                                  "maximum": 99999999999.99,
+                                                  "example": 5000.99
+                                                },
+                                                "shareOfTaxableProfit": {
+                                                  "description": "The individual's share of the partnership's UK property total taxable profit. This value must be between 0 and 99999999999.99 up to 2 decimal places.",
                                                   "type": "number",
                                                   "multipleOf": 0.01,
                                                   "minimum": 0,
