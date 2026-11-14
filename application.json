@@ -6558,8 +6558,10 @@
                   "authorizationUrl": "https://api.service.hmrc.gov.uk/oauth/authorize",
                   "refreshUrl": "https://api.service.hmrc.gov.uk/oauth/refresh",
                   "scopes": {
+                    "read:check-relationship": "Grants read access to check a client relationship",
                     "read:sent-invitations": "Grants read access to sent invitations",
                     "write:cancel-invitations": "Grants write access to cancel invitations",
+                    "write:relationships": "Grants write access to client relationships",
                     "write:sent-invitations": "Grants write access to sent invitations"
                   },
                   "tokenUrl": "https://api.service.hmrc.gov.uk/oauth/token"
@@ -6570,7 +6572,7 @@
           }
         },
         "info": {
-          "description": "Create and manage requests for a client to authorise an agent.\nThis draft documents only the V3 operations currently implemented. Version 3.0 is not advertised through the API definition until the V3 release is enabled.",
+          "description": "Create and manage requests for a client to authorise an agent.\nVersion 3.0 is registered as a controlled API while its contract and External Test behaviour are validated. External availability is determined by the API access configured in each deployed environment.",
           "title": "Agent Authorisation",
           "version": "3.0"
         },
@@ -7221,11 +7223,6 @@
                             "service",
                             "clientId"
                           ],
-                          "not": {
-                            "required": [
-                              "knownFact"
-                            ]
-                          },
                           "properties": {
                             "service": {
                               "type": "string",
@@ -8786,7 +8783,7 @@
                   }
                 },
                 {
-                  "description": "The service for which the client relationship should be removed.",
+                  "description": "The service for the client relationship.",
                   "in": "path",
                   "name": "service",
                   "required": true,
@@ -9157,10 +9154,470 @@
               },
               "security": [
                 {
-                  "User-Restricted": []
+                  "User-Restricted": [
+                    "write:relationships"
+                  ]
                 }
               ],
               "summary": "Remove an existing client relationship",
+              "tags": [
+                "Agents"
+              ]
+            },
+            "get": {
+              "description": "Checks whether the calling agency has a relationship with the client and, when it does, whether the calling agent user is assigned to the client.",
+              "operationId": "checkRelationshipV3",
+              "parameters": [
+                {
+                  "description": "The agent reference number for the calling agency, including a valid check character.",
+                  "in": "path",
+                  "name": "arn",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "pattern": "^[A-Z]ARN[0-9]{7}$",
+                    "example": "TARN0000001"
+                  }
+                },
+                {
+                  "description": "The service for the client relationship.",
+                  "in": "path",
+                  "name": "service",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "MTD-IT",
+                      "MTD-VAT",
+                      "PILLAR2",
+                      "PPT",
+                      "CGT-PD",
+                      "IRV",
+                      "CBC",
+                      "TRUSTS"
+                    ],
+                    "example": "MTD-IT"
+                  }
+                },
+                {
+                  "description": "The client identifier for the selected service.",
+                  "in": "path",
+                  "name": "clientId",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "description": "Selects version 3.0 of the API.",
+                  "in": "header",
+                  "name": "Accept",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "application/vnd.hmrc.3.0+json"
+                    ]
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "assigned": {
+                          "value": {
+                            "agentAuthorised": true,
+                            "userAssigned": true
+                          }
+                        },
+                        "noRelationship": {
+                          "value": {
+                            "agentAuthorised": false
+                          }
+                        },
+                        "unassignedMtdItSupporting": {
+                          "value": {
+                            "agentAuthorised": true,
+                            "agentType": "supporting",
+                            "userAssigned": false
+                          }
+                        }
+                      },
+                      "schema": {
+                        "type": "object",
+                        "required": [
+                          "agentAuthorised"
+                        ],
+                        "properties": {
+                          "agentAuthorised": {
+                            "type": "boolean",
+                            "description": "Whether the agency has a relationship with the client for the requested service."
+                          },
+                          "userAssigned": {
+                            "type": "boolean",
+                            "description": "Whether the calling agent user is assigned to the client. Present only when agentAuthorised is true."
+                          },
+                          "agentType": {
+                            "type": "string",
+                            "description": "The MTD-IT relationship type. Present only for an authorised MTD-IT relationship.",
+                            "enum": [
+                              "main",
+                              "supporting",
+                              "mtdSignup"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "The relationship and user-assignment status."
+                },
+                "400": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "incompatibleClientId": {
+                          "value": {
+                            "code": "CLIENT_ID_INCOMPATIBLE_WITH_SERVICE",
+                            "message": "The specified client identifier does not match the requested service. Check the API documentation to find the correct format."
+                          }
+                        },
+                        "invalidArn": {
+                          "value": {
+                            "code": "ARN_FORMAT_INVALID",
+                            "message": "Bad Request"
+                          }
+                        },
+                        "invalidClientId": {
+                          "value": {
+                            "code": "CLIENT_ID_FORMAT_INVALID",
+                            "message": "Client identifier must be in the correct format. Check the API documentation to find the correct format."
+                          }
+                        },
+                        "unsupportedService": {
+                          "value": {
+                            "code": "SERVICE_NOT_SUPPORTED",
+                            "message": "The service requested is not supported. Check the API documentation to find which services are supported."
+                          }
+                        }
+                      },
+                      "schema": {
+                        "type": "object",
+                        "required": [
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "A path parameter or service/client identifier combination is invalid."
+                },
+                "401": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "code": "UNAUTHORIZED",
+                        "message": "Bearer token is missing or not authorized."
+                      },
+                      "schema": {
+                        "type": "object",
+                        "required": [
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "The bearer token is missing or is not authorised."
+                },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "agentNotSubscribed": {
+                          "value": {
+                            "code": "AGENT_NOT_SUBSCRIBED",
+                            "message": "This agent needs to create an agent services account before they can use this service."
+                          }
+                        },
+                        "noPermissionOnAgency": {
+                          "value": {
+                            "code": "NO_PERMISSION_ON_AGENCY",
+                            "message": "The user that is signed in cannot access this authorisation request. Their details do not match the agent business that created the authorisation request."
+                          }
+                        },
+                        "notAnAgent": {
+                          "value": {
+                            "code": "NOT_AN_AGENT",
+                            "message": "This user does not have a Government Gateway agent account. They need to create an Government Gateway agent account before they can use this service."
+                          }
+                        }
+                      },
+                      "schema": {
+                        "type": "object",
+                        "required": [
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "The caller is not permitted to access this agency's invitations."
+                },
+                "406": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "invalidAcceptHeader": {
+                          "value": {
+                            "code": "ACCEPT_HEADER_INVALID",
+                            "message": "Invalid 'Accept' header."
+                          }
+                        },
+                        "missingAcceptHeader": {
+                          "value": {
+                            "code": "ACCEPT_HEADER_INVALID",
+                            "message": "Missing 'Accept' header."
+                          }
+                        }
+                      },
+                      "schema": {
+                        "type": "object",
+                        "required": [
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "The Accept header is missing or invalid."
+                },
+                "500": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "code": "INTERNAL_SERVER_ERROR",
+                        "message": "Internal server error."
+                      },
+                      "schema": {
+                        "type": "object",
+                        "required": [
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "An unexpected error occurred."
+                },
+                "404": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MATCHING_RESOURCE_NOT_FOUND"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MATCHING_RESOURCE_NOT_FOUND",
+                          "message": "No endpoint for the request path"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "405": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "METHOD_NOT_ALLOWED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "METHOD_NOT_ALLOWED",
+                          "message": "Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "429": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MESSAGE_THROTTLED_OUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MESSAGE_THROTTLED_OUT",
+                          "message": "The application has reached its maximum rate limit"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "501": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "NOT_IMPLEMENTED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "NOT_IMPLEMENTED",
+                          "message": "API not implemented or deployed"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "503": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "SERVER_ERROR",
+                              "SCHEDULED_MAINTENANCE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "SCHEDULED_MAINTENANCE",
+                          "message": "Scheduled maintenance"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "504": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "GATEWAY_TIMEOUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "GATEWAY_TIMEOUT",
+                          "message": "Request timed out"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                }
+              },
+              "security": [
+                {
+                  "User-Restricted": [
+                    "read:check-relationship"
+                  ]
+                }
+              ],
+              "summary": "Check the status of a client relationship",
               "tags": [
                 "Agents"
               ]
@@ -204188,6 +204645,620 @@
               "tags": [
                 "Provisional Figures Information"
               ]
+            },
+            "put": {
+              "description": "This endpoint is used to create or amend provisional figures information to confirm whether provisional figures are included in a tax return and, where applicable, to provide the reason for using them and the expected date when final figures will be available. A National Insurance number and tax year are required. This endpoint can only be used after the tax year has ended.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n| Header Value (Gov-Test-Scenario)      | Scenario                                                                                        |\n|---------------------------------------|-------------------------------------------------------------------------------------------------|\n| N/A - DEFAULT                         | Simulates success response.                                                                     |\n| NOT_FOUND                             | Simulates the scenario where no data is found.                                                  |\n| OUTSIDE_AMENDMENT_WINDOW              | Simulates the scenario where request cannot be completed as it is outside the amendment window.\t|\n| STATEFUL                              | Performs a stateful create or update.                                                           |\n",
+              "parameters": [
+                {
+                  "description": "National Insurance number, in the format `AA999999A`\n",
+                  "in": "path",
+                  "name": "nino",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "TC663795B"
+                  }
+                },
+                {
+                  "description": "The tax year the data applies to, for example, 2026-27. \nThe start year and end year must not span two tax years. \nThe minimum tax year is 2026-27. No gaps are allowed, for example, 2026-28 is not valid.\n",
+                  "in": "path",
+                  "name": "taxYear",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "2026-27"
+                  }
+                },
+                {
+                  "description": "Specifies the response format and the version of the API to be used.\n",
+                  "in": "header",
+                  "name": "Accept",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "application/vnd.hmrc.9.0+json"
+                    ]
+                  }
+                },
+                {
+                  "description": "An OAuth 2.0 Bearer Token with the *write:self-assessment* scope.\n",
+                  "in": "header",
+                  "name": "Authorization",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "example": "Bearer bb7fed3fe10dd235a2ccda3d50fb"
+                  }
+                },
+                {
+                  "description": "Only in sandbox environment. See Test Data table for all header values.\n",
+                  "in": "header",
+                  "name": "Gov-Test-Scenario",
+                  "required": false,
+                  "schema": {
+                    "type": "string",
+                    "example": "-"
+                  }
+                },
+                {
+                  "description": "Only in the sandbox environment. When supplied and set to `true`, this header relaxes tax year validation rule to \nallow in-year submissions for endpoints configured for end-of-year submissions. Not supplying the header or setting \nit to `false` results in a `RULE_TAX_YEAR_NOT_ENDED` error for in-year submissions. In Production, the header is\nignored and normal validations apply.\n",
+                  "in": "header",
+                  "name": "suspend-temporal-validations",
+                  "required": false,
+                  "schema": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                }
+              ],
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "example": {
+                      "expectedDate": "2027-10-05",
+                      "provisionalFiguresIndicator": true,
+                      "supplementaryInformation": "Provisional figures used pending final confirmation."
+                    },
+                    "schema": {
+                      "$schema": "http://json-schema.org/draft-04/schema#",
+                      "title": "Create or Amend Provisional Figures Information",
+                      "description": "This endpoint is used to create or amend provisional figures information to confirm whether provisional figures are included in a tax return and, where applicable, to provide the reason for using them and the expected date when final figures will be available. A National Insurance number and tax year are required. This endpoint can only be used after the tax year has ended.",
+                      "type": "object",
+                      "properties": {
+                        "provisionalFiguresIndicator": {
+                          "description": "Indicates whether provisional figures are included in the tax return. The value must be true.",
+                          "type": "boolean",
+                          "example": true
+                        },
+                        "expectedDate": {
+                          "description": "The expected date when the final figures will be available. This date must be in the future.\n\nMust conform to the format: YYYY-MM-DD",
+                          "type": "string",
+                          "example": "2027-10-05"
+                        },
+                        "supplementaryInformation": {
+                          "description": "Additional information describing the use of provisional figures. Must not be empty or contain only whitespace.",
+                          "type": "string",
+                          "pattern": "^[A-Za-z0-9 &'\"()*,\\-./@\u00a3]{1,4000}$",
+                          "example": "Provisional figures used pending final confirmation."
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "provisionalFiguresIndicator"
+                      ]
+                    }
+                  }
+                },
+                "required": true
+              },
+              "responses": {
+                "204": {
+                  "description": "Success (No Content)",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "See the API documentation:\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/individual-calculations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "FORMAT_EXPECTED_DATE": {
+                          "description": "The format of the supplied expectedDate value is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_EXPECTED_DATE",
+                            "message": "The provided expectedDate is invalid"
+                          }
+                        },
+                        "FORMAT_NINO": {
+                          "description": "The format of the supplied NINO field is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_NINO",
+                            "message": "The provided NINO is invalid"
+                          }
+                        },
+                        "FORMAT_SUPPLEMENTARY_INFORMATION": {
+                          "description": "The format of the supplied supplementaryInformation is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_SUPPLEMENTARY_INFORMATION",
+                            "message": "The provided supplementaryInformation is invalid"
+                          }
+                        },
+                        "FORMAT_TAX_YEAR": {
+                          "description": "The format of the supplied taxYear value is not valid.\n",
+                          "value": {
+                            "code": "FORMAT_TAX_YEAR",
+                            "message": "The provided tax year is invalid"
+                          }
+                        },
+                        "RULE_EXPECTED_DATE_NOT_IN_FUTURE": {
+                          "description": "The expectedDate must be in the future.\n",
+                          "value": {
+                            "code": "RULE_EXPECTED_DATE_NOT_IN_FUTURE",
+                            "message": "The expectedDate must be in the future."
+                          }
+                        },
+                        "RULE_INCORRECT_GOV_TEST_SCENARIO": {
+                          "description": "The request did not match any available Sandbox data. Check that the supplied Gov-Test-Scenario is correct for this endpoint version. \n\nThis error will only be returned in the Sandbox environment.\n",
+                          "value": {
+                            "code": "RULE_INCORRECT_GOV_TEST_SCENARIO",
+                            "message": "The supplied Gov-Test-Scenario is not valid"
+                          }
+                        },
+                        "RULE_INCORRECT_OR_EMPTY_BODY_SUBMITTED": {
+                          "description": "An empty or non-matching body was submitted.\n",
+                          "value": {
+                            "code": "RULE_INCORRECT_OR_EMPTY_BODY_SUBMITTED",
+                            "message": "An empty or non-matching body was submitted."
+                          }
+                        },
+                        "RULE_OUTSIDE_AMENDMENT_WINDOW": {
+                          "description": "The client and/or agent is outside the amendment window.\n",
+                          "value": {
+                            "code": "RULE_OUTSIDE_AMENDMENT_WINDOW",
+                            "message": "You are outside the amendment window"
+                          }
+                        },
+                        "RULE_PROVISIONAL_FIGURES_INDICATOR_INVALID": {
+                          "description": "The provisionalFiguresIndicator must be set to true.\n",
+                          "value": {
+                            "code": "RULE_PROVISIONAL_FIGURES_INDICATOR_INVALID",
+                            "message": "The provisionalFiguresIndicator must be set to true."
+                          }
+                        },
+                        "RULE_TAX_YEAR_NOT_ENDED": {
+                          "description": "The submission has been made before the taxYear it relates to has ended.\n",
+                          "value": {
+                            "code": "RULE_TAX_YEAR_NOT_ENDED",
+                            "message": "The specified tax year has not yet ended"
+                          }
+                        },
+                        "RULE_TAX_YEAR_NOT_SUPPORTED": {
+                          "description": "The specified tax year is not supported. \nEither the tax year specified is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "value": {
+                            "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
+                            "message": "The tax year specified does not lie within the supported range"
+                          }
+                        },
+                        "RULE_TAX_YEAR_RANGE_INVALID": {
+                          "description": "Tax year range invalid. A tax year range of one year is required.",
+                          "value": {
+                            "code": "RULE_TAX_YEAR_RANGE_INVALID",
+                            "message": "Tax year range invalid. A tax year range of one year is required"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "description": "Error Response",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "description": "The error code",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "The error message",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Bad request",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "See the API documentation:\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/individual-calculations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "examples": {
+                        "CLIENT_OR_AGENT_NOT_AUTHORISED": {
+                          "description": "The client and/or agent is not authorised. \nThis is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, \nor the client has not authorised the agent to act on their behalf.\n",
+                          "value": {
+                            "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
+                            "message": "The client and/or agent is not authorised"
+                          }
+                        }
+                      },
+                      "schema": {
+                        "description": "Error Response",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "description": "The error code",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "The error message",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Forbidden",
+                  "headers": {
+                    "Deprecation": {
+                      "description": "The deprecation date/time for this endpoint.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 01 Jan 2023 23:59:59 GMT"
+                      }
+                    },
+                    "Link": {
+                      "description": "See the API documentation:\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/individual-calculations-api"
+                      }
+                    },
+                    "Sunset": {
+                      "description": "The earliest date/time this endpoint will become unavailable after deprecation.\n",
+                      "required": false,
+                      "schema": {
+                        "type": "string",
+                        "example": "Sun, 02 Jul 2023 23:59:59 GMT"
+                      }
+                    },
+                    "X-CorrelationId": {
+                      "description": "Unique ID for operation tracking\nString, 36 characters.\n",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "example": "c75f40a6-a3df-4429-a697-471eeec46435"
+                      }
+                    }
+                  }
+                },
+                "401": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MISSING_CREDENTIALS",
+                              "INVALID_CREDENTIALS",
+                              "UNAUTHORIZED",
+                              "INCORRECT_ACCESS_TOKEN_TYPE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MISSING_CREDENTIALS",
+                          "message": "Authentication information is not provided"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "404": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MATCHING_RESOURCE_NOT_FOUND"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MATCHING_RESOURCE_NOT_FOUND",
+                          "message": "No endpoint for the request path"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "405": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "METHOD_NOT_ALLOWED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "METHOD_NOT_ALLOWED",
+                          "message": "Request method must be one of GET, PUT, POST, PATCH, DELETE or OPTIONS"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "406": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "ACCEPT_HEADER_INVALID"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "ACCEPT_HEADER_INVALID",
+                          "message": "Missint or invalid Accept header"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "429": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "MESSAGE_THROTTLED_OUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "MESSAGE_THROTTLED_OUT",
+                          "message": "The application has reached its maximum rate limit"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "500": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "Error Code",
+                                "enum": [
+                                  "INTERNAL_SERVER_ERROR"
+                                ]
+                              },
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object",
+                            "example": {
+                              "code": "INTERNAL_SERVER_ERROR",
+                              "message": "Internal server error"
+                            }
+                          },
+                          {
+                            "type": "string",
+                            "example": "Failed to process request"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "501": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "NOT_IMPLEMENTED"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "NOT_IMPLEMENTED",
+                          "message": "API not implemented or deployed"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "503": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "SERVER_ERROR",
+                              "SCHEDULED_MAINTENANCE"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "SCHEDULED_MAINTENANCE",
+                          "message": "Scheduled maintenance"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                },
+                "504": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Error Code",
+                            "enum": [
+                              "GATEWAY_TIMEOUT"
+                            ]
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object",
+                        "example": {
+                          "code": "GATEWAY_TIMEOUT",
+                          "message": "Request timed out"
+                        }
+                      }
+                    }
+                  },
+                  "description": "UNAUTHORISED Response"
+                }
+              },
+              "security": [
+                {
+                  "User-Restricted": [
+                    "write:self-assessment"
+                  ]
+                }
+              ],
+              "summary": "Create or Amend Provisional Figures Information [test only]",
+              "tags": [
+                "Provisional Figures Information"
+              ]
             }
           },
           "/individuals/calculations/{nino}/self-assessment/{taxYear}": {
@@ -227245,7 +228316,7 @@
                                     "example": "2019-02-15T09:35:15.094Z"
                                   },
                                   "calculationReason": {
-                                    "description": "The reason why the calculation was triggered. \n\nPossible values are: \n\n* **customer-request** - The calculation was triggered by the customer via software.\n\n* **class2-nic-event** - The calculation was triggered internally by HMRC once the actual Class 2 NIC amount became available. This event is only applicable for an in-year \"final-declaration\" calculation type.\n\n* **new-loss-event** - The calculation was triggered by HMRC on receipt of a new pre-MTD brought forward loss made by the customer. This event is only applicable for a \"final-declaration\" calculation type. This event is not currently supported and will be supported in the future.\n\n* **new-claim-event** - The calculation was triggered by HMRC on receipt of a new loss claim made by the customer. This event is only applicable for a \"final-declaration\" calculation type. This event is not currently supported and will be supported in the future.\n\n* **updated-claim-event** - The calculation was triggered internally by HMRC on receipt of an updated loss claim made by the customer. This event is only applicable for a \"final-declaration\" calculation type. This event is not currently supported and will be supported in the future.\n\n* **updated-loss-event** - The calculation was triggered internally by HMRC on receipt of an updated pre-MTD brought forward loss made by the customer. This event is only applicable for a \"final-declaration\" calculation type. This event is not currently supported and will be supported in the future.\n\n* **new-annual-adjustment-event** - The calculation was triggered internally by HMRC on receipt of a request for a new adjustable summary calculation by the customer. This event is not currently supported.\n\n* **updated-annual-adjustment-event** - The calculation was triggered internally by HMRC on receipt of an adjustment to an adjustable summary calculation made by the customer. This event is not currently supported.\n\n* **unattended-calculation** - HMRC has updated the calculation for you. You can see more details in your record-keeping software.",
+                                    "description": "The reason why the calculation was triggered. \n\nPossible values are: \n\n* **customer-request** - The calculation was triggered by the customer via software.\n\n* **class2-nic-event** - The calculation was triggered internally by HMRC once the actual Class 2 NIC amount became available. This event is only applicable for an in-year \"final-declaration\" calculation type.\n\n* **new-loss-event** - The calculation was triggered by HMRC on receipt of a new pre-MTD brought forward loss made by the customer. This event is only applicable for a \"final-declaration\" calculation type. This event is not currently supported and will be supported in the future.\n\n* **new-claim-event** - The calculation was triggered by HMRC on receipt of a new loss claim made by the customer. This event is only applicable for a \"final-declaration\" calculation type. This event is not currently supported and will be supported in the future.\n\n* **updated-claim-event** - The calculation was triggered internally by HMRC on receipt of an updated loss claim made by the customer. This event is only applicable for a \"final-declaration\" calculation type. This event is not currently supported and will be supported in the future.\n\n* **updated-loss-event** - The calculation was triggered internally by HMRC on receipt of an updated pre-MTD brought forward loss made by the customer. This event is only applicable for a \"final-declaration\" calculation type. This event is not currently supported and will be supported in the future.\n\n* **new-annual-adjustment-event** - The calculation was triggered internally by HMRC on receipt of a request for a new adjustable summary calculation by the customer. This event is not currently supported.\n\n* **updated-annual-adjustment-event** - The calculation was triggered internally by HMRC on receipt of an adjustment to an adjustable summary calculation made by the customer. This event is not currently supported.\n\n* **unattended-calculation** - HMRC has updated the calculation for you. You can see more details in your record-keeping software.\n\n* **enquiry-amendment** - The calculation was triggered internally by HMRC following a Revenue Amendment made as part of an enquiry.",
                                     "type": "string",
                                     "enum": [
                                       "customer-request",
@@ -227256,7 +228327,8 @@
                                       "updated-loss-event",
                                       "new-annual-adjustment-event",
                                       "updated-annual-adjustment-event",
-                                      "unattended-calculation"
+                                      "unattended-calculation",
+                                      "enquiry-amendment"
                                     ]
                                   },
                                   "calculationTimestamp": {
@@ -242608,7 +243680,7 @@
                                           {
                                             "type": "number",
                                             "multipleOf": 0.01,
-                                            "minimum": -99999999999.99,
+                                            "minimum": 0,
                                             "maximum": 99999999999.99,
                                             "example": 5000.99
                                           }
@@ -250931,7 +252003,7 @@
                                           {
                                             "type": "number",
                                             "multipleOf": 0.01,
-                                            "minimum": -99999999999.99,
+                                            "minimum": 0,
                                             "maximum": 99999999999.99,
                                             "example": 5000.99
                                           }
@@ -272050,6 +273122,7 @@
                             "gainsFromQahcBeforeLosses": 99999999999.99,
                             "lossesFromQahc": 99999999999.99
                           },
+                          "supplementaryInformation": "Additional information relating to the disposal of an asset and the justification for the relief code applied.",
                           "unlistedShares": [
                             {
                               "acquisitionDate": "2026-04-10",
@@ -273644,6 +274717,12 @@
                                   "maximum": 99999999999.99
                                 }
                               }
+                            },
+                            "supplementaryInformation": {
+                              "type": "string",
+                              "description": "[Test only] Additional information relating to Capital Gains Tax (CGT), including justifications for relief codes. Must not be empty or contain only whitespace.",
+                              "example": "Additional information relating to the disposal of an asset and the justification for the relief code applied.",
+                              "pattern": "^[A-Za-z0-9 &'\"()*,\\-./@\u00a3]{1,20480}$"
                             }
                           }
                         }
@@ -532942,7 +534021,7 @@
                             "message": "The provided to date is invalid"
                           }
                         },
-                        "invalidNino": {
+                        "invalidVrn": {
                           "description": "Invalid VRN",
                           "value": {
                             "code": "VRN_INVALID",
@@ -533551,18 +534630,18 @@
                             "message": "The provided to date is invalid"
                           }
                         },
-                        "invalidNino": {
-                          "description": "Invalid VRN",
-                          "value": {
-                            "code": "VRN_INVALID",
-                            "message": "The provided VRN is invalid"
-                          }
-                        },
                         "invalidStatus": {
                           "description": "Invalid status",
                           "value": {
                             "code": "INVALID_STATUS",
                             "message": "The provided data is failed validation, invalid status"
+                          }
+                        },
+                        "invalidVrn": {
+                          "description": "Invalid VRN",
+                          "value": {
+                            "code": "VRN_INVALID",
+                            "message": "The provided VRN is invalid"
                           }
                         }
                       },
@@ -534086,7 +535165,7 @@
                             "message": "The provided to date is invalid"
                           }
                         },
-                        "invalidNino": {
+                        "invalidVrn": {
                           "description": "Invalid VRN",
                           "value": {
                             "code": "VRN_INVALID",
@@ -536604,7 +537683,7 @@
                   "content": {
                     "application/json": {
                       "examples": {
-                        "invalidNino": {
+                        "invalidVrn": {
                           "description": "The provided VRN is invalid",
                           "value": {
                             "code": "VRN_INVALID",

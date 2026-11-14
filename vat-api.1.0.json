@@ -1542,7 +1542,7 @@
                             "message": "The provided to date is invalid"
                           }
                         },
-                        "invalidNino": {
+                        "invalidVrn": {
                           "description": "Invalid VRN",
                           "value": {
                             "code": "VRN_INVALID",
@@ -2151,18 +2151,18 @@
                             "message": "The provided to date is invalid"
                           }
                         },
-                        "invalidNino": {
-                          "description": "Invalid VRN",
-                          "value": {
-                            "code": "VRN_INVALID",
-                            "message": "The provided VRN is invalid"
-                          }
-                        },
                         "invalidStatus": {
                           "description": "Invalid status",
                           "value": {
                             "code": "INVALID_STATUS",
                             "message": "The provided data is failed validation, invalid status"
+                          }
+                        },
+                        "invalidVrn": {
+                          "description": "Invalid VRN",
+                          "value": {
+                            "code": "VRN_INVALID",
+                            "message": "The provided VRN is invalid"
                           }
                         }
                       },
@@ -2686,7 +2686,7 @@
                             "message": "The provided to date is invalid"
                           }
                         },
-                        "invalidNino": {
+                        "invalidVrn": {
                           "description": "Invalid VRN",
                           "value": {
                             "code": "VRN_INVALID",
@@ -5204,7 +5204,7 @@
                   "content": {
                     "application/json": {
                       "examples": {
-                        "invalidNino": {
+                        "invalidVrn": {
                           "description": "The provided VRN is invalid",
                           "value": {
                             "code": "VRN_INVALID",
