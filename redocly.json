@@ -152009,8 +152009,8 @@
                             "messages": {
                               "errors": [
                                 {
-                                  "id": "C95005",
-                                  "text": "Final confirmation of income and expenses for all business sources has not been provided"
+                                  "id": "C55508",
+                                  "text": "You cannot claim property allowance and business expenses. Please choose one and resubmit your return."
                                 }
                               ],
                               "info": [
@@ -153115,8 +153115,8 @@
                             "messages": {
                               "errors": [
                                 {
-                                  "id": "C95005",
-                                  "text": "Final confirmation of income and expenses for all business sources has not been provided"
+                                  "id": "C55508",
+                                  "text": "You cannot claim property allowance and business expenses. Please choose one and resubmit your return."
                                 }
                               ],
                               "info": [
@@ -188110,14 +188110,14 @@
                           "description": "The format of the supplied NINO field is not valid.\n",
                           "value": {
                             "code": "FORMAT_NINO",
-                            "message": "The provided NINO is invalid"
+                            "message": "The NINO format is invalid"
                           }
                         },
                         "FORMAT_TAX_YEAR": {
                           "description": "The format of the supplied taxYear value is not valid.\n",
                           "value": {
                             "code": "FORMAT_TAX_YEAR",
-                            "message": "The provided tax year is invalid"
+                            "message": "The provided tax year format is invalid"
                           }
                         },
                         "RULE_CALCULATION_TYPE_NOT_ALLOWED": {
@@ -188135,7 +188135,7 @@
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {
-                          "description": "The specified tax year is not supported. \nEither the tax year specified is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "description": "The specified tax year is not supported. The tax year specified is before the minimum tax year value.\n",
                           "value": {
                             "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
                             "message": "The tax year specified does not lie within the supported range"
@@ -188145,7 +188145,7 @@
                           "description": "Tax year range invalid. A tax year range of one year is required.",
                           "value": {
                             "code": "RULE_TAX_YEAR_RANGE_INVALID",
-                            "message": "Tax year range invalid. A tax year range of one year is required"
+                            "message": "A tax year range of one year is required"
                           }
                         }
                       },
@@ -188209,10 +188209,10 @@
                     "application/json": {
                       "examples": {
                         "CLIENT_OR_AGENT_NOT_AUTHORISED": {
-                          "description": "The client and/or agent is not authorised. \nThis is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, \nor the client has not authorised the agent to act on their behalf.\n",
+                          "description": "The client or agent is not authorised. This is because: the client is not subscribed to MTD,\nthe agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.\n",
                           "value": {
                             "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                            "message": "The client and/or agent is not authorised"
+                            "message": "The client or agent is not authorised"
                           }
                         }
                       },
@@ -188729,14 +188729,14 @@
                           "description": "The format of the supplied NINO field is not valid.\n",
                           "value": {
                             "code": "FORMAT_NINO",
-                            "message": "The provided NINO is invalid"
+                            "message": "The NINO format is invalid"
                           }
                         },
                         "FORMAT_TAX_YEAR": {
                           "description": "The format of the supplied taxYear value is not valid.\n",
                           "value": {
                             "code": "FORMAT_TAX_YEAR",
-                            "message": "The provided tax year is invalid"
+                            "message": "The provided tax year format is invalid"
                           }
                         },
                         "RULE_BUSINESS_VALIDATION_FAILURE": {
@@ -188796,7 +188796,7 @@
                           }
                         },
                         "RULE_OUTSIDE_AMENDMENT_WINDOW": {
-                          "description": "The client and/or agent is outside the amendment window.\n",
+                          "description": "The request cannot be completed as you are outside the amendment window.\n",
                           "value": {
                             "code": "RULE_OUTSIDE_AMENDMENT_WINDOW",
                             "message": "You are outside the amendment window"
@@ -188831,7 +188831,7 @@
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {
-                          "description": "The specified tax year is not supported. \nEither the tax year specified is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "description": "The specified tax year is not supported. The tax year specified is before the minimum tax year value.\n",
                           "value": {
                             "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
                             "message": "The tax year specified does not lie within the supported range"
@@ -188841,7 +188841,7 @@
                           "description": "Tax year range invalid. A tax year range of one year is required.",
                           "value": {
                             "code": "RULE_TAX_YEAR_RANGE_INVALID",
-                            "message": "Tax year range invalid. A tax year range of one year is required"
+                            "message": "A tax year range of one year is required"
                           }
                         }
                       },
@@ -188905,10 +188905,10 @@
                     "application/json": {
                       "examples": {
                         "CLIENT_OR_AGENT_NOT_AUTHORISED": {
-                          "description": "The client and/or agent is not authorised. \nThis is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, \nor the client has not authorised the agent to act on their behalf.\n",
+                          "description": "The client or agent is not authorised. This is because: the client is not subscribed to MTD,\nthe agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.\n",
                           "value": {
                             "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                            "message": "The client and/or agent is not authorised"
+                            "message": "The client or agent is not authorised"
                           }
                         }
                       },
@@ -190437,8 +190437,8 @@
                             "messages": {
                               "errors": [
                                 {
-                                  "id": "C95005",
-                                  "text": "Final confirmation of income and expenses for all business sources has not been provided"
+                                  "id": "C55508",
+                                  "text": "You cannot claim property allowance and business expenses. Please choose one and resubmit your return."
                                 }
                               ],
                               "info": [
@@ -191543,8 +191543,8 @@
                             "messages": {
                               "errors": [
                                 {
-                                  "id": "C95005",
-                                  "text": "Final confirmation of income and expenses for all business sources has not been provided"
+                                  "id": "C55508",
+                                  "text": "You cannot claim property allowance and business expenses. Please choose one and resubmit your return."
                                 }
                               ],
                               "info": [
@@ -225529,24 +225529,24 @@
                     "application/json": {
                       "examples": {
                         "FORMAT_CALCULATION_ID": {
-                          "description": "Invalid Calculation ID.\n",
+                          "description": "The format of the supplied calculation ID is not valid.\n",
                           "value": {
                             "code": "FORMAT_CALCULATION_ID",
-                            "message": "The provided calculationId is invalid"
+                            "message": "The provided calculation ID is invalid"
                           }
                         },
                         "FORMAT_NINO": {
                           "description": "The format of the supplied NINO field is not valid.\n",
                           "value": {
                             "code": "FORMAT_NINO",
-                            "message": "The provided NINO is invalid"
+                            "message": "The NINO format is invalid"
                           }
                         },
                         "FORMAT_TAX_YEAR": {
                           "description": "The format of the supplied taxYear value is not valid.\n",
                           "value": {
                             "code": "FORMAT_TAX_YEAR",
-                            "message": "The provided tax year is invalid"
+                            "message": "The provided tax year format is invalid"
                           }
                         },
                         "RULE_INCORRECT_GOV_TEST_SCENARIO": {
@@ -225557,7 +225557,7 @@
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {
-                          "description": "The specified tax year is not supported. \nEither the tax year specified is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "description": "The specified tax year is not supported. The tax year specified is before the minimum tax year value.\n",
                           "value": {
                             "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
                             "message": "The tax year specified does not lie within the supported range"
@@ -225567,7 +225567,7 @@
                           "description": "Tax year range invalid. A tax year range of one year is required.",
                           "value": {
                             "code": "RULE_TAX_YEAR_RANGE_INVALID",
-                            "message": "Tax year range invalid. A tax year range of one year is required"
+                            "message": "A tax year range of one year is required"
                           }
                         }
                       },
@@ -225631,10 +225631,10 @@
                     "application/json": {
                       "examples": {
                         "CLIENT_OR_AGENT_NOT_AUTHORISED": {
-                          "description": "The client and/or agent is not authorised. \nThis is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, \nor the client has not authorised the agent to act on their behalf.\n",
+                          "description": "The client or agent is not authorised. This is because: the client is not subscribed to MTD,\nthe agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.\n",
                           "value": {
                             "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                            "message": "The client and/or agent is not authorised"
+                            "message": "The client or agent is not authorised"
                           }
                         }
                       },
@@ -226114,10 +226114,10 @@
                     "application/json": {
                       "examples": {
                         "FORMAT_CALCULATION_ID": {
-                          "description": "Invalid Calculation ID.\n",
+                          "description": "The format of the supplied calculation ID is not valid.\n",
                           "value": {
                             "code": "FORMAT_CALCULATION_ID",
-                            "message": "The provided calculationId is invalid"
+                            "message": "The provided calculation ID is invalid"
                           }
                         },
                         "FORMAT_CALCULATION_TYPE": {
@@ -226131,14 +226131,14 @@
                           "description": "The format of the supplied NINO field is not valid.\n",
                           "value": {
                             "code": "FORMAT_NINO",
-                            "message": "The provided NINO is invalid"
+                            "message": "The NINO format is invalid"
                           }
                         },
                         "FORMAT_TAX_YEAR": {
                           "description": "The format of the supplied taxYear value is not valid.\n",
                           "value": {
                             "code": "FORMAT_TAX_YEAR",
-                            "message": "The provided tax year is invalid"
+                            "message": "The provided tax year format is invalid"
                           }
                         },
                         "RULE_FINAL_DECLARATION_IN_PROGRESS": {
@@ -226184,7 +226184,7 @@
                           }
                         },
                         "RULE_OUTSIDE_AMENDMENT_WINDOW": {
-                          "description": "The client and/or agent is outside the amendment window.\n",
+                          "description": "The request cannot be completed as you are outside the amendment window.\n",
                           "value": {
                             "code": "RULE_OUTSIDE_AMENDMENT_WINDOW",
                             "message": "You are outside the amendment window"
@@ -226212,7 +226212,7 @@
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {
-                          "description": "The specified tax year is not supported. \nEither the tax year specified is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "description": "The specified tax year is not supported. The tax year specified is before the minimum tax year value.\n",
                           "value": {
                             "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
                             "message": "The tax year specified does not lie within the supported range"
@@ -226222,7 +226222,7 @@
                           "description": "Tax year range invalid. A tax year range of one year is required.",
                           "value": {
                             "code": "RULE_TAX_YEAR_RANGE_INVALID",
-                            "message": "Tax year range invalid. A tax year range of one year is required"
+                            "message": "A tax year range of one year is required"
                           }
                         }
                       },
@@ -226286,10 +226286,10 @@
                     "application/json": {
                       "examples": {
                         "CLIENT_OR_AGENT_NOT_AUTHORISED": {
-                          "description": "The client and/or agent is not authorised. \nThis is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, \nor the client has not authorised the agent to act on their behalf.\n",
+                          "description": "The client or agent is not authorised. This is because: the client is not subscribed to MTD,\nthe agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.\n",
                           "value": {
                             "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                            "message": "The client and/or agent is not authorised"
+                            "message": "The client or agent is not authorised"
                           }
                         }
                       },
@@ -367323,7 +367323,7 @@
         "paths": {
           "/organisations/vat-assist/acknowledge/{vrn}/{reportId}/{correlationId}": {
             "post": {
-              "description": "Acknowledge an HMRC Assist for VAT report, and confirm that your software has presented the feedback messages verbatim to the user.\n\n### Test data\n<p>Scenario simulations using Gov-Test-Scenario headers are only available in the sandbox environment.</p>\n<table>\n  <thead>\n    <tr>\n      <th>Header Value (Gov-Test-Scenario)</th>\n      <th>Scenario</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><p>Default (No header value)</p></td>\n      <td><p>Simulates the scenario where the acknowledgement is received.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_VRN</p></td>\n      <td><p>Simulates the scenario where the VRN has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_REPORTID</p></td>\n      <td><p>Simulates the scenario where the reportId has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_CORRELATIONID</p></td>\n      <td><p>Simulates the scenario where the correlationId has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_DATETIME</p></td>\n      <td><p>Simulates the scenario where the presentedDateTime has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_CREDENTIALS</p></td>\n      <td><p>Simulates the scenario where invalid authentication information is provided.</p></td>\n    </tr>\n    <tr>\n      <td><p>NOT_AUTHORISED</p></td>\n      <td><p>Simulates the scenario where the client or their agent is not authorised.</p></td>\n    </tr>\n    <tr>\n      <td><p>ACKNOWLEDGEMENT_VALIDATION_FAILED</p></td>\n      <td><p>Simulates the scenario where the VRN, reportId and correlationId do not match a report issued by HMRC Assist.</p></td>\n    </tr>\n    <tr>\n      <td><p>NOT_FOUND</p></td>\n      <td><p>Simulates the scenario where the request does not match the API.</p></td>\n    </tr>\n  </tbody>\n</table>\n",
+              "description": "Acknowledge an HMRC Assist for VAT report, and confirm that your software has presented the feedback messages verbatim to the user.\n\n### Test data\n<p>Scenario simulations using Gov-Test-Scenario headers are only available in the sandbox environment.</p>\n<table>\n  <thead>\n    <tr>\n      <th>Header Value (Gov-Test-Scenario)</th>\n      <th>Scenario</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><p>Default (No header value)</p></td>\n      <td><p>Simulates the scenario where the acknowledgement is received.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_VRN</p></td>\n      <td><p>Simulates the scenario where the VRN has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_REPORTID</p></td>\n      <td><p>Simulates the scenario where the reportId has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_CORRELATIONID</p></td>\n      <td><p>Simulates the scenario where the correlationId has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_DATETIME</p></td>\n      <td><p>Simulates the scenario where the presentedDateTime has not passed validation.</p></td>\n    </tr>\n    <tr>\n      <td><p>INVALID_CREDENTIALS</p></td>\n      <td><p>Simulates the scenario where invalid authentication information is provided.</p></td>\n    </tr>\n    <tr>\n      <td><p>NOT_AUTHORISED</p></td>\n      <td><p>Simulates the scenario where the client or their agent is not authorised.</p></td>\n    </tr>\n    <tr>\n      <td><p>ACKNOWLEDGEMENT_VALIDATION_FAILED</p></td>\n      <td><p>Simulates the scenario where the VRN, reportId and correlationId do not match a report issued by HMRC Assist.</p></td>\n    </tr>\n    <tr>\n      <td><p>NOT_FOUND</p></td>\n      <td><p>Simulates the scenario where the requested resource cannot be found.</p></td>\n    </tr>\n  </tbody>\n</table>\n",
               "operationId": "AcknowledgeVATAssistReport",
               "parameters": [
                 {
@@ -425261,7 +425261,7 @@
           }
         },
         "info": {
-          "description": "## Overview\nAn API for creating URLs that can be used to upload one or more files and associated metadata to the Secure Data Exchange Service (SDES). The API is designed for use with Web Forms.\n<br><br>\nPlease note that SRN and Information Type are only required in production. Please, reach out to an HMRC representative to obtain these.\n<br><br>\nFor users of the API for the Windsor Framework Post and Parcels service there is a service guide available:\n<br><br>\nhttps://developer.service.hmrc.gov.uk/guides/post-and-parcels-service-guide/#using-the-secure-data-exchange-service-sdes\n<br><br>\n",
+          "description": "## Overview\nCreate URLs to transfer one or more files to HMRC. Designed for use with Web Forms. (Formerly the Secure Data Exchange Service (SDES) File Upload API).\n<br><br>\nIn production, you must supply a Service Reference Number (SRN) - or, for legacy transfers, both an SRN and an information type. These are obtained by registering for HMRC\u2019s file transfer service. Contact your HMRC representative for more information.\n",
           "title": "Secure Data Exchange Service - File Upload API",
           "version": "1.0"
         },
@@ -425272,7 +425272,7 @@
               "description": "Creates one or more URLs, each of which comes with a TTL (time-to-live) and can be used to upload a file. The provided\nSRN and filename will be used to identify the HMRC recipient of the files to be uploaded.\n",
               "parameters": [
                 {
-                  "description": "Your organisation's unique SDES Reference Number (SRN). If you don't already have an SRN, it will be sent to you as part of registering to use the Secure Data Exchange Service (NB: this is separate to subscribing to this API).",
+                  "description": "Your organisation's unique Service Reference Number (SRN). If you don't already have an SRN, it will be sent to you as part of registering to use the Secure Data Exchange Service (NB: this is separate to subscribing to this API).",
                   "in": "path",
                   "name": "srn",
                   "required": true,
@@ -425396,7 +425396,7 @@
                               "type": "string"
                             },
                             "url": {
-                              "description": "The URL generated to upload the corresponding file.  Authorisation is not required when uploading a file to SDES.\n<br><br>\nThe URL supports the POST method ONLY.\n<br><br>\nThe POST request MUST also include the header 'Content-Type: multipart/form-data'.\n<br><br>\nThe URL generated is valid for up to 30 minutes, after which if not used, the HTTP response code 410 (EXPIRED) is generated.\"\n",
+                              "description": "The URL generated to upload the corresponding file. Authorisation is not required when uploading a file.\n<br><br>\nThe URL supports the POST method ONLY.\n<br><br>\nThe POST request MUST also include the header 'Content-Type: multipart/form-data'.\n<br><br>\nThe URL generated is valid for up to 30 minutes, after which if not used, the HTTP response code 410 (EXPIRED) is generated.\"\n",
                               "example": "https://www.hmrc-domain.com/6078e65d-0a4f-4ef9-8c88-ef4bb860419d",
                               "format": "uri",
                               "type": "string"
@@ -425680,7 +425680,7 @@
               "description": "Creates one or more URLs, each of which comes with a TTL (time-to-live) and can be used to upload a file. This variant\nrequires both an SRN and an Information Type to be provided. The Information Type is used to identify the HMRC recipient\nof the files to be uploaded. Your HMRC contact will let you know if you need to use an Information Type.\n",
               "parameters": [
                 {
-                  "description": "Your organisation's unique SDES Reference Number (SRN). If you don't already have an SRN, it will be sent to you as part of registering to use the Secure Data Exchange Service (NB: this is separate to subscribing to this API).",
+                  "description": "Your organisation's unique Service Reference Number (SRN). If you don't already have an SRN, it will be sent to you as part of registering to use the Secure Data Exchange Service (NB: this is separate to subscribing to this API).",
                   "in": "path",
                   "name": "srn",
                   "required": true,
@@ -425814,7 +425814,7 @@
                               "type": "string"
                             },
                             "url": {
-                              "description": "The URL generated to upload the corresponding file.  Authorisation is not required when uploading a file to SDES.\n<br><br>\nThe URL supports the POST method ONLY.\n<br><br>\nThe POST request MUST also include the header 'Content-Type: multipart/form-data'.\n<br><br>\nThe URL generated is valid for up to 30 minutes, after which if not used, the HTTP response code 410 (EXPIRED) is generated.\"\n",
+                              "description": "The URL generated to upload the corresponding file. Authorisation is not required when uploading a file.\n<br><br>\nThe URL supports the POST method ONLY.\n<br><br>\nThe POST request MUST also include the header 'Content-Type: multipart/form-data'.\n<br><br>\nThe URL generated is valid for up to 30 minutes, after which if not used, the HTTP response code 410 (EXPIRED) is generated.\"\n",
                               "example": "https://www.hmrc-domain.com/6078e65d-0a4f-4ef9-8c88-ef4bb860419d",
                               "format": "uri",
                               "type": "string"

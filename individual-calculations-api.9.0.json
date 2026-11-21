@@ -131,14 +131,14 @@
                           "description": "The format of the supplied NINO field is not valid.\n",
                           "value": {
                             "code": "FORMAT_NINO",
-                            "message": "The provided NINO is invalid"
+                            "message": "The NINO format is invalid"
                           }
                         },
                         "FORMAT_TAX_YEAR": {
                           "description": "The format of the supplied taxYear value is not valid.\n",
                           "value": {
                             "code": "FORMAT_TAX_YEAR",
-                            "message": "The provided tax year is invalid"
+                            "message": "The provided tax year format is invalid"
                           }
                         },
                         "RULE_INCORRECT_GOV_TEST_SCENARIO": {
@@ -149,14 +149,14 @@
                           }
                         },
                         "RULE_OUTSIDE_AMENDMENT_WINDOW": {
-                          "description": "The client and/or agent is outside the amendment window.\n",
+                          "description": "The request cannot be completed as you are outside the amendment window.\n",
                           "value": {
                             "code": "RULE_OUTSIDE_AMENDMENT_WINDOW",
                             "message": "You are outside the amendment window"
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {
-                          "description": "The specified tax year is not supported. \nEither the tax year specified is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "description": "The specified tax year is not supported. The tax year specified is before the minimum tax year value.\n",
                           "value": {
                             "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
                             "message": "The tax year specified does not lie within the supported range"
@@ -166,7 +166,7 @@
                           "description": "Tax year range invalid. A tax year range of one year is required.",
                           "value": {
                             "code": "RULE_TAX_YEAR_RANGE_INVALID",
-                            "message": "Tax year range invalid. A tax year range of one year is required"
+                            "message": "A tax year range of one year is required"
                           }
                         }
                       },
@@ -230,10 +230,10 @@
                     "application/json": {
                       "examples": {
                         "CLIENT_OR_AGENT_NOT_AUTHORISED": {
-                          "description": "The client and/or agent is not authorised. \nThis is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, \nor the client has not authorised the agent to act on their behalf.\n",
+                          "description": "The client or agent is not authorised. This is because: the client is not subscribed to MTD,\nthe agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.\n",
                           "value": {
                             "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                            "message": "The client and/or agent is not authorised"
+                            "message": "The client or agent is not authorised"
                           }
                         }
                       },
@@ -669,7 +669,7 @@
                         "type": "object",
                         "properties": {
                           "submittedOn": {
-                            "description": "The date and time the supplementary information was submitted, in the format YYYY-MM-DDThh:mm:ss.SSSZ",
+                            "description": "The date and time the supplementary information was submitted, in the format `YYYY-MM-DDThh:mm:ss.SSSZ`",
                             "type": "string",
                             "example": "2027-08-24T14:15:22.544Z"
                           },
@@ -679,7 +679,7 @@
                             "example": true
                           },
                           "expectedDate": {
-                            "description": "The expected date when the final figures will be available. This date must be in the future. Must conform to the format: YYYY-MM-DD",
+                            "description": "The expected date when the final figures will be available. This date must be in the future.\n\nMust conform to the format: `YYYY-MM-DD`",
                             "type": "string",
                             "example": "2027-10-05"
                           },
@@ -742,14 +742,14 @@
                           "description": "The format of the supplied NINO field is not valid.\n",
                           "value": {
                             "code": "FORMAT_NINO",
-                            "message": "The provided NINO is invalid"
+                            "message": "The NINO format is invalid"
                           }
                         },
                         "FORMAT_TAX_YEAR": {
                           "description": "The format of the supplied taxYear value is not valid.\n",
                           "value": {
                             "code": "FORMAT_TAX_YEAR",
-                            "message": "The provided tax year is invalid"
+                            "message": "The provided tax year format is invalid"
                           }
                         },
                         "RULE_INCORRECT_GOV_TEST_SCENARIO": {
@@ -760,7 +760,7 @@
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {
-                          "description": "The specified tax year is not supported. \nEither the tax year specified is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "description": "The specified tax year is not supported. The tax year specified is before the minimum tax year value.\n",
                           "value": {
                             "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
                             "message": "The tax year specified does not lie within the supported range"
@@ -770,7 +770,7 @@
                           "description": "Tax year range invalid. A tax year range of one year is required.",
                           "value": {
                             "code": "RULE_TAX_YEAR_RANGE_INVALID",
-                            "message": "Tax year range invalid. A tax year range of one year is required"
+                            "message": "A tax year range of one year is required"
                           }
                         }
                       },
@@ -834,10 +834,10 @@
                     "application/json": {
                       "examples": {
                         "CLIENT_OR_AGENT_NOT_AUTHORISED": {
-                          "description": "The client and/or agent is not authorised. \nThis is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, \nor the client has not authorised the agent to act on their behalf.\n",
+                          "description": "The client or agent is not authorised. This is because: the client is not subscribed to MTD,\nthe agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.\n",
                           "value": {
                             "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                            "message": "The client and/or agent is not authorised"
+                            "message": "The client or agent is not authorised"
                           }
                         }
                       },
@@ -1197,7 +1197,7 @@
               ]
             },
             "put": {
-              "description": "This endpoint is used to create or amend provisional figures information to confirm whether provisional figures are included in a tax return and, where applicable, to provide the reason for using them and the expected date when final figures will be available. A National Insurance number and tax year are required. This endpoint can only be used after the tax year has ended.\n\n### Test data\nScenario simulation using Gov-Test-Scenario headers is only available in the sandbox environment.\n| Header Value (Gov-Test-Scenario)      | Scenario                                                                                        |\n|---------------------------------------|-------------------------------------------------------------------------------------------------|\n| N/A - DEFAULT                         | Simulates success response.                                                                     |\n| NOT_FOUND                             | Simulates the scenario where no data is found.                                                  |\n| OUTSIDE_AMENDMENT_WINDOW              | Simulates the scenario where request cannot be completed as it is outside the amendment window.\t|\n| STATEFUL                              | Performs a stateful create or update.                                                           |\n",
+              "description": "This endpoint is used to create or amend provisional figures information to confirm whether provisional figures are included in a tax return and, where applicable, to provide the reason for using them and the expected date when final figures will be available. A National Insurance number and tax year are required. This endpoint can only be used after the tax year has ended.\n\n### Test data\nScenario simulations using Gov-Test-Scenario headers is only available in the sandbox environment.\n\n| Header Value (Gov-Test-Scenario)      | Scenario                                                                                        |\n|---------------------------------------|-------------------------------------------------------------------------------------------------|\n| N/A - DEFAULT                         | Simulates success response.                                                                     |\n| OUTSIDE_AMENDMENT_WINDOW              | Simulates the scenario where request cannot be completed as it is outside the amendment window.\t|\n| STATEFUL                              | Performs a stateful create or update.                                                           |\n",
               "parameters": [
                 {
                   "description": "National Insurance number, in the format `AA999999A`\n",
@@ -1228,6 +1228,18 @@
                     "type": "string",
                     "enum": [
                       "application/vnd.hmrc.9.0+json"
+                    ]
+                  }
+                },
+                {
+                  "description": "Specifies the format of the request body, which must be JSON.\n",
+                  "in": "header",
+                  "name": "Content-Type",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "application/json"
                     ]
                   }
                 },
@@ -1282,7 +1294,7 @@
                           "example": true
                         },
                         "expectedDate": {
-                          "description": "The expected date when the final figures will be available. This date must be in the future.\n\nMust conform to the format: YYYY-MM-DD",
+                          "description": "The expected date when the final figures will be available. This date must be in the future.\n\nMust conform to the format: `YYYY-MM-DD`",
                           "type": "string",
                           "example": "2027-10-05"
                         },
@@ -1345,7 +1357,7 @@
                     "application/json": {
                       "examples": {
                         "FORMAT_EXPECTED_DATE": {
-                          "description": "The format of the supplied expectedDate value is not valid.\n",
+                          "description": "The format of the supplied expectedDate is not valid.\n",
                           "value": {
                             "code": "FORMAT_EXPECTED_DATE",
                             "message": "The provided expectedDate is invalid"
@@ -1355,7 +1367,7 @@
                           "description": "The format of the supplied NINO field is not valid.\n",
                           "value": {
                             "code": "FORMAT_NINO",
-                            "message": "The provided NINO is invalid"
+                            "message": "The NINO format is invalid"
                           }
                         },
                         "FORMAT_SUPPLEMENTARY_INFORMATION": {
@@ -1369,14 +1381,14 @@
                           "description": "The format of the supplied taxYear value is not valid.\n",
                           "value": {
                             "code": "FORMAT_TAX_YEAR",
-                            "message": "The provided tax year is invalid"
+                            "message": "The provided tax year format is invalid"
                           }
                         },
                         "RULE_EXPECTED_DATE_NOT_IN_FUTURE": {
                           "description": "The expectedDate must be in the future.\n",
                           "value": {
                             "code": "RULE_EXPECTED_DATE_NOT_IN_FUTURE",
-                            "message": "The expectedDate must be in the future."
+                            "message": "The expectedDate must be in the future"
                           }
                         },
                         "RULE_INCORRECT_GOV_TEST_SCENARIO": {
@@ -1390,11 +1402,11 @@
                           "description": "An empty or non-matching body was submitted.\n",
                           "value": {
                             "code": "RULE_INCORRECT_OR_EMPTY_BODY_SUBMITTED",
-                            "message": "An empty or non-matching body was submitted."
+                            "message": "An empty or non-matching body was submitted"
                           }
                         },
                         "RULE_OUTSIDE_AMENDMENT_WINDOW": {
-                          "description": "The client and/or agent is outside the amendment window.\n",
+                          "description": "The request cannot be completed as you are outside the amendment window.\n",
                           "value": {
                             "code": "RULE_OUTSIDE_AMENDMENT_WINDOW",
                             "message": "You are outside the amendment window"
@@ -1404,7 +1416,7 @@
                           "description": "The provisionalFiguresIndicator must be set to true.\n",
                           "value": {
                             "code": "RULE_PROVISIONAL_FIGURES_INDICATOR_INVALID",
-                            "message": "The provisionalFiguresIndicator must be set to true."
+                            "message": "The provisionalFiguresIndicator must be set to true"
                           }
                         },
                         "RULE_TAX_YEAR_NOT_ENDED": {
@@ -1415,7 +1427,7 @@
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {
-                          "description": "The specified tax year is not supported. \nEither the tax year specified is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "description": "The specified tax year is not supported. The tax year specified is before the minimum tax year value.\n",
                           "value": {
                             "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
                             "message": "The tax year specified does not lie within the supported range"
@@ -1425,7 +1437,7 @@
                           "description": "Tax year range invalid. A tax year range of one year is required.",
                           "value": {
                             "code": "RULE_TAX_YEAR_RANGE_INVALID",
-                            "message": "Tax year range invalid. A tax year range of one year is required"
+                            "message": "A tax year range of one year is required"
                           }
                         }
                       },
@@ -1489,10 +1501,10 @@
                     "application/json": {
                       "examples": {
                         "CLIENT_OR_AGENT_NOT_AUTHORISED": {
-                          "description": "The client and/or agent is not authorised. \nThis is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, \nor the client has not authorised the agent to act on their behalf.\n",
+                          "description": "The client or agent is not authorised. This is because: the client is not subscribed to MTD,\nthe agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.\n",
                           "value": {
                             "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                            "message": "The client and/or agent is not authorised"
+                            "message": "The client or agent is not authorised"
                           }
                         }
                       },
@@ -2268,14 +2280,14 @@
                           "description": "The format of the supplied NINO field is not valid.\n",
                           "value": {
                             "code": "FORMAT_NINO",
-                            "message": "The provided NINO is invalid"
+                            "message": "The NINO format is invalid"
                           }
                         },
                         "FORMAT_TAX_YEAR": {
                           "description": "The format of the supplied taxYear value is not valid.\n",
                           "value": {
                             "code": "FORMAT_TAX_YEAR",
-                            "message": "The provided tax year is invalid"
+                            "message": "The provided tax year format is invalid"
                           }
                         },
                         "RULE_CALCULATION_TYPE_NOT_ALLOWED": {
@@ -2293,7 +2305,7 @@
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {
-                          "description": "The specified tax year is not supported. \nEither the tax year specified is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "description": "The specified tax year is not supported. The tax year specified is before the minimum tax year value.\n",
                           "value": {
                             "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
                             "message": "The tax year specified does not lie within the supported range"
@@ -2303,7 +2315,7 @@
                           "description": "Tax year range invalid. A tax year range of one year is required.",
                           "value": {
                             "code": "RULE_TAX_YEAR_RANGE_INVALID",
-                            "message": "Tax year range invalid. A tax year range of one year is required"
+                            "message": "A tax year range of one year is required"
                           }
                         }
                       },
@@ -2367,10 +2379,10 @@
                     "application/json": {
                       "examples": {
                         "CLIENT_OR_AGENT_NOT_AUTHORISED": {
-                          "description": "The client and/or agent is not authorised. \nThis is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, \nor the client has not authorised the agent to act on their behalf.\n",
+                          "description": "The client or agent is not authorised. This is because: the client is not subscribed to MTD,\nthe agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.\n",
                           "value": {
                             "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                            "message": "The client and/or agent is not authorised"
+                            "message": "The client or agent is not authorised"
                           }
                         }
                       },
@@ -2887,14 +2899,14 @@
                           "description": "The format of the supplied NINO field is not valid.\n",
                           "value": {
                             "code": "FORMAT_NINO",
-                            "message": "The provided NINO is invalid"
+                            "message": "The NINO format is invalid"
                           }
                         },
                         "FORMAT_TAX_YEAR": {
                           "description": "The format of the supplied taxYear value is not valid.\n",
                           "value": {
                             "code": "FORMAT_TAX_YEAR",
-                            "message": "The provided tax year is invalid"
+                            "message": "The provided tax year format is invalid"
                           }
                         },
                         "RULE_BUSINESS_VALIDATION_FAILURE": {
@@ -2954,7 +2966,7 @@
                           }
                         },
                         "RULE_OUTSIDE_AMENDMENT_WINDOW": {
-                          "description": "The client and/or agent is outside the amendment window.\n",
+                          "description": "The request cannot be completed as you are outside the amendment window.\n",
                           "value": {
                             "code": "RULE_OUTSIDE_AMENDMENT_WINDOW",
                             "message": "You are outside the amendment window"
@@ -2989,7 +3001,7 @@
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {
-                          "description": "The specified tax year is not supported. \nEither the tax year specified is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "description": "The specified tax year is not supported. The tax year specified is before the minimum tax year value.\n",
                           "value": {
                             "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
                             "message": "The tax year specified does not lie within the supported range"
@@ -2999,7 +3011,7 @@
                           "description": "Tax year range invalid. A tax year range of one year is required.",
                           "value": {
                             "code": "RULE_TAX_YEAR_RANGE_INVALID",
-                            "message": "Tax year range invalid. A tax year range of one year is required"
+                            "message": "A tax year range of one year is required"
                           }
                         }
                       },
@@ -3063,10 +3075,10 @@
                     "application/json": {
                       "examples": {
                         "CLIENT_OR_AGENT_NOT_AUTHORISED": {
-                          "description": "The client and/or agent is not authorised. \nThis is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, \nor the client has not authorised the agent to act on their behalf.\n",
+                          "description": "The client or agent is not authorised. This is because: the client is not subscribed to MTD,\nthe agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.\n",
                           "value": {
                             "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                            "message": "The client and/or agent is not authorised"
+                            "message": "The client or agent is not authorised"
                           }
                         }
                       },
@@ -4595,8 +4607,8 @@
                             "messages": {
                               "errors": [
                                 {
-                                  "id": "C95005",
-                                  "text": "Final confirmation of income and expenses for all business sources has not been provided"
+                                  "id": "C55508",
+                                  "text": "You cannot claim property allowance and business expenses. Please choose one and resubmit your return."
                                 }
                               ],
                               "info": [
@@ -5701,8 +5713,8 @@
                             "messages": {
                               "errors": [
                                 {
-                                  "id": "C95005",
-                                  "text": "Final confirmation of income and expenses for all business sources has not been provided"
+                                  "id": "C55508",
+                                  "text": "You cannot claim property allowance and business expenses. Please choose one and resubmit your return."
                                 }
                               ],
                               "info": [
@@ -7893,6 +7905,12 @@
                                   "receivedDateTime": "2025-04-06T09:35:15.094Z"
                                 }
                               ],
+                              "attachments": [
+                                {
+                                  "documentName": "name.pdf",
+                                  "uploadTimestamp": "2026-11-12T09:14:29.418Z"
+                                }
+                              ],
                               "constructionIndustryScheme": [
                                 {
                                   "contractorName": "Jones Limited",
@@ -9079,6 +9097,12 @@
                                   "incomeSourceId": "000000000000210",
                                   "incomeSourceType": "self-employment",
                                   "receivedDateTime": "2025-04-06T09:35:15.094Z"
+                                }
+                              ],
+                              "attachments": [
+                                {
+                                  "documentName": "name.pdf",
+                                  "uploadTimestamp": "2027-11-12T09:14:29.418Z"
                                 }
                               ],
                               "constructionIndustryScheme": [
@@ -33470,6 +33494,35 @@
                                         "type"
                                       ]
                                     }
+                                  },
+                                  "attachments": {
+                                    "description": "[Test only] Array of attachments associated with the calculation submission.",
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "documentName": {
+                                          "description": "The name of the uploaded document.",
+                                          "type": "string",
+                                          "example": "name.pdf"
+                                        },
+                                        "uploadTimestamp": {
+                                          "description": "The date and time when the information was received, in ISO 8601 UTC format: YYYY-MM-DDThh:mm:ss.SSSZ.",
+                                          "allOf": [
+                                            {
+                                              "type": "string",
+                                              "format": "date-time",
+                                              "example": "2019-02-15T09:35:15.094Z"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "documentName",
+                                        "uploadTimestamp"
+                                      ]
+                                    }
                                   }
                                 },
                                 "additionalProperties": false,
@@ -41630,6 +41683,35 @@
                                         "type"
                                       ]
                                     }
+                                  },
+                                  "attachments": {
+                                    "description": "[Test only] Array of attachments associated with the calculation submission.",
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "documentName": {
+                                          "description": "The name of the uploaded document.",
+                                          "type": "string",
+                                          "example": "name.pdf"
+                                        },
+                                        "uploadTimestamp": {
+                                          "description": "The date and time when the information was received, in ISO 8601 UTC format: YYYY-MM-DDThh:mm:ss.SSSZ.",
+                                          "allOf": [
+                                            {
+                                              "type": "string",
+                                              "format": "date-time",
+                                              "example": "2019-02-15T09:35:15.094Z"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "documentName",
+                                        "uploadTimestamp"
+                                      ]
+                                    }
                                   }
                                 },
                                 "additionalProperties": false,
@@ -49198,24 +49280,24 @@
                     "application/json": {
                       "examples": {
                         "FORMAT_CALCULATION_ID": {
-                          "description": "Invalid Calculation ID.\n",
+                          "description": "The format of the supplied calculation ID is not valid.\n",
                           "value": {
                             "code": "FORMAT_CALCULATION_ID",
-                            "message": "The provided calculationId is invalid"
+                            "message": "The provided calculation ID is invalid"
                           }
                         },
                         "FORMAT_NINO": {
                           "description": "The format of the supplied NINO field is not valid.\n",
                           "value": {
                             "code": "FORMAT_NINO",
-                            "message": "The provided NINO is invalid"
+                            "message": "The NINO format is invalid"
                           }
                         },
                         "FORMAT_TAX_YEAR": {
                           "description": "The format of the supplied taxYear value is not valid.\n",
                           "value": {
                             "code": "FORMAT_TAX_YEAR",
-                            "message": "The provided tax year is invalid"
+                            "message": "The provided tax year format is invalid"
                           }
                         },
                         "RULE_INCORRECT_GOV_TEST_SCENARIO": {
@@ -49226,7 +49308,7 @@
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {
-                          "description": "The specified tax year is not supported. \nEither the tax year specified is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "description": "The specified tax year is not supported. The tax year specified is before the minimum tax year value.\n",
                           "value": {
                             "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
                             "message": "The tax year specified does not lie within the supported range"
@@ -49236,7 +49318,7 @@
                           "description": "Tax year range invalid. A tax year range of one year is required.",
                           "value": {
                             "code": "RULE_TAX_YEAR_RANGE_INVALID",
-                            "message": "Tax year range invalid. A tax year range of one year is required"
+                            "message": "A tax year range of one year is required"
                           }
                         }
                       },
@@ -49300,10 +49382,10 @@
                     "application/json": {
                       "examples": {
                         "CLIENT_OR_AGENT_NOT_AUTHORISED": {
-                          "description": "The client and/or agent is not authorised. \nThis is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, \nor the client has not authorised the agent to act on their behalf.\n",
+                          "description": "The client or agent is not authorised. This is because: the client is not subscribed to MTD,\nthe agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.\n",
                           "value": {
                             "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                            "message": "The client and/or agent is not authorised"
+                            "message": "The client or agent is not authorised"
                           }
                         }
                       },
@@ -49783,10 +49865,10 @@
                     "application/json": {
                       "examples": {
                         "FORMAT_CALCULATION_ID": {
-                          "description": "Invalid Calculation ID.\n",
+                          "description": "The format of the supplied calculation ID is not valid.\n",
                           "value": {
                             "code": "FORMAT_CALCULATION_ID",
-                            "message": "The provided calculationId is invalid"
+                            "message": "The provided calculation ID is invalid"
                           }
                         },
                         "FORMAT_CALCULATION_TYPE": {
@@ -49800,14 +49882,14 @@
                           "description": "The format of the supplied NINO field is not valid.\n",
                           "value": {
                             "code": "FORMAT_NINO",
-                            "message": "The provided NINO is invalid"
+                            "message": "The NINO format is invalid"
                           }
                         },
                         "FORMAT_TAX_YEAR": {
                           "description": "The format of the supplied taxYear value is not valid.\n",
                           "value": {
                             "code": "FORMAT_TAX_YEAR",
-                            "message": "The provided tax year is invalid"
+                            "message": "The provided tax year format is invalid"
                           }
                         },
                         "RULE_FINAL_DECLARATION_IN_PROGRESS": {
@@ -49853,7 +49935,7 @@
                           }
                         },
                         "RULE_OUTSIDE_AMENDMENT_WINDOW": {
-                          "description": "The client and/or agent is outside the amendment window.\n",
+                          "description": "The request cannot be completed as you are outside the amendment window.\n",
                           "value": {
                             "code": "RULE_OUTSIDE_AMENDMENT_WINDOW",
                             "message": "You are outside the amendment window"
@@ -49881,7 +49963,7 @@
                           }
                         },
                         "RULE_TAX_YEAR_NOT_SUPPORTED": {
-                          "description": "The specified tax year is not supported. \nEither the tax year specified is before the minimum tax year value, or it is after the maximum tax year value.\n",
+                          "description": "The specified tax year is not supported. The tax year specified is before the minimum tax year value.\n",
                           "value": {
                             "code": "RULE_TAX_YEAR_NOT_SUPPORTED",
                             "message": "The tax year specified does not lie within the supported range"
@@ -49891,7 +49973,7 @@
                           "description": "Tax year range invalid. A tax year range of one year is required.",
                           "value": {
                             "code": "RULE_TAX_YEAR_RANGE_INVALID",
-                            "message": "Tax year range invalid. A tax year range of one year is required"
+                            "message": "A tax year range of one year is required"
                           }
                         }
                       },
@@ -49955,10 +50037,10 @@
                     "application/json": {
                       "examples": {
                         "CLIENT_OR_AGENT_NOT_AUTHORISED": {
-                          "description": "The client and/or agent is not authorised. \nThis is normally because: the client is not subscribed to MTD, the agent is not subscribed to Agent Services, \nor the client has not authorised the agent to act on their behalf.\n",
+                          "description": "The client or agent is not authorised. This is because: the client is not subscribed to MTD,\nthe agent is not subscribed to Agent Services, or the client has not authorised the agent to act on their behalf.\n",
                           "value": {
                             "code": "CLIENT_OR_AGENT_NOT_AUTHORISED",
-                            "message": "The client and/or agent is not authorised"
+                            "message": "The client or agent is not authorised"
                           }
                         }
                       },

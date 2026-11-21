@@ -17,7 +17,7 @@
           }
         },
         "info": {
-          "description": "## Overview\nAn API for creating URLs that can be used to upload one or more files and associated metadata to the Secure Data Exchange Service (SDES). The API is designed for use with Web Forms.\n<br><br>\nPlease note that SRN and Information Type are only required in production. Please, reach out to an HMRC representative to obtain these.\n<br><br>\nFor users of the API for the Windsor Framework Post and Parcels service there is a service guide available:\n<br><br>\nhttps://developer.service.hmrc.gov.uk/guides/post-and-parcels-service-guide/#using-the-secure-data-exchange-service-sdes\n<br><br>\n",
+          "description": "## Overview\nCreate URLs to transfer one or more files to HMRC. Designed for use with Web Forms. (Formerly the Secure Data Exchange Service (SDES) File Upload API).\n<br><br>\nIn production, you must supply a Service Reference Number (SRN) - or, for legacy transfers, both an SRN and an information type. These are obtained by registering for HMRC\u2019s file transfer service. Contact your HMRC representative for more information.\n",
           "title": "Secure Data Exchange Service - File Upload API",
           "version": "1.0"
         },
@@ -28,7 +28,7 @@
               "description": "Creates one or more URLs, each of which comes with a TTL (time-to-live) and can be used to upload a file. The provided\nSRN and filename will be used to identify the HMRC recipient of the files to be uploaded.\n",
               "parameters": [
                 {
-                  "description": "Your organisation's unique SDES Reference Number (SRN). If you don't already have an SRN, it will be sent to you as part of registering to use the Secure Data Exchange Service (NB: this is separate to subscribing to this API).",
+                  "description": "Your organisation's unique Service Reference Number (SRN). If you don't already have an SRN, it will be sent to you as part of registering to use the Secure Data Exchange Service (NB: this is separate to subscribing to this API).",
                   "in": "path",
                   "name": "srn",
                   "required": true,
@@ -159,7 +159,7 @@
                             "url": {
                               "type": "string",
                               "format": "uri",
-                              "description": "The URL generated to upload the corresponding file.  Authorisation is not required when uploading a file to SDES.\n<br><br>\nThe URL supports the POST method ONLY.\n<br><br>\nThe POST request MUST also include the header 'Content-Type: multipart/form-data'.\n<br><br>\nThe URL generated is valid for up to 30 minutes, after which if not used, the HTTP response code 410 (EXPIRED) is generated.\"\n",
+                              "description": "The URL generated to upload the corresponding file. Authorisation is not required when uploading a file.\n<br><br>\nThe URL supports the POST method ONLY.\n<br><br>\nThe POST request MUST also include the header 'Content-Type: multipart/form-data'.\n<br><br>\nThe URL generated is valid for up to 30 minutes, after which if not used, the HTTP response code 410 (EXPIRED) is generated.\"\n",
                               "example": "https://www.hmrc-domain.com/6078e65d-0a4f-4ef9-8c88-ef4bb860419d"
                             }
                           },
@@ -436,7 +436,7 @@
               "description": "Creates one or more URLs, each of which comes with a TTL (time-to-live) and can be used to upload a file. This variant\nrequires both an SRN and an Information Type to be provided. The Information Type is used to identify the HMRC recipient\nof the files to be uploaded. Your HMRC contact will let you know if you need to use an Information Type.\n",
               "parameters": [
                 {
-                  "description": "Your organisation's unique SDES Reference Number (SRN). If you don't already have an SRN, it will be sent to you as part of registering to use the Secure Data Exchange Service (NB: this is separate to subscribing to this API).",
+                  "description": "Your organisation's unique Service Reference Number (SRN). If you don't already have an SRN, it will be sent to you as part of registering to use the Secure Data Exchange Service (NB: this is separate to subscribing to this API).",
                   "in": "path",
                   "name": "srn",
                   "required": true,
@@ -577,7 +577,7 @@
                             "url": {
                               "type": "string",
                               "format": "uri",
-                              "description": "The URL generated to upload the corresponding file.  Authorisation is not required when uploading a file to SDES.\n<br><br>\nThe URL supports the POST method ONLY.\n<br><br>\nThe POST request MUST also include the header 'Content-Type: multipart/form-data'.\n<br><br>\nThe URL generated is valid for up to 30 minutes, after which if not used, the HTTP response code 410 (EXPIRED) is generated.\"\n",
+                              "description": "The URL generated to upload the corresponding file. Authorisation is not required when uploading a file.\n<br><br>\nThe URL supports the POST method ONLY.\n<br><br>\nThe POST request MUST also include the header 'Content-Type: multipart/form-data'.\n<br><br>\nThe URL generated is valid for up to 30 minutes, after which if not used, the HTTP response code 410 (EXPIRED) is generated.\"\n",
                               "example": "https://www.hmrc-domain.com/6078e65d-0a4f-4ef9-8c88-ef4bb860419d"
                             }
                           },

@@ -2812,8 +2812,8 @@
                             "messages": {
                               "errors": [
                                 {
-                                  "id": "C95005",
-                                  "text": "Final confirmation of income and expenses for all business sources has not been provided"
+                                  "id": "C55508",
+                                  "text": "You cannot claim property allowance and business expenses. Please choose one and resubmit your return."
                                 }
                               ],
                               "info": [
@@ -3918,8 +3918,8 @@
                             "messages": {
                               "errors": [
                                 {
-                                  "id": "C95005",
-                                  "text": "Final confirmation of income and expenses for all business sources has not been provided"
+                                  "id": "C55508",
+                                  "text": "You cannot claim property allowance and business expenses. Please choose one and resubmit your return."
                                 }
                               ],
                               "info": [
