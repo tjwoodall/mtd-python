@@ -29,7 +29,7 @@
         "paths": {
           "/monthly/{zReference}/reconciliation": {
             "post": {
-              "description": "Use the \u2018Generate test reconciliation report\u2019 endpoint to trigger the generation of a test reconciliation report \nfor the ISA Returns API.\n\nThe API request allows you to specify the number of occurrences for each of the following supported error types:\n\n- oversubscriptions\n- trace and match failures\n- eligibility failures\n  \nDepending on the notification process selected, you will either be notified via \n[Push Pull Notifications Service (PPNS)](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/push-pull-notifications-api/1.0) \nusing the callback URL configured while subscribing to the ISA Returns API or you can query the PPNS API directly \nusing the box ID. The reconciliation report shows the rejected records, including any error messages where \napplicable. Your application can then use the relevant ISA Returns API endpoint to retrieve and process the \ngenerated results.\n\nThis allows you to test the notification flow and retrieval of the reconciliation report before integrating with \nthe live service.\n\nNote: Each sample reconciliation report has an upper threshold of 2000 simulated errors per report per \nZ-Reference. Attempts to exceed this limit will result in an error.  \n",
+              "description": "Use the \u2018Generate test reconciliation report\u2019 endpoint to trigger the generation of a test reconciliation report \nfor the ISA Returns API.\n\nThe API request allows you to specify the number of occurrences for each of the following supported error types:\n\n- oversubscriptions\n- trace and match failures\n- eligibility failures\n  \nDepending on the notification process selected, you will either be notified via \n[Push Pull Notifications Service (PPNS)](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/push-pull-notifications-api/1.0) \nusing the callback URL configured while subscribing to the ISA Returns API or you can query the PPNS API directly \nusing the box ID. The reconciliation report shows the rejected records, including any error messages where \napplicable. Your application can then use the relevant ISA Returns API endpoint to retrieve and process the \ngenerated results.\n\nThis allows you to test the notification flow and retrieval of the reconciliation report before integrating with \nthe live service.\n\nNote: Each sample reconciliation report has an upper threshold of 2000 simulated errors per report per \nZ-Reference. Attempts to exceed this limit will result in an error.  \n\nAgents can call this endpoint for an ISA manager they are authorised to act for. If the agent is not authorised \nfor the requested Z-Reference, a 403 `AGENT_CLIENT_RELATIONSHIP_NOT_FOUND` error is returned.\n",
               "operationId": "generateTestReconciliationReport",
               "parameters": [
                 {
@@ -231,6 +231,28 @@
                   },
                   "description": "Unauthorized"
                 },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "enum": [
+                              "AGENT_CLIENT_RELATIONSHIP_NOT_FOUND"
+                            ]
+                          },
+                          "message": {
+                            "type": "string",
+                            "example": "We are unable to authenticate your access to Z1234"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "Forbidden"
+                },
                 "500": {
                   "content": {
                     "application/json": {
@@ -254,35 +276,6 @@
                     }
                   },
                   "description": "Internal Server Error"
-                },
-                "403": {
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "properties": {
-                          "code": {
-                            "type": "string",
-                            "description": "Error Code",
-                            "enum": [
-                              "HTTPS_REQUIRED",
-                              "RESOURCE_FORBIDDEN",
-                              "INVALID_SCOPE",
-                              "FORBIDDEN"
-                            ]
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "type": "object",
-                        "example": {
-                          "code": "RESOURCE_FORBIDDEN",
-                          "message": "The application is not subscribed to the API which it is attempting to invoke"
-                        }
-                      }
-                    }
-                  },
-                  "description": "UNAUTHORISED Response"
                 },
                 "404": {
                   "content": {
@@ -483,7 +476,7 @@
           },
           "/monthly/{zReference}/reporting-window-override": {
             "put": {
-              "description": "Configure a reporting window for the authenticated Z-Reference. The override lasts for one hour and replaces \nany existing override for that Z-Reference.\n\nThis operation does not change the system clock. When the override expires, normal reporting-period validation \nresumes.\n",
+              "description": "Configure a reporting window for the authenticated Z-Reference. The override lasts for one hour and replaces \nany existing override for that Z-Reference.\n\nThis operation does not change the system clock. When the override expires, normal reporting-period validation \nresumes.\n\nAgents can call this endpoint for an ISA manager they are authorised to act for. If the agent is not authorised \nfor the requested Z-Reference, a 403 `AGENT_CLIENT_RELATIONSHIP_NOT_FOUND` error is returned.\n",
               "operationId": "setReportingWindowOverride",
               "parameters": [
                 {
@@ -678,6 +671,28 @@
                   },
                   "description": "Unauthorized"
                 },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "enum": [
+                              "AGENT_CLIENT_RELATIONSHIP_NOT_FOUND"
+                            ]
+                          },
+                          "message": {
+                            "type": "string",
+                            "example": "We are unable to authenticate your access to Z1234"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "Forbidden"
+                },
                 "500": {
                   "content": {
                     "application/json": {
@@ -699,35 +714,6 @@
                     }
                   },
                   "description": "Internal Server Error"
-                },
-                "403": {
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "properties": {
-                          "code": {
-                            "type": "string",
-                            "description": "Error Code",
-                            "enum": [
-                              "HTTPS_REQUIRED",
-                              "RESOURCE_FORBIDDEN",
-                              "INVALID_SCOPE",
-                              "FORBIDDEN"
-                            ]
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "type": "object",
-                        "example": {
-                          "code": "RESOURCE_FORBIDDEN",
-                          "message": "The application is not subscribed to the API which it is attempting to invoke"
-                        }
-                      }
-                    }
-                  },
-                  "description": "UNAUTHORISED Response"
                 },
                 "404": {
                   "content": {

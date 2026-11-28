@@ -18236,6 +18236,11 @@
                                 "description": "Government Gateway password.",
                                 "type": "string"
                               },
+                              "plasticPackagingTaxRegistrationDate": {
+                                "description": "Plastic Packaging Tax registration date.",
+                                "format": "date",
+                                "type": "string"
+                              },
                               "plasticPackagingTaxRegistrationNumber": {
                                 "description": "Plastic Packaging Tax registration number.",
                                 "type": "string"
@@ -18945,6 +18950,16 @@
                               },
                               "pillar2Id": {
                                 "description": "Pillar 2 ID",
+                                "type": "string"
+                              },
+                              "pillar2RegistrationDate": {
+                                "description": "Pillar 2 registration date.",
+                                "format": "date",
+                                "type": "string"
+                              },
+                              "plasticPackagingTaxRegistrationDate": {
+                                "description": "Plastic Packaging Tax registration date.",
+                                "format": "date",
                                 "type": "string"
                               },
                               "plasticPackagingTaxRegistrationNumber": {

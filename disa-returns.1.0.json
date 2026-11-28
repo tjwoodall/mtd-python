@@ -30,7 +30,7 @@
         "paths": {
           "/monthly/{zReference}": {
             "post": {
-              "description": "Use the \u2018Submit monthly report data\u2018 endpoint to upload a batch of account records. A batch is a single payload \ncontaining multiple records for the specified monthly report. The payload size of each request must not exceed \n10 MB.\n\nThe API checks whether:\n\n- the reporting window is closed\n- a declaration has already been submitted for the current reporting period\n\nIf either of the above conditions are satisfied, then the API returns a `403 Forbidden` response.\n\nIf the request to submit the monthly report is permitted, then:\n\n- the payload is validated against the expected structure to prevent invalid or incomplete data from being \nsubmitted\n- business validation rules are not applied at this stage\n  \nIf structural validation fails, the API returns a `400 Bad Request` response. For example, a missing National \nInsurance number or account number will cause the request to fail. Valid records will be processed only after \nthe report is marked as complete.\n  \nA successful submission returns a `204 No Content` response.\n  \nSubmit all data batches before completing the monthly report.\n\nNote: The examples shown here are limited by the OpenAPI Specification. Actual payloads must be sent as \n[NDJSON](https://github.com/ndjson/ndjson-spec), with one object per line. A trailing newline is optional.\n",
+              "description": "Use the \u2018Submit monthly report data\u2018 endpoint to upload a batch of account records. A batch is a single payload \ncontaining multiple records for the specified monthly report. The payload size of each request must not exceed \n10 MB.\n\nThe API checks whether:\n\n- the reporting window is closed\n- a declaration has already been submitted for the current reporting period\n\nIf either of the above conditions are satisfied, then the API returns a `403 Forbidden` response.\n\nIf you are an agent and you are not authorised to act for the client with the requested Z-reference, then the \nAPI returns a `403 Forbidden` response with the `AGENT_CLIENT_RELATIONSHIP_NOT_FOUND` error code.\n\nIf the request to submit the monthly report is permitted, then:\n\n- the payload is validated against the expected structure to prevent invalid or incomplete data from being \nsubmitted\n- business validation rules are not applied at this stage\n  \nIf structural validation fails, the API returns a `400 Bad Request` response. For example, a missing National \nInsurance number or account number will cause the request to fail. Valid records will be processed only after \nthe report is marked as complete.\n  \nA successful submission returns a `204 No Content` response.\n  \nSubmit all data batches before completing the monthly report.\n\nNote: The examples shown here are limited by the OpenAPI Specification. Actual payloads must be sent as \n[NDJSON](https://github.com/ndjson/ndjson-spec), with one object per line. A trailing newline is optional.\n",
               "operationId": "submitMonthlyReport",
               "parameters": [
                 {
@@ -927,6 +927,26 @@
                                 ]
                               }
                             }
+                          },
+                          {
+                            "title": "Agent Client Relationship Not Found",
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "title": "Error Code Type",
+                                "type": "string",
+                                "description": "Code indicating the type of error.",
+                                "enum": [
+                                  "AGENT_CLIENT_RELATIONSHIP_NOT_FOUND"
+                                ]
+                              },
+                              "message": {
+                                "title": "Message",
+                                "type": "string",
+                                "description": "Human-readable message outlining the error.",
+                                "example": "We are unable to authenticate your access to Z1234"
+                              }
+                            }
                           }
                         ]
                       }
@@ -1157,7 +1177,7 @@
           },
           "/monthly/{zReference}/declaration": {
             "post": {
-              "description": "Use the \u2018Declare monthly report as complete\u2019 endpoint to confirm that all data has been submitted.\n\nDeclaring a report as complete is a legal confirmation that you have met your monthly reporting obligation by \nsubmitting all available data within the deadline. However, it does not confirm that the submitted data is \ncorrect. Once the monthly declaration is submitted, no further data can be submitted for that specific month.\n\nThe API checks whether:\n\n- the reporting window is closed\n- a declaration has already been submitted for the current reporting period\n\nIf either of the above conditions are satisfied, then the API returns a `403 Forbidden` response.\n\nIf the submission completes successfully, the response includes a box ID for the \n[Push-Pull Notifications Service (PPNS)](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/push-pull-notifications-api/1.0). \nThe box ID can be used to query the PPNS API directly to retrieve the reconciliation results.\n",
+              "description": "Use the \u2018Declare monthly report as complete\u2019 endpoint to confirm that all data has been submitted.\n\nDeclaring a report as complete is a legal confirmation that you have met your monthly reporting obligation by \nsubmitting all available data within the deadline. However, it does not confirm that the submitted data is \ncorrect. Once the monthly declaration is submitted, no further data can be submitted for that specific month.\n\nThe API checks whether:\n\n- the reporting window is closed\n- a declaration has already been submitted for the current reporting period\n\nIf either of the above conditions are satisfied, then the API returns a `403 Forbidden` response.\n\nIf you are an agent and you are not authorised to act for the client with the requested Z-reference, then the \nAPI returns a `403 Forbidden` response with the `AGENT_CLIENT_RELATIONSHIP_NOT_FOUND` error code.\n\nIf the submission completes successfully, the response includes a box ID for the \n[Push-Pull Notifications Service (PPNS)](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/push-pull-notifications-api/1.0). \nThe box ID can be used to query the PPNS API directly to retrieve the reconciliation results.\n",
               "operationId": "declareMonthlyReportComplete",
               "parameters": [
                 {
@@ -1408,6 +1428,26 @@
                                     "message": "Reporting window has been closed"
                                   }
                                 ]
+                              }
+                            }
+                          },
+                          {
+                            "title": "Agent Client Relationship Not Found",
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "title": "Error Code Type",
+                                "type": "string",
+                                "description": "Code indicating the type of error.",
+                                "enum": [
+                                  "AGENT_CLIENT_RELATIONSHIP_NOT_FOUND"
+                                ]
+                              },
+                              "message": {
+                                "title": "Message",
+                                "type": "string",
+                                "description": "Human-readable message outlining the error.",
+                                "example": "We are unable to authenticate your access to Z1234"
                               }
                             }
                           }
@@ -1664,7 +1704,7 @@
           },
           "/monthly/{zReference}/results": {
             "get": {
-              "description": "After processing is complete, use the \u2018Get report reconciliation results\u2019 endpoint to retrieve the reconciliation \nresults for the monthly report. The API returns reconciliation results using cursor pagination. These \nreconciliation results show the records that were rejected, including error messages where applicable.\n\nThe cursor and limit query parameters are optional. The limit defaults to 200 records per page. To retrieve the \nnext batch, pass the nextCursor value from the previous response as the cursor parameter.\n\nIf the request is successful, the response includes:\n\n- the reconciliation results for the current batch, including record-level identifiers and any reconciliation \nerrors\n- the nextCursor value when more results are available; it is omitted for the final batch\n\nIf the reconciliation results are not yet available or the report is not found, the API returns a `404 Not Found` \nresponse.\n",
+              "description": "After processing is complete, use the \u2018Get report reconciliation results\u2019 endpoint to retrieve the reconciliation \nresults for the monthly report. The API returns reconciliation results using cursor pagination. These \nreconciliation results show the records that were rejected, including error messages where applicable.\n\nThe cursor and limit query parameters are optional. The limit defaults to 200 records per page. To retrieve the \nnext batch, pass the nextCursor value from the previous response as the cursor parameter.\n\nIf the request is successful, the response includes:\n\n- the reconciliation results for the current batch, including record-level identifiers and any reconciliation \nerrors\n- the nextCursor value when more results are available; it is omitted for the final batch\n\nIf the reconciliation results are not yet available or the report is not found, the API returns a `404 Not Found` \nresponse.\n\nIf you are an agent and you are not authorised to act for the client with the requested Z-reference, then the \nAPI returns a `403 Forbidden` response with the `AGENT_CLIENT_RELATIONSHIP_NOT_FOUND` error code.\n",
               "operationId": "getReportReconciliationResults",
               "parameters": [
                 {
@@ -1935,6 +1975,33 @@
                   },
                   "description": "Unauthorized"
                 },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "title": "Agent Client Relationship Not Found",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "title": "Error Code Type",
+                            "type": "string",
+                            "description": "Code indicating the type of error.",
+                            "enum": [
+                              "AGENT_CLIENT_RELATIONSHIP_NOT_FOUND"
+                            ]
+                          },
+                          "message": {
+                            "title": "Message",
+                            "type": "string",
+                            "description": "Human-readable message outlining the error.",
+                            "example": "We are unable to authenticate your access to Z1234"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "Forbidden"
+                },
                 "404": {
                   "content": {
                     "application/json": {
@@ -1982,35 +2049,6 @@
                     }
                   },
                   "description": "Internal Server Error"
-                },
-                "403": {
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "properties": {
-                          "code": {
-                            "type": "string",
-                            "description": "Error Code",
-                            "enum": [
-                              "HTTPS_REQUIRED",
-                              "RESOURCE_FORBIDDEN",
-                              "INVALID_SCOPE",
-                              "FORBIDDEN"
-                            ]
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "type": "object",
-                        "example": {
-                          "code": "RESOURCE_FORBIDDEN",
-                          "message": "The application is not subscribed to the API which it is attempting to invoke"
-                        }
-                      }
-                    }
-                  },
-                  "description": "UNAUTHORISED Response"
                 },
                 "405": {
                   "content": {

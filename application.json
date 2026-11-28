@@ -18261,6 +18261,11 @@
                               "plasticPackagingTaxRegistrationNumber": {
                                 "type": "string",
                                 "description": "Plastic Packaging Tax registration number."
+                              },
+                              "plasticPackagingTaxRegistrationDate": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "Plastic Packaging Tax registration date."
                               }
                             },
                             "required": [
@@ -18969,6 +18974,11 @@
                                 "type": "string",
                                 "description": "Pillar 2 ID"
                               },
+                              "pillar2RegistrationDate": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "Pillar 2 registration date."
+                              },
                               "zReference": {
                                 "type": "string",
                                 "description": "ISA Manager Z Reference, in 4-digit format (Znnnn)."
@@ -18980,6 +18990,11 @@
                               "plasticPackagingTaxRegistrationNumber": {
                                 "type": "string",
                                 "description": "Plastic Packaging Tax registration number."
+                              },
+                              "plasticPackagingTaxRegistrationDate": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "Plastic Packaging Tax registration date."
                               },
                               "countryByCountryReportingId": {
                                 "type": "string",
@@ -137343,7 +137358,7 @@
         "paths": {
           "/monthly/{zReference}": {
             "post": {
-              "description": "Use the \u2018Submit monthly report data\u2018 endpoint to upload a batch of account records. A batch is a single payload \ncontaining multiple records for the specified monthly report. The payload size of each request must not exceed \n10 MB.\n\nThe API checks whether:\n\n- the reporting window is closed\n- a declaration has already been submitted for the current reporting period\n\nIf either of the above conditions are satisfied, then the API returns a `403 Forbidden` response.\n\nIf the request to submit the monthly report is permitted, then:\n\n- the payload is validated against the expected structure to prevent invalid or incomplete data from being \nsubmitted\n- business validation rules are not applied at this stage\n  \nIf structural validation fails, the API returns a `400 Bad Request` response. For example, a missing National \nInsurance number or account number will cause the request to fail. Valid records will be processed only after \nthe report is marked as complete.\n  \nA successful submission returns a `204 No Content` response.\n  \nSubmit all data batches before completing the monthly report.\n\nNote: The examples shown here are limited by the OpenAPI Specification. Actual payloads must be sent as \n[NDJSON](https://github.com/ndjson/ndjson-spec), with one object per line. A trailing newline is optional.\n",
+              "description": "Use the \u2018Submit monthly report data\u2018 endpoint to upload a batch of account records. A batch is a single payload \ncontaining multiple records for the specified monthly report. The payload size of each request must not exceed \n10 MB.\n\nThe API checks whether:\n\n- the reporting window is closed\n- a declaration has already been submitted for the current reporting period\n\nIf either of the above conditions are satisfied, then the API returns a `403 Forbidden` response.\n\nIf you are an agent and you are not authorised to act for the client with the requested Z-reference, then the \nAPI returns a `403 Forbidden` response with the `AGENT_CLIENT_RELATIONSHIP_NOT_FOUND` error code.\n\nIf the request to submit the monthly report is permitted, then:\n\n- the payload is validated against the expected structure to prevent invalid or incomplete data from being \nsubmitted\n- business validation rules are not applied at this stage\n  \nIf structural validation fails, the API returns a `400 Bad Request` response. For example, a missing National \nInsurance number or account number will cause the request to fail. Valid records will be processed only after \nthe report is marked as complete.\n  \nA successful submission returns a `204 No Content` response.\n  \nSubmit all data batches before completing the monthly report.\n\nNote: The examples shown here are limited by the OpenAPI Specification. Actual payloads must be sent as \n[NDJSON](https://github.com/ndjson/ndjson-spec), with one object per line. A trailing newline is optional.\n",
               "operationId": "submitMonthlyReport",
               "parameters": [
                 {
@@ -138240,6 +138255,26 @@
                                 ]
                               }
                             }
+                          },
+                          {
+                            "title": "Agent Client Relationship Not Found",
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "title": "Error Code Type",
+                                "type": "string",
+                                "description": "Code indicating the type of error.",
+                                "enum": [
+                                  "AGENT_CLIENT_RELATIONSHIP_NOT_FOUND"
+                                ]
+                              },
+                              "message": {
+                                "title": "Message",
+                                "type": "string",
+                                "description": "Human-readable message outlining the error.",
+                                "example": "We are unable to authenticate your access to Z1234"
+                              }
+                            }
                           }
                         ]
                       }
@@ -138470,7 +138505,7 @@
           },
           "/monthly/{zReference}/declaration": {
             "post": {
-              "description": "Use the \u2018Declare monthly report as complete\u2019 endpoint to confirm that all data has been submitted.\n\nDeclaring a report as complete is a legal confirmation that you have met your monthly reporting obligation by \nsubmitting all available data within the deadline. However, it does not confirm that the submitted data is \ncorrect. Once the monthly declaration is submitted, no further data can be submitted for that specific month.\n\nThe API checks whether:\n\n- the reporting window is closed\n- a declaration has already been submitted for the current reporting period\n\nIf either of the above conditions are satisfied, then the API returns a `403 Forbidden` response.\n\nIf the submission completes successfully, the response includes a box ID for the \n[Push-Pull Notifications Service (PPNS)](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/push-pull-notifications-api/1.0). \nThe box ID can be used to query the PPNS API directly to retrieve the reconciliation results.\n",
+              "description": "Use the \u2018Declare monthly report as complete\u2019 endpoint to confirm that all data has been submitted.\n\nDeclaring a report as complete is a legal confirmation that you have met your monthly reporting obligation by \nsubmitting all available data within the deadline. However, it does not confirm that the submitted data is \ncorrect. Once the monthly declaration is submitted, no further data can be submitted for that specific month.\n\nThe API checks whether:\n\n- the reporting window is closed\n- a declaration has already been submitted for the current reporting period\n\nIf either of the above conditions are satisfied, then the API returns a `403 Forbidden` response.\n\nIf you are an agent and you are not authorised to act for the client with the requested Z-reference, then the \nAPI returns a `403 Forbidden` response with the `AGENT_CLIENT_RELATIONSHIP_NOT_FOUND` error code.\n\nIf the submission completes successfully, the response includes a box ID for the \n[Push-Pull Notifications Service (PPNS)](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/push-pull-notifications-api/1.0). \nThe box ID can be used to query the PPNS API directly to retrieve the reconciliation results.\n",
               "operationId": "declareMonthlyReportComplete",
               "parameters": [
                 {
@@ -138721,6 +138756,26 @@
                                     "message": "Reporting window has been closed"
                                   }
                                 ]
+                              }
+                            }
+                          },
+                          {
+                            "title": "Agent Client Relationship Not Found",
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "title": "Error Code Type",
+                                "type": "string",
+                                "description": "Code indicating the type of error.",
+                                "enum": [
+                                  "AGENT_CLIENT_RELATIONSHIP_NOT_FOUND"
+                                ]
+                              },
+                              "message": {
+                                "title": "Message",
+                                "type": "string",
+                                "description": "Human-readable message outlining the error.",
+                                "example": "We are unable to authenticate your access to Z1234"
                               }
                             }
                           }
@@ -138977,7 +139032,7 @@
           },
           "/monthly/{zReference}/results": {
             "get": {
-              "description": "After processing is complete, use the \u2018Get report reconciliation results\u2019 endpoint to retrieve the reconciliation \nresults for the monthly report. The API returns reconciliation results using cursor pagination. These \nreconciliation results show the records that were rejected, including error messages where applicable.\n\nThe cursor and limit query parameters are optional. The limit defaults to 200 records per page. To retrieve the \nnext batch, pass the nextCursor value from the previous response as the cursor parameter.\n\nIf the request is successful, the response includes:\n\n- the reconciliation results for the current batch, including record-level identifiers and any reconciliation \nerrors\n- the nextCursor value when more results are available; it is omitted for the final batch\n\nIf the reconciliation results are not yet available or the report is not found, the API returns a `404 Not Found` \nresponse.\n",
+              "description": "After processing is complete, use the \u2018Get report reconciliation results\u2019 endpoint to retrieve the reconciliation \nresults for the monthly report. The API returns reconciliation results using cursor pagination. These \nreconciliation results show the records that were rejected, including error messages where applicable.\n\nThe cursor and limit query parameters are optional. The limit defaults to 200 records per page. To retrieve the \nnext batch, pass the nextCursor value from the previous response as the cursor parameter.\n\nIf the request is successful, the response includes:\n\n- the reconciliation results for the current batch, including record-level identifiers and any reconciliation \nerrors\n- the nextCursor value when more results are available; it is omitted for the final batch\n\nIf the reconciliation results are not yet available or the report is not found, the API returns a `404 Not Found` \nresponse.\n\nIf you are an agent and you are not authorised to act for the client with the requested Z-reference, then the \nAPI returns a `403 Forbidden` response with the `AGENT_CLIENT_RELATIONSHIP_NOT_FOUND` error code.\n",
               "operationId": "getReportReconciliationResults",
               "parameters": [
                 {
@@ -139248,6 +139303,33 @@
                   },
                   "description": "Unauthorized"
                 },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "title": "Agent Client Relationship Not Found",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "title": "Error Code Type",
+                            "type": "string",
+                            "description": "Code indicating the type of error.",
+                            "enum": [
+                              "AGENT_CLIENT_RELATIONSHIP_NOT_FOUND"
+                            ]
+                          },
+                          "message": {
+                            "title": "Message",
+                            "type": "string",
+                            "description": "Human-readable message outlining the error.",
+                            "example": "We are unable to authenticate your access to Z1234"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "Forbidden"
+                },
                 "404": {
                   "content": {
                     "application/json": {
@@ -139295,35 +139377,6 @@
                     }
                   },
                   "description": "Internal Server Error"
-                },
-                "403": {
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "properties": {
-                          "code": {
-                            "type": "string",
-                            "description": "Error Code",
-                            "enum": [
-                              "HTTPS_REQUIRED",
-                              "RESOURCE_FORBIDDEN",
-                              "INVALID_SCOPE",
-                              "FORBIDDEN"
-                            ]
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "type": "object",
-                        "example": {
-                          "code": "RESOURCE_FORBIDDEN",
-                          "message": "The application is not subscribed to the API which it is attempting to invoke"
-                        }
-                      }
-                    }
-                  },
-                  "description": "UNAUTHORISED Response"
                 },
                 "405": {
                   "content": {
@@ -139550,7 +139603,7 @@
         "paths": {
           "/monthly/{zReference}/reconciliation": {
             "post": {
-              "description": "Use the \u2018Generate test reconciliation report\u2019 endpoint to trigger the generation of a test reconciliation report \nfor the ISA Returns API.\n\nThe API request allows you to specify the number of occurrences for each of the following supported error types:\n\n- oversubscriptions\n- trace and match failures\n- eligibility failures\n  \nDepending on the notification process selected, you will either be notified via \n[Push Pull Notifications Service (PPNS)](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/push-pull-notifications-api/1.0) \nusing the callback URL configured while subscribing to the ISA Returns API or you can query the PPNS API directly \nusing the box ID. The reconciliation report shows the rejected records, including any error messages where \napplicable. Your application can then use the relevant ISA Returns API endpoint to retrieve and process the \ngenerated results.\n\nThis allows you to test the notification flow and retrieval of the reconciliation report before integrating with \nthe live service.\n\nNote: Each sample reconciliation report has an upper threshold of 2000 simulated errors per report per \nZ-Reference. Attempts to exceed this limit will result in an error.  \n",
+              "description": "Use the \u2018Generate test reconciliation report\u2019 endpoint to trigger the generation of a test reconciliation report \nfor the ISA Returns API.\n\nThe API request allows you to specify the number of occurrences for each of the following supported error types:\n\n- oversubscriptions\n- trace and match failures\n- eligibility failures\n  \nDepending on the notification process selected, you will either be notified via \n[Push Pull Notifications Service (PPNS)](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/push-pull-notifications-api/1.0) \nusing the callback URL configured while subscribing to the ISA Returns API or you can query the PPNS API directly \nusing the box ID. The reconciliation report shows the rejected records, including any error messages where \napplicable. Your application can then use the relevant ISA Returns API endpoint to retrieve and process the \ngenerated results.\n\nThis allows you to test the notification flow and retrieval of the reconciliation report before integrating with \nthe live service.\n\nNote: Each sample reconciliation report has an upper threshold of 2000 simulated errors per report per \nZ-Reference. Attempts to exceed this limit will result in an error.  \n\nAgents can call this endpoint for an ISA manager they are authorised to act for. If the agent is not authorised \nfor the requested Z-Reference, a 403 `AGENT_CLIENT_RELATIONSHIP_NOT_FOUND` error is returned.\n",
               "operationId": "generateTestReconciliationReport",
               "parameters": [
                 {
@@ -139752,6 +139805,28 @@
                   },
                   "description": "Unauthorized"
                 },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "enum": [
+                              "AGENT_CLIENT_RELATIONSHIP_NOT_FOUND"
+                            ]
+                          },
+                          "message": {
+                            "type": "string",
+                            "example": "We are unable to authenticate your access to Z1234"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "Forbidden"
+                },
                 "500": {
                   "content": {
                     "application/json": {
@@ -139775,35 +139850,6 @@
                     }
                   },
                   "description": "Internal Server Error"
-                },
-                "403": {
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "properties": {
-                          "code": {
-                            "type": "string",
-                            "description": "Error Code",
-                            "enum": [
-                              "HTTPS_REQUIRED",
-                              "RESOURCE_FORBIDDEN",
-                              "INVALID_SCOPE",
-                              "FORBIDDEN"
-                            ]
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "type": "object",
-                        "example": {
-                          "code": "RESOURCE_FORBIDDEN",
-                          "message": "The application is not subscribed to the API which it is attempting to invoke"
-                        }
-                      }
-                    }
-                  },
-                  "description": "UNAUTHORISED Response"
                 },
                 "404": {
                   "content": {
@@ -140004,7 +140050,7 @@
           },
           "/monthly/{zReference}/reporting-window-override": {
             "put": {
-              "description": "Configure a reporting window for the authenticated Z-Reference. The override lasts for one hour and replaces \nany existing override for that Z-Reference.\n\nThis operation does not change the system clock. When the override expires, normal reporting-period validation \nresumes.\n",
+              "description": "Configure a reporting window for the authenticated Z-Reference. The override lasts for one hour and replaces \nany existing override for that Z-Reference.\n\nThis operation does not change the system clock. When the override expires, normal reporting-period validation \nresumes.\n\nAgents can call this endpoint for an ISA manager they are authorised to act for. If the agent is not authorised \nfor the requested Z-Reference, a 403 `AGENT_CLIENT_RELATIONSHIP_NOT_FOUND` error is returned.\n",
               "operationId": "setReportingWindowOverride",
               "parameters": [
                 {
@@ -140199,6 +140245,28 @@
                   },
                   "description": "Unauthorized"
                 },
+                "403": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "enum": [
+                              "AGENT_CLIENT_RELATIONSHIP_NOT_FOUND"
+                            ]
+                          },
+                          "message": {
+                            "type": "string",
+                            "example": "We are unable to authenticate your access to Z1234"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description": "Forbidden"
+                },
                 "500": {
                   "content": {
                     "application/json": {
@@ -140220,35 +140288,6 @@
                     }
                   },
                   "description": "Internal Server Error"
-                },
-                "403": {
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "properties": {
-                          "code": {
-                            "type": "string",
-                            "description": "Error Code",
-                            "enum": [
-                              "HTTPS_REQUIRED",
-                              "RESOURCE_FORBIDDEN",
-                              "INVALID_SCOPE",
-                              "FORBIDDEN"
-                            ]
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "type": "object",
-                        "example": {
-                          "code": "RESOURCE_FORBIDDEN",
-                          "message": "The application is not subscribed to the API which it is attempting to invoke"
-                        }
-                      }
-                    }
-                  },
-                  "description": "UNAUTHORISED Response"
                 },
                 "404": {
                   "content": {
@@ -323247,9 +323286,9 @@
                               },
                               "businessReceipts": {
                                 "type": "array",
+                                "description": "Financial details about business receipts.",
                                 "items": {
                                   "type": "object",
-                                  "description": "Financial details about business receipts.",
                                   "properties": {
                                     "grossAmount": {
                                       "type": "number",
@@ -323273,9 +323312,9 @@
                               },
                               "allOtherIncomeReceivedWhilstAbroad": {
                                 "type": "array",
+                                "description": "Financial details about all other income received whilst abroad income.",
                                 "items": {
                                   "type": "object",
-                                  "description": "Financial details about all other income received whilst abroad income.",
                                   "properties": {
                                     "countryCode": {
                                       "type": "string",
@@ -323440,9 +323479,9 @@
                               },
                               "postCessationReceipts": {
                                 "type": "array",
+                                "description": "Details of sum received related to the carrying on of the trade after a business ceases to carry on.",
                                 "items": {
                                   "type": "object",
-                                  "description": "Details of sum received related to the carrying on of the trade after a business ceases to carry on.",
                                   "properties": {
                                     "customerReference": {
                                       "type": "string",
@@ -323496,9 +323535,9 @@
                               },
                               "businessReceipts": {
                                 "type": "array",
+                                "description": "Financial details about business receipts.",
                                 "items": {
                                   "type": "object",
-                                  "description": "Financial details about business receipts.",
                                   "properties": {
                                     "grossAmount": {
                                       "type": "number",
@@ -323522,9 +323561,9 @@
                               },
                               "allOtherIncomeReceivedWhilstAbroad": {
                                 "type": "array",
+                                "description": "Financial details about all other income received whilst abroad income.",
                                 "items": {
                                   "type": "object",
-                                  "description": "Financial details about all other income received whilst abroad income.",
                                   "properties": {
                                     "countryCode": {
                                       "type": "string",
@@ -323689,9 +323728,9 @@
                               },
                               "postCessationReceipts": {
                                 "type": "array",
+                                "description": "Details of sum received related to the carrying on of the trade after a business ceases to carry on.",
                                 "items": {
                                   "type": "object",
-                                  "description": "Details of sum received related to the carrying on of the trade after a business ceases to carry on.",
                                   "properties": {
                                     "customerReference": {
                                       "type": "string",
@@ -323745,9 +323784,9 @@
                               },
                               "allOtherIncomeReceivedWhilstAbroad": {
                                 "type": "array",
+                                "description": "Financial details about all other income received whilst abroad income.",
                                 "items": {
                                   "type": "object",
-                                  "description": "Financial details about all other income received whilst abroad income.",
                                   "properties": {
                                     "countryCode": {
                                       "type": "string",
@@ -325009,9 +325048,9 @@
                           "properties": {
                             "postCessationReceipts": {
                               "type": "array",
+                              "description": "Details of sum received related to the carrying on of the trade after a business ceases to carry on.",
                               "items": {
                                 "type": "object",
-                                "description": "Details of sum received related to the carrying on of the trade after a business ceases to carry on.",
                                 "properties": {
                                   "customerReference": {
                                     "type": "string",
@@ -325065,9 +325104,9 @@
                             },
                             "businessReceipts": {
                               "type": "array",
+                              "description": "Financial details about business receipts.",
                               "items": {
                                 "type": "object",
-                                "description": "Financial details about business receipts.",
                                 "properties": {
                                   "grossAmount": {
                                     "type": "number",
@@ -325091,9 +325130,9 @@
                             },
                             "allOtherIncomeReceivedWhilstAbroad": {
                               "type": "array",
+                              "description": "Financial details about all other income received whilst abroad income.",
                               "items": {
                                 "type": "object",
-                                "description": "Financial details about all other income received whilst abroad income.",
                                 "properties": {
                                   "countryCode": {
                                     "type": "string",
@@ -325250,9 +325289,9 @@
                           "properties": {
                             "postCessationReceipts": {
                               "type": "array",
+                              "description": "Details of sum received related to the carrying on of the trade after a business ceases to carry on.",
                               "items": {
                                 "type": "object",
-                                "description": "Details of sum received related to the carrying on of the trade after a business ceases to carry on.",
                                 "properties": {
                                   "customerReference": {
                                     "type": "string",
@@ -325306,9 +325345,9 @@
                             },
                             "allOtherIncomeReceivedWhilstAbroad": {
                               "type": "array",
+                              "description": "Financial details about all other income received whilst abroad income.",
                               "items": {
                                 "type": "object",
-                                "description": "Financial details about all other income received whilst abroad income.",
                                 "properties": {
                                   "countryCode": {
                                     "type": "string",
@@ -523318,12 +523357,117 @@
                 "content": {
                   "application/json": {
                     "examples": {
+                      "everything": {
+                        "value": {
+                          "bool": true,
+                          "clientId": "YR927593C",
+                          "float": 6,
+                          "int": 1,
+                          "knownFact": "SW1A 0AA",
+                          "list": [
+                            [
+                              [],
+                              {},
+                              null,
+                              true,
+                              4.4,
+                              3,
+                              "string-in-array"
+                            ],
+                            {
+                              "bool": false,
+                              "float": 6.2,
+                              "int": 2,
+                              "list": [],
+                              "null": null,
+                              "object": {},
+                              "str": "val1"
+                            },
+                            null,
+                            true,
+                            4.4,
+                            3,
+                            "string-in-array"
+                          ],
+                          "null": null,
+                          "object": {
+                            "bool": false,
+                            "float": 4,
+                            "int": 1,
+                            "list": [
+                              [],
+                              {},
+                              null,
+                              true,
+                              4.4,
+                              3,
+                              "string-in-array"
+                            ],
+                            "null": null,
+                            "object": {
+                              "bool": false,
+                              "float": 6.2,
+                              "int": 2,
+                              "list": [],
+                              "null": null,
+                              "object": {},
+                              "str": "val1"
+                            },
+                            "str": "val1"
+                          },
+                          "service": "MTD-IT",
+                          "str": "ni"
+                        }
+                      },
+                      "list": {
+                        "value": {
+                          "bool": true,
+                          "clientId": "YR927593C",
+                          "float": 6.3,
+                          "int": 1,
+                          "knownFact": "SW1A 0AA",
+                          "list": [
+                            [],
+                            {},
+                            null,
+                            true,
+                            4.4,
+                            3,
+                            "string-in-array"
+                          ],
+                          "null": null,
+                          "object": {},
+                          "service": "MTD-IT",
+                          "str": "ni"
+                        }
+                      },
                       "mtdItMain": {
                         "summary": "MTD-IT main agent",
                         "value": {
                           "clientId": "AB123456A",
                           "knownFact": "AA1 1AA",
                           "service": "MTD-IT"
+                        }
+                      },
+                      "object": {
+                        "value": {
+                          "bool": true,
+                          "clientId": "YR927593C",
+                          "float": 6.1,
+                          "int": 1,
+                          "knownFact": "SW1A 0AA",
+                          "null": null,
+                          "object": {
+                            "bool": false,
+                            "float": 6.2,
+                            "int": 2,
+                            "list": [],
+                            "null": null,
+                            "object": {},
+                            "str": "val1"
+                          },
+                          "service": "MTD-IT",
+                          "str": "ni"
                         }
                       }
                     },
@@ -523417,7 +523561,7 @@
                       }
                     }
                   },
-                  "description": "The authorisation request was created."
+                  "description": "Echo"
                 },
                 "401": {
                   "content": {
@@ -523707,7 +523851,7 @@
         "servers": [
           {
             "description": "Sandbox",
-            "url": "https://test-api.making-tax-difficult.home.woodall.me.uk"
+            "url": "http://test-api.making-tax-difficult.home.woodall.me.uk"
           }
         ]
       }

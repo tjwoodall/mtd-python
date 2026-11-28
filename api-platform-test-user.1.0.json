@@ -631,6 +631,11 @@
                               "plasticPackagingTaxRegistrationNumber": {
                                 "type": "string",
                                 "description": "Plastic Packaging Tax registration number."
+                              },
+                              "plasticPackagingTaxRegistrationDate": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "Plastic Packaging Tax registration date."
                               }
                             },
                             "required": [
@@ -1339,6 +1344,11 @@
                                 "type": "string",
                                 "description": "Pillar 2 ID"
                               },
+                              "pillar2RegistrationDate": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "Pillar 2 registration date."
+                              },
                               "zReference": {
                                 "type": "string",
                                 "description": "ISA Manager Z Reference, in 4-digit format (Znnnn)."
@@ -1350,6 +1360,11 @@
                               "plasticPackagingTaxRegistrationNumber": {
                                 "type": "string",
                                 "description": "Plastic Packaging Tax registration number."
+                              },
+                              "plasticPackagingTaxRegistrationDate": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "Plastic Packaging Tax registration date."
                               },
                               "countryByCountryReportingId": {
                                 "type": "string",
